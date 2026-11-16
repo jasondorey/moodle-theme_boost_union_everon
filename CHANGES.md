@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-16 - MuTMS tenant flavours: map Boost Union flavours to active MuTMS tenants (Everon admin page + DB); minimal local Boost Union flavourslib hook (cache key + match callback); thin MuTMS logo/favicon renderer fallback when no flavour logo wins (v5.3-r19)
 * 2026-11-13 - MuTMS compatibility tab: enable/disable bridge for MuTMS plugins (surface CSS, muhome vs Dashboard skin, tenant Boost appearance mirrored into Everon + per-tenant CSS cache sentinel); default Off (v5.3-r18)
 * 2026-11-12 - Accessibility panel close: use Launch Pad `display:none` on `.collapsed` (stop pinning `height:auto` when closed) so Boost delayed fade cannot linger (v5.3-r17)
 * 2026-11-12 - Accessibility panel: hide immediately on close (override Boost delayed opacity/visibility while height stays auto) so caret and panel collapse together (v5.3-r16)

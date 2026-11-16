@@ -124,4 +124,106 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
         return parent::render_from_template($templatename, $context);
     }
 
+    /**
+     * Compact logo: flavour (incl. tenant-applied) wins; else MuTMS tenant_appearance; else parent.
+     *
+     * @param int|null $maxwidth
+     * @param int|null $maxheight
+     * @return \moodle_url|false
+     */
+    public function get_compact_logo_url($maxwidth = 300, $maxheight = 300) {
+        $parent = parent::get_compact_logo_url($maxwidth, $maxheight);
+        $fallback = $this->mutms_appearance_logo_url('logocompact', $maxwidth, $maxheight);
+        if ($fallback !== null) {
+            return $fallback;
+        }
+        return $parent;
+    }
+
+    /**
+     * Logo: flavour wins; else MuTMS tenant_appearance; else parent.
+     *
+     * @param int|null $maxwidth
+     * @param int|null $maxheight
+     * @return \moodle_url|false
+     */
+    public function get_logo_url($maxwidth = null, $maxheight = 200) {
+        $parent = parent::get_logo_url($maxwidth, $maxheight);
+        $fallback = $this->mutms_appearance_logo_url('logo', $maxwidth, $maxheight);
+        if ($fallback !== null) {
+            return $fallback;
+        }
+        return $parent;
+    }
+
+    /**
+     * Favicon: flavour wins; else MuTMS tenant_appearance; else parent.
+     *
+     * @return \moodle_url
+     */
+    public function favicon() {
+        if ($this->flavour_has_look_file('look_favicon')) {
+            return parent::favicon();
+        }
+        if (\theme_everon\local\mutms::is_enabled() && \theme_everon\local\mutms::mutenancy_active()
+                && class_exists(\tool_mutenancy\local\tenancy::class)
+                && class_exists(\tool_mutenancy\local\config::class)
+                && class_exists(\tool_mutenancy\local\appearance::class)) {
+            $tenantid = \tool_mutenancy\local\tenancy::get_current_tenantid();
+            if ($tenantid && \tool_mutenancy\local\config::is_overridden((int) $tenantid, 'core_admin', 'favicon')) {
+                $url = \tool_mutenancy\local\appearance::get_favicon_url((int) $tenantid);
+                if ($url) {
+                    return $url;
+                }
+            }
+        }
+        return parent::favicon();
+    }
+
+    /**
+     * MuTMS appearance URL when compat is on, tenant overrides the slot, and no flavour file won.
+     *
+     * @param string $slot logo|logocompact
+     * @param int|null $maxwidth
+     * @param int|null $maxheight
+     * @return \moodle_url|null null = keep parent result
+     */
+    private function mutms_appearance_logo_url(string $slot, $maxwidth, $maxheight) {
+        $flavourfield = $slot === 'logo' ? 'look_logo' : 'look_logocompact';
+        if ($this->flavour_has_look_file($flavourfield)) {
+            return null;
+        }
+        if (!\theme_everon\local\mutms::is_enabled() || !\theme_everon\local\mutms::mutenancy_active()) {
+            return null;
+        }
+        if (!class_exists(\tool_mutenancy\local\tenancy::class)
+                || !class_exists(\tool_mutenancy\local\config::class)
+                || !class_exists(\tool_mutenancy\local\appearance::class)) {
+            return null;
+        }
+        $tenantid = \tool_mutenancy\local\tenancy::get_current_tenantid();
+        if (!$tenantid || !\tool_mutenancy\local\config::is_overridden((int) $tenantid, 'core_admin', $slot)) {
+            return null;
+        }
+        if ($slot === 'logo') {
+            $url = \tool_mutenancy\local\appearance::get_logo_url($maxwidth, $maxheight, (int) $tenantid);
+        } else {
+            $url = \tool_mutenancy\local\appearance::get_compact_logo_url($maxwidth, $maxheight, (int) $tenantid);
+        }
+        return $url ?: null;
+    }
+
+    /**
+     * Whether the applied Boost Union flavour has a non-empty Look file field.
+     *
+     * @param string $field look_logo|look_logocompact|look_favicon
+     * @return bool
+     */
+    private function flavour_has_look_file(string $field): bool {
+        global $CFG;
+        require_once($CFG->dirroot . '/theme/boost_union/flavours/flavourslib.php');
+        $flavour = theme_boost_union_get_flavour_which_applies();
+        return $flavour !== null && !empty($flavour->{$field});
+    }
+
 }

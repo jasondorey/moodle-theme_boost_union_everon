@@ -187,7 +187,19 @@ $string['mutmstab'] = 'MuTMS';
 $string['mutmsheading'] = 'MuTMS compatibility';
 $string['mutmsheading_desc'] = 'Optional bridge so Everon works with the MuTMS plugin suite on this site (programs, certifications, catalogue, custom home pages, multi-tenancy appearance, and related tools). Prefer theme CSS and settings mirroring — MuTMS plugin code is not forked.';
 $string['enablemutmscompatibility'] = 'Enable MuTMS compatibility';
-$string['enablemutmscompatibility_desc'] = 'When Yes: (1) load MuTMS surface CSS under Everon / Boost colour modes; (2) keep custom home pages (tool_muhome) out of the Dashboard layout skin; (3) mirror tenant Boost appearance (brand colour, SCSS, backgrounds) into Everon and bust per-tenant theme CSS caches. Default: No. Turn on after MuTMS plugins are installed.';
+$string['enablemutmscompatibility_desc'] = 'When Yes: (1) load MuTMS surface CSS under Everon / Boost colour modes; (2) keep custom home pages (tool_muhome) out of the Dashboard layout skin; (3) mirror tenant Boost appearance (brand colour, SCSS, backgrounds) into Everon and bust per-tenant theme CSS caches; (4) allow Boost Union flavours to apply to MuTMS tenants (configure under Tenant flavours) and use a thin MuTMS logo/favicon fallback when no flavour logo wins. Default: No. Turn on after MuTMS plugins are installed.';
+$string['flavourtenantsnote'] = 'Map Boost Union flavours to MuTMS tenants on the <a href="{$a}">Tenant flavours</a> page (logos, favicon, SCSS, and other Look controls). Create or edit flavour Look assets under Boost Union → Flavours first.';
+$string['flavourtenantspage'] = 'Tenant flavours';
+$string['flavourtenantsheading'] = 'Apply flavours to MuTMS tenants';
+$string['flavourtenantsintro'] = 'For each Boost Union flavour, choose whether it applies when a MuTMS tenant is active. Matching uses the same flavour sort order as categories and cohorts (first match wins). Within a flavour, categories are checked first, then cohorts, then tenants. Put tenant-wide flavours higher in the Flavours list when they should beat category flavours on category pages.';
+$string['flavourapplytotenants'] = 'Apply to tenants';
+$string['flavourapplytotenants_help'] = 'When Yes, this flavour can match while one of the selected MuTMS tenants is the active tenant (session switch, forced tenant, or tenant member). Requires Everon MuTMS compatibility On.';
+$string['flavourtenants'] = 'Tenants';
+$string['flavourtenants_help'] = 'MuTMS tenants this flavour applies to when Apply to tenants is Yes.';
+$string['flavourtenantsneedcompat'] = 'Everon MuTMS compatibility is Off. Tenant flavour matching stays inactive until you enable it on the Everon MuTMS tab.';
+$string['flavourtenantsneedmutenancy'] = 'MuTMS multi-tenancy (tool_mutenancy) is not active on this site.';
+$string['flavourtenantsnone'] = 'No Boost Union flavours exist yet. Create a flavour under Boost Union → Flavours, then return here to map it to tenants.';
+$string['flavourtenantstenantsnone'] = 'No active MuTMS tenants were found.';
 
 // Privacy API.
-$string['privacy:metadata'] = 'The Everon theme does not store any personal data about any user. Accessibility and Focus Mode preferences are stored in the browser only. Launch Pad links, My Courses layout, My Courses stats, Dashboard layout, compact navbar, and MuTMS compatibility are site-wide admin settings.';
+$string['privacy:metadata'] = 'The Everon theme does not store any personal data about any user. Accessibility and Focus Mode preferences are stored in the browser only. Launch Pad links, My Courses layout, My Courses stats, Dashboard layout, compact navbar, MuTMS compatibility, and flavour-to-tenant mappings are site-wide admin settings.';

@@ -53,6 +53,15 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         );
         $ADMIN->add('theme_boost_union', $tab);
 
+        // Tenant flavour applicability (external page; also registered when fulltree).
+        $tenantflavourspage = new admin_externalpage(
+            'theme_everon_flavour_tenants',
+            get_string('flavourtenantspage', 'theme_everon', null, true),
+            new \core\url('/theme/everon/flavours/tenants.php'),
+            'theme/boost_union:configure'
+        );
+        $ADMIN->add('theme_boost_union', $tenantflavourspage);
+
         // Create full settings page structure.
         // phpcs:disable moodle.ControlStructures.ControlSignature.Found
     } else if ($ADMIN->fulltree) {
@@ -458,7 +467,23 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_everon_mutms_setting_updated');
         $tab->add($setting);
 
+        $name = 'theme_everon/flavourtenantsnote';
+        $title = '';
+        $tenantflavoursurl = (new \core\url('/theme/everon/flavours/tenants.php'))->out(false);
+        $description = get_string('flavourtenantsnote', 'theme_everon', $tenantflavoursurl, true);
+        $setting = new admin_setting_heading($name, $title, $description);
+        $tab->add($setting);
+
         $page->add($tab);
+
+        // Tenant flavour applicability external page (fulltree registration).
+        $tenantflavourspage = new admin_externalpage(
+            'theme_everon_flavour_tenants',
+            get_string('flavourtenantspage', 'theme_everon', null, true),
+            new \core\url('/theme/everon/flavours/tenants.php'),
+            'theme/boost_union:configure'
+        );
+        $ADMIN->add('theme_boost_union', $tenantflavourspage);
 
         // Add settings page to the admin settings category.
         $ADMIN->add('theme_boost_union', $page);
