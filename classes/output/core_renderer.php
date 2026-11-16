@@ -125,44 +125,43 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
     }
 
     /**
-     * Compact logo: flavour (incl. tenant-applied) wins; else MuTMS tenant_appearance; else parent.
+     * Compact logo: flavour (incl. tenant-applied) wins when guest-safe; else MuTMS tenant_appearance; else parent.
      *
      * @param int|null $maxwidth
      * @param int|null $maxheight
      * @return \moodle_url|false
      */
     public function get_compact_logo_url($maxwidth = 300, $maxheight = 300) {
-        $parent = parent::get_compact_logo_url($maxwidth, $maxheight);
         $fallback = $this->mutms_appearance_logo_url('logocompact', $maxwidth, $maxheight);
         if ($fallback !== null) {
             return $fallback;
         }
-        return $parent;
+        return parent::get_compact_logo_url($maxwidth, $maxheight);
     }
 
     /**
-     * Logo: flavour wins; else MuTMS tenant_appearance; else parent.
+     * Logo: flavour wins when guest-safe; else MuTMS tenant_appearance; else parent.
      *
      * @param int|null $maxwidth
      * @param int|null $maxheight
      * @return \moodle_url|false
      */
     public function get_logo_url($maxwidth = null, $maxheight = 200) {
-        $parent = parent::get_logo_url($maxwidth, $maxheight);
         $fallback = $this->mutms_appearance_logo_url('logo', $maxwidth, $maxheight);
         if ($fallback !== null) {
             return $fallback;
         }
-        return $parent;
+        return parent::get_logo_url($maxwidth, $maxheight);
     }
 
     /**
-     * Favicon: flavour wins; else MuTMS tenant_appearance; else parent.
+     * Favicon: flavour wins when guest-safe; else MuTMS tenant_appearance; else parent.
      *
      * @return \moodle_url
      */
     public function favicon() {
-        if ($this->flavour_has_look_file('look_favicon')) {
+        // Flavour Look favicon pluginfiles 303 for guests when forcelogin is on.
+        if ($this->flavour_look_file_is_guest_safe('look_favicon')) {
             return parent::favicon();
         }
         if (\theme_everon\local\mutms::is_enabled() && \theme_everon\local\mutms::mutenancy_active()
@@ -181,7 +180,10 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
     }
 
     /**
-     * MuTMS appearance URL when compat is on, tenant overrides the slot, and no flavour file won.
+     * MuTMS appearance URL when compat is on, tenant overrides the slot, and flavour Look is absent or not guest-safe.
+     *
+     * Under forcelogin, Boost Union flavour Look pluginfiles redirect guests to login (303). On the login page that
+     * yields a broken image. Prefer MuTMS tenant_appearance logos, which return 200 without login.
      *
      * @param string $slot logo|logocompact
      * @param int|null $maxwidth
@@ -190,7 +192,8 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     private function mutms_appearance_logo_url(string $slot, $maxwidth, $maxheight) {
         $flavourfield = $slot === 'logo' ? 'look_logo' : 'look_logocompact';
-        if ($this->flavour_has_look_file($flavourfield)) {
+        // Flavour still wins for logged-in users (and whenever flavour files are publicly cacheable).
+        if ($this->flavour_look_file_is_guest_safe($flavourfield)) {
             return null;
         }
         if (!\theme_everon\local\mutms::is_enabled() || !\theme_everon\local\mutms::mutenancy_active()) {
@@ -211,6 +214,35 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
             $url = \tool_mutenancy\local\appearance::get_compact_logo_url($maxwidth, $maxheight, (int) $tenantid);
         }
         return $url ?: null;
+    }
+
+    /**
+     * Whether a flavour Look filearea URL can be used for the current requestor.
+     *
+     * Returns true only when a flavour Look file is set AND Boost Union will serve it without
+     * requiring login (i.e. forcelogin is off, or the user is already logged in).
+     *
+     * @param string $field look_logo|look_logocompact|look_favicon
+     * @return bool
+     */
+    private function flavour_look_file_is_guest_safe(string $field): bool {
+        if (!$this->flavour_has_look_file($field)) {
+            return false;
+        }
+        return !$this->flavour_look_files_require_login();
+    }
+
+    /**
+     * Whether Boost Union will require login before serving flavour Look pluginfiles.
+     *
+     * Mirrors theme_boost_union_flavours_require_login_for_file(): when forcelogin is on,
+     * guests are redirected (303) instead of receiving the image.
+     *
+     * @return bool
+     */
+    private function flavour_look_files_require_login(): bool {
+        global $CFG;
+        return !empty($CFG->forcelogin) && !isloggedin();
     }
 
     /**

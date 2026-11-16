@@ -111,8 +111,12 @@ final class mutms {
     /**
      * Extra SCSS for tenant Boost background images when Everon is active.
      *
-     * Files are stored in the theme_boost filearea (tenant or system context). Using
-     * Everon's setting_file_url would look in the wrong component.
+     * Files are stored in the theme_boost filearea (tenant or system context) and are
+     * guest-safe (public pluginfile). Using Everon's setting_file_url would look in the
+     * wrong component. Login backgrounds come from MuTMS Tenants → Appearance → Boost
+     * (`theme_boost/loginbackgroundimage`), not from Boost Union flavours or Look → Login.
+     * Leave site-wide Boost Union `loginbackgroundimage` empty so BU's higher-specificity
+     * login-bg rules do not fight this bridge.
      *
      * @return string
      */
@@ -133,6 +137,8 @@ final class mutms {
             $scss .= "}\n";
         }
 
+        // Same selector specificity as theme_boost_get_extra_scss(); Everon Extra SCSS
+        // is compiled after parent rules so the tenant URL wins when set.
         $loginbg = \tool_mutenancy\local\appearance::get_boost_setting_image_url('loginbackgroundimage');
         if ($loginbg) {
             $url = $loginbg->out(false);
