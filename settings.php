@@ -466,9 +466,12 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
+        // Same pattern as Boost Union Look → Logos: append Possible setting overrides alert
+        // (info modal + jalapeño → flavours overview) to the setting description.
         $name = 'theme_everon/flavourtenantsmap';
         $title = get_string('flavourtenantsmap', 'theme_everon', null, true);
         $description = get_string('flavourtenantsmap_desc', 'theme_everon', null, true);
+        $description .= theme_everon_render_flavour_setting_notification();
         $setting = new theme_everon_admin_setting_flavour_tenants($name, $title, $description);
         $tab->add($setting);
 

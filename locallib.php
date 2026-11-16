@@ -1143,6 +1143,85 @@ function theme_everon_usermenu_prepare_action_menu_context($context): array {
     return $context;
 }
 
+/**
+ * Boost Union-style info alert for MuTMS flavour settings (info + jalapeño actions).
+ *
+ * Reuses Boost Union's notification template, pix icons, and modal AMD so Everon
+ * does not fork the admin UI chrome. Message text is Everon-specific: Look assets
+ * live in Boost Union flavours; this MuTMS tab only maps flavours to tenants.
+ *
+ * @return string HTML (info notification), or empty string if Boost Union helpers are unavailable.
+ */
+function theme_everon_render_flavour_setting_notification(): string {
+    global $OUTPUT;
+
+    if (!function_exists('theme_boost_union_ensure_modal_js')) {
+        return '';
+    }
+
+    $modaltitle = get_string('settingoverridenotificationtitle', 'theme_boost_union');
+    $modalbody = get_string('flavourtenantssettingmodal', 'theme_everon');
+    $message = get_string('flavourtenantssettingalert', 'theme_everon');
+
+    $actions = [];
+
+    // Info (opens Boost Union bumodal with Everon copy).
+    $actions[] = [
+        'url' => '#',
+        'icon' => new \core\output\pix_icon(
+            'info',
+            get_string('settingoverrideactioninfo', 'theme_boost_union'),
+            'theme_boost_union'
+        ),
+        'attributes' => [
+            'class' => 'action-info py-0 ps-0 ms-0 me-0',
+            'data-action' => 'bumodal',
+            'data-title' => $modaltitle,
+            'data-body' => $modalbody,
+        ],
+    ];
+
+    // Jalapeño → Boost Union flavours overview.
+    $actions[] = [
+        'url' => new \core\url('/theme/boost_union/flavours/overview.php'),
+        'icon' => new \core\output\pix_icon(
+            'flavours',
+            get_string('settingoverrideactionflavours', 'theme_boost_union'),
+            'theme_boost_union'
+        ),
+        'attributes' => [
+            'class' => 'action-flavours py-0 ms-0 me-0 pe-0',
+            'title' => get_string('settingoverrideactionflavours', 'theme_boost_union'),
+            'aria-label' => get_string('settingoverrideactionflavours', 'theme_boost_union'),
+        ],
+    ];
+
+    $actionshtml = [];
+    foreach ($actions as $action) {
+        $action['attributes']['role'] = 'button';
+        $actionshtml[] = $OUTPUT->action_icon(
+            $action['url'],
+            $action['icon'],
+            null,
+            $action['attributes']
+        );
+    }
+    $actionshtml = html_writer::span(implode('', $actionshtml), 'settings-actions');
+
+    $content = $OUTPUT->render_from_template('theme_boost_union/settingoverridenotification', [
+        'message' => $message,
+        'actionshtml' => $actionshtml,
+    ]);
+
+    theme_boost_union_ensure_modal_js();
+
+    // Same as Boost Union: render info notification without stripping action data-* attrs.
+    return $OUTPUT->render_from_template('core/notification_info', [
+        'message' => $content,
+        'closebutton' => false,
+    ]);
+}
+
 /***************************************************************
  * EXTENSION POINT:
  * Add whatever Everon local functions you need here.
