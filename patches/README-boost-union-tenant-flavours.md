@@ -29,5 +29,6 @@ Then purge caches (`php admin/cli/purge_caches.php`).
 
 ## Productized path
 
-All admin UI, DB (`theme_everon_flavour_apply`), and tenant matching live in **theme_everon**.
-Long-term: contribute a proper callback/hook upstream to Boost Union and drop this patch.
+All admin UI (Everon → MuTMS tab), DB (`theme_everon_flavour_apply`), and tenant matching
+live in **theme_everon**. Long-term: contribute a proper callback/hook upstream to Boost
+Union and drop this patch.
