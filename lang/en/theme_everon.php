@@ -206,5 +206,14 @@ $string['flavourtenantsneedmutenancy'] = 'MuTMS multi-tenancy (tool_mutenancy) i
 $string['flavourtenantsnone'] = 'No Boost Union flavours exist yet. Create a flavour under Boost Union → Flavours, then return here to map it to tenants.';
 $string['flavourtenantstenantsnone'] = 'No active MuTMS tenants were found.';
 
+// Status check: Boost Union flavourslib local hook.
+$string['checkflavourhookok'] = 'Boost Union flavourslib includes the Everon MuTMS tenant hook.';
+$string['checkflavourhookok_details'] = 'Tenant-mapped flavours can apply (navbar colour, Look assets). Upstream child-theme callbacks will replace this local hook when available.';
+$string['checkflavourhookreapplied'] = 'Boost Union flavourslib was missing the Everon MuTMS tenant hook; it was re-applied ({$a}).';
+$string['checkflavourhookmissing'] = 'Boost Union flavourslib is missing the Everon MuTMS tenant hook.';
+$string['checkflavourhookmissing_details'] = 'A Boost Union upgrade likely overwrote flavourslib.php. Re-run Everon upgrade, open this status check again as a user that can write the file, or apply theme/everon/patches/boost_union-flavour-tenant-hook.patch from the Moodle public root, then purge caches.';
+$string['checkflavourhookmissingbu'] = 'Boost Union flavourslib.php was not found.';
+$string['checkflavourhookmissingbu_details'] = 'Install theme_boost_union before Everon MuTMS tenant flavours can apply.';
+
 // Privacy API.
 $string['privacy:metadata'] = 'The Everon theme does not store any personal data about any user. Accessibility and Focus Mode preferences are stored in the browser only. Launch Pad links, My Courses layout, My Courses stats, Dashboard layout, compact navbar, MuTMS compatibility, and flavour-to-tenant mappings are site-wide admin settings.';

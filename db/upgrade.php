@@ -51,5 +51,11 @@ function xmldb_theme_everon_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026111600, 'theme', 'everon');
     }
 
+    if ($oldversion < 2026111700) {
+        // Re-apply local Boost Union flavourslib tenant hook after BU upgrades wipe it.
+        \theme_everon\local\boost_union_flavour_hook::ensure_applied();
+        upgrade_plugin_savepoint(true, 2026111700, 'theme', 'everon');
+    }
+
     return true;
 }

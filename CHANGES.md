@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-17 - Auto-repatch Boost Union `flavourslib.php` MuTMS tenant hook on Everon install/upgrade + status check (survives BU overwrites until upstream child-theme callbacks land) (v5.3-r23)
 * 2026-11-16 - Guest-safe login branding: when forcelogin would 303 flavour Look logos/favicons, fall back to MuTMS tenant_appearance; document MuTMS `theme_boost/loginbackgroundimage` bridge for per-tenant login backgrounds (not flavours) (v5.3-r22)
 * 2026-11-16 - MuTMS “Apply flavours to tenants”: Boost Union-style Possible setting overrides info alert (info + jalapeño → flavours overview) on the flavour→tenant mapping setting (v5.3-r21)
 * 2026-11-16 - Move tenant flavour mapping UI onto Everon MuTMS settings tab (inline); remove separate Boost Union “Tenant flavours” admin heading (v5.3-r20)

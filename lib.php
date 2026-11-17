@@ -196,6 +196,17 @@ function theme_everon_pluginfile($course, $cm, $context, $filearea, $args, $forc
 }
 
 /**
+ * Moodle Checks API: status of the local Boost Union flavourslib tenant hook.
+ *
+ * @return \core\check\check[]
+ */
+function theme_everon_status_checks(): array {
+    return [
+        new \theme_everon\check\flavour_hook(),
+    ];
+}
+
+/**
  * Callback function for theme_boost_union to allow Everon to add cards to the Boost Union settings overview page.
  * This function is expected to return an array of arrays containing values with the keys 'label', 'desc', 'btn' and 'url'.
  *
