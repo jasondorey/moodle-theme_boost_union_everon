@@ -39,7 +39,7 @@ $string['settingsoverview_buc_desc'] = 'Everon is a Boost Union child for Projec
 $string['inheritanceheading'] = 'Inheritance';
 $string['inheritanceinherit'] = 'Inherit';
 $string['inheritanceduplicate'] = 'Duplicate';
-$string['inheritanceoptionsexplanation'] = 'Most of the time, inheriting will be perfectly fine. However, it may happen that imperfect code is integrated into Boost Union which prevents simple SCSS inheritance for particular Boost Union features. If you encounter any issues with Boost Union features which seem not to work in Everon as well, try to switch this setting to \'Dupliate\' and, if this solves the problem, report an issue on Github (see the README.md file for details how to report an issue).';
+$string['inheritanceoptionsexplanation'] = 'Most of the time, inheriting will be perfectly fine. However, it may happen that imperfect code is integrated into Boost Union which prevents simple SCSS inheritance for particular Boost Union features. If you encounter any issues with Boost Union features which seem not to work in Everon as well, try to switch this setting to \'Duplicate\' and, if this solves the problem, report an issue on Github (see the README.md file for details how to report an issue).';
 // ... ... Setting: Pre SCSS inheritance setting.
 $string['prescssinheritancesetting'] = 'Pre SCSS inheritance';
 $string['prescssinheritancesetting_desc'] = 'With this setting, you control if the pre SCSS code from Boost Union should be inherited or duplicated.';
