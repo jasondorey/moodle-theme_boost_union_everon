@@ -29,8 +29,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'theme_boost_union_everon';
-$plugin->version = 2026111910;
-$plugin->release = 'v5.3-r34';
+$plugin->version = 2026111911;
+$plugin->release = 'v5.3-r35';
 $plugin->requires = 2026100500; // Moodle 5.3.
 $plugin->supported = [503, 503];
 $plugin->maturity = MATURITY_STABLE;

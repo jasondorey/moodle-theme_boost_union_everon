@@ -183,38 +183,55 @@ define([
         return !!(overview && !overview.classList.contains('hidden'));
     };
 
+    // Guard against MutationObserver re-entry. Some browsers (incl. Safari /
+    // WebKit) schedule class attribute records even when classList.add/remove
+    // does not change the token list; unconditional writes hang the tab.
+    let closeSyncing = false;
+
     /**
      * Host core close × in the overview action cluster (notifications-style),
      * restore to `.closewidget` on other message views.
      */
     const syncCloseControl = () => {
-        const drawer = findMessageDrawer();
-        const messageApp = drawer ? drawer.querySelector(SELECTORS.messageApp) : null;
-        if (!messageApp) {
+        if (closeSyncing) {
             return;
         }
-
-        const closeWidget = messageApp.querySelector(SELECTORS.closeWidget) ||
-            messageApp.querySelector('.closewidget');
-        const closeLink = getCloseLink(messageApp);
-        const slot = messageApp.querySelector(SELECTORS.closeSlot);
-
-        if (!closeLink || !closeWidget) {
-            return;
-        }
-
-        if (isOverviewVisible(messageApp) && slot) {
-            if (closeLink.parentElement !== slot) {
-                slot.appendChild(closeLink);
+        closeSyncing = true;
+        try {
+            const drawer = findMessageDrawer();
+            const messageApp = drawer ? drawer.querySelector(SELECTORS.messageApp) : null;
+            if (!messageApp) {
+                return;
             }
-            messageApp.classList.add(CLOSE_IN_OVERVIEW_CLASS);
-            return;
-        }
 
-        if (closeLink.parentElement !== closeWidget) {
-            closeWidget.appendChild(closeLink);
+            const closeWidget = messageApp.querySelector(SELECTORS.closeWidget) ||
+                messageApp.querySelector('.closewidget');
+            const closeLink = getCloseLink(messageApp);
+            const slot = messageApp.querySelector(SELECTORS.closeSlot);
+
+            if (!closeLink || !closeWidget) {
+                return;
+            }
+
+            if (isOverviewVisible(messageApp) && slot) {
+                if (closeLink.parentElement !== slot) {
+                    slot.appendChild(closeLink);
+                }
+                if (!messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
+                    messageApp.classList.add(CLOSE_IN_OVERVIEW_CLASS);
+                }
+                return;
+            }
+
+            if (closeLink.parentElement !== closeWidget) {
+                closeWidget.appendChild(closeLink);
+            }
+            if (messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
+                messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
+            }
+        } finally {
+            closeSyncing = false;
         }
-        messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
     };
 
     /**
@@ -378,7 +395,9 @@ define([
             if (closeWidget && closeLink && closeLink.parentElement !== closeWidget) {
                 closeWidget.appendChild(closeLink);
             }
-            messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
+            if (messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
+                messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
+            }
         }
 
         const toggle = getToggle();
@@ -479,8 +498,23 @@ define([
 
         const messageApp = drawer.querySelector(SELECTORS.messageApp);
         if (messageApp) {
-            const headerObserver = new MutationObserver(() => {
-                syncCloseControl();
+            const headerObserver = new MutationObserver((mutations) => {
+                if (closeSyncing) {
+                    return;
+                }
+                // Ignore our own CLOSE_IN_OVERVIEW_CLASS writes on messageApp.
+                const relevant = mutations.some((mutation) => {
+                    if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') {
+                        return false;
+                    }
+                    if (mutation.target === messageApp) {
+                        return false;
+                    }
+                    return true;
+                });
+                if (relevant) {
+                    syncCloseControl();
+                }
             });
             headerObserver.observe(messageApp, {
                 attributes: true,
