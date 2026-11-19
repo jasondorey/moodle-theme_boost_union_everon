@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - MuTMS My programs cards: circular on-image completion % matching course cards (theme override of `block_muprogmyoverview` progress + MuTMS CSS); keep status badge (e.g. Open) in card body (v5.3-r25)
 * 2026-11-19 - Rename component/folder from `theme_everon` / `everon` to `theme_boost_union_everon` / `boost_union_everon` (lang, AMD, Behat, DB, patches, CSS/JS prefixes); display name remains Everon; migrate legacy flavour-apply table + config on install/upgrade (v5.3-r24)
 * 2026-11-17 - Auto-repatch Boost Union `flavourslib.php` MuTMS tenant hook on Everon install/upgrade + status check (survives BU overwrites until upstream child-theme callbacks land) (v5.3-r23)
 * 2026-11-16 - Guest-safe login branding: when forcelogin would 303 flavour Look logos/favicons, fall back to MuTMS tenant_appearance; document MuTMS `theme_boost/loginbackgroundimage` bridge for per-tenant login backgrounds (not flavours) (v5.3-r22)
