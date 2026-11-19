@@ -1,6 +1,6 @@
 /**
  * Shared Everon popover / panel chrome tokens.
- * Used by Accessibility, Launch Pad, profile usermenu, and starred courses.
+ * Used by Accessibility, Launch Pad, profile usermenu, starred courses, and notifications.
  *
  * Light values stay as shipped. Dark mode remaps via Boost/Bootstrap
  * colour-mode tokens under [data-bs-theme="dark"] (no parallel Everon dark system).

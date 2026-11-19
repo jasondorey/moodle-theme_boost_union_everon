@@ -1,0 +1,372 @@
+/**
+ * Notifications navbar popover — match Accessibility / Launch Pad / usermenu / starred chrome.
+ * Targets core #nav-notification-popover-container (message_popup/notification_popover).
+ * Tokens from popover_chrome.css. Keeps mark-as-read / settings / close actions.
+ */
+
+#nav-notification-popover-container.popover-region {
+    position: relative;
+    overflow: visible;
+}
+
+#usernavigation #nav-notification-popover-container.popover-region {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+#usernavigation #nav-notification-popover-container .popover-region-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Panel chrome */
+#nav-notification-popover-container .popover-region-container {
+    --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
+    box-sizing: border-box;
+    right: 0;
+    left: auto;
+    top: 100%;
+    width: auto !important;
+    min-width: 16rem;
+    max-width: min(24rem, calc(100vw - 1.5rem)) !important;
+    height: auto !important;
+    max-height: min(85vh, 40rem) !important;
+    margin-top: 0.35rem;
+    padding: 0;
+    border: var(
+        --everon-popover-border,
+        1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
+    );
+    border-radius: var(--everon-popover-radius, 0.75rem);
+    background: var(--everon-popover-bg, #f3f4f6);
+    background-clip: padding-box;
+    box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    );
+    color: var(--everon-popover-text, #3f444e);
+    overflow: hidden !important;
+    z-index: 1050;
+    pointer-events: auto !important;
+}
+
+#nav-notification-popover-container:not(.collapsed) .popover-region-container {
+    display: block;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: min(85vh, 40rem) !important;
+}
+
+/* Match Launch Pad / a11y / starred: hide immediately on close (no Boost delayed fade). */
+#nav-notification-popover-container.collapsed .popover-region-container {
+    display: none;
+    pointer-events: none !important;
+}
+
+/* Caret — accent outer / panel-fill inner (same metaphor as usermenu / starred). */
+#nav-notification-popover-container .popover-region-toggle::before {
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--cn-primary, var(--bs-primary, #e67e22))) 55%,
+        rgba(63, 68, 78, 0.28)
+    );
+}
+
+#nav-notification-popover-container .popover-region-toggle::after {
+    border-bottom-color: var(--everon-popover-bg, #f3f4f6);
+}
+
+/* Header — Launch Pad / a11y muted section title */
+#nav-notification-popover-container .popover-region-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    float: none;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0.85rem 0.75rem 0.35rem;
+    line-height: 1.25;
+    border-bottom: none;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+#nav-notification-popover-container .popover-region-header-text {
+    float: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+#nav-notification-popover-container .popover-region-header-actions {
+    float: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+}
+
+#nav-notification-popover-container .popover-region-header-actions > * {
+    margin-left: 0;
+}
+
+/* Mark-as-read / settings / close — keep actions; Everon chrome (not Bootstrap btn-link). */
+#nav-notification-popover-container .popover-region-header-actions a,
+#nav-notification-popover-container .popover-region-header-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    margin: 0;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    background: transparent;
+    box-shadow: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    text-decoration: none;
+    line-height: 1;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+#nav-notification-popover-container .popover-region-header-actions a:hover,
+#nav-notification-popover-container .popover-region-header-actions a:focus,
+#nav-notification-popover-container .popover-region-header-actions a:focus-visible,
+#nav-notification-popover-container .popover-region-header-actions button:hover,
+#nav-notification-popover-container .popover-region-header-actions button:focus,
+#nav-notification-popover-container .popover-region-header-actions button:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+#nav-notification-popover-container .popover-region-header-actions a:hover .icon,
+#nav-notification-popover-container .popover-region-header-actions a:focus .icon,
+#nav-notification-popover-container .popover-region-header-actions a:focus-visible .icon,
+#nav-notification-popover-container .popover-region-header-actions button:hover .icon,
+#nav-notification-popover-container .popover-region-header-actions button:focus .icon,
+#nav-notification-popover-container .popover-region-header-actions button:focus-visible .icon {
+    color: inherit;
+}
+
+#nav-notification-popover-container .popover-region-header-actions .mark-all-read-button .loading-icon {
+    display: none;
+    height: 0.75rem;
+    width: 0.75rem;
+}
+
+#nav-notification-popover-container .popover-region-header-actions .mark-all-read-button.loading .normal-icon {
+    display: none;
+}
+
+#nav-notification-popover-container .popover-region-header-actions .mark-all-read-button.loading .loading-icon {
+    display: inline-block;
+}
+
+/* Notification list */
+#nav-notification-popover-container .popover-region-content-container {
+    box-sizing: border-box;
+    height: auto !important;
+    max-height: calc(min(85vh, 40rem) - 5.5rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0.15rem 0 0.25rem;
+    background: transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+#nav-notification-popover-container .popover-region-content {
+    padding: 0;
+}
+
+#nav-notification-popover-container .content-item-container.notification {
+    display: block;
+    width: auto;
+    margin: 0 0.35rem 0.25rem;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--everon-popover-text, #3f444e);
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+#nav-notification-popover-container .content-item-container.notification.unread {
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 8%,
+        var(--everon-popover-tile-bg, #fff)
+    );
+    border-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 18%,
+        transparent
+    );
+}
+
+#nav-notification-popover-container .content-item-container.notification:hover,
+#nav-notification-popover-container .content-item-container.notification:focus-within,
+#nav-notification-popover-container .content-item-container.notification.selected {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    ) !important;
+    background: var(--everon-popover-tile-hover-bg, #fff) !important;
+    color: var(--everon-popover-text, #3f444e) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+#nav-notification-popover-container .content-item-container.notification .context-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+#nav-notification-popover-container .content-item-container.notification .content-item-body {
+    margin-bottom: 0.35rem;
+}
+
+#nav-notification-popover-container .content-item-container.notification .notification-message {
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: inherit;
+}
+
+#nav-notification-popover-container .content-item-container.notification.unread .notification-message {
+    font-weight: 600;
+}
+
+#nav-notification-popover-container .content-item-container.notification .content-item-footer {
+    text-align: left;
+}
+
+#nav-notification-popover-container .content-item-container.notification .timestamp {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+#nav-notification-popover-container .content-item-container.notification:hover .timestamp,
+#nav-notification-popover-container .content-item-container.notification:focus-within .timestamp,
+#nav-notification-popover-container .content-item-container.notification.selected .timestamp {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+#nav-notification-popover-container .content-item-container.notification .view-more {
+    position: static;
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    text-decoration: none;
+}
+
+#nav-notification-popover-container .content-item-container.notification .view-more:hover,
+#nav-notification-popover-container .content-item-container.notification .view-more:focus,
+#nav-notification-popover-container .content-item-container.notification .view-more:focus-visible {
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    text-decoration: underline;
+    outline: none;
+}
+
+#nav-notification-popover-container .popover-region-content-container .empty-message {
+    margin: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    text-align: left;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    font-size: 0.875rem;
+}
+
+/* Footer — See all */
+#nav-notification-popover-container .see-all-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+#nav-notification-popover-container .popover-region-footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0.45rem 0.75rem 0.65rem;
+    border-top: 1px solid var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+    background: transparent;
+    text-align: center;
+}
+
+#nav-notification-popover-container .popover-region-seeall-text {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+}
+
+#nav-notification-popover-container .see-all-link:hover .popover-region-seeall-text,
+#nav-notification-popover-container .see-all-link:focus .popover-region-seeall-text,
+#nav-notification-popover-container .see-all-link:focus-visible .popover-region-seeall-text {
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Boost colour modes — panel follows site dark/light via shared tokens. */
+:root[data-bs-theme="dark"] #nav-notification-popover-container {
+    --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
+    --everon-popover-text: var(--bs-body-color, #dee2e6);
+    --everon-popover-muted: color-mix(
+        in srgb,
+        var(--bs-body-color, #dee2e6) 82%,
+        var(--bs-tertiary-bg, #2b3035)
+    );
+    --everon-popover-tile-hover-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-tile-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+}
+
+:root[data-bs-theme="dark"] #nav-notification-popover-container .popover-region-container {
+    background: var(--everon-popover-bg, #2b3035);
+    color: var(--everon-popover-text, #dee2e6);
+}
+
+:root[data-bs-theme="dark"] #nav-notification-popover-container .popover-region-toggle::after {
+    border-bottom-color: var(--everon-popover-bg, #2b3035);
+}
+
+:root[data-bs-theme="dark"] #nav-notification-popover-container .content-item-container.notification.unread {
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 14%,
+        var(--everon-popover-tile-bg, #343a40)
+    );
+}
