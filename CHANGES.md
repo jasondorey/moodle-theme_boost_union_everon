@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - Stop messages Safari hang for real: remove close-control MutationObserver / DOM relocate; static overview × + CSS `:has()` swap; lean mount/position only (v5.3-r36)
 * 2026-11-19 - Fix messages drawer hang: `navbar_messages` MutationObserver no longer re-enters on no-op `classList` writes (Safari/WebKit tab freeze after r34 header polish) (v5.3-r35)
 * 2026-11-19 - Messages drawer header polish: modern inset search, notifications-style close × in overview actions, contacts/settings match × chrome (`message_drawer_view_overview_header` + `messages.css` + `navbar_messages`; no moodle-theme_work) (v5.3-r34)
 * 2026-11-19 - Messages navbar drawer: Everon panel chrome matching usermenu / a11y / Launch Pad / starred / notifications / MuTMS switch (floating popout under toggle; radius, accent border/shadow, list-item hover, See all footer, dark tokens; `style/messages.css` + lean `navbar_messages` mount; no moodle-theme_work edits) (v5.3-r33)

@@ -190,23 +190,23 @@ body.custom-navbar__message-popover-open #page {
     pointer-events: none;
 }
 
-/* When overview hosts the close in its action slot, keep the shell empty. */
-[data-region="right-hand-drawer"]:has([data-region="message-drawer"])
-    .message-app.everon-message-close-in-overview
-    .closewidget,
-[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover
-    .message-app.everon-message-close-in-overview
-    .closewidget,
-[data-region="right-hand-drawer"].everon-message-drawer-popover
-    .message-app.everon-message-close-in-overview
-    .closewidget {
-    display: none;
+/*
+ * Overview toolbar hosts its own × (static template). Hide the shell closewidget
+ * while overview is visible; hide the toolbar × on other message views.
+ * No JS class flag / DOM relocation (Safari hang with MutationObserver).
+ */
+[data-region="message-drawer"]:has([data-region="view-overview"]:not(.hidden)) > .closewidget {
+    display: none !important;
+}
+
+[data-region="message-drawer"]:has([data-region="view-overview"].hidden) .everon-message-overview-close,
+[data-region="message-drawer"]:not(:has([data-region="view-overview"])) .everon-message-overview-close {
+    display: none !important;
 }
 
 [data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a,
 [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a,
 [data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"],
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action,
 [data-region="message-drawer"] .everon-message-overview-actions a.everon-message-action {
     display: inline-flex;
@@ -231,7 +231,6 @@ body.custom-navbar__message-popover-open #page {
 [data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:focus,
 [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a:focus,
 [data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:focus,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"]:focus,
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus {
     outline: none;
     box-shadow: none;
@@ -243,8 +242,6 @@ body.custom-navbar__message-popover-open #page {
 [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a:focus-visible,
 [data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:hover,
 [data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:focus-visible,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"]:hover,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"]:focus-visible,
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:hover,
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus-visible {
     border-color: var(
@@ -260,8 +257,6 @@ body.custom-navbar__message-popover-open #page {
 
 [data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:hover .icon,
 [data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:focus-visible .icon,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"]:hover .icon,
-[data-region="message-drawer"] .everon-message-overview-actions a[data-action="closedrawer"]:focus-visible .icon,
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:hover .icon,
 [data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus-visible .icon {
     color: inherit;
@@ -313,12 +308,6 @@ body.custom-navbar__message-popover-open #page {
 [data-region="message-drawer"] .everon-message-overview-actions {
     flex: 0 0 auto;
     gap: 0.15rem;
-}
-
-[data-region="message-drawer"] .everon-message-close-slot {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 [data-region="message-drawer"] .everon-message-contact-badge {

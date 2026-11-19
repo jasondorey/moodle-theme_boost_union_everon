@@ -16,6 +16,8 @@
 /**
  * Position the core message drawer as a navbar popout matching Everon panel chrome.
  * Prefer CSS (style/messages.css); this module only mounts/sizes and kills page push.
+ * Do not observe the message-app subtree or rewrite close-control DOM — that hung
+ * Safari (r34/r35). Overview × is a static template control + CSS :has() swap.
  *
  * @module     theme_boost_union_everon/navbar_messages
  * @copyright  2026 Project Theme / Jason Dorey
@@ -39,18 +41,41 @@ define([
     const PANEL_WIDTH = 380;
     const PANEL_MAX_HEIGHT = 640;
 
-    const CLOSE_IN_OVERVIEW_CLASS = 'everon-message-close-in-overview';
-
     const SELECTORS = {
         toggleContainer: '#nav-message-popover-container',
         toggleFallback: '[data-region="popover-region-messages"]',
         drawer: '[data-region="right-hand-drawer"]',
         messageApp: '[data-region="message-drawer"]',
         toggle: '[data-region="popover-region-toggle"], .popover-region-toggle',
-        closeWidget: '.message-app > .closewidget',
-        closeLink: '.closewidget a[data-action="closedrawer"], a[data-action="closedrawer"]',
-        overviewHeader: '[data-region="view-overview"]',
-        closeSlot: '[data-region="everon-message-close-slot"]',
+        overviewClose: '[data-action="everon-message-close"]',
+        coreClose: '.closewidget a[data-action="closedrawer"]',
+    };
+
+    /**
+     * Add class tokens only when missing (Safari may notify MutationObservers
+     * even for no-op classList.add/remove).
+     *
+     * @param {HTMLElement} el
+     * @param {...string} tokens
+     */
+    const addClassIfNeeded = (el, ...tokens) => {
+        tokens.forEach((token) => {
+            if (!el.classList.contains(token)) {
+                el.classList.add(token);
+            }
+        });
+    };
+
+    /**
+     * @param {HTMLElement} el
+     * @param {...string} tokens
+     */
+    const removeClassIfNeeded = (el, ...tokens) => {
+        tokens.forEach((token) => {
+            if (el.classList.contains(token)) {
+                el.classList.remove(token);
+            }
+        });
     };
 
     /**
@@ -161,80 +186,6 @@ define([
     };
 
     /**
-     * @param {HTMLElement|null} messageApp
-     * @returns {HTMLElement|null}
-     */
-    const getCloseLink = (messageApp) => {
-        if (!messageApp) {
-            return null;
-        }
-        return messageApp.querySelector('a[data-action="closedrawer"]');
-    };
-
-    /**
-     * @param {HTMLElement|null} messageApp
-     * @returns {boolean}
-     */
-    const isOverviewVisible = (messageApp) => {
-        if (!messageApp) {
-            return false;
-        }
-        const overview = messageApp.querySelector(SELECTORS.overviewHeader);
-        return !!(overview && !overview.classList.contains('hidden'));
-    };
-
-    // Guard against MutationObserver re-entry. Some browsers (incl. Safari /
-    // WebKit) schedule class attribute records even when classList.add/remove
-    // does not change the token list; unconditional writes hang the tab.
-    let closeSyncing = false;
-
-    /**
-     * Host core close × in the overview action cluster (notifications-style),
-     * restore to `.closewidget` on other message views.
-     */
-    const syncCloseControl = () => {
-        if (closeSyncing) {
-            return;
-        }
-        closeSyncing = true;
-        try {
-            const drawer = findMessageDrawer();
-            const messageApp = drawer ? drawer.querySelector(SELECTORS.messageApp) : null;
-            if (!messageApp) {
-                return;
-            }
-
-            const closeWidget = messageApp.querySelector(SELECTORS.closeWidget) ||
-                messageApp.querySelector('.closewidget');
-            const closeLink = getCloseLink(messageApp);
-            const slot = messageApp.querySelector(SELECTORS.closeSlot);
-
-            if (!closeLink || !closeWidget) {
-                return;
-            }
-
-            if (isOverviewVisible(messageApp) && slot) {
-                if (closeLink.parentElement !== slot) {
-                    slot.appendChild(closeLink);
-                }
-                if (!messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
-                    messageApp.classList.add(CLOSE_IN_OVERVIEW_CLASS);
-                }
-                return;
-            }
-
-            if (closeLink.parentElement !== closeWidget) {
-                closeWidget.appendChild(closeLink);
-            }
-            if (messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
-                messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
-            }
-        } finally {
-            closeSyncing = false;
-        }
-    };
-
-    /**
      * Mount drawer under the message toggle so absolute top matches other panels.
      *
      * @returns {boolean}
@@ -248,7 +199,7 @@ define([
         if (drawer.parentElement !== container) {
             container.appendChild(drawer);
         }
-        drawer.classList.add(MOUNTED_CLASS, MOUNTED_CLASS_ALT);
+        addClassIfNeeded(drawer, MOUNTED_CLASS, MOUNTED_CLASS_ALT);
         return true;
     };
 
@@ -267,7 +218,7 @@ define([
     };
 
     const suppressPageOverlay = () => {
-        document.body.classList.add(BODY_OPEN_CLASS, BODY_OPEN_CLASS_LEGACY);
+        addClassIfNeeded(document.body, BODY_OPEN_CLASS, BODY_OPEN_CLASS_LEGACY);
         const page = document.getElementById('page');
         if (page) {
             page.style.overflow = '';
@@ -279,7 +230,7 @@ define([
     };
 
     const restorePageOverlay = () => {
-        document.body.classList.remove(BODY_OPEN_CLASS, BODY_OPEN_CLASS_LEGACY);
+        removeClassIfNeeded(document.body, BODY_OPEN_CLASS, BODY_OPEN_CLASS_LEGACY);
         const page = document.getElementById('page');
         if (page) {
             page.style.overflow = '';
@@ -296,7 +247,7 @@ define([
         mountMessageDrawer();
         publishPopoverTop();
 
-        drawer.classList.add(POPOVER_CLASS, POPOVER_CLASS_ALT);
+        addClassIfNeeded(drawer, POPOVER_CLASS, POPOVER_CLASS_ALT);
 
         const panelWidth = Math.min(PANEL_WIDTH, window.innerWidth - 24);
         const maxHeight = Math.min(window.innerHeight * 0.85, PANEL_MAX_HEIGHT);
@@ -333,10 +284,8 @@ define([
             messageApp.style.maxHeight = maxHeight + 'px';
         }
 
-        syncCloseControl();
-
         if (isDrawerVisible()) {
-            drawer.classList.add(READY_CLASS, READY_CLASS_ALT);
+            addClassIfNeeded(drawer, READY_CLASS, READY_CLASS_ALT);
         }
     };
 
@@ -356,8 +305,8 @@ define([
         if (!drawer || !drawer.classList.contains('hidden')) {
             return;
         }
-        drawer.classList.remove(READY_CLASS, READY_CLASS_ALT);
-        drawer.classList.add(POPOVER_CLASS, POPOVER_CLASS_ALT);
+        removeClassIfNeeded(drawer, READY_CLASS, READY_CLASS_ALT);
+        addClassIfNeeded(drawer, POPOVER_CLASS, POPOVER_CLASS_ALT);
         mountMessageDrawer();
         publishPopoverTop();
         positionDrawer();
@@ -368,14 +317,15 @@ define([
         const drawer = findMessageDrawer();
         const container = getToggleContainer();
         if (container) {
-            container.classList.remove(OPEN_CLASS);
-            container.classList.add('collapsed');
+            removeClassIfNeeded(container, OPEN_CLASS);
+            addClassIfNeeded(container, 'collapsed');
         }
         if (!drawer) {
             return;
         }
 
-        drawer.classList.remove(
+        removeClassIfNeeded(
+            drawer,
             POPOVER_CLASS,
             POPOVER_CLASS_ALT,
             READY_CLASS,
@@ -389,15 +339,6 @@ define([
             messageApp.style.height = '';
             messageApp.style.minHeight = '';
             messageApp.style.maxHeight = '';
-            // Prefer overview slot again next open; restore link to closewidget now.
-            const closeWidget = messageApp.querySelector('.closewidget');
-            const closeLink = getCloseLink(messageApp);
-            if (closeWidget && closeLink && closeLink.parentElement !== closeWidget) {
-                closeWidget.appendChild(closeLink);
-            }
-            if (messageApp.classList.contains(CLOSE_IN_OVERVIEW_CLASS)) {
-                messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
-            }
         }
 
         const toggle = getToggle();
@@ -414,8 +355,8 @@ define([
             } catch (e) {
                 // Keep the popout open even if another panel fails to close.
             }
-            container.classList.remove('collapsed');
-            container.classList.add(OPEN_CLASS);
+            removeClassIfNeeded(container, 'collapsed');
+            addClassIfNeeded(container, OPEN_CLASS);
         }
         const toggle = getToggle();
         if (toggle) {
@@ -469,6 +410,9 @@ define([
         });
     };
 
+    /**
+     * Watch only the drawer root for hidden open/close — never the message-app subtree.
+     */
     const observeDrawer = () => {
         const drawer = findMessageDrawer();
         if (!drawer) {
@@ -477,6 +421,9 @@ define([
         const observer = new MutationObserver((mutations) => {
             const hiddenToggled = mutations.some((mutation) => {
                 if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') {
+                    return false;
+                }
+                if (mutation.target !== drawer) {
                     return false;
                 }
                 const hadHidden = (mutation.oldValue || '').split(/\s+/).includes('hidden');
@@ -494,36 +441,8 @@ define([
             attributes: true,
             attributeFilter: ['class'],
             attributeOldValue: true,
+            // Intentionally no subtree — message-app class chatter must not re-enter.
         });
-
-        const messageApp = drawer.querySelector(SELECTORS.messageApp);
-        if (messageApp) {
-            const headerObserver = new MutationObserver((mutations) => {
-                if (closeSyncing) {
-                    return;
-                }
-                // Ignore our own CLOSE_IN_OVERVIEW_CLASS writes on messageApp.
-                const relevant = mutations.some((mutation) => {
-                    if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') {
-                        return false;
-                    }
-                    if (mutation.target === messageApp) {
-                        return false;
-                    }
-                    return true;
-                });
-                if (relevant) {
-                    syncCloseControl();
-                }
-            });
-            headerObserver.observe(messageApp, {
-                attributes: true,
-                attributeFilter: ['class'],
-                subtree: true,
-                attributeOldValue: true,
-            });
-            syncCloseControl();
-        }
 
         const backdropObserver = new MutationObserver(() => {
             if (isDrawerVisible()) {
@@ -564,6 +483,37 @@ define([
         }, true);
     };
 
+    /**
+     * Overview toolbar × → activate core closedrawer (keeps core focus/HIDE behaviour).
+     * No MutationObserver / DOM relocation.
+     */
+    const bindOverviewClose = () => {
+        if (document.documentElement.dataset.everonMessageCloseBound) {
+            return;
+        }
+        document.documentElement.dataset.everonMessageCloseBound = '1';
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) {
+                return;
+            }
+            const btn = target.closest(SELECTORS.overviewClose);
+            if (!btn) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            const drawer = findMessageDrawer();
+            const messageApp = drawer ? drawer.querySelector(SELECTORS.messageApp) : null;
+            const coreClose = messageApp ? messageApp.querySelector(SELECTORS.coreClose) : null;
+            if (coreClose) {
+                coreClose.click();
+                return;
+            }
+            PubSub.publish(MessageDrawerEvents.HIDE, {});
+        });
+    };
+
     const init = () => {
         if (initialised) {
             return;
@@ -576,12 +526,13 @@ define([
 
         NavbarPopovers.init();
         bindTogglePrepare();
+        bindOverviewClose();
 
         const bootstrap = () => {
             ensureToggleContainerId();
             const drawer = findMessageDrawer();
             if (drawer) {
-                drawer.classList.add(POPOVER_CLASS, POPOVER_CLASS_ALT);
+                addClassIfNeeded(drawer, POPOVER_CLASS, POPOVER_CLASS_ALT);
             }
             mountMessageDrawer();
             publishPopoverTop();

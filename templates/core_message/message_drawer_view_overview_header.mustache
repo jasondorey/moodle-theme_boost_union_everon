@@ -19,14 +19,16 @@
 
     Everon override: single toolbar row — modern search + contacts/settings
     icon actions (notifications-style chrome). Core regions/routes unchanged.
-    Close × stays core `.closewidget[data-action="closedrawer"]` (styled/positioned
-    beside these actions in style/messages.css + navbar_messages).
+    Close × in the action cluster is a static control (`data-action="everon-message-close"`)
+    that activates core `.closewidget a[data-action="closedrawer"]` via a click binder.
+    CSS :has() swaps shell vs overview × — no MutationObserver / DOM relocation.
 
     Classes required for JS:
     * none
 
     Data attributes required for JS:
     * All data attributes are required
+    * data-action="everon-message-close" on the overview close control
 
     Context variables required for this template:
     * userid The logged in user id
@@ -97,8 +99,16 @@
                 {{#pix}} i/settings, core {{/pix}}
             </a>
             {{/caneditownmessageprofile}}
-            {{! Slot for JS-mounted close control (matches other Everon panels). }}
-            <span class="everon-message-close-slot" data-region="everon-message-close-slot"></span>
+            <a
+                href="#"
+                class="everon-message-action everon-message-overview-close"
+                data-action="everon-message-close"
+                role="button"
+                aria-label="{{#str}} closebuttontitle {{/str}}"
+                title="{{#str}} closebuttontitle {{/str}}"
+            >
+                {{#pix}} i/window_close, core {{/pix}}
+            </a>
         </div>
     </div>
 </div>
