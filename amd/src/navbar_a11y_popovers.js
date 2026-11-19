@@ -141,6 +141,39 @@ define([
     };
 
     let userMenuCloseBound = false;
+    let notificationRestingFocusBound = false;
+
+    /**
+     * Core FocusLock parks on mark-all-read when notifications open. Re-park on the
+     * dialog root (already tabindex=-1) so header actions have no resting :focus chrome.
+     * Does not touch the profile usermenu.
+     */
+    const bindNotificationRestingFocus = () => {
+        if (notificationRestingFocusBound) {
+            return;
+        }
+        notificationRestingFocusBound = true;
+
+        const root = document.getElementById('nav-notification-popover-container');
+        if (!root) {
+            return;
+        }
+        const panel = root.querySelector('[data-region="popover-region-container"]');
+        if (!panel) {
+            return;
+        }
+
+        let wasCollapsed = root.classList.contains('collapsed');
+        const observer = new MutationObserver(() => {
+            const isCollapsed = root.classList.contains('collapsed');
+            if (wasCollapsed && !isCollapsed) {
+                // After core menuOpened → FocusLock.trapFocus (same turn as class change).
+                panel.focus({preventScroll: true});
+            }
+            wasCollapsed = isCollapsed;
+        });
+        observer.observe(root, {attributes: true, attributeFilter: ['class']});
+    };
 
     /**
      * Notifications-style × inside the profile usermenu panel.
@@ -179,6 +212,7 @@ define([
         init: function() {
             bindUserMenuMutex();
             bindUserMenuClose();
+            bindNotificationRestingFocus();
         },
     };
 });

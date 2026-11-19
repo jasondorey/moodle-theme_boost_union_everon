@@ -143,11 +143,16 @@
     transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
 }
 
-#nav-notification-popover-container .popover-region-header-actions a:hover,
+/* FocusLock parks on mark-all-read on open — show chrome only for hover / keyboard. */
 #nav-notification-popover-container .popover-region-header-actions a:focus,
+#nav-notification-popover-container .popover-region-header-actions button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#nav-notification-popover-container .popover-region-header-actions a:hover,
 #nav-notification-popover-container .popover-region-header-actions a:focus-visible,
 #nav-notification-popover-container .popover-region-header-actions button:hover,
-#nav-notification-popover-container .popover-region-header-actions button:focus,
 #nav-notification-popover-container .popover-region-header-actions button:focus-visible {
     border-color: var(
         --everon-popover-item-hover-border,
@@ -161,10 +166,8 @@
 }
 
 #nav-notification-popover-container .popover-region-header-actions a:hover .icon,
-#nav-notification-popover-container .popover-region-header-actions a:focus .icon,
 #nav-notification-popover-container .popover-region-header-actions a:focus-visible .icon,
 #nav-notification-popover-container .popover-region-header-actions button:hover .icon,
-#nav-notification-popover-container .popover-region-header-actions button:focus .icon,
 #nav-notification-popover-container .popover-region-header-actions button:focus-visible .icon {
     color: inherit;
 }

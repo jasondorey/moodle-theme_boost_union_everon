@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - Navbar panels: resting open has no header-action focus/hover chrome (notifications checkmark, a11y/Launch Pad ×); park focus on dialog root + `:focus-visible` for keyboard; user menu unchanged (v5.3-r30)
 * 2026-11-19 - Accessibility / Launch Pad / user menu: notifications-style top-right × close (`i/window_close`, core `closebuttontitle`); shared header chrome in `popover_chrome.css` (v5.3-r29)
 * 2026-11-19 - Notifications popover width: restore Moodle core–like 380px (`$region-container-width`) min/max on `#nav-notification-popover-container` (stop auto-shrink to ~16rem); keep Everon chrome (v5.3-r28)
 * 2026-11-19 - Notifications navbar popover: Everon panel chrome matching usermenu / a11y / Launch Pad / starred (radius, accent border/shadow, muted header, item hover, footer; keep mark-as-read / settings / close; `style/notifications.css`) (v5.3-r27)

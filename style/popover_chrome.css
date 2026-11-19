@@ -116,11 +116,16 @@
     transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
 }
 
-.everon-popover-header__actions .everon-popover-close:hover,
+/* Programmatic open focus must not paint hover chrome; keyboard keeps :focus-visible. */
 .everon-popover-header__actions .everon-popover-close:focus,
+.everon-popover-header__actions button.everon-popover-close:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.everon-popover-header__actions .everon-popover-close:hover,
 .everon-popover-header__actions .everon-popover-close:focus-visible,
 .everon-popover-header__actions button.everon-popover-close:hover,
-.everon-popover-header__actions button.everon-popover-close:focus,
 .everon-popover-header__actions button.everon-popover-close:focus-visible {
     border-color: var(
         --everon-popover-item-hover-border,
@@ -134,7 +139,6 @@
 }
 
 .everon-popover-header__actions .everon-popover-close:hover .icon,
-.everon-popover-header__actions .everon-popover-close:focus .icon,
 .everon-popover-header__actions .everon-popover-close:focus-visible .icon {
     color: inherit;
 }

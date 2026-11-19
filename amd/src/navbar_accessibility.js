@@ -397,6 +397,8 @@ define([
 
         /**
          * Trap focus inside the open panel and move it off the navbar toggle.
+         * FocusLock focuses the first control (close ×); re-park on the dialog root
+         * so resting open has no header :focus chrome. Tab still reaches controls.
          */
         const trapPanelFocus = () => {
             if (focusTrapped) {
@@ -404,6 +406,7 @@ define([
             }
             FocusLock.trapFocus(panel);
             focusTrapped = true;
+            panel.focus({preventScroll: true});
         };
 
         /**
