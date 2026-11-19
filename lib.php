@@ -255,12 +255,13 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
 
     $www = '/theme/boost_union_everon';
 
-    // Shared popover chrome + profile usermenu + starred + notifications + MuTMS switch tenant — always on with Everon (not login).
+    // Shared popover chrome + profile usermenu + starred + notifications + messages + MuTMS switch tenant — always on with Everon (not login).
     if ($page->pagelayout !== 'login') {
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/popover_chrome.css'));
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu.css'));
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/starred_courses.css'));
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/notifications.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/messages.css'));
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/tenant_switch.css'));
         if (theme_boost_union_everon_usermenutiles_enabled()) {
             $page->add_body_class('theme-boost-union-everon-usermenu-tiles');
@@ -268,6 +269,8 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
         }
         // Usermenu × close (and navbar mutex) — independent of a11y / Launch Pad toggles.
         $page->requires->js_call_amd('theme_boost_union_everon/navbar_a11y_popovers', 'init');
+        // Message drawer → Everon floating panel (CSS chrome + mount/position).
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_messages', 'init');
     }
 
     // Skip login layout for navbar utilities (a11y / Launch Pad / Focus / layouts).

@@ -1,7 +1,7 @@
 /**
  * Shared Everon popover / panel chrome tokens.
  * Used by Accessibility, Launch Pad, profile usermenu, starred courses, notifications,
- * and MuTMS Switch tenant (muform dialog).
+ * messages (drawer popout), and MuTMS Switch tenant (muform dialog).
  *
  * Light values stay as shipped. Dark mode remaps via Boost/Bootstrap
  * colour-mode tokens under [data-bs-theme="dark"] (no parallel Everon dark system).

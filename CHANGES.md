@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - Messages navbar drawer: Everon panel chrome matching usermenu / a11y / Launch Pad / starred / notifications / MuTMS switch (floating popout under toggle; radius, accent border/shadow, list-item hover, See all footer, dark tokens; `style/messages.css` + lean `navbar_messages` mount; no moodle-theme_work edits) (v5.3-r33)
 * 2026-11-19 - MuTMS Switch tenant navbar dialog: Everon panel chrome matching usermenu / a11y / Launch Pad / starred / notifications (radius, accent border/shadow, muted header, autocomplete list hover, dark tokens; `style/tenant_switch.css`; no mutenancy core edits) (v5.3-r32)
 * 2026-11-19 - Accessibility Colour Mode section (Dark / Light / System) drives Boost colour modes (`data-bs-theme` / `theme_boost_colourmode`); default System (`auto`); hide Boost colour-mode navbar menu; replace single Dark Mode tile (v5.3-r31)
 * 2026-11-19 - Navbar panels: resting open has no header-action focus/hover chrome (notifications checkmark, a11y/Launch Pad ×); park focus on dialog root + `:focus-visible` for keyboard; user menu unchanged (v5.3-r30)
