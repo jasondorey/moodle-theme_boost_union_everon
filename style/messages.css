@@ -419,10 +419,11 @@ body.custom-navbar__message-popover-open #page {
     display: none !important;
 }
 
-/* Section toggles — muted titles like other panel headers. */
+/* Section toggles — left-align Starred / Group / Private (match theme_work). */
 [data-region="message-drawer"] .overview-section-toggle {
     display: flex !important;
     align-items: center !important;
+    justify-content: flex-start !important;
     width: 100%;
     margin: 0.15rem 0.35rem;
     padding: 0.45rem 0.55rem !important;
@@ -464,6 +465,7 @@ body.custom-navbar__message-popover-open #page {
     padding: 0;
     border: 0;
     background: transparent;
+    text-align: start;
 }
 
 [data-region="message-drawer"] .badge.bg-primary {
