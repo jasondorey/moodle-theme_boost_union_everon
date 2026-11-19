@@ -255,10 +255,11 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
 
     $www = '/theme/boost_union_everon';
 
-    // Shared popover chrome + profile usermenu — always on with Everon (not login).
+    // Shared popover chrome + profile usermenu + starred courses — always on with Everon (not login).
     if ($page->pagelayout !== 'login') {
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/popover_chrome.css'));
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/starred_courses.css'));
         if (theme_boost_union_everon_usermenutiles_enabled()) {
             $page->add_body_class('theme-boost-union-everon-usermenu-tiles');
             $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu_tiles.css'));
