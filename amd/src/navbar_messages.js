@@ -39,12 +39,18 @@ define([
     const PANEL_WIDTH = 380;
     const PANEL_MAX_HEIGHT = 640;
 
+    const CLOSE_IN_OVERVIEW_CLASS = 'everon-message-close-in-overview';
+
     const SELECTORS = {
         toggleContainer: '#nav-message-popover-container',
         toggleFallback: '[data-region="popover-region-messages"]',
         drawer: '[data-region="right-hand-drawer"]',
         messageApp: '[data-region="message-drawer"]',
         toggle: '[data-region="popover-region-toggle"], .popover-region-toggle',
+        closeWidget: '.message-app > .closewidget',
+        closeLink: '.closewidget a[data-action="closedrawer"], a[data-action="closedrawer"]',
+        overviewHeader: '[data-region="view-overview"]',
+        closeSlot: '[data-region="everon-message-close-slot"]',
     };
 
     /**
@@ -155,6 +161,63 @@ define([
     };
 
     /**
+     * @param {HTMLElement|null} messageApp
+     * @returns {HTMLElement|null}
+     */
+    const getCloseLink = (messageApp) => {
+        if (!messageApp) {
+            return null;
+        }
+        return messageApp.querySelector('a[data-action="closedrawer"]');
+    };
+
+    /**
+     * @param {HTMLElement|null} messageApp
+     * @returns {boolean}
+     */
+    const isOverviewVisible = (messageApp) => {
+        if (!messageApp) {
+            return false;
+        }
+        const overview = messageApp.querySelector(SELECTORS.overviewHeader);
+        return !!(overview && !overview.classList.contains('hidden'));
+    };
+
+    /**
+     * Host core close × in the overview action cluster (notifications-style),
+     * restore to `.closewidget` on other message views.
+     */
+    const syncCloseControl = () => {
+        const drawer = findMessageDrawer();
+        const messageApp = drawer ? drawer.querySelector(SELECTORS.messageApp) : null;
+        if (!messageApp) {
+            return;
+        }
+
+        const closeWidget = messageApp.querySelector(SELECTORS.closeWidget) ||
+            messageApp.querySelector('.closewidget');
+        const closeLink = getCloseLink(messageApp);
+        const slot = messageApp.querySelector(SELECTORS.closeSlot);
+
+        if (!closeLink || !closeWidget) {
+            return;
+        }
+
+        if (isOverviewVisible(messageApp) && slot) {
+            if (closeLink.parentElement !== slot) {
+                slot.appendChild(closeLink);
+            }
+            messageApp.classList.add(CLOSE_IN_OVERVIEW_CLASS);
+            return;
+        }
+
+        if (closeLink.parentElement !== closeWidget) {
+            closeWidget.appendChild(closeLink);
+        }
+        messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
+    };
+
+    /**
      * Mount drawer under the message toggle so absolute top matches other panels.
      *
      * @returns {boolean}
@@ -253,6 +316,8 @@ define([
             messageApp.style.maxHeight = maxHeight + 'px';
         }
 
+        syncCloseControl();
+
         if (isDrawerVisible()) {
             drawer.classList.add(READY_CLASS, READY_CLASS_ALT);
         }
@@ -307,6 +372,13 @@ define([
             messageApp.style.height = '';
             messageApp.style.minHeight = '';
             messageApp.style.maxHeight = '';
+            // Prefer overview slot again next open; restore link to closewidget now.
+            const closeWidget = messageApp.querySelector('.closewidget');
+            const closeLink = getCloseLink(messageApp);
+            if (closeWidget && closeLink && closeLink.parentElement !== closeWidget) {
+                closeWidget.appendChild(closeLink);
+            }
+            messageApp.classList.remove(CLOSE_IN_OVERVIEW_CLASS);
         }
 
         const toggle = getToggle();
@@ -404,6 +476,20 @@ define([
             attributeFilter: ['class'],
             attributeOldValue: true,
         });
+
+        const messageApp = drawer.querySelector(SELECTORS.messageApp);
+        if (messageApp) {
+            const headerObserver = new MutationObserver(() => {
+                syncCloseControl();
+            });
+            headerObserver.observe(messageApp, {
+                attributes: true,
+                attributeFilter: ['class'],
+                subtree: true,
+                attributeOldValue: true,
+            });
+            syncCloseControl();
+        }
 
         const backdropObserver = new MutationObserver(() => {
             if (isDrawerVisible()) {
