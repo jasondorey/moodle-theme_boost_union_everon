@@ -19,12 +19,12 @@
  *
  * Ported from theme_custom\course_focus (GPL).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon;
+namespace theme_boost_union_everon;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -116,7 +116,7 @@ class focus_mode {
      * @return bool
      */
     public static function should_offer(\moodle_page $page): bool {
-        if (!\theme_everon_focusmode_enabled()) {
+        if (!\theme_boost_union_everon_focusmode_enabled()) {
             return false;
         }
         return self::is_course_content_page($page);

@@ -37,7 +37,7 @@ define([
             panel.setAttribute('aria-hidden', 'true');
         }
         // Synchronous so a focus trap (accessibility panel) can release before the next menu focuses.
-        region.dispatchEvent(new CustomEvent('theme_everon:popoverregionclosed'));
+        region.dispatchEvent(new CustomEvent('theme_boost_union_everon:popoverregionclosed'));
     };
 
     const closeMessageDrawer = () => {

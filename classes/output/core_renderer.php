@@ -17,12 +17,12 @@
 /**
  * Everon core renderer — inject accessibility toolbar and Launch Pad into navbar utilities.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\output;
+namespace theme_boost_union_everon\output;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -42,12 +42,12 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function navbar_plugin_output() {
         $output = parent::navbar_plugin_output();
-        if (\theme_everon_accessibility_enabled()) {
-            $output .= $this->render_from_template('theme_everon/accessibility_popover', []);
+        if (\theme_boost_union_everon_accessibility_enabled()) {
+            $output .= $this->render_from_template('theme_boost_union_everon/accessibility_popover', []);
         }
-        $launchctx = \theme_everon_launchpad_template_context();
+        $launchctx = \theme_boost_union_everon_launchpad_template_context();
         if ($launchctx !== null) {
-            $output .= $this->render_from_template('theme_everon/launch_pad_popover', $launchctx);
+            $output .= $this->render_from_template('theme_boost_union_everon/launch_pad_popover', $launchctx);
         }
         return $output;
     }
@@ -59,11 +59,11 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function standard_head_html() {
         $output = '';
-        if (\theme_everon_accessibility_enabled()) {
-            $output .= \theme_everon_get_a11y_boot_html();
+        if (\theme_boost_union_everon_accessibility_enabled()) {
+            $output .= \theme_boost_union_everon_get_a11y_boot_html();
         }
-        if (\theme_everon_focusmode_enabled()) {
-            $output .= \theme_everon_get_focusmode_boot_html();
+        if (\theme_boost_union_everon_focusmode_enabled()) {
+            $output .= \theme_boost_union_everon_get_focusmode_boot_html();
         }
         $output .= parent::standard_head_html();
         return $output;
@@ -77,14 +77,14 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function full_header() {
         $header = parent::full_header();
-        if (!\theme_everon_mycourses_stats_should_offer($this->page)) {
+        if (!\theme_boost_union_everon_mycourses_stats_should_offer($this->page)) {
             return $header;
         }
-        $ctx = \theme_everon_mycourses_stats_template_context();
+        $ctx = \theme_boost_union_everon_mycourses_stats_template_context();
         if ($ctx === null) {
             return $header;
         }
-        return $header . $this->render_from_template('theme_everon/mycourses_stats', $ctx);
+        return $header . $this->render_from_template('theme_boost_union_everon/mycourses_stats', $ctx);
     }
 
     /**
@@ -99,10 +99,10 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
         // Enrich the usermenu node on any template context that carries it, and also
         // when core/user_menu or core/user_action_menu_items are rendered standalone.
         if (is_array($context) && isset($context['usermenu']) && is_array($context['usermenu'])) {
-            $context['usermenu'] = \theme_everon_usermenu_prepare_action_menu_context($context['usermenu']);
+            $context['usermenu'] = \theme_boost_union_everon_usermenu_prepare_action_menu_context($context['usermenu']);
         }
         if ($templatename === 'core/user_menu' || $templatename === 'core/user_action_menu_items') {
-            $context = \theme_everon_usermenu_prepare_action_menu_context($context);
+            $context = \theme_boost_union_everon_usermenu_prepare_action_menu_context($context);
         }
         return parent::render_from_template($templatename, $context);
     }

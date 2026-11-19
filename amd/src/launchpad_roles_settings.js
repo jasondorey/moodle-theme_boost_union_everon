@@ -8,7 +8,7 @@
 /**
  * Launch Pad admin settings — Add/Remove role packs; sync JSON map to hidden field.
  *
- * @module     theme_everon/launchpad_roles_settings
+ * @module     theme_boost_union_everon/launchpad_roles_settings
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

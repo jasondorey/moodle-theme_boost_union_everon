@@ -7,40 +7,40 @@
 /* -------------------------------------------------------------------------
  * Wider content shell (My Courses only; do not change global course max-width)
  * ------------------------------------------------------------------------- */
-body.page-mycourses.theme-everon-mycourses.limitedwidth #page.drawers .main-inner,
-body.page-mycourses.theme-everon-mycourses.limitedwidth .header-maxwidth,
-body.page-mycourses.theme-everon-mycourses.limitedwidth.uses-drawers .sticky-footer-content {
+body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth #page.drawers .main-inner,
+body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth .header-maxwidth,
+body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth.uses-drawers .sticky-footer-content {
     max-width: min(92rem, calc(100vw - 2.5rem));
 }
 
-body.page-mycourses.theme-everon-mycourses #page.drawers .main-inner {
+body.page-mycourses.theme-boost-union-everon-mycourses #page.drawers .main-inner {
     max-width: min(92rem, calc(100vw - 2.5rem));
 }
 
 /* -------------------------------------------------------------------------
  * Toolbar polish (core strings unchanged)
  * ------------------------------------------------------------------------- */
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] {
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] {
     gap: 0.5rem;
     margin-block: 1rem 1.25rem;
 }
 
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] .btn,
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] .form-control,
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"] {
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .btn,
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .form-control,
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"] {
     border-radius: 0.65rem;
 }
 
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"],
-body.theme-everon-mycourses .block-myoverview [data-region="filter"] .searchbar input {
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"],
+body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .searchbar input {
     min-width: min(22rem, 100%);
 }
 
 /* -------------------------------------------------------------------------
  * Card grid: CSS Grid 1 → 5 (neutralize Bootstrap row-cols)
  * ------------------------------------------------------------------------- */
-body.theme-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-body.theme-everon-mycourses .block-myoverview .card-grid {
+body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 1.1rem 1.15rem;
@@ -48,7 +48,7 @@ body.theme-everon-mycourses .block-myoverview .card-grid {
     align-items: start;
 }
 
-body.theme-everon-mycourses .block-myoverview .card-grid > .col {
+body.theme-boost-union-everon-mycourses .block-myoverview .card-grid > .col {
     flex: unset;
     width: auto;
     max-width: none;
@@ -58,29 +58,29 @@ body.theme-everon-mycourses .block-myoverview .card-grid > .col {
 }
 
 @media (min-width: 576px) {
-    body.theme-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-mycourses .block-myoverview .card-grid {
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    body.theme-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-mycourses .block-myoverview .card-grid {
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1200px) {
-    body.theme-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-mycourses .block-myoverview .card-grid {
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1400px) {
-    body.theme-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-mycourses .block-myoverview .card-grid {
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 }

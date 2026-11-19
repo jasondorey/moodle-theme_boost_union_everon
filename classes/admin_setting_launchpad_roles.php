@@ -17,7 +17,7 @@
 /**
  * Admin setting: Launch Pad role link packs (Site administrators + Add role).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Single JSON-map setting with dynamic role packs UI.
  */
-class theme_everon_admin_setting_launchpad_roles extends admin_setting {
+class theme_boost_union_everon_admin_setting_launchpad_roles extends admin_setting {
 
     /**
      * @param string $name
@@ -42,7 +42,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
      * @return string|null
      */
     public function get_setting() {
-        theme_everon_launchpad_migrate_mvp_if_needed();
+        theme_boost_union_everon_launchpad_migrate_mvp_if_needed();
         $value = $this->config_read($this->name);
         if ($value === null || $value === false || $value === '') {
             return '{}';
@@ -55,7 +55,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
      */
     public function get_defaultsetting() {
         $map = [
-            'siteadmin' => theme_everon_launchpad_default_siteadmin_links(),
+            'siteadmin' => theme_boost_union_everon_launchpad_default_siteadmin_links(),
         ];
         $encoded = json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         return $encoded === false ? '{"siteadmin":[]}' : $encoded;
@@ -73,10 +73,10 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
 
         $decoded = json_decode($data, true);
         if (!is_array($decoded)) {
-            return get_string('launchpadrolemapinvalid', 'theme_everon');
+            return get_string('launchpadrolemapinvalid', 'theme_boost_union_everon');
         }
 
-        $clean = theme_everon_launchpad_normalize_rolelinks_map($decoded);
+        $clean = theme_boost_union_everon_launchpad_normalize_rolelinks_map($decoded);
         if (is_string($clean)) {
             return $clean;
         }
@@ -96,10 +96,10 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
     public function output_html($data, $query = '') {
         global $PAGE, $OUTPUT;
 
-        theme_everon_launchpad_migrate_mvp_if_needed();
+        theme_boost_union_everon_launchpad_migrate_mvp_if_needed();
 
-        $map = theme_everon_launchpad_decode_rolelinks_map(is_string($data) ? $data : '');
-        $roles = theme_everon_launchpad_addable_roles();
+        $map = theme_boost_union_everon_launchpad_decode_rolelinks_map(is_string($data) ? $data : '');
+        $roles = theme_boost_union_everon_launchpad_addable_roles();
 
         $rolenamebyid = [];
         foreach ($roles as $role) {
@@ -110,7 +110,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
             if (preg_match('/^role:(\d+)$/', $key, $m)) {
                 $rid = (int) $m[1];
                 if (!isset($rolenamebyid[$rid])) {
-                    $rolenamebyid[$rid] = get_string('launchpadrolemissing', 'theme_everon', $rid);
+                    $rolenamebyid[$rid] = get_string('launchpadrolemissing', 'theme_boost_union_everon', $rid);
                 }
             }
         }
@@ -124,11 +124,11 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
         $id = $this->get_id();
         $rootid = $id . '_ui';
 
-        $jsonhelp = get_string('launchpadlinks_help', 'theme_everon');
-        $addlabel = get_string('launchpadaddrole', 'theme_everon');
-        $removelabel = get_string('launchpadremoverole', 'theme_everon');
-        $choose = get_string('launchpadchooserole', 'theme_everon');
-        $packsheading = get_string('launchpadconfiguredroles', 'theme_everon');
+        $jsonhelp = get_string('launchpadlinks_help', 'theme_boost_union_everon');
+        $addlabel = get_string('launchpadaddrole', 'theme_boost_union_everon');
+        $removelabel = get_string('launchpadremoverole', 'theme_boost_union_everon');
+        $choose = get_string('launchpadchooserole', 'theme_boost_union_everon');
+        $packsheading = get_string('launchpadconfiguredroles', 'theme_boost_union_everon');
 
         $roleoptions = '';
         foreach ($roles as $role) {
@@ -138,7 +138,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
             ]);
         }
 
-        $html = html_writer::start_div('theme-everon-launchpad-roles', [
+        $html = html_writer::start_div('theme-boost-union-everon-launchpad-roles', [
             'id' => $rootid,
             'data-region' => 'launchpad-roles',
         ]);
@@ -161,14 +161,14 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
         // Unified list: Site administrators (default, not removable) + added role packs.
         $html .= html_writer::tag('h4', $packsheading, ['class' => 'h5 mt-2']);
         $html .= html_writer::start_div('', ['data-region' => 'role-packs']);
-        $html .= $this->render_pack_block('siteadmin', get_string('launchpadlinks_siteadmin', 'theme_everon'),
+        $html .= $this->render_pack_block('siteadmin', get_string('launchpadlinks_siteadmin', 'theme_boost_union_everon'),
             $map['siteadmin'] ?? [], false);
         foreach ($map as $key => $links) {
             if (!preg_match('/^role:(\d+)$/', $key, $m)) {
                 continue;
             }
             $rid = (int) $m[1];
-            $label = get_string('launchpadlinks_role', 'theme_everon', $rolenamebyid[$rid] ?? $rid);
+            $label = get_string('launchpadlinks_role', 'theme_boost_union_everon', $rolenamebyid[$rid] ?? $rid);
             $html .= $this->render_pack_block($key, $label, is_array($links) ? $links : [], true, $rid);
         }
         $html .= html_writer::end_div();
@@ -199,18 +199,18 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
 
         // Template for new role packs (cloned by JS).
         $html .= html_writer::start_div('d-none', ['data-region' => 'pack-template']);
-        $html .= $this->render_pack_block('role:__ID__', get_string('launchpadlinks_role', 'theme_everon', '__NAME__'),
+        $html .= $this->render_pack_block('role:__ID__', get_string('launchpadlinks_role', 'theme_boost_union_everon', '__NAME__'),
             [], true, 0);
         $html .= html_writer::end_div();
 
         $html .= html_writer::end_div();
 
-        $PAGE->requires->js_call_amd('theme_everon/launchpad_roles_settings', 'init', [[
+        $PAGE->requires->js_call_amd('theme_boost_union_everon/launchpad_roles_settings', 'init', [[
             'rootId' => $rootid,
             'storeId' => $id,
             'strings' => [
                 'remove' => $removelabel,
-                'linksrole' => get_string('launchpadlinks_role', 'theme_everon', '{$a}'),
+                'linksrole' => get_string('launchpadlinks_role', 'theme_boost_union_everon', '{$a}'),
                 'choose' => $choose,
             ],
         ]]);
@@ -234,7 +234,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
             : (string) json_encode($links, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         $attrs = [
-            'class' => 'theme-everon-launchpad-pack border rounded p-3 mb-3',
+            'class' => 'theme-boost-union-everon-launchpad-pack border rounded p-3 mb-3',
             'data-region' => 'pack',
             'data-pack-key' => $key,
         ];
@@ -246,7 +246,7 @@ class theme_everon_admin_setting_launchpad_roles extends admin_setting {
         $out .= html_writer::start_div('d-flex justify-content-between align-items-center mb-2');
         $out .= html_writer::tag('strong', $title, ['data-region' => 'pack-title']);
         if ($removable) {
-            $out .= html_writer::tag('button', get_string('launchpadremoverole', 'theme_everon'), [
+            $out .= html_writer::tag('button', get_string('launchpadremoverole', 'theme_boost_union_everon'), [
                 'type' => 'button',
                 'class' => 'btn btn-sm btn-outline-danger',
                 'data-action' => 'remove-pack',

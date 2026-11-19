@@ -1,17 +1,17 @@
 /**
  * Restore Focus Mode before first paint (course content pages).
- * Loaded synchronously from theme_everon head — plain JS (no AMD).
+ * Loaded synchronously from theme_boost_union_everon head — plain JS (no AMD).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 (function(global) {
     'use strict';
 
-    var HTML_CLASS = 'theme-everon-focus-mode';
-    var STORAGE_PREFIX = 'theme_everon_focus_';
-    var STORAGE_ACTIVE = 'theme_everon_focus_active';
+    var HTML_CLASS = 'theme-boost-union-everon-focus-mode';
+    var STORAGE_PREFIX = 'theme_boost_union_everon_focus_';
+    var STORAGE_ACTIVE = 'theme_boost_union_everon_focus_active';
     var COURSE_VIEW_PATH = /\/course\/view\.php(\/|$)/;
     var COURSE_SECTION_PATH = /\/course\/section\.php(\/|$)/;
     var MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
@@ -71,7 +71,7 @@
         if (!body) {
             return 0;
         }
-        var fromData = parseInt(body.getAttribute('data-theme-everon-focus-id') || '0', 10);
+        var fromData = parseInt(body.getAttribute('data-theme-boost-union-everon-focus-id') || '0', 10);
         if (fromData > 1) {
             return fromData;
         }

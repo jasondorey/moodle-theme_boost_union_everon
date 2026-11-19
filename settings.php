@@ -17,7 +17,7 @@
 /**
  * Theme Everon - Settings file
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -39,7 +39,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
     // overview page if he opens this page.
     $mainsettingspageurl = new \core\url('/admin/settings.php', ['section' => 'themesettingeveron']);
     if ($ADMIN->fulltree && $PAGE->has_set_url() && $PAGE->url->compare($mainsettingspageurl)) {
-        redirect(new \core\url('/admin/settings.php', ['section' => 'theme_everon']));
+        redirect(new \core\url('/admin/settings.php', ['section' => 'theme_boost_union_everon']));
     }
 
     // Create empty settings page structure to make the site administration work on non-admin pages.
@@ -47,8 +47,8 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         // Create Everon settings page
         // (and allow users with the theme/boost_union:configure capability to access it).
         $tab = new admin_settingpage(
-            'theme_everon',
-            get_string('configtitle', 'theme_everon', null, true),
+            'theme_boost_union_everon',
+            get_string('configtitle', 'theme_boost_union_everon', null, true),
             'theme/boost_union:configure'
         );
         $ADMIN->add('theme_boost_union', $tab);
@@ -59,10 +59,10 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         // Require the necessary libraries.
         require_once($CFG->dirroot . '/theme/boost_union/lib.php');
         require_once($CFG->dirroot . '/theme/boost_union/locallib.php');
-        require_once($CFG->dirroot . '/theme/everon/lib.php');
-        require_once($CFG->dirroot . '/theme/everon/locallib.php');
-        require_once($CFG->dirroot . '/theme/everon/classes/admin_setting_launchpad_json.php');
-        require_once($CFG->dirroot . '/theme/everon/classes/admin_setting_launchpad_roles.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/lib.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/classes/admin_setting_launchpad_json.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/classes/admin_setting_launchpad_roles.php');
 
         // Prepare options array for select settings.
         // Due to MDL-58376, we will use binary select settings instead of checkbox settings throughout this theme.
@@ -73,37 +73,37 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         // Create Everon settings page with tabs and tertiary navigation
         // (and allow users with the theme/boost_union:configure capability to access it).
         $page = new admin_settingspage_tabs_with_tertiary(
-            'theme_everon',
-            get_string('configtitle', 'theme_everon', null, true),
+            'theme_boost_union_everon',
+            get_string('configtitle', 'theme_boost_union_everon', null, true),
             'theme/boost_union:configure'
         );
 
 
         // Create general settings tab.
         $tab = new admin_settingpage(
-            'theme_everon_general',
+            'theme_boost_union_everon_general',
             get_string('generalsettings', 'theme_boost', null, true)
         );
 
         // Create inheritance heading.
-        $name = 'theme_everon/inheritanceheading';
-        $title = get_string('inheritanceheading', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/inheritanceheading';
+        $title = get_string('inheritanceheading', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, null);
         $tab->add($setting);
 
         // Prepare inheritance options.
         $inheritanceoptions = [
                 THEME_EVERON_SETTING_INHERITANCE_INHERIT =>
-                        get_string('inheritanceinherit', 'theme_everon'),
+                        get_string('inheritanceinherit', 'theme_boost_union_everon'),
                 THEME_EVERON_SETTING_INHERITANCE_DUPLICATE =>
-                        get_string('inheritanceduplicate', 'theme_everon'),
+                        get_string('inheritanceduplicate', 'theme_boost_union_everon'),
         ];
 
         // Setting: Pre SCSS inheritance setting.
-        $name = 'theme_everon/prescssinheritance';
-        $title = get_string('prescssinheritancesetting', 'theme_everon', null, true);
-        $description = get_string('prescssinheritancesetting_desc', 'theme_everon', null, true) . '<br />' .
-                get_string('inheritanceoptionsexplanation', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/prescssinheritance';
+        $title = get_string('prescssinheritancesetting', 'theme_boost_union_everon', null, true);
+        $description = get_string('prescssinheritancesetting_desc', 'theme_boost_union_everon', null, true) . '<br />' .
+                get_string('inheritanceoptionsexplanation', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -115,10 +115,10 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $tab->add($setting);
 
         // Setting: Extra SCSS inheritance setting.
-        $name = 'theme_everon/extrascssinheritance';
-        $title = get_string('extrascssinheritancesetting', 'theme_everon', null, true);
-        $description = get_string('extrascssinheritancesetting_desc', 'theme_everon', null, true) . '<br />' .
-                get_string('inheritanceoptionsexplanation', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/extrascssinheritance';
+        $title = get_string('extrascssinheritancesetting', 'theme_boost_union_everon', null, true);
+        $description = get_string('extrascssinheritancesetting_desc', 'theme_boost_union_everon', null, true) . '<br />' .
+                get_string('inheritanceoptionsexplanation', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -139,19 +139,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // Accessibility toolbar (ported from theme_custom).
         $tab = new admin_settingpage(
-            'theme_everon_accessibility',
-            get_string('accessibilitytab', 'theme_everon', null, true)
+            'theme_boost_union_everon_accessibility',
+            get_string('accessibilitytab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/accessibilityheading';
-        $title = get_string('accessibilityheading', 'theme_everon', null, true);
-        $description = get_string('accessibilityheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/accessibilityheading';
+        $title = get_string('accessibilityheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('accessibilityheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enableaccessibilitytool';
-        $title = get_string('enableaccessibilitytool', 'theme_everon', null, true);
-        $description = get_string('enableaccessibilitytool_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enableaccessibilitytool';
+        $title = get_string('enableaccessibilitytool', 'theme_boost_union_everon', null, true);
+        $description = get_string('enableaccessibilitytool_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -166,19 +166,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // Launch Pad (role-aware navbar shortcuts).
         $tab = new admin_settingpage(
-            'theme_everon_launchpad',
-            get_string('launchpadtab', 'theme_everon', null, true)
+            'theme_boost_union_everon_launchpad',
+            get_string('launchpadtab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/launchpadheading';
-        $title = get_string('launchpadheading', 'theme_everon', null, true);
-        $description = get_string('launchpadheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/launchpadheading';
+        $title = get_string('launchpadheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('launchpadheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enablelaunchpad';
-        $title = get_string('enablelaunchpad', 'theme_everon', null, true);
-        $description = get_string('enablelaunchpad_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enablelaunchpad';
+        $title = get_string('enablelaunchpad', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablelaunchpad_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -189,10 +189,10 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        $name = 'theme_everon/launchpadrolelinks';
-        $title = get_string('launchpadrolelinks', 'theme_everon', null, true);
-        $description = get_string('launchpadrolelinks_desc', 'theme_everon', null, true);
-        $setting = new theme_everon_admin_setting_launchpad_roles($name, $title, $description);
+        $name = 'theme_boost_union_everon/launchpadrolelinks';
+        $title = get_string('launchpadrolelinks', 'theme_boost_union_everon', null, true);
+        $description = get_string('launchpadrolelinks_desc', 'theme_boost_union_everon', null, true);
+        $setting = new theme_boost_union_everon_admin_setting_launchpad_roles($name, $title, $description);
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
@@ -200,19 +200,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // Focus Mode (distraction-free course layout).
         $tab = new admin_settingpage(
-            'theme_everon_focusmode',
-            get_string('focusmodetab', 'theme_everon', null, true)
+            'theme_boost_union_everon_focusmode',
+            get_string('focusmodetab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/focusmodeheading';
-        $title = get_string('focusmodeheading', 'theme_everon', null, true);
-        $description = get_string('focusmodeheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/focusmodeheading';
+        $title = get_string('focusmodeheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('focusmodeheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enablefocusmode';
-        $title = get_string('enablefocusmode', 'theme_everon', null, true);
-        $description = get_string('enablefocusmode_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enablefocusmode';
+        $title = get_string('enablefocusmode', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablefocusmode_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -228,19 +228,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // User menu tiles (Launch Pad–style grid; same Boost destinations).
         $tab = new admin_settingpage(
-            'theme_everon_usermenu',
-            get_string('usermenutab', 'theme_everon', null, true)
+            'theme_boost_union_everon_usermenu',
+            get_string('usermenutab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/usermenuheading';
-        $title = get_string('usermenuheading', 'theme_everon', null, true);
-        $description = get_string('usermenuheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/usermenuheading';
+        $title = get_string('usermenuheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('usermenuheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enableusermenutiles';
-        $title = get_string('enableusermenutiles', 'theme_everon', null, true);
-        $description = get_string('enableusermenutiles_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enableusermenutiles';
+        $title = get_string('enableusermenutiles', 'theme_boost_union_everon', null, true);
+        $description = get_string('enableusermenutiles_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -255,19 +255,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // Compact navbar (global chrome; logo via Boost Union Look).
         $tab = new admin_settingpage(
-            'theme_everon_navbar',
-            get_string('navbartab', 'theme_everon', null, true)
+            'theme_boost_union_everon_navbar',
+            get_string('navbartab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/navbarheading';
-        $title = get_string('navbarheading', 'theme_everon', null, true);
-        $description = get_string('navbarheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/navbarheading';
+        $title = get_string('navbarheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('navbarheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enablecompactnavbar';
-        $title = get_string('enablecompactnavbar', 'theme_everon', null, true);
-        $description = get_string('enablecompactnavbar_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enablecompactnavbar';
+        $title = get_string('enablecompactnavbar', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablecompactnavbar_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -282,19 +282,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // My Courses layout (wider card grid skin for block_myoverview).
         $tab = new admin_settingpage(
-            'theme_everon_mycourses',
-            get_string('mycoursestab', 'theme_everon', null, true)
+            'theme_boost_union_everon_mycourses',
+            get_string('mycoursestab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/mycoursesheading';
-        $title = get_string('mycoursesheading', 'theme_everon', null, true);
-        $description = get_string('mycoursesheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesheading';
+        $title = get_string('mycoursesheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enablemycourseslayout';
-        $title = get_string('enablemycourseslayout', 'theme_everon', null, true);
-        $description = get_string('enablemycourseslayout_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enablemycourseslayout';
+        $title = get_string('enablemycourseslayout', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablemycourseslayout_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -306,15 +306,15 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $tab->add($setting);
 
         // My Courses stats strip.
-        $name = 'theme_everon/mycoursesstatsheading';
-        $title = get_string('mycoursesstatsheading', 'theme_everon', null, true);
-        $description = get_string('mycoursesstatsheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesstatsheading';
+        $title = get_string('mycoursesstatsheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesstatsheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enablemycoursesstats';
-        $title = get_string('enablemycoursesstats', 'theme_everon', null, true);
-        $description = get_string('enablemycoursesstats_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enablemycoursesstats';
+        $title = get_string('enablemycoursesstats', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablemycoursesstats_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -325,9 +325,9 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        $name = 'theme_everon/mycoursesstatsenrolments';
-        $title = get_string('mycoursesstatsenrolments', 'theme_everon', null, true);
-        $description = get_string('mycoursesstatsenrolments_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesstatsenrolments';
+        $title = get_string('mycoursesstatsenrolments', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesstatsenrolments_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -338,9 +338,9 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        $name = 'theme_everon/mycoursesstatscompletions';
-        $title = get_string('mycoursesstatscompletions', 'theme_everon', null, true);
-        $description = get_string('mycoursesstatscompletions_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesstatscompletions';
+        $title = get_string('mycoursesstatscompletions', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesstatscompletions_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -351,9 +351,9 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        $name = 'theme_everon/mycoursesstatsbadges';
-        $title = get_string('mycoursesstatsbadges', 'theme_everon', null, true);
-        $description = get_string('mycoursesstatsbadges_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesstatsbadges';
+        $title = get_string('mycoursesstatsbadges', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesstatsbadges_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -364,9 +364,9 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
 
-        $name = 'theme_everon/mycoursesstatscertificates';
-        $title = get_string('mycoursesstatscertificates', 'theme_everon', null, true);
-        $description = get_string('mycoursesstatscertificates_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/mycoursesstatscertificates';
+        $title = get_string('mycoursesstatscertificates', 'theme_boost_union_everon', null, true);
+        $description = get_string('mycoursesstatscertificates_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -381,19 +381,19 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         // Dashboard layout (wider shell + shared Course overview card chrome on /my/).
         $tab = new admin_settingpage(
-            'theme_everon_dashboard',
-            get_string('dashboardtab', 'theme_everon', null, true)
+            'theme_boost_union_everon_dashboard',
+            get_string('dashboardtab', 'theme_boost_union_everon', null, true)
         );
 
-        $name = 'theme_everon/dashboardheading';
-        $title = get_string('dashboardheading', 'theme_everon', null, true);
-        $description = get_string('dashboardheading_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/dashboardheading';
+        $title = get_string('dashboardheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('dashboardheading_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 
-        $name = 'theme_everon/enabledashboardlayout';
-        $title = get_string('enabledashboardlayout', 'theme_everon', null, true);
-        $description = get_string('enabledashboardlayout_desc', 'theme_everon', null, true);
+        $name = 'theme_boost_union_everon/enabledashboardlayout';
+        $title = get_string('enabledashboardlayout', 'theme_boost_union_everon', null, true);
+        $description = get_string('enabledashboardlayout_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -405,9 +405,9 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $tab->add($setting);
 
         // Block surface polish is included when Dashboard layout is Yes (no separate toggle).
-        $name = 'theme_everon/dashboardsurfacesnote';
+        $name = 'theme_boost_union_everon/dashboardsurfacesnote';
         $title = '';
-        $description = get_string('dashboardsurfacesnote', 'theme_everon', null, true);
+        $description = get_string('dashboardsurfacesnote', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
         $tab->add($setting);
 

@@ -20,7 +20,7 @@
  * Boost Union child theme for Project Theme (Jason Dorey).
  * Scaffolded from moodle-theme_boost_union_child.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,9 +28,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'theme_everon';
-$plugin->version = 2026102224;
-$plugin->release = 'v5.2-r38';
+$plugin->component = 'theme_boost_union_everon';
+$plugin->version = 2026102225;
+$plugin->release = 'v5.2-r39';
 $plugin->requires = 2026042000; // Moodle 5.2.
 $plugin->supported = [502, 502];
 $plugin->maturity = MATURITY_STABLE;

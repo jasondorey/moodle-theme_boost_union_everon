@@ -1,5 +1,5 @@
 {{!
-    @template theme_everon/mycourses_stats
+    @template theme_boost_union_everon/mycourses_stats
 
     Horizontal My Courses statistics strip (current user).
 
@@ -13,20 +13,20 @@
         * hasdivider - true when a vertical divider follows this panel
 }}
 {{#haspanels}}
-<section class="theme-everon-mycourses-stats" aria-label="{{arialabel}}">
-    <div class="theme-everon-mycourses-stats__row">
+<section class="theme-boost-union-everon-mycourses-stats" aria-label="{{arialabel}}">
+    <div class="theme-boost-union-everon-mycourses-stats__row">
         {{#panels}}
-        <div class="theme-everon-mycourses-stats__panel theme-everon-mycourses-stats__panel--{{id}}">
-            <span class="theme-everon-mycourses-stats__icon" aria-hidden="true">
+        <div class="theme-boost-union-everon-mycourses-stats__panel theme-boost-union-everon-mycourses-stats__panel--{{id}}">
+            <span class="theme-boost-union-everon-mycourses-stats__icon" aria-hidden="true">
                 <i class="icon {{iconclass}}"></i>
             </span>
-            <span class="theme-everon-mycourses-stats__body">
-                <span class="theme-everon-mycourses-stats__title">{{title}}</span>
-                <span class="theme-everon-mycourses-stats__subtext">{{subtext}}</span>
+            <span class="theme-boost-union-everon-mycourses-stats__body">
+                <span class="theme-boost-union-everon-mycourses-stats__title">{{title}}</span>
+                <span class="theme-boost-union-everon-mycourses-stats__subtext">{{subtext}}</span>
             </span>
         </div>
         {{#hasdivider}}
-        <span class="theme-everon-mycourses-stats__divider" aria-hidden="true"></span>
+        <span class="theme-boost-union-everon-mycourses-stats__divider" aria-hidden="true"></span>
         {{/hasdivider}}
         {{/panels}}
     </div>
