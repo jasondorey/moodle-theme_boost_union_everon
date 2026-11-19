@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - MuTMS Switch tenant navbar dialog: Everon panel chrome matching usermenu / a11y / Launch Pad / starred / notifications (radius, accent border/shadow, muted header, autocomplete list hover, dark tokens; `style/tenant_switch.css`; no mutenancy core edits) (v5.3-r32)
 * 2026-11-19 - Accessibility Colour Mode section (Dark / Light / System) drives Boost colour modes (`data-bs-theme` / `theme_boost_colourmode`); default System (`auto`); hide Boost colour-mode navbar menu; replace single Dark Mode tile (v5.3-r31)
 * 2026-11-19 - Navbar panels: resting open has no header-action focus/hover chrome (notifications checkmark, a11y/Launch Pad ×); park focus on dialog root + `:focus-visible` for keyboard; user menu unchanged (v5.3-r30)
 * 2026-11-19 - Accessibility / Launch Pad / user menu: notifications-style top-right × close (`i/window_close`, core `closebuttontitle`); shared header chrome in `popover_chrome.css` (v5.3-r29)
