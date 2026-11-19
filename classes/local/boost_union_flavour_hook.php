@@ -89,7 +89,8 @@ final class boost_union_flavour_hook {
      *
      * Safe to call repeatedly. No-op when already applied or Boost Union is absent.
      *
-     * @return string One of: already_applied, applied_patch, applied_surgical, missing_target, failed
+     * @return string One of: already_applied, applied_patch, applied_surgical, migrated_legacy,
+     *                 missing_target, failed
      */
     public static function ensure_applied(): string {
         if (!self::flavourslib_exists()) {
@@ -97,6 +98,12 @@ final class boost_union_flavour_hook {
         }
         if (self::is_applied()) {
             return 'already_applied';
+        }
+
+        // Pre-rename hook still present: marker matches but class is theme_everon.
+        // Patch/surgical both no-op in that state; rewrite class names in place.
+        if (self::try_migrate_legacy_classname()) {
+            return self::is_applied() ? 'migrated_legacy' : 'failed';
         }
 
         if (self::try_apply_patch_file()) {
@@ -108,6 +115,35 @@ final class boost_union_flavour_hook {
         }
 
         return 'failed';
+    }
+
+    /**
+     * Rewrite leftover theme_everon class references from a pre-rename local hook.
+     *
+     * @return bool True when at least one replacement was written
+     */
+    private static function try_migrate_legacy_classname(): bool {
+        $path = self::flavourslib_path();
+        if (!is_writable($path)) {
+            return false;
+        }
+        $contents = file_get_contents($path);
+        if ($contents === false) {
+            return false;
+        }
+        if (!str_contains($contents, self::MARKER) || !str_contains($contents, '\\theme_everon\\local\\flavours')) {
+            return false;
+        }
+        $updated = str_replace(
+            '\\theme_everon\\local\\flavours',
+            '\\theme_boost_union_everon\\local\\flavours',
+            $contents,
+            $count
+        );
+        if ($count < 1) {
+            return false;
+        }
+        return file_put_contents($path, $updated) !== false;
     }
 
     /**
