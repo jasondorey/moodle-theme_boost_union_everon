@@ -1,24 +1,24 @@
 /*
  * Everon My Courses statistics strip.
- * Compiled into theme Extra SCSS (themerev); scoped by body.theme-everon-mycourses-stats.
+ * Compiled into theme Extra SCSS (themerev); scoped by body.theme-boost-union-everon-mycourses-stats.
  * Keep separate from my_courses.css / course_cards.css.
  *
  * Light values stay as shipped. Dark mode remaps via Boost/Bootstrap
  * colour-mode tokens under [data-bs-theme="dark"] (retired a11y-dark-mode path).
  */
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats {
-    --theme-everon-stats-title: #1f2328;
-    --theme-everon-stats-sub: #6b7280;
-    --theme-everon-stats-icon: #4b5563;
-    --theme-everon-stats-divider: rgba(15, 23, 42, 0.12);
-    --theme-everon-stats-bg: #ffffff;
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats {
+    --theme-boost-union-everon-stats-title: #1f2328;
+    --theme-boost-union-everon-stats-sub: #6b7280;
+    --theme-boost-union-everon-stats-icon: #4b5563;
+    --theme-boost-union-everon-stats-divider: rgba(15, 23, 42, 0.12);
+    --theme-boost-union-everon-stats-bg: #ffffff;
     margin: 0.25rem 0 1.25rem;
     padding: 0.75rem 0.25rem 1rem;
-    background: var(--theme-everon-stats-bg);
+    background: var(--theme-boost-union-everon-stats-bg);
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__row {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__row {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
@@ -27,7 +27,7 @@ body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__row {
     width: 100%;
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__panel {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__panel {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -37,18 +37,18 @@ body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__panel {
     padding: 0.65rem 1.25rem;
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__icon {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     width: 2.25rem;
     height: 2.25rem;
-    color: var(--theme-everon-stats-icon);
+    color: var(--theme-boost-union-everon-stats-icon);
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__icon .icon,
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__icon i {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__icon .icon,
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__icon i {
     margin: 0 !important;
     font-size: 1.65rem !important;
     width: 1.65rem;
@@ -57,7 +57,7 @@ body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__icon i {
     color: inherit;
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__body {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -66,76 +66,76 @@ body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__body {
     min-width: 0;
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__title {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__title {
     font-family: inherit;
     font-size: 1.05rem;
     font-weight: 600;
     line-height: 1.25;
-    color: var(--theme-everon-stats-title);
+    color: var(--theme-boost-union-everon-stats-title);
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__subtext {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__subtext {
     font-family: inherit;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.3;
-    color: var(--theme-everon-stats-sub);
+    color: var(--theme-boost-union-everon-stats-sub);
 }
 
-body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__divider {
+body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__divider {
     display: block;
     align-self: stretch;
     width: 0;
     margin-block: 0.35rem;
-    border-inline-start: 1px solid var(--theme-everon-stats-divider);
+    border-inline-start: 1px solid var(--theme-boost-union-everon-stats-divider);
     flex: 0 0 auto;
 }
 
 @media (max-width: 991.98px) {
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__panel {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__panel {
         flex: 1 1 calc(50% - 1px);
         min-width: 9rem;
     }
 
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__divider {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__divider {
         display: none;
     }
 }
 
 @media (max-width: 575.98px) {
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats {
         padding: 0.5rem 0;
         margin-bottom: 1rem;
     }
 
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__row {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__row {
         flex-direction: column;
     }
 
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__panel {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__panel {
         flex: 1 1 auto;
         width: 100%;
         padding: 0.75rem 0.5rem;
-        border-block-end: 1px solid var(--theme-everon-stats-divider);
+        border-block-end: 1px solid var(--theme-boost-union-everon-stats-divider);
     }
 
-    body.theme-everon-mycourses-stats .theme-everon-mycourses-stats__panel:last-child {
+    body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats__panel:last-child {
         border-block-end: 0;
     }
 }
 
-:root[data-bs-theme="dark"] body.theme-everon-mycourses-stats .theme-everon-mycourses-stats {
-    --theme-everon-stats-title: var(--bs-body-color, #dee2e6);
-    --theme-everon-stats-sub: color-mix(
+:root[data-bs-theme="dark"] body.theme-boost-union-everon-mycourses-stats .theme-boost-union-everon-mycourses-stats {
+    --theme-boost-union-everon-stats-title: var(--bs-body-color, #dee2e6);
+    --theme-boost-union-everon-stats-sub: color-mix(
         in srgb,
         var(--bs-body-color, #dee2e6) 75%,
         var(--bs-body-bg, #212529)
     );
-    --theme-everon-stats-icon: color-mix(
+    --theme-boost-union-everon-stats-icon: color-mix(
         in srgb,
         var(--bs-body-color, #dee2e6) 85%,
         var(--bs-body-bg, #212529)
     );
-    --theme-everon-stats-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
-    --theme-everon-stats-bg: transparent;
+    --theme-boost-union-everon-stats-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --theme-boost-union-everon-stats-bg: transparent;
 }

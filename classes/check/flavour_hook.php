@@ -17,15 +17,15 @@
 /**
  * Status check: Boost Union flavourslib Everon tenant hook.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\check;
+namespace theme_boost_union_everon\check;
 
 use core\check\result;
-use theme_everon\local\boost_union_flavour_hook as flavour_hook_helper;
+use theme_boost_union_everon\local\boost_union_flavour_hook as flavour_hook_helper;
 
 /**
  * Reports whether the local Boost Union flavourslib hook is present.
@@ -40,10 +40,10 @@ class flavour_hook extends \core\check\check {
     public function get_action_link(): ?\action_link {
         return new \action_link(
             new \moodle_url('/admin/settings.php', [
-                'section' => 'theme_everon',
-                'activetab' => 'theme_everon_mutms',
+                'section' => 'theme_boost_union_everon',
+                'activetab' => 'theme_boost_union_everon_mutms',
             ]),
-            get_string('mutmstab', 'theme_everon')
+            get_string('mutmstab', 'theme_boost_union_everon')
         );
     }
 
@@ -56,8 +56,8 @@ class flavour_hook extends \core\check\check {
         if (!flavour_hook_helper::flavourslib_exists()) {
             return new result(
                 result::INFO,
-                get_string('checkflavourhookmissingbu', 'theme_everon'),
-                get_string('checkflavourhookmissingbu_details', 'theme_everon')
+                get_string('checkflavourhookmissingbu', 'theme_boost_union_everon'),
+                get_string('checkflavourhookmissingbu_details', 'theme_boost_union_everon')
             );
         }
 
@@ -68,21 +68,21 @@ class flavour_hook extends \core\check\check {
             if (flavour_hook_helper::is_applied()) {
                 return new result(
                     result::OK,
-                    get_string('checkflavourhookreapplied', 'theme_everon', $outcome),
-                    get_string('checkflavourhookok_details', 'theme_everon')
+                    get_string('checkflavourhookreapplied', 'theme_boost_union_everon', $outcome),
+                    get_string('checkflavourhookok_details', 'theme_boost_union_everon')
                 );
             }
             return new result(
                 result::WARNING,
-                get_string('checkflavourhookmissing', 'theme_everon'),
-                get_string('checkflavourhookmissing_details', 'theme_everon')
+                get_string('checkflavourhookmissing', 'theme_boost_union_everon'),
+                get_string('checkflavourhookmissing_details', 'theme_boost_union_everon')
             );
         }
 
         return new result(
             result::OK,
-            get_string('checkflavourhookok', 'theme_everon'),
-            get_string('checkflavourhookok_details', 'theme_everon')
+            get_string('checkflavourhookok', 'theme_boost_union_everon'),
+            get_string('checkflavourhookok_details', 'theme_boost_union_everon')
         );
     }
 }

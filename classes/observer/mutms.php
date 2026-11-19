@@ -17,12 +17,12 @@
 /**
  * Event observers for MuTMS compatibility.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\observer;
+namespace theme_boost_union_everon\observer;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -38,14 +38,14 @@ final class mutms {
      * @return void
      */
     public static function appearance_updated(\core\event\base $event): void {
-        if (!\theme_everon\local\mutms::is_enabled()) {
+        if (!\theme_boost_union_everon\local\mutms::is_enabled()) {
             return;
         }
         $tenantid = (int) $event->objectid;
         if ($tenantid <= 0) {
             return;
         }
-        \theme_everon\local\mutms::sync_tenant_sentinel($tenantid);
+        \theme_boost_union_everon\local\mutms::sync_tenant_sentinel($tenantid);
         // Theme caches are already reset by tool_mutenancy appearance save.
     }
 }

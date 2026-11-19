@@ -8,8 +8,8 @@
 -        $cachedflavour = $cache->get($pagecategoryid);
 +        // Everon MuTMS tenant flavours (local hook): include active tenant in the cache key.
 +        $everontenantkey = 0;
-+        if (class_exists('\theme_everon\local\flavours')) {
-+            $everontenantkey = \theme_everon\local\flavours::cache_tenant_key();
++        if (class_exists('\theme_boost_union_everon\local\flavours')) {
++            $everontenantkey = \theme_boost_union_everon\local\flavours::cache_tenant_key();
 +        }
 +        $flavourcachekey = $pagecategoryid . '_t' . $everontenantkey;
 +
@@ -51,8 +51,8 @@
              }
 +
 +            // Everon MuTMS tenant flavours (local hook): after categories and cohorts.
-+            if (class_exists('\theme_everon\local\flavours') &&
-+                    \theme_everon\local\flavours::applies_to_active_tenant($f)) {
++            if (class_exists('\theme_boost_union_everon\local\flavours') &&
++                    \theme_boost_union_everon\local\flavours::applies_to_active_tenant($f)) {
 +                $appliedflavour = $f;
 +                $cache->set($flavourcachekey, $f);
 +                $flavourchecked = true;

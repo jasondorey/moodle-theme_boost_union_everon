@@ -1,11 +1,12 @@
-moodle-theme_everon
-==============================
+moodle-theme_boost_union_everon
+===============================
 
 Changes
 -------
 
 ### Rolling release
 
+* 2026-11-19 - Rename component/folder from `theme_everon` / `everon` to `theme_boost_union_everon` / `boost_union_everon` (lang, AMD, Behat, DB, patches, CSS/JS prefixes); display name remains Everon; migrate legacy flavour-apply table + config on install/upgrade (v5.3-r24)
 * 2026-11-17 - Auto-repatch Boost Union `flavourslib.php` MuTMS tenant hook on Everon install/upgrade + status check (survives BU overwrites until upstream child-theme callbacks land) (v5.3-r23)
 * 2026-11-16 - Guest-safe login branding: when forcelogin would 303 flavour Look logos/favicons, fall back to MuTMS tenant_appearance; document MuTMS `theme_boost/loginbackgroundimage` bridge for per-tenant login backgrounds (not flavours) (v5.3-r22)
 * 2026-11-16 - MuTMS “Apply flavours to tenants”: Boost Union-style Possible setting overrides info alert (info + jalapeño → flavours overview) on the flavour→tenant mapping setting (v5.3-r21)
@@ -17,7 +18,7 @@ Changes
 * 2026-11-12 - User menu tiles panel: add "User menu" title above the tile grid to match Launch Pad / a11y section titles (v5.3-r15)
 * 2026-11-11 - Activity icon filters: Accessibility setting (default On) loads Safari purpose-colour SVG filters + dark-mode light monologo filters; branded/`aimassign` excluded (v5.3-r14)
 * 2026-11-11 - Behat dark-mode smoke: Dashboard, My courses, course page, and navbar popovers (usermenu / Launch Pad / a11y) under Boost `data-bs-theme=dark`; a11y Dark Mode tile bridge assertion (v5.3-r13)
-* 2026-11-11 - Finish Boost colour-mode cleanup: Focus Mode CSS via Extra SCSS (themerev); drop dead `theme-everon-a11y-dark-mode` focus-notice rule; remove `bg-white` from recently accessed course-card footer; keep light mode (v5.3-r12)
+* 2026-11-11 - Finish Boost colour-mode cleanup: Focus Mode CSS via Extra SCSS (themerev); drop dead `theme-boost-union-everon-a11y-dark-mode` focus-notice rule; remove `bg-white` from recently accessed course-card footer; keep light mode (v5.3-r12)
 * 2026-11-11 - Dark mode gaps: My Courses stats strip remaps under `:root[data-bs-theme="dark"]` and compiles via Extra SCSS; Focus FAB readable on dark; calendar cell borders use Everon dark token; keep light mode / navbar / dashboard surfaces (v5.3-r11)
 * 2026-11-11 - Dashboard dark surfaces: resolve raised paint via Moodle dark `--bs-white` / element `--bs-card-bg` (body cannot read `--bs-card-bg`); keep light mode unchanged (v5.3-r10)
 * 2026-11-11 - Dashboard Course overview / Timeline: compile surface + course-card CSS into theme Extra SCSS (themerev), direct dark `.block.card` / `.course-card` paints, cache-bust remaining style links; keep light mode and navbar popovers unchanged (v5.3-r9)
@@ -25,7 +26,7 @@ Changes
 * 2026-11-11 - Accessibility Content Adjustments panel: force dark tile/header/font-bar paints under Boost `data-bs-theme="dark"` (button UA overrides); keep light mode and usermenu/Launch Pad unchanged (v5.3-r7)
 * 2026-11-11 - Navbar popovers (user menu tiles, Launch Pad, accessibility panel) follow Boost `data-bs-theme="dark"` via shared popover chrome tokens (v5.3-r6)
 * 2026-11-11 - Navbar utility icons match Moodle 5.3 outline weight: starred courses `i/star` → `i/star-o` (`fa-regular fa-star`); a11y + Launch Pad keep universal-access / location-crosshairs metaphors as outline SVGs (FA Free has no regular glyphs) (v5.3-r5)
-* 2026-11-10 - Accessibility Dark Mode tile drives Boost colour modes (`data-bs-theme` / `theme_boost_colourmode`); retire Everon `theme-everon-a11y-dark-mode` CSS path; hide Boost colour-mode navbar menu (v5.3-r4)
+* 2026-11-10 - Accessibility Dark Mode tile drives Boost colour modes (`data-bs-theme` / `theme_boost_colourmode`); retire Everon `theme-boost-union-everon-a11y-dark-mode` CSS path; hide Boost colour-mode navbar menu (v5.3-r4)
 * 2026-11-10 - Accessibility navbar panel: move focus into the panel on open, matching notification FocusLock; return focus to the toggle on Escape only (v5.3-r3)
 * 2026-11-10 - Remove the forced Noto Sans default so Everon uses the parent theme font (v5.3-r2)
 * 2026-11-10 - Branch starts Moodle 5.3 support (v5.3-r1)

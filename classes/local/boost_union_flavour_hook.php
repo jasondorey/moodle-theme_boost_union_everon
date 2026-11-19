@@ -19,12 +19,12 @@
  *
  * Interim until upstream child-theme callbacks land in Boost Union.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\local;
+namespace theme_boost_union_everon\local;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -53,7 +53,7 @@ final class boost_union_flavour_hook {
      */
     public static function patch_path(): string {
         global $CFG;
-        return $CFG->dirroot . '/theme/everon/patches/boost_union-flavour-tenant-hook.patch';
+        return $CFG->dirroot . '/theme/boost_union_everon/patches/boost_union-flavour-tenant-hook.patch';
     }
 
     /**
@@ -79,7 +79,7 @@ final class boost_union_flavour_hook {
             return false;
         }
         return str_contains($contents, self::MARKER)
-            && str_contains($contents, '\\theme_everon\\local\\flavours')
+            && str_contains($contents, '\\theme_boost_union_everon\\local\\flavours')
             && str_contains($contents, 'applies_to_active_tenant')
             && str_contains($contents, 'cache_tenant_key');
     }
@@ -164,8 +164,8 @@ PHP;
         $cachenew = <<<'PHP'
         // Everon MuTMS tenant flavours (local hook): include active tenant in the cache key.
         $everontenantkey = 0;
-        if (class_exists('\theme_everon\local\flavours')) {
-            $everontenantkey = \theme_everon\local\flavours::cache_tenant_key();
+        if (class_exists('\theme_boost_union_everon\local\flavours')) {
+            $everontenantkey = \theme_boost_union_everon\local\flavours::cache_tenant_key();
         }
         $flavourcachekey = $pagecategoryid . '_t' . $everontenantkey;
 
@@ -211,8 +211,8 @@ PHP;
             }
 
             // Everon MuTMS tenant flavours (local hook): after categories and cohorts.
-            if (class_exists('\theme_everon\local\flavours') &&
-                    \theme_everon\local\flavours::applies_to_active_tenant($f)) {
+            if (class_exists('\theme_boost_union_everon\local\flavours') &&
+                    \theme_boost_union_everon\local\flavours::applies_to_active_tenant($f)) {
                 $appliedflavour = $f;
                 $cache->set($flavourcachekey, $f);
                 $flavourchecked = true;

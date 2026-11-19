@@ -1,15 +1,15 @@
 /**
  * Injected Focus Mode layout CSS (fallback when aggregated theme CSS is stale).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 (function(global) {
     'use strict';
 
-    var STYLE_ID = 'theme-everon-focus-live-css';
-    var HTML_CLASS = 'theme-everon-focus-mode';
+    var STYLE_ID = 'theme-boost-union-everon-focus-live-css';
+    var HTML_CLASS = 'theme-boost-union-everon-focus-mode';
 
     var CSS = [
         'html.' + HTML_CLASS + ' .secondary-navigation,',

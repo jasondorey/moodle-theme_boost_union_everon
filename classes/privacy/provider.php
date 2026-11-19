@@ -17,17 +17,17 @@
 /**
  * Theme Everon - Privacy provider
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\privacy;
+namespace theme_boost_union_everon\privacy;
 
 /**
  * Privacy Subsystem implementing null_provider.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

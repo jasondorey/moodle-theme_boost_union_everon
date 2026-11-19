@@ -17,7 +17,7 @@
 /**
  * Legacy URL: tenant flavour mapping now lives on the Everon MuTMS settings tab.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,6 +29,6 @@ $context = context_system::instance();
 require_capability('theme/boost_union:configure', $context);
 
 redirect(new \core\url('/admin/settings.php', [
-    'section' => 'theme_everon',
-    'activetab' => 'theme_everon_mutms',
+    'section' => 'theme_boost_union_everon',
+    'activetab' => 'theme_boost_union_everon_mutms',
 ]));

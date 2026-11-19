@@ -16,12 +16,12 @@
 /**
  * Launch Pad navbar popover — presentational open/close only.
  *
- * @module     theme_everon/launch_pad
+ * @module     theme_boost_union_everon/launch_pad
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define([
-    'theme_everon/navbar_a11y_popovers',
+    'theme_boost_union_everon/navbar_a11y_popovers',
 ], function(ClusterPopovers) {
 
     const CONTAINER_ID = 'nav-launchpad-popover-container';

@@ -17,7 +17,7 @@
  * Focus Mode — wide layout with course navigation hidden.
  * FAB injected into Boost footer floats (no Mustache fork).
  *
- * @module     theme_everon/course_focus
+ * @module     theme_boost_union_everon/course_focus
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,19 +27,19 @@ define(['core/str'], function(Str) {
         button: '[data-action="everon-focus-toggle"]',
         page: '#page',
         pageContent: '#page-content',
-        notice: '.theme-everon-focus-notice',
+        notice: '.theme-boost-union-everon-focus-notice',
         floats: '[data-region="footer-container-popover"]',
         help: '.btn-footer-popover[data-action="footer-popover"]',
         unionButtons: '#boost-union-footer-buttons',
     };
 
-    const UNION_VISIBLE_CLASS = 'theme-everon-union-footer-buttons--visible';
+    const UNION_VISIBLE_CLASS = 'theme-boost-union-everon-union-footer-buttons--visible';
 
-    const HTML_CLASS = 'theme-everon-focus-mode';
-    const STORAGE_PREFIX = 'theme_everon_focus_';
-    const STORAGE_ACTIVE = 'theme_everon_focus_active';
+    const HTML_CLASS = 'theme-boost-union-everon-focus-mode';
+    const STORAGE_PREFIX = 'theme_boost_union_everon_focus_';
+    const STORAGE_ACTIVE = 'theme_boost_union_everon_focus_active';
     const ACTIVE_CLASS = 'is-active';
-    const BODY_AVAILABLE_CLASS = 'theme-everon-focus-available';
+    const BODY_AVAILABLE_CLASS = 'theme-boost-union-everon-focus-available';
     const COURSE_VIEW_PATH = /\/course\/view\.php(\/|$)/;
     const COURSE_SECTION_PATH = /\/course\/section\.php(\/|$)/;
     const MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
@@ -223,8 +223,8 @@ define(['core/str'], function(Str) {
         button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
         button.setAttribute('aria-label', enabled ? disableLabel : enableLabel);
         button.setAttribute('title', enabled ? disableLabel : enableLabel);
-        button.querySelector('.theme-everon-focus-btn__icon--off')?.toggleAttribute('hidden', enabled);
-        button.querySelector('.theme-everon-focus-btn__icon--on')?.toggleAttribute('hidden', !enabled);
+        button.querySelector('.theme-boost-union-everon-focus-btn__icon--off')?.toggleAttribute('hidden', enabled);
+        button.querySelector('.theme-boost-union-everon-focus-btn__icon--on')?.toggleAttribute('hidden', !enabled);
     };
 
     const updateNotice = (enabled, noticeText) => {
@@ -239,7 +239,7 @@ define(['core/str'], function(Str) {
         }
         if (!notice) {
             notice = document.createElement('div');
-            notice.className = 'theme-everon-focus-notice';
+            notice.className = 'theme-boost-union-everon-focus-notice';
             notice.setAttribute('role', 'status');
             host.prepend(notice);
         }
@@ -255,16 +255,16 @@ define(['core/str'], function(Str) {
             'rounded-circle',
             'bg-secondary',
             'btn-footer-everon-focus',
-            'theme-everon-focus-btn',
+            'theme-boost-union-everon-focus-btn',
         ].join(' ');
         button.dataset.action = 'everon-focus-toggle';
         button.dataset.courseid = String(courseId);
         button.setAttribute('aria-pressed', 'false');
         button.innerHTML = [
-            '<span class="theme-everon-focus-btn__icon theme-everon-focus-btn__icon--off" aria-hidden="true">',
+            '<span class="theme-boost-union-everon-focus-btn__icon theme-boost-union-everon-focus-btn__icon--off" aria-hidden="true">',
             '<i class="fa fa-up-right-and-down-left-from-center" aria-hidden="true"></i>',
             '</span>',
-            '<span class="theme-everon-focus-btn__icon theme-everon-focus-btn__icon--on" aria-hidden="true" hidden>',
+            '<span class="theme-boost-union-everon-focus-btn__icon theme-boost-union-everon-focus-btn__icon--on" aria-hidden="true" hidden>',
             '<i class="fa fa-xmark" aria-hidden="true"></i>',
             '</span>',
         ].join('');
@@ -342,7 +342,7 @@ define(['core/str'], function(Str) {
                 floats.appendChild(button);
             }
         }
-        floats.classList.add('theme-everon-footer-floats');
+        floats.classList.add('theme-boost-union-everon-footer-floats');
         syncUnionFooterButtons(floats);
         button.classList.add('bg-secondary');
         button.dataset.courseid = String(courseId);
@@ -358,9 +358,9 @@ define(['core/str'], function(Str) {
         button.dataset.everonFocusBound = '1';
 
         Promise.all([
-            Str.get_string('focusmodeenable', 'theme_everon'),
-            Str.get_string('focusmodedisable', 'theme_everon'),
-            Str.get_string('focusmodenotice', 'theme_everon'),
+            Str.get_string('focusmodeenable', 'theme_boost_union_everon'),
+            Str.get_string('focusmodedisable', 'theme_boost_union_everon'),
+            Str.get_string('focusmodenotice', 'theme_boost_union_everon'),
         ]).then(([enableLabel, disableLabel, noticeText]) => {
             const applyState = (enabled) => {
                 applyFocusMode(enabled);

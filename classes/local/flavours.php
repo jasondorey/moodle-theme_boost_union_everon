@@ -17,12 +17,12 @@
 /**
  * Everon helpers for applying Boost Union flavours to MuTMS tenants.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\local;
+namespace theme_boost_union_everon\local;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -124,7 +124,7 @@ final class flavours {
         if ($flavourid <= 0 || !self::table_exists()) {
             return null;
         }
-        $record = $DB->get_record('theme_everon_flavour_apply', ['flavourid' => $flavourid]);
+        $record = $DB->get_record('theme_boost_union_everon_flavour_apply', ['flavourid' => $flavourid]);
         return $record ?: null;
     }
 
@@ -139,7 +139,7 @@ final class flavours {
         if (!self::table_exists()) {
             return [];
         }
-        $records = $DB->get_records('theme_everon_flavour_apply', null, 'flavourid ASC');
+        $records = $DB->get_records('theme_boost_union_everon_flavour_apply', null, 'flavourid ASC');
         $byid = [];
         foreach ($records as $record) {
             $byid[(int) $record->flavourid] = $record;
@@ -165,10 +165,10 @@ final class flavours {
         $tenantids = array_values(array_unique(array_map('intval', $tenantids)));
         $tenantids = array_filter($tenantids, static fn(int $id): bool => $id > 0);
 
-        $existing = $DB->get_record('theme_everon_flavour_apply', ['flavourid' => $flavourid]);
+        $existing = $DB->get_record('theme_boost_union_everon_flavour_apply', ['flavourid' => $flavourid]);
         if (!$apply || empty($tenantids)) {
             if ($existing) {
-                $DB->delete_records('theme_everon_flavour_apply', ['id' => $existing->id]);
+                $DB->delete_records('theme_boost_union_everon_flavour_apply', ['id' => $existing->id]);
             }
             return;
         }
@@ -180,9 +180,9 @@ final class flavours {
         ];
         if ($existing) {
             $record->id = $existing->id;
-            $DB->update_record('theme_everon_flavour_apply', $record);
+            $DB->update_record('theme_boost_union_everon_flavour_apply', $record);
         } else {
-            $DB->insert_record('theme_everon_flavour_apply', $record);
+            $DB->insert_record('theme_boost_union_everon_flavour_apply', $record);
         }
     }
 
@@ -198,16 +198,16 @@ final class flavours {
             return;
         }
         if (!$DB->get_manager()->table_exists('theme_boost_union_flavours')) {
-            $DB->delete_records('theme_everon_flavour_apply');
+            $DB->delete_records('theme_boost_union_everon_flavour_apply');
             return;
         }
         $sql = "SELECT ea.id
-                  FROM {theme_everon_flavour_apply} ea
+                  FROM {theme_boost_union_everon_flavour_apply} ea
              LEFT JOIN {theme_boost_union_flavours} f ON f.id = ea.flavourid
                  WHERE f.id IS NULL";
         $orphans = $DB->get_records_sql($sql);
         foreach ($orphans as $orphan) {
-            $DB->delete_records('theme_everon_flavour_apply', ['id' => $orphan->id]);
+            $DB->delete_records('theme_boost_union_everon_flavour_apply', ['id' => $orphan->id]);
         }
     }
 
@@ -250,6 +250,6 @@ final class flavours {
      */
     public static function table_exists(): bool {
         global $DB;
-        return $DB->get_manager()->table_exists('theme_everon_flavour_apply');
+        return $DB->get_manager()->table_exists('theme_boost_union_everon_flavour_apply');
     }
 }

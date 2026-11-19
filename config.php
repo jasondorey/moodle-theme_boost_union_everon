@@ -17,7 +17,7 @@
 /**
  * Theme Everon - Theme config
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2024 Alexander Bias <bias@alexanderbias.de>
  *             based on code by Lars Bonczek
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -35,16 +35,16 @@ defined('MOODLE_INTERNAL') || die();
 require($CFG->dirroot . '/theme/boost_union/config.php');
 
 // Then, we require Everon's locallib.php to make sure that it's always loaded.
-require_once($CFG->dirroot . '/theme/everon/locallib.php');
+require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
 
 // Next, we overwrite only the settings which differ between Boost Union and Everon.
-$THEME->name = 'everon';
+$THEME->name = 'boost_union_everon';
 $THEME->scss = function ($theme) {
-    return theme_everon_get_main_scss_content($theme);
+    return theme_boost_union_everon_get_main_scss_content($theme);
 };
 $THEME->parents = ['boost_union', 'boost'];
-$THEME->extrascsscallback = 'theme_everon_get_extra_scss';
-$THEME->prescsscallback = 'theme_everon_get_pre_scss';
+$THEME->extrascsscallback = 'theme_boost_union_everon_get_extra_scss';
+$THEME->prescsscallback = 'theme_boost_union_everon_get_pre_scss';
 
 // We need to duplicate the rendererfactory even if it is set to the same value as in Boost Union.
 // The theme_config::get_renderer() method needs it to be directly in the theme_config object.
@@ -77,6 +77,6 @@ unset($scsspre);
 
 // MuTMS: mirror tenant-aware theme_boost brandcolour / SCSS onto Everon settings so
 // parent SCSS callbacks (which receive the child theme_config) see the right values.
-if (theme_everon_mutms_compatibility_enabled()) {
-    \theme_everon\local\mutms::mirror_boost_settings($THEME);
+if (theme_boost_union_everon_mutms_compatibility_enabled()) {
+    \theme_boost_union_everon\local\mutms::mirror_boost_settings($THEME);
 }

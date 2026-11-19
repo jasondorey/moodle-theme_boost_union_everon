@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Behat blocks-related step definition overrides for the Everon theme.
+ * Behat upload repository-related step definition overrides for the Everon theme.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2022 Luca Bösch, BFH Bern University of Applied Sciences luca.boesch@bfh.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,17 +26,19 @@
 // NOTE: no MOODLE_INTERNAL test here, this file may be required by behat before including /config.php.
 // For that reason, we can't even rely on $CFG->admin being available here.
 
-require_once(__DIR__ . '/../../../boost_union/tests/behat/behat_theme_boost_union_behat_blocks.php');
+require_once(__DIR__ . '/../../../boost_union/tests/behat/behat_theme_boost_union_behat_repository_upload.php');
 
-use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Exception\DriverException,
+    Behat\Mink\Exception\ExpectationException,
+    Behat\Gherkin\Node\TableNode;
 
 /**
- * Blocks-related step definition overrides for the Everon theme.
+ * Repository upload-related step definition overrides for the Everon theme.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2022 Luca Bösch, BFH Bern University of Applied Sciences luca.boesch@bfh.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_theme_everon_behat_blocks extends behat_theme_boost_union_behat_blocks {
+class behat_theme_boost_union_everon_behat_repository_upload extends behat_theme_boost_union_behat_repository_upload {
 }

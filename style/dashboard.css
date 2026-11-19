@@ -11,26 +11,26 @@
  * main + outside in .main-inner-wrapper — center THAT wrapper (not only
  * .main-inner), or the shell sticks left after widen.
  * ------------------------------------------------------------------------- */
-body.path-my-index.theme-everon-dashboard.limitedwidth #page.drawers .main-inner,
-body.path-my-index.theme-everon-dashboard.limitedwidth .header-maxwidth,
-body.path-my-index.theme-everon-dashboard.limitedwidth.uses-drawers .sticky-footer-content,
-body.pagelayout-mydashboard.theme-everon-dashboard.limitedwidth #page.drawers .main-inner,
-body.pagelayout-mydashboard.theme-everon-dashboard.limitedwidth .header-maxwidth,
-body.pagelayout-mydashboard.theme-everon-dashboard.limitedwidth.uses-drawers .sticky-footer-content {
+body.path-my-index.theme-boost-union-everon-dashboard.limitedwidth #page.drawers .main-inner,
+body.path-my-index.theme-boost-union-everon-dashboard.limitedwidth .header-maxwidth,
+body.path-my-index.theme-boost-union-everon-dashboard.limitedwidth.uses-drawers .sticky-footer-content,
+body.pagelayout-mydashboard.theme-boost-union-everon-dashboard.limitedwidth #page.drawers .main-inner,
+body.pagelayout-mydashboard.theme-boost-union-everon-dashboard.limitedwidth .header-maxwidth,
+body.pagelayout-mydashboard.theme-boost-union-everon-dashboard.limitedwidth.uses-drawers .sticky-footer-content {
     max-width: min(92rem, calc(100vw - 2.5rem));
     margin-inline: auto;
 }
 
-body.path-my-index.theme-everon-dashboard #page.drawers .main-inner,
-body.pagelayout-mydashboard.theme-everon-dashboard #page.drawers .main-inner {
+body.path-my-index.theme-boost-union-everon-dashboard #page.drawers .main-inner,
+body.pagelayout-mydashboard.theme-boost-union-everon-dashboard #page.drawers .main-inner {
     max-width: min(92rem, calc(100vw - 2.5rem));
     margin-inline: auto;
 }
 
 /* Combined main + Outside (right|left) row: widen and center like My Courses. */
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right,
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left,
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right {
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right,
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left,
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right {
     max-width: min(92rem, calc(100vw - 2.5rem));
     width: 100%;
     margin-inline: auto;
@@ -38,9 +38,9 @@ body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside
 
 /* Inside the centered outside-right row, keep Union's side-by-side: no auto
  * margins on .main-inner (would break the flex pair with Outside right). */
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > .main-inner,
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left > .main-inner,
-body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right > .main-inner {
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > .main-inner,
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left > .main-inner,
+body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right > .main-inner {
     margin-inline: 0;
     max-width: none;
 }
@@ -53,21 +53,21 @@ body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside
  * top matches #region-main / first content block (+ Add a block).
  * Only when side-by-side (lg+); stacked breakpoints keep Union defaults.
  * ------------------------------------------------------------------------- */
-body.theme-everon-dashboard {
+body.theme-boost-union-everon-dashboard {
     /* .main-inner padding-top (1.5rem) + #page-header (view: title only ~54px). */
-    --theme-everon-dashboard-outside-offset: calc(1.5rem + 3.375rem);
+    --theme-boost-union-everon-dashboard-outside-offset: calc(1.5rem + 3.375rem);
 }
 
-body.theme-everon-dashboard.editing {
+body.theme-boost-union-everon-dashboard.editing {
     /* Edit mode: taller #page-header (title + Reset page to default ~92px). */
-    --theme-everon-dashboard-outside-offset: calc(1.5rem + 5.75rem);
+    --theme-boost-union-everon-dashboard-outside-offset: calc(1.5rem + 5.75rem);
 }
 
 @media (min-width: 992px) {
-    body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > #theme-block-region-outside-right,
-    body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right > #theme-block-region-outside-right {
+    body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > #theme-block-region-outside-right,
+    body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-left-right > #theme-block-region-outside-right {
         /* Union base 1.5rem + offset past page-header stack. */
-        margin-top: calc(1.5rem + var(--theme-everon-dashboard-outside-offset));
+        margin-top: calc(1.5rem + var(--theme-boost-union-everon-dashboard-outside-offset));
     }
 }
 
@@ -78,13 +78,13 @@ body.theme-everon-dashboard.editing {
  * flex layout lets .main-inner shrink the outside column; lock basis here.
  * ------------------------------------------------------------------------- */
 @media (min-width: 992px) {
-    body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > #theme-block-region-outside-right {
+    body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > #theme-block-region-outside-right {
         width: 28%;
         flex: 0 0 28%;
         max-width: 28%;
     }
 
-    body.theme-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > .main-inner {
+    body.theme-boost-union-everon-dashboard #page.drawers .main-inner-wrapper.main-inner-outside-right > .main-inner {
         flex: 1 1 auto;
         min-width: 0;
     }
@@ -93,27 +93,27 @@ body.theme-everon-dashboard.editing {
 /* -------------------------------------------------------------------------
  * Toolbar polish on Course overview (core strings unchanged)
  * ------------------------------------------------------------------------- */
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] {
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] {
     gap: 0.5rem;
     margin-block: 1rem 1.25rem;
 }
 
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] .btn,
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] .form-control,
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] input[type="search"] {
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] .btn,
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] .form-control,
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] input[type="search"] {
     border-radius: 0.65rem;
 }
 
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] input[type="search"],
-body.theme-everon-dashboard .block-myoverview [data-region="filter"] .searchbar input {
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] input[type="search"],
+body.theme-boost-union-everon-dashboard .block-myoverview [data-region="filter"] .searchbar input {
     min-width: min(18rem, 100%);
 }
 
 /* -------------------------------------------------------------------------
  * Card grid: CSS Grid 1 → 4 (beside Outside right)
  * ------------------------------------------------------------------------- */
-body.theme-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
-body.theme-everon-dashboard .block-myoverview .card-grid {
+body.theme-boost-union-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
+body.theme-boost-union-everon-dashboard .block-myoverview .card-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 1.1rem 1.15rem;
@@ -121,7 +121,7 @@ body.theme-everon-dashboard .block-myoverview .card-grid {
     align-items: start;
 }
 
-body.theme-everon-dashboard .block-myoverview .card-grid > .col {
+body.theme-boost-union-everon-dashboard .block-myoverview .card-grid > .col {
     flex: unset;
     width: auto;
     max-width: none;
@@ -131,22 +131,22 @@ body.theme-everon-dashboard .block-myoverview .card-grid > .col {
 }
 
 @media (min-width: 576px) {
-    body.theme-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-dashboard .block-myoverview .card-grid {
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    body.theme-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-dashboard .block-myoverview .card-grid {
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1400px) {
-    body.theme-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-everon-dashboard .block-myoverview .card-grid {
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-dashboard .block-myoverview .card-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }

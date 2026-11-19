@@ -17,7 +17,7 @@
 /**
  * Admin setting: JSON array of Launch Pad links (legacy helper / shared validate).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Validates and normalises Launch Pad link JSON on save.
  */
-class theme_everon_admin_setting_launchpad_json extends admin_setting_configtextarea {
+class theme_boost_union_everon_admin_setting_launchpad_json extends admin_setting_configtextarea {
 
     /**
      * Validate and store the setting.
@@ -37,7 +37,7 @@ class theme_everon_admin_setting_launchpad_json extends admin_setting_configtext
      */
     public function write_setting($data) {
         global $CFG;
-        require_once($CFG->dirroot . '/theme/everon/locallib.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
 
         $data = trim((string) $data);
         if ($data === '') {
@@ -45,7 +45,7 @@ class theme_everon_admin_setting_launchpad_json extends admin_setting_configtext
         }
 
         $decoded = json_decode($data, true);
-        $clean = theme_everon_launchpad_normalize_links_list($decoded);
+        $clean = theme_boost_union_everon_launchpad_normalize_links_list($decoded);
         if (is_string($clean)) {
             return $clean;
         }

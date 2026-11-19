@@ -17,7 +17,7 @@
 /**
  * Theme Everon - Language pack
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -211,7 +211,7 @@ $string['checkflavourhookok'] = 'Boost Union flavourslib includes the Everon MuT
 $string['checkflavourhookok_details'] = 'Tenant-mapped flavours can apply (navbar colour, Look assets). Upstream child-theme callbacks will replace this local hook when available.';
 $string['checkflavourhookreapplied'] = 'Boost Union flavourslib was missing the Everon MuTMS tenant hook; it was re-applied ({$a}).';
 $string['checkflavourhookmissing'] = 'Boost Union flavourslib is missing the Everon MuTMS tenant hook.';
-$string['checkflavourhookmissing_details'] = 'A Boost Union upgrade likely overwrote flavourslib.php. Re-run Everon upgrade, open this status check again as a user that can write the file, or apply theme/everon/patches/boost_union-flavour-tenant-hook.patch from the Moodle public root, then purge caches.';
+$string['checkflavourhookmissing_details'] = 'A Boost Union upgrade likely overwrote flavourslib.php. Re-run Everon upgrade, open this status check again as a user that can write the file, or apply theme/boost_union_everon/patches/boost_union-flavour-tenant-hook.patch from the Moodle public root, then purge caches.';
 $string['checkflavourhookmissingbu'] = 'Boost Union flavourslib.php was not found.';
 $string['checkflavourhookmissingbu_details'] = 'Install theme_boost_union before Everon MuTMS tenant flavours can apply.';
 

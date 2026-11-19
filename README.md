@@ -1,5 +1,5 @@
-moodle-theme_everon
-===================
+moodle-theme_boost_union_everon
+===============================
 
 **Everon** is a Boost Union child theme for Project Theme (Jason Dorey).
 
@@ -15,11 +15,11 @@ It is scaffolded from [moodle-theme_boost_union_child](https://github.com/moodle
 Install to folder:
 
 ```text
-/theme/everon
+/theme/boost_union_everon
 ```
 
 1. Install / upgrade **Boost Union** for Moodle 5.3 first.
-2. Copy this plugin to `/theme/everon` (or install `theme_everon.zip` via Site administration → Plugins → Install plugins).
+2. Copy this plugin to `/theme/boost_union_everon` (or install `theme_boost_union_everon.zip` via Site administration → Plugins → Install plugins).
 3. Visit Site administration → Notifications to install.
 4. Site administration → Appearance → Theme selector → enable **Everon**.
 
@@ -35,7 +35,7 @@ Search the codebase for `EXTENSION POINT` to find where to add SCSS, settings, l
 
 ## Included languages
 
-Custom `theme_everon` strings ship under `lang/` for:
+Custom `theme_boost_union_everon` strings ship under `lang/` for:
 
 - `en` — English
 - `es` — Spanish

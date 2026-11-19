@@ -17,7 +17,7 @@
 /**
  * Admin setting: map Boost Union flavours to MuTMS tenants (inline on MuTMS tab).
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Flavour → MuTMS tenant applicability UI saved into theme_everon_flavour_apply.
+ * Flavour → MuTMS tenant applicability UI saved into theme_boost_union_everon_flavour_apply.
  */
-class theme_everon_admin_setting_flavour_tenants extends admin_setting {
+class theme_boost_union_everon_admin_setting_flavour_tenants extends admin_setting {
 
     /**
      * @param string $name
@@ -63,7 +63,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
     public function write_setting($data) {
         $maps = $this->normalize_posted_maps($data);
         if ($maps === null) {
-            return get_string('flavourtenantsmapinvalid', 'theme_everon');
+            return get_string('flavourtenantsmapinvalid', 'theme_boost_union_everon');
         }
 
         $flavours = $this->load_flavours();
@@ -74,11 +74,11 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
             if (!empty($maps[$fid]['tenants']) && is_array($maps[$fid]['tenants'])) {
                 $tenantids = $maps[$fid]['tenants'];
             }
-            \theme_everon\local\flavours::save_apply($fid, $apply, $tenantids);
+            \theme_boost_union_everon\local\flavours::save_apply($fid, $apply, $tenantids);
         }
 
-        \theme_everon\local\flavours::cleanup_orphans();
-        \theme_everon\local\flavours::purge_flavour_caches();
+        \theme_boost_union_everon\local\flavours::cleanup_orphans();
+        \theme_boost_union_everon\local\flavours::purge_flavour_caches();
 
         // Keep a mirror in plugin config so admin change detection stays stable.
         $encoded = $this->encode_current_maps();
@@ -94,10 +94,10 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
         global $OUTPUT;
 
         $flavours = $this->load_flavours();
-        $tenantoptions = \theme_everon\local\flavours::tenant_options();
+        $tenantoptions = \theme_boost_union_everon\local\flavours::tenant_options();
         $maps = $this->normalize_posted_maps($data);
         if ($maps === null) {
-            $maps = $this->maps_from_records(\theme_everon\local\flavours::get_all_apply_records());
+            $maps = $this->maps_from_records(\theme_boost_union_everon\local\flavours::get_all_apply_records());
         }
 
         $fullname = $this->get_full_name();
@@ -107,19 +107,19 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
             1 => get_string('yes'),
         ];
 
-        $html = html_writer::start_div('theme-everon-flavour-tenants', [
+        $html = html_writer::start_div('theme-boost-union-everon-flavour-tenants', [
             'id' => $id . '_ui',
             'data-region' => 'flavour-tenants',
         ]);
 
-        if (!\theme_everon\local\mutms::is_enabled()) {
-            $html .= $OUTPUT->notification(get_string('flavourtenantsneedcompat', 'theme_everon'), 'warning');
+        if (!\theme_boost_union_everon\local\mutms::is_enabled()) {
+            $html .= $OUTPUT->notification(get_string('flavourtenantsneedcompat', 'theme_boost_union_everon'), 'warning');
         }
-        if (!\theme_everon\local\mutms::mutenancy_active()) {
-            $html .= $OUTPUT->notification(get_string('flavourtenantsneedmutenancy', 'theme_everon'), 'warning');
+        if (!\theme_boost_union_everon\local\mutms::mutenancy_active()) {
+            $html .= $OUTPUT->notification(get_string('flavourtenantsneedmutenancy', 'theme_boost_union_everon'), 'warning');
         }
 
-        $html .= html_writer::tag('p', get_string('flavourtenantsintro', 'theme_everon'), [
+        $html .= html_writer::tag('p', get_string('flavourtenantsintro', 'theme_boost_union_everon'), [
             'class' => 'form-description mb-3',
         ]);
 
@@ -141,12 +141,12 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
         ]);
 
         if (empty($flavours)) {
-            $html .= $OUTPUT->notification(get_string('flavourtenantsnone', 'theme_everon'), 'info');
+            $html .= $OUTPUT->notification(get_string('flavourtenantsnone', 'theme_boost_union_everon'), 'info');
             $overview = new \core\url('/theme/boost_union/flavours/overview.php');
             $html .= html_writer::div(html_writer::link($overview, get_string('configtitleflavours', 'theme_boost_union')));
         } else {
             if (empty($tenantoptions)) {
-                $html .= $OUTPUT->notification(get_string('flavourtenantstenantsnone', 'theme_everon'), 'warning');
+                $html .= $OUTPUT->notification(get_string('flavourtenantstenantsnone', 'theme_boost_union_everon'), 'warning');
             }
 
             foreach ($flavours as $flavour) {
@@ -157,7 +157,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
                     $selectedtenants = array_map('intval', $maps[$fid]['tenants']);
                 }
 
-                $html .= html_writer::start_div('theme-everon-flavour-tenant border rounded p-3 mb-3', [
+                $html .= html_writer::start_div('theme-boost-union-everon-flavour-tenant border rounded p-3 mb-3', [
                     'data-region' => 'flavour-row',
                     'data-flavour-id' => $fid,
                 ]);
@@ -165,7 +165,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
 
                 $applyid = $id . '_f' . $fid . '_apply';
                 $html .= html_writer::start_div('mb-3');
-                $html .= html_writer::tag('label', get_string('flavourapplytotenants', 'theme_everon'), [
+                $html .= html_writer::tag('label', get_string('flavourapplytotenants', 'theme_boost_union_everon'), [
                     'class' => 'form-label',
                     'for' => $applyid,
                 ]);
@@ -182,7 +182,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
                     $html .= html_writer::tag('option', $label, $attrs);
                 }
                 $html .= html_writer::end_tag('select');
-                $html .= html_writer::tag('div', get_string('flavourapplytotenants_help', 'theme_everon'), [
+                $html .= html_writer::tag('div', get_string('flavourapplytotenants_help', 'theme_boost_union_everon'), [
                     'class' => 'form-text text-muted',
                 ]);
                 $html .= html_writer::end_div();
@@ -192,7 +192,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
                     'data-region' => 'flavour-tenants-wrap',
                     'style' => $apply ? '' : 'display:none;',
                 ]);
-                $html .= html_writer::tag('label', get_string('flavourtenants', 'theme_everon'), [
+                $html .= html_writer::tag('label', get_string('flavourtenants', 'theme_boost_union_everon'), [
                     'class' => 'form-label',
                     'for' => $tenantsid,
                 ]);
@@ -211,7 +211,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
                     $html .= html_writer::tag('option', format_string($label), $attrs);
                 }
                 $html .= html_writer::end_tag('select');
-                $html .= html_writer::tag('div', get_string('flavourtenants_help', 'theme_everon'), [
+                $html .= html_writer::tag('div', get_string('flavourtenants_help', 'theme_boost_union_everon'), [
                     'class' => 'form-text text-muted',
                 ]);
                 $html .= html_writer::end_div();
@@ -273,7 +273,7 @@ class theme_everon_admin_setting_flavour_tenants extends admin_setting {
      * @return string
      */
     protected function encode_current_maps(): string {
-        $maps = $this->maps_from_records(\theme_everon\local\flavours::get_all_apply_records());
+        $maps = $this->maps_from_records(\theme_boost_union_everon\local\flavours::get_all_apply_records());
         // Include all known flavours so empty/default rows are represented.
         foreach ($this->load_flavours() as $flavour) {
             $fid = (int) $flavour->id;

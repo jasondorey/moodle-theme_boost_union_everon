@@ -17,12 +17,12 @@
 /**
  * MuTMS compatibility helpers for theme Everon.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\local;
+namespace theme_boost_union_everon\local;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -30,13 +30,13 @@ defined('MOODLE_INTERNAL') || die();
  * Bridges MuTMS (especially tool_mutenancy tenant appearance) into Everon.
  *
  * MuTMS tenant Boost appearance writes overrides under theme_boost. When Everon is
- * the active theme, core looks up theme_everon settings and has_custom_css(everon).
+ * the active theme, core looks up theme_boost_union_everon settings and has_custom_css(everon).
  * This helper mirrors Boost SCSS settings onto Everon's runtime settings and keeps a
  * per-tenant sentinel override so tenant CSS cache keys work.
  */
 final class mutms {
 
-    /** Sentinel config name stored under theme_everon for tenant CSS cache busting. */
+    /** Sentinel config name stored under theme_boost_union_everon for tenant CSS cache busting. */
     public const SENTINEL_NAME = 'mutms_tenant_css';
 
     /** theme_boost settings that affect compiled CSS. */
@@ -56,7 +56,7 @@ final class mutms {
      * @return bool
      */
     public static function is_enabled(): bool {
-        $value = get_config('theme_everon', 'enablemutmscompatibility');
+        $value = get_config('theme_boost_union_everon', 'enablemutmscompatibility');
         if ($value === false || $value === null || $value === '') {
             return false;
         }
@@ -151,7 +151,7 @@ final class mutms {
     }
 
     /**
-     * Sync theme_everon sentinel overrides for every tenant that has theme_boost CSS overrides.
+     * Sync theme_boost_union_everon sentinel overrides for every tenant that has theme_boost CSS overrides.
      *
      * Called when the compatibility setting changes and after tenant appearance updates.
      *
@@ -177,7 +177,7 @@ final class mutms {
     }
 
     /**
-     * Ensure theme_everon has a sentinel override iff theme_boost has CSS overrides.
+     * Ensure theme_boost_union_everon has a sentinel override iff theme_boost has CSS overrides.
      *
      * @param int $tenantid
      * @return void
@@ -200,10 +200,10 @@ final class mutms {
         }
 
         if ($needs) {
-            \tool_mutenancy\local\config::override($tenantid, self::SENTINEL_NAME, '1', 'theme_everon');
+            \tool_mutenancy\local\config::override($tenantid, self::SENTINEL_NAME, '1', 'theme_boost_union_everon');
         } else {
             // Remove sentinel when compat is off or Boost has no CSS overrides.
-            \tool_mutenancy\local\config::override($tenantid, self::SENTINEL_NAME, null, 'theme_everon');
+            \tool_mutenancy\local\config::override($tenantid, self::SENTINEL_NAME, null, 'theme_boost_union_everon');
         }
     }
 

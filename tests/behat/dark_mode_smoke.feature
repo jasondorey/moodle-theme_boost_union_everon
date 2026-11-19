@@ -1,4 +1,4 @@
-@theme @theme_everon @theme_everon_darkmode @javascript
+@theme @theme_boost_union_everon @theme_boost_union_everon_darkmode @javascript
 Feature: Everon dark mode smoke under Boost colour modes
   In order to keep Everon usable when Boost colour modes are dark
   As a user
@@ -11,9 +11,9 @@ Feature: Everon dark mode smoke under Boost colour modes
     And the following config values are set as admin:
       | config                   | value | plugin       |
       | enablecolourmodes        | 1     | theme_boost  |
-      | enableaccessibilitytool  | yes   | theme_everon |
-      | enablelaunchpad          | yes   | theme_everon |
-      | enableusermenutiles      | yes   | theme_everon |
+      | enableaccessibilitytool  | yes   | theme_boost_union_everon |
+      | enablelaunchpad          | yes   | theme_boost_union_everon |
+      | enableusermenutiles      | yes   | theme_boost_union_everon |
 
   Scenario: Dashboard, My courses, and a course page keep data-bs-theme dark
     Given the following "user preferences" exist:
@@ -22,11 +22,11 @@ Feature: Everon dark mode smoke under Boost colour modes
     And I log in as "admin"
     When I follow "Dashboard"
     Then the document Bootstrap colour mode should be "dark"
-    And "body.theme-everon-dashboard" "css_element" should exist
+    And "body.theme-boost-union-everon-dashboard" "css_element" should exist
     And "#region-main" "css_element" should exist
     When I follow "My courses"
     Then the document Bootstrap colour mode should be "dark"
-    And "body.theme-everon-mycourses" "css_element" should exist
+    And "body.theme-boost-union-everon-mycourses" "css_element" should exist
     When I am on "Course 1" course homepage
     Then the document Bootstrap colour mode should be "dark"
     And "body.path-course" "css_element" should exist

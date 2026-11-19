@@ -17,7 +17,7 @@
 /**
  * Theme Everon event observers.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,6 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 $observers = [
     [
         'eventname' => '\tool_mutenancy\event\appearance_updated',
-        'callback' => '\theme_everon\observer\mutms::appearance_updated',
+        'callback' => '\theme_boost_union_everon\observer\mutms::appearance_updated',
     ],
 ];

@@ -9,16 +9,16 @@ need a **small local patch** on:
 ## What the patch does
 
 1. Includes the active MuTMS tenant id in the flavours **session cache key**
-   (`{categoryId}_t{tenantId}`) via `\theme_everon\local\flavours::cache_tenant_key()`.
+   (`{categoryId}_t{tenantId}`) via `\theme_boost_union_everon\local\flavours::cache_tenant_key()`.
 2. After category and cohort checks for each flavour, calls
-   `\theme_everon\local\flavours::applies_to_active_tenant($f)` and treats a hit as a match.
+   `\theme_boost_union_everon\local\flavours::applies_to_active_tenant($f)` and treats a hit as a match.
 
 If Everon is not installed, behaviour stays stock Boost Union.
 
 ## Auto-repatch (preferred)
 
 From Everon **v5.3-r23**, install/upgrade calls
-`\theme_everon\local\boost_union_flavour_hook::ensure_applied()` which:
+`\theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied()` which:
 
 1. No-ops when the Everon marker is already present
 2. Applies `boost_union-flavour-tenant-hook.patch` when possible
@@ -32,7 +32,7 @@ hook status and will try to re-apply when the file is writable.
 From the Moodle public root (or adjust paths):
 
 ```bash
-patch -p1 < /path/to/theme/everon/patches/boost_union-flavour-tenant-hook.patch
+patch -p1 < /path/to/theme/boost_union_everon/patches/boost_union-flavour-tenant-hook.patch
 php admin/cli/purge_caches.php
 ```
 
@@ -40,8 +40,8 @@ Or bump/reinstall Everon so the upgrade hook runs, then purge caches.
 
 ## Productized / upstream path
 
-All admin UI (Everon → MuTMS tab), DB (`theme_everon_flavour_apply`), and tenant matching
-live in **theme_everon**. Long-term: contribute child-theme callbacks upstream to Boost
+All admin UI (Everon → MuTMS tab), DB (`theme_boost_union_everon_flavour_apply`), and tenant matching
+live in **theme_boost_union_everon**. Long-term: contribute child-theme callbacks upstream to Boost
 Union (`extend_flavour_cache_key` + `flavour_applies`) and drop this Everon-hardcoded patch.
 
 See:

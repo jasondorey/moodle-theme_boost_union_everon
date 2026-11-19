@@ -10,7 +10,7 @@
  * Absorbs Boost Union #boost-union-footer-buttons so it no longer fights Focus
  * at the same fixed bottom: 5rem band.
  */
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats {
     position: fixed;
     right: 2rem;
     bottom: 2rem;
@@ -25,9 +25,9 @@
     height: auto;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-popover,
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-communication,
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-everon-focus {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-popover,
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-communication,
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-everon-focus {
     position: static !important;
     right: auto !important;
     bottom: auto !important;
@@ -38,7 +38,7 @@
 }
 
 /* Fold Union’s fixed footer-buttons into the same flex column. */
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > #boost-union-footer-buttons {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > #boost-union-footer-buttons {
     position: static !important;
     right: auto !important;
     bottom: auto !important;
@@ -56,41 +56,41 @@
     height: auto;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats
-    > #boost-union-footer-buttons.theme-everon-union-footer-buttons--visible {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats
+    > #boost-union-footer-buttons.theme-boost-union-everon-union-footer-buttons--visible {
     display: flex !important;
     pointer-events: auto;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > #boost-union-footer-buttons .btn {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > #boost-union-footer-buttons .btn {
     margin-top: 0 !important;
     pointer-events: auto;
     flex-shrink: 0;
 }
 
 /* Flex order: Union (back-to-top) → Focus → communication → help (?) */
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > #boost-union-footer-buttons {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > #boost-union-footer-buttons {
     order: 1;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-everon-focus {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-everon-focus {
     order: 2;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-communication {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-communication {
     order: 3;
 }
 
-.footer-popover [data-region="footer-container-popover"].theme-everon-footer-floats > .btn-footer-popover {
+.footer-popover [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats > .btn-footer-popover {
     order: 4;
 }
 
-.hasstickyfooter [data-region="footer-container-popover"].theme-everon-footer-floats {
+.hasstickyfooter [data-region="footer-container-popover"].theme-boost-union-everon-footer-floats {
     bottom: calc(1rem + max(80px, 3rem));
 }
 
 @media (min-width: 992px) {
-    #page.drawers.show-drawer-right .theme-everon-footer-floats {
+    #page.drawers.show-drawer-right .theme-boost-union-everon-footer-floats {
         right: calc(320px + 2rem);
     }
 }
@@ -111,7 +111,7 @@
     color: var(--bs-body-color, #dee2e6) !important;
 }
 
-.theme-everon-focus-btn__icon {
+.theme-boost-union-everon-focus-btn__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -121,46 +121,46 @@
     line-height: 1;
 }
 
-.theme-everon-focus-btn__icon[hidden] {
+.theme-boost-union-everon-focus-btn__icon[hidden] {
     display: none !important;
 }
 
 /* —— Focus mode layout —— */
-html.theme-everon-focus-mode .secondary-navigation,
-body.theme-everon-focus-mode .secondary-navigation,
-html.theme-everon-focus-mode .tertiary-navigation,
-body.theme-everon-focus-mode .tertiary-navigation,
-html.theme-everon-focus-mode .drawer-toggles,
-body.theme-everon-focus-mode .drawer-toggles,
-html.theme-everon-focus-mode .drawer-toggler,
-body.theme-everon-focus-mode .drawer-toggler,
-html.theme-everon-focus-mode #region-main-settings-menu,
-body.theme-everon-focus-mode #region-main-settings-menu,
-html.theme-everon-focus-mode .region_main_settings_menu_proxy,
-body.theme-everon-focus-mode .region_main_settings_menu_proxy {
+html.theme-boost-union-everon-focus-mode .secondary-navigation,
+body.theme-boost-union-everon-focus-mode .secondary-navigation,
+html.theme-boost-union-everon-focus-mode .tertiary-navigation,
+body.theme-boost-union-everon-focus-mode .tertiary-navigation,
+html.theme-boost-union-everon-focus-mode .drawer-toggles,
+body.theme-boost-union-everon-focus-mode .drawer-toggles,
+html.theme-boost-union-everon-focus-mode .drawer-toggler,
+body.theme-boost-union-everon-focus-mode .drawer-toggler,
+html.theme-boost-union-everon-focus-mode #region-main-settings-menu,
+body.theme-boost-union-everon-focus-mode #region-main-settings-menu,
+html.theme-boost-union-everon-focus-mode .region_main_settings_menu_proxy,
+body.theme-boost-union-everon-focus-mode .region_main_settings_menu_proxy {
     display: none !important;
 }
 
-html.theme-everon-focus-mode .drawer.drawer-left,
-html.theme-everon-focus-mode .drawer.drawer-right,
-body.theme-everon-focus-mode .drawer.drawer-left,
-body.theme-everon-focus-mode .drawer.drawer-right {
+html.theme-boost-union-everon-focus-mode .drawer.drawer-left,
+html.theme-boost-union-everon-focus-mode .drawer.drawer-right,
+body.theme-boost-union-everon-focus-mode .drawer.drawer-left,
+body.theme-boost-union-everon-focus-mode .drawer.drawer-right {
     visibility: hidden !important;
     pointer-events: none !important;
 }
 
-html.theme-everon-focus-mode #page.drawers,
-body.theme-everon-focus-mode #page.drawers {
+html.theme-boost-union-everon-focus-mode #page.drawers,
+body.theme-boost-union-everon-focus-mode #page.drawers {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
 
-body.theme-everon-focus-mode.limitedwidth #page.drawers .main-inner,
-body.theme-everon-focus-mode.limitedwidth.uses-drawers #page.drawers .main-inner,
-html.theme-everon-focus-mode body.limitedwidth #page.drawers .main-inner,
-html.theme-everon-focus-mode body.limitedwidth.uses-drawers #page.drawers .main-inner,
-body.theme-everon-focus-mode #page.drawers .main-inner,
-html.theme-everon-focus-mode #page.drawers .main-inner {
+body.theme-boost-union-everon-focus-mode.limitedwidth #page.drawers .main-inner,
+body.theme-boost-union-everon-focus-mode.limitedwidth.uses-drawers #page.drawers .main-inner,
+html.theme-boost-union-everon-focus-mode body.limitedwidth #page.drawers .main-inner,
+html.theme-boost-union-everon-focus-mode body.limitedwidth.uses-drawers #page.drawers .main-inner,
+body.theme-boost-union-everon-focus-mode #page.drawers .main-inner,
+html.theme-boost-union-everon-focus-mode #page.drawers .main-inner {
     max-width: min(92rem, calc(100vw - 2.5rem)) !important;
     width: 100% !important;
     margin-left: auto !important;
@@ -169,24 +169,24 @@ html.theme-everon-focus-mode #page.drawers .main-inner {
     padding-right: 1.25rem;
 }
 
-body.theme-everon-focus-mode.limitedwidth .header-maxwidth,
-html.theme-everon-focus-mode body.limitedwidth .header-maxwidth,
-body.theme-everon-focus-mode .header-maxwidth,
-html.theme-everon-focus-mode .header-maxwidth {
+body.theme-boost-union-everon-focus-mode.limitedwidth .header-maxwidth,
+html.theme-boost-union-everon-focus-mode body.limitedwidth .header-maxwidth,
+body.theme-boost-union-everon-focus-mode .header-maxwidth,
+html.theme-boost-union-everon-focus-mode .header-maxwidth {
     max-width: min(92rem, calc(100vw - 2.5rem)) !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
 
-html.theme-everon-focus-mode #page-content,
-body.theme-everon-focus-mode #page-content {
+html.theme-boost-union-everon-focus-mode #page-content,
+body.theme-boost-union-everon-focus-mode #page-content {
     padding-top: 0.25rem;
 }
 
 /* On-screen hint while focus mode is active.
  * Light + dark both ride Boost colour-mode tokens (--bs-body-bg / --bs-body-color).
- * Retired html.theme-everon-a11y-dark-mode override removed. */
-.theme-everon-focus-notice {
+ * Retired html.theme-boost-union-everon-a11y-dark-mode override removed. */
+.theme-boost-union-everon-focus-notice {
     margin: 0 0 1rem;
     padding: 0.65rem 1rem;
     border-radius: 0.65rem;

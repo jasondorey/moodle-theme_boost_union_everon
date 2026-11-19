@@ -446,87 +446,87 @@
 }
 
 /* —— Site-wide effects —— */
-html.theme-everon-a11y-active {
-    font-size: calc(100% * var(--theme-everon-a11y-font-scale, 1));
+html.theme-boost-union-everon-a11y-active {
+    font-size: calc(100% * var(--theme-boost-union-everon-a11y-font-scale, 1));
 }
 
-html.theme-everon-a11y-dyslexia body {
+html.theme-boost-union-everon-a11y-dyslexia body {
     font-family: "OpenDyslexic", "Comic Sans MS", "Arial", sans-serif !important;
 }
 
-html.theme-everon-a11y-letter-spacing body {
+html.theme-boost-union-everon-a11y-letter-spacing body {
     letter-spacing: 0.08em !important;
 }
 
-html.theme-everon-a11y-line-height body {
+html.theme-boost-union-everon-a11y-line-height body {
     line-height: 1.75 !important;
 }
 
-html.theme-everon-a11y-font-weight body {
+html.theme-boost-union-everon-a11y-font-weight body {
     font-weight: 600 !important;
 }
 
-html.theme-everon-a11y-highlight-title :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+html.theme-boost-union-everon-a11y-highlight-title :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
     background: color-mix(in srgb, #facc15 55%, transparent) !important;
     padding: 0.05em 0.15em;
     border-radius: 0.15rem;
 }
 
-html.theme-everon-a11y-highlight-links a {
+html.theme-boost-union-everon-a11y-highlight-links a {
     background: color-mix(in srgb, #fde047 50%, transparent) !important;
     text-decoration: underline !important;
     text-underline-offset: 0.15em;
 }
 
-html.theme-everon-a11y-dark-contrast {
+html.theme-boost-union-everon-a11y-dark-contrast {
     filter: invert(1) hue-rotate(180deg);
 }
 
-html.theme-everon-a11y-dark-contrast img,
-html.theme-everon-a11y-dark-contrast video,
-html.theme-everon-a11y-dark-contrast picture,
-html.theme-everon-a11y-dark-contrast .custom-navbar__logo {
+html.theme-boost-union-everon-a11y-dark-contrast img,
+html.theme-boost-union-everon-a11y-dark-contrast video,
+html.theme-boost-union-everon-a11y-dark-contrast picture,
+html.theme-boost-union-everon-a11y-dark-contrast .custom-navbar__logo {
     filter: invert(1) hue-rotate(180deg);
 }
 
-html.theme-everon-a11y-light-contrast {
+html.theme-boost-union-everon-a11y-light-contrast {
     filter: brightness(1.12) contrast(1.05);
 }
 
-html.theme-everon-a11y-high-contrast {
+html.theme-boost-union-everon-a11y-high-contrast {
     filter: contrast(1.65);
 }
 
-html.theme-everon-a11y-high-saturation {
+html.theme-boost-union-everon-a11y-high-saturation {
     filter: saturate(1.6);
 }
 
-html.theme-everon-a11y-low-saturation {
+html.theme-boost-union-everon-a11y-low-saturation {
     filter: saturate(0.45);
 }
 
-html.theme-everon-a11y-monochrome {
+html.theme-boost-union-everon-a11y-monochrome {
     filter: grayscale(1);
 }
 
-html.theme-everon-a11y-dyslexia [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .emoji-picker .emoji-button,
-html.theme-everon-a11y-dyslexia [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .emoji-picker .emoji-preview {
+html.theme-boost-union-everon-a11y-dyslexia [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .emoji-picker .emoji-button,
+html.theme-boost-union-everon-a11y-dyslexia [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .emoji-picker .emoji-preview {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif !important;
 }
 
-html.theme-everon-a11y-stop-animations *,
-html.theme-everon-a11y-stop-animations *::before,
-html.theme-everon-a11y-stop-animations *::after {
+html.theme-boost-union-everon-a11y-stop-animations *,
+html.theme-boost-union-everon-a11y-stop-animations *::before,
+html.theme-boost-union-everon-a11y-stop-animations *::after {
     animation: none !important;
     transition: none !important;
 }
 
-html.theme-everon-a11y-big-cursor,
-html.theme-everon-a11y-big-cursor * {
+html.theme-boost-union-everon-a11y-big-cursor,
+html.theme-boost-union-everon-a11y-big-cursor * {
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 32 32'%3E%3Cpath fill='%23000' stroke='%23fff' stroke-width='1.4' d='M4 2l7 22 4-9 9-4z'/%3E%3C/svg%3E") 4 4, auto !important;
 }
 
-.theme-everon-a11y-reading-guide {
+.theme-boost-union-everon-a11y-reading-guide {
     position: fixed;
     left: 0;
     right: 0;
@@ -542,7 +542,7 @@ html.theme-everon-a11y-big-cursor * {
     z-index: 100000;
 }
 
-.theme-everon-a11y-reading-guide[hidden] {
+.theme-boost-union-everon-a11y-reading-guide[hidden] {
     display: none !important;
 }
 

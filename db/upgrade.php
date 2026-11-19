@@ -17,24 +17,24 @@
 /**
  * Theme Everon upgrade steps.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Upgrade hook for theme_everon.
+ * Upgrade hook for theme_boost_union_everon.
  *
  * @param int $oldversion
  * @return bool
  */
-function xmldb_theme_everon_upgrade($oldversion) {
+function xmldb_theme_boost_union_everon_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2026111600) {
-        $table = new xmldb_table('theme_everon_flavour_apply');
+        $table = new xmldb_table('theme_boost_union_everon_flavour_apply');
 
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
         $table->add_field('flavourid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
@@ -48,13 +48,26 @@ function xmldb_theme_everon_upgrade($oldversion) {
             $dbman->create_table($table);
         }
 
-        upgrade_plugin_savepoint(true, 2026111600, 'theme', 'everon');
+        upgrade_plugin_savepoint(true, 2026111600, 'theme', 'boost_union_everon');
     }
 
     if ($oldversion < 2026111700) {
         // Re-apply local Boost Union flavourslib tenant hook after BU upgrades wipe it.
-        \theme_everon\local\boost_union_flavour_hook::ensure_applied();
-        upgrade_plugin_savepoint(true, 2026111700, 'theme', 'everon');
+        \theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied();
+        upgrade_plugin_savepoint(true, 2026111700, 'theme', 'boost_union_everon');
+    }
+
+    if ($oldversion < 2026111900) {
+        // Component rename theme_everon → theme_boost_union_everon: migrate legacy table if present.
+        $oldtable = new xmldb_table('theme_everon_flavour_apply');
+        $newtable = new xmldb_table('theme_boost_union_everon_flavour_apply');
+        if ($dbman->table_exists($oldtable) && !$dbman->table_exists($newtable)) {
+            $dbman->rename_table($oldtable, 'theme_boost_union_everon_flavour_apply');
+        }
+
+        // Re-apply Boost Union flavourslib hook against the new frankenstyle class names.
+        \theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied();
+        upgrade_plugin_savepoint(true, 2026111900, 'theme', 'boost_union_everon');
     }
 
     return true;

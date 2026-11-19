@@ -17,7 +17,7 @@
 /**
  * Behat mod_forum-related step definition overrides for the Everon theme.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2022 Luca Bösch, BFH Bern University of Applied Sciences luca.boesch@bfh.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,10 +33,10 @@ use Behat\Gherkin\Node\TableNode;
 /**
  * Forum-related step definition overrides for the Everon theme.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2022 Luca Bösch, BFH Bern University of Applied Sciences luca.boesch@bfh.ch
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_theme_everon_behat_mod_forum extends behat_theme_boost_union_behat_mod_forum {
+class behat_theme_boost_union_everon_behat_mod_forum extends behat_theme_boost_union_behat_mod_forum {
 }

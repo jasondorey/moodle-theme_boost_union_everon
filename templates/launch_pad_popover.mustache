@@ -1,5 +1,5 @@
 {{!
-    @template theme_everon/launch_pad_popover
+    @template theme_boost_union_everon/launch_pad_popover
 
     Launch Pad — role-aware shortcuts in the navbar utilities (after a11y).
     Visual layout aligns with the accessibility toolbar tile grid.
@@ -17,8 +17,8 @@
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="nav-launchpad-popover-panel"
-        title="{{#str}} launchpadmenu, theme_everon {{/str}}"
-        aria-label="{{#str}} launchpadmenu, theme_everon {{/str}}"
+        title="{{#str}} launchpadmenu, theme_boost_union_everon {{/str}}"
+        aria-label="{{#str}} launchpadmenu, theme_boost_union_everon {{/str}}"
     >
         {{!
             Match Moodle 5.3 navbar outline weight (fa-regular), same as bell/message.
@@ -40,11 +40,11 @@
         role="dialog"
         aria-modal="true"
         aria-hidden="true"
-        aria-label="{{#str}} launchpadmenu, theme_everon {{/str}}"
+        aria-label="{{#str}} launchpadmenu, theme_boost_union_everon {{/str}}"
         tabindex="-1"
     >
         <div class="everon-launchpad__panel-inner">
-            <h3 class="everon-launchpad__title">{{#str}} launchpadmenu, theme_everon {{/str}}</h3>
+            <h3 class="everon-launchpad__title">{{#str}} launchpadmenu, theme_boost_union_everon {{/str}}</h3>
             <div class="everon-launchpad__grid" role="list">
                 {{#links}}
                 <a class="everon-launchpad__tile" href="{{{url}}}" role="listitem">
@@ -60,7 +60,7 @@
     </div>
 </div>
 {{#js}}
-require(['theme_everon/launch_pad'], function(LaunchPad) {
+require(['theme_boost_union_everon/launch_pad'], function(LaunchPad) {
     LaunchPad.init();
 });
 {{/js}}

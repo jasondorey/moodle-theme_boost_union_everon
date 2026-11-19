@@ -17,7 +17,7 @@
 /**
  * Theme Everon - Local library
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @copyright  2023 Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,8 +29,8 @@
  *
  * @return bool
  */
-function theme_everon_accessibility_enabled(): bool {
-    $value = get_config('theme_everon', 'enableaccessibilitytool');
+function theme_boost_union_everon_accessibility_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enableaccessibilitytool');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -43,8 +43,8 @@ function theme_everon_accessibility_enabled(): bool {
  *
  * @return bool
  */
-function theme_everon_activity_icon_filters_enabled(): bool {
-    $value = get_config('theme_everon', 'enableactivityiconfilters');
+function theme_boost_union_everon_activity_icon_filters_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enableactivityiconfilters');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -57,7 +57,7 @@ function theme_everon_activity_icon_filters_enabled(): bool {
  *
  * @return string
  */
-function theme_everon_get_activity_icon_filters_svg(): string {
+function theme_boost_union_everon_get_activity_icon_filters_svg(): string {
     // Boost purpose colours → feColorMatrix fifth-column RGB (component / 255).
     $filters = [
         'administration' => '0 0 0 0 0.8549019608 0 0 0 0 0.3450980392 0 0 0 0 0.937254902 0 0 0 1 0',
@@ -76,7 +76,7 @@ function theme_everon_get_activity_icon_filters_svg(): string {
             . '</filter>';
     }
 
-    return '<svg xmlns="http://www.w3.org/2000/svg" id="theme-everon-activity-icon-filters" '
+    return '<svg xmlns="http://www.w3.org/2000/svg" id="theme-boost-union-everon-activity-icon-filters" '
         . 'width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" '
         . 'aria-hidden="true" focusable="false"><defs>' . $inner . '</defs></svg>';
 }
@@ -87,7 +87,7 @@ function theme_everon_get_activity_icon_filters_svg(): string {
  *
  * @return string
  */
-function theme_everon_get_a11y_boot_html(): string {
+function theme_boost_union_everon_get_a11y_boot_html(): string {
     global $CFG;
 
     static $cached = null;
@@ -95,17 +95,17 @@ function theme_everon_get_a11y_boot_html(): string {
         return $cached;
     }
 
-    $bootfile = $CFG->dirroot . '/theme/everon/javascript/a11y_boot.js';
+    $bootfile = $CFG->dirroot . '/theme/boost_union_everon/javascript/a11y_boot.js';
     $js = is_readable($bootfile) ? file_get_contents($bootfile) : '';
     if ($js === false) {
         $js = '';
     }
 
     // Dark/light paint is owned by Boost colour modes (data-bs-theme). Do not inject
-    // critical CSS for the retired theme-everon-a11y-dark-mode path.
+    // critical CSS for the retired theme-boost-union-everon-a11y-dark-mode path.
     $cached = '';
     if ($js !== '') {
-        $cached .= '<script id="theme-everon-a11y-boot">' . $js . '</script>';
+        $cached .= '<script id="theme-boost-union-everon-a11y-boot">' . $js . '</script>';
     }
 
     return $cached;
@@ -116,7 +116,7 @@ function theme_everon_get_a11y_boot_html(): string {
  *
  * @return array
  */
-function theme_everon_accessibility_popover_context(): array {
+function theme_boost_union_everon_accessibility_popover_context(): array {
     $context = [
         'colourmodeenabled' => false,
         'colourmodecookieattributes' => '',
@@ -141,8 +141,8 @@ function theme_everon_accessibility_popover_context(): array {
  *
  * @return bool
  */
-function theme_everon_focusmode_enabled(): bool {
-    $value = get_config('theme_everon', 'enablefocusmode');
+function theme_boost_union_everon_focusmode_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enablefocusmode');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -155,8 +155,8 @@ function theme_everon_focusmode_enabled(): bool {
  *
  * @return bool
  */
-function theme_everon_mycourses_layout_enabled(): bool {
-    $value = get_config('theme_everon', 'enablemycourseslayout');
+function theme_boost_union_everon_mycourses_layout_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enablemycourseslayout');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -169,8 +169,8 @@ function theme_everon_mycourses_layout_enabled(): bool {
  * @param \moodle_page $page
  * @return bool
  */
-function theme_everon_mycourses_should_offer(\moodle_page $page): bool {
-    if (!theme_everon_mycourses_layout_enabled()) {
+function theme_boost_union_everon_mycourses_should_offer(\moodle_page $page): bool {
+    if (!theme_boost_union_everon_mycourses_layout_enabled()) {
         return false;
     }
     return $page->pagelayout === 'mycourses';
@@ -182,8 +182,8 @@ function theme_everon_mycourses_should_offer(\moodle_page $page): bool {
  * @param string $name Config name without plugin prefix.
  * @return bool
  */
-function theme_everon_config_yes_default(string $name): bool {
-    $value = get_config('theme_everon', $name);
+function theme_boost_union_everon_config_yes_default(string $name): bool {
+    $value = get_config('theme_boost_union_everon', $name);
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -196,8 +196,8 @@ function theme_everon_config_yes_default(string $name): bool {
  *
  * @return bool
  */
-function theme_everon_mycourses_stats_enabled(): bool {
-    return theme_everon_config_yes_default('enablemycoursesstats');
+function theme_boost_union_everon_mycourses_stats_enabled(): bool {
+    return theme_boost_union_everon_config_yes_default('enablemycoursesstats');
 }
 
 /**
@@ -206,7 +206,7 @@ function theme_everon_mycourses_stats_enabled(): bool {
  * @param string $panel One of enrolments, completions, badges, certificates.
  * @return bool
  */
-function theme_everon_mycourses_stats_panel_enabled(string $panel): bool {
+function theme_boost_union_everon_mycourses_stats_panel_enabled(string $panel): bool {
     $map = [
         'enrolments' => 'mycoursesstatsenrolments',
         'completions' => 'mycoursesstatscompletions',
@@ -216,7 +216,7 @@ function theme_everon_mycourses_stats_panel_enabled(string $panel): bool {
     if (!isset($map[$panel])) {
         return false;
     }
-    return theme_everon_config_yes_default($map[$panel]);
+    return theme_boost_union_everon_config_yes_default($map[$panel]);
 }
 
 /**
@@ -225,8 +225,8 @@ function theme_everon_mycourses_stats_panel_enabled(string $panel): bool {
  * @param \moodle_page $page
  * @return bool
  */
-function theme_everon_mycourses_stats_should_offer(\moodle_page $page): bool {
-    if (!theme_everon_mycourses_stats_enabled()) {
+function theme_boost_union_everon_mycourses_stats_should_offer(\moodle_page $page): bool {
+    if (!theme_boost_union_everon_mycourses_stats_enabled()) {
         return false;
     }
     if ($page->pagelayout !== 'mycourses') {
@@ -236,7 +236,7 @@ function theme_everon_mycourses_stats_should_offer(\moodle_page $page): bool {
         return false;
     }
     foreach (['enrolments', 'completions', 'badges', 'certificates'] as $panel) {
-        if (theme_everon_mycourses_stats_panel_enabled($panel)) {
+        if (theme_boost_union_everon_mycourses_stats_panel_enabled($panel)) {
             return true;
         }
     }
@@ -249,7 +249,7 @@ function theme_everon_mycourses_stats_should_offer(\moodle_page $page): bool {
  * @param int $userid
  * @return int
  */
-function theme_everon_mycourses_stats_count_active_courses(int $userid): int {
+function theme_boost_union_everon_mycourses_stats_count_active_courses(int $userid): int {
     global $CFG;
 
     require_once($CFG->libdir . '/enrollib.php');
@@ -277,7 +277,7 @@ function theme_everon_mycourses_stats_count_active_courses(int $userid): int {
  * @param int $userid
  * @return int
  */
-function theme_everon_mycourses_stats_count_completions(int $userid): int {
+function theme_boost_union_everon_mycourses_stats_count_completions(int $userid): int {
     global $DB;
 
     if ($userid <= 0) {
@@ -297,7 +297,7 @@ function theme_everon_mycourses_stats_count_completions(int $userid): int {
  * @param int $userid
  * @return int
  */
-function theme_everon_mycourses_stats_count_badges(int $userid): int {
+function theme_boost_union_everon_mycourses_stats_count_badges(int $userid): int {
     global $DB;
 
     if ($userid <= 0) {
@@ -313,7 +313,7 @@ function theme_everon_mycourses_stats_count_badges(int $userid): int {
  * @param int $userid
  * @return int
  */
-function theme_everon_mycourses_stats_count_certificates(int $userid): int {
+function theme_boost_union_everon_mycourses_stats_count_certificates(int $userid): int {
     global $DB;
 
     if ($userid <= 0) {
@@ -345,14 +345,14 @@ function theme_everon_mycourses_stats_count_certificates(int $userid): int {
  * @param int|null $userid Defaults to current user.
  * @return array|null
  */
-function theme_everon_mycourses_stats_template_context(?int $userid = null): ?array {
+function theme_boost_union_everon_mycourses_stats_template_context(?int $userid = null): ?array {
     global $USER;
 
     $userid = $userid ?? (int) $USER->id;
     if ($userid <= 0 || !isloggedin() || isguestuser($userid)) {
         return null;
     }
-    if (!theme_everon_mycourses_stats_enabled()) {
+    if (!theme_boost_union_everon_mycourses_stats_enabled()) {
         return null;
     }
 
@@ -363,40 +363,40 @@ function theme_everon_mycourses_stats_template_context(?int $userid = null): ?ar
             'titlestring' => 'mycoursesstatsenrolmentstitle',
             'substring' => 'mycoursesstatsenrolmentssub',
             'iconclass' => 'fa fa-clipboard-list fa-fw',
-            'countfn' => 'theme_everon_mycourses_stats_count_active_courses',
+            'countfn' => 'theme_boost_union_everon_mycourses_stats_count_active_courses',
         ],
         'completions' => [
             'id' => 'completions',
             'titlestring' => 'mycoursesstatscompletionstitle',
             'substring' => 'mycoursesstatscompletionssub',
             'iconclass' => 'fa fa-clipboard-check fa-fw',
-            'countfn' => 'theme_everon_mycourses_stats_count_completions',
+            'countfn' => 'theme_boost_union_everon_mycourses_stats_count_completions',
         ],
         'badges' => [
             'id' => 'badges',
             'titlestring' => 'mycoursesstatsbadgestitle',
             'substring' => 'mycoursesstatsbadgessub',
             'iconclass' => 'fa fa-medal fa-fw',
-            'countfn' => 'theme_everon_mycourses_stats_count_badges',
+            'countfn' => 'theme_boost_union_everon_mycourses_stats_count_badges',
         ],
         'certificates' => [
             'id' => 'certificates',
             'titlestring' => 'mycoursesstatscertificatestitle',
             'substring' => 'mycoursesstatscertificatessub',
             'iconclass' => 'fa fa-certificate fa-fw',
-            'countfn' => 'theme_everon_mycourses_stats_count_certificates',
+            'countfn' => 'theme_boost_union_everon_mycourses_stats_count_certificates',
         ],
     ];
 
     foreach ($definitions as $key => $def) {
-        if (!theme_everon_mycourses_stats_panel_enabled($key)) {
+        if (!theme_boost_union_everon_mycourses_stats_panel_enabled($key)) {
             continue;
         }
         $count = (int) call_user_func($def['countfn'], $userid);
         $panels[] = [
             'id' => $def['id'],
-            'title' => get_string($def['titlestring'], 'theme_everon'),
-            'subtext' => get_string($def['substring'], 'theme_everon', $count),
+            'title' => get_string($def['titlestring'], 'theme_boost_union_everon'),
+            'subtext' => get_string($def['substring'], 'theme_boost_union_everon', $count),
             'count' => $count,
             'iconclass' => $def['iconclass'],
         ];
@@ -414,7 +414,7 @@ function theme_everon_mycourses_stats_template_context(?int $userid = null): ?ar
     unset($panel);
 
     return [
-        'arialabel' => get_string('mycoursesstatsaria', 'theme_everon'),
+        'arialabel' => get_string('mycoursesstatsaria', 'theme_boost_union_everon'),
         'panels' => $panels,
         'haspanels' => true,
     ];
@@ -426,8 +426,8 @@ function theme_everon_mycourses_stats_template_context(?int $userid = null): ?ar
  *
  * @return bool
  */
-function theme_everon_dashboard_layout_enabled(): bool {
-    $value = get_config('theme_everon', 'enabledashboardlayout');
+function theme_boost_union_everon_dashboard_layout_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enabledashboardlayout');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -440,8 +440,8 @@ function theme_everon_dashboard_layout_enabled(): bool {
  * @param \moodle_page $page
  * @return bool
  */
-function theme_everon_dashboard_should_offer(\moodle_page $page): bool {
-    if (!theme_everon_dashboard_layout_enabled()) {
+function theme_boost_union_everon_dashboard_should_offer(\moodle_page $page): bool {
+    if (!theme_boost_union_everon_dashboard_layout_enabled()) {
         return false;
     }
     if ($page->pagelayout !== 'mydashboard') {
@@ -460,8 +460,8 @@ function theme_everon_dashboard_should_offer(\moodle_page $page): bool {
  *
  * @return bool
  */
-function theme_everon_mutms_compatibility_enabled(): bool {
-    return \theme_everon\local\mutms::is_enabled();
+function theme_boost_union_everon_mutms_compatibility_enabled(): bool {
+    return \theme_boost_union_everon\local\mutms::is_enabled();
 }
 
 /**
@@ -469,8 +469,8 @@ function theme_everon_mutms_compatibility_enabled(): bool {
  *
  * @return void
  */
-function theme_everon_mutms_setting_updated(): void {
-    \theme_everon\local\mutms::setting_updated();
+function theme_boost_union_everon_mutms_setting_updated(): void {
+    \theme_boost_union_everon\local\mutms::setting_updated();
 }
 
 /**
@@ -479,8 +479,8 @@ function theme_everon_mutms_setting_updated(): void {
  *
  * @return bool
  */
-function theme_everon_compact_navbar_enabled(): bool {
-    $value = get_config('theme_everon', 'enablecompactnavbar');
+function theme_boost_union_everon_compact_navbar_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enablecompactnavbar');
     if ($value === false || $value === null || $value === '') {
         return true;
     }
@@ -493,8 +493,8 @@ function theme_everon_compact_navbar_enabled(): bool {
  * @param \moodle_page $page
  * @return bool
  */
-function theme_everon_compact_navbar_should_offer(\moodle_page $page): bool {
-    if (!theme_everon_compact_navbar_enabled()) {
+function theme_boost_union_everon_compact_navbar_should_offer(\moodle_page $page): bool {
+    if (!theme_boost_union_everon_compact_navbar_enabled()) {
         return false;
     }
     return $page->pagelayout !== 'login';
@@ -505,12 +505,12 @@ function theme_everon_compact_navbar_should_offer(\moodle_page $page): bool {
  *
  * @return string
  */
-function theme_everon_get_focusmode_boot_html(): string {
+function theme_boost_union_everon_get_focusmode_boot_html(): string {
     global $CFG, $PAGE;
 
     static $jscached = null;
     if ($jscached === null) {
-        $bootfile = $CFG->dirroot . '/theme/everon/javascript/course_focus_boot.js';
+        $bootfile = $CFG->dirroot . '/theme/boost_union_everon/javascript/course_focus_boot.js';
         $js = is_readable($bootfile) ? file_get_contents($bootfile) : '';
         $jscached = ($js === false || $js === '') ? '' : $js;
     }
@@ -521,15 +521,15 @@ function theme_everon_get_focusmode_boot_html(): string {
 
     $html = '';
     if (!empty($PAGE) && $PAGE->context) {
-        $courseid = \theme_everon\focus_mode::resolve_course_id($PAGE);
-        if ($courseid > 1 && \theme_everon\focus_mode::is_course_content_page($PAGE)) {
-            $html .= '<script id="theme-everon-focus-boot-config">window.themeEveronFocusPageConfig='
+        $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($PAGE);
+        if ($courseid > 1 && \theme_boost_union_everon\focus_mode::is_course_content_page($PAGE)) {
+            $html .= '<script id="theme-boost-union-everon-focus-boot-config">window.themeEveronFocusPageConfig='
                 . json_encode(['courseId' => $courseid], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)
                 . ';</script>';
         }
     }
 
-    $html .= '<script id="theme-everon-focus-boot">' . $jscached . '</script>';
+    $html .= '<script id="theme-boost-union-everon-focus-boot">' . $jscached . '</script>';
     return $html;
 }
 
@@ -539,8 +539,8 @@ function theme_everon_get_focusmode_boot_html(): string {
  *
  * @return bool
  */
-function theme_everon_launchpad_enabled(): bool {
-    $value = get_config('theme_everon', 'enablelaunchpad');
+function theme_boost_union_everon_launchpad_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enablelaunchpad');
     return $value === 'yes' || $value === '1' || $value === 1;
 }
 
@@ -549,7 +549,7 @@ function theme_everon_launchpad_enabled(): bool {
  *
  * @return string[]
  */
-function theme_everon_launchpad_builtin_keys(): array {
+function theme_boost_union_everon_launchpad_builtin_keys(): array {
     return ['siteadmin'];
 }
 
@@ -559,7 +559,7 @@ function theme_everon_launchpad_builtin_keys(): array {
  *
  * @return array<int, array{label:string, url:string, icon?:string}>
  */
-function theme_everon_launchpad_default_siteadmin_links(): array {
+function theme_boost_union_everon_launchpad_default_siteadmin_links(): array {
     return [
         ['label' => 'Browse list of users', 'url' => '/admin/user.php', 'icon' => 'fa-users'],
         ['label' => 'Manage courses and categories', 'url' => '/course/management.php', 'icon' => 'fa-graduation-cap'],
@@ -578,23 +578,23 @@ function theme_everon_launchpad_default_siteadmin_links(): array {
  * @param mixed $decoded
  * @return array|string Clean link list, or error string.
  */
-function theme_everon_launchpad_normalize_links_list($decoded) {
+function theme_boost_union_everon_launchpad_normalize_links_list($decoded) {
     if (!is_array($decoded)) {
-        return get_string('launchpadjsoninvalid', 'theme_everon');
+        return get_string('launchpadjsoninvalid', 'theme_boost_union_everon');
     }
     if ($decoded !== [] && array_keys($decoded) !== range(0, count($decoded) - 1)) {
-        return get_string('launchpadjsoninvalid', 'theme_everon');
+        return get_string('launchpadjsoninvalid', 'theme_boost_union_everon');
     }
 
     $clean = [];
     foreach ($decoded as $item) {
         if (!is_array($item)) {
-            return get_string('launchpadjsoninvalid', 'theme_everon');
+            return get_string('launchpadjsoninvalid', 'theme_boost_union_everon');
         }
         $label = isset($item['label']) ? trim((string) $item['label']) : '';
         $url = isset($item['url']) ? trim((string) $item['url']) : '';
         if ($label === '' || $url === '') {
-            return get_string('launchpadjsoninvalid', 'theme_everon');
+            return get_string('launchpadjsoninvalid', 'theme_boost_union_everon');
         }
         $entry = [
             'label' => $label,
@@ -614,12 +614,12 @@ function theme_everon_launchpad_normalize_links_list($decoded) {
  * @param array $decoded
  * @return array|string Clean map, or error string.
  */
-function theme_everon_launchpad_normalize_rolelinks_map(array $decoded) {
+function theme_boost_union_everon_launchpad_normalize_rolelinks_map(array $decoded) {
     $clean = [];
 
     // Preserve insertion order; always emit builtins first if present / empty.
     $orderedkeys = [];
-    foreach (theme_everon_launchpad_builtin_keys() as $builtin) {
+    foreach (theme_boost_union_everon_launchpad_builtin_keys() as $builtin) {
         $orderedkeys[] = $builtin;
     }
     foreach (array_keys($decoded) as $key) {
@@ -638,7 +638,7 @@ function theme_everon_launchpad_normalize_rolelinks_map(array $decoded) {
             if (is_string($raw)) {
                 $raw = json_decode($raw, true);
             }
-            $links = theme_everon_launchpad_normalize_links_list($raw === null ? [] : $raw);
+            $links = theme_boost_union_everon_launchpad_normalize_links_list($raw === null ? [] : $raw);
             if (is_string($links)) {
                 return $links;
             }
@@ -660,7 +660,7 @@ function theme_everon_launchpad_normalize_rolelinks_map(array $decoded) {
         if (is_string($raw)) {
             $raw = json_decode($raw, true);
         }
-        $links = theme_everon_launchpad_normalize_links_list($raw === null ? [] : $raw);
+        $links = theme_boost_union_everon_launchpad_normalize_links_list($raw === null ? [] : $raw);
         if (is_string($links)) {
             return $links;
         }
@@ -676,7 +676,7 @@ function theme_everon_launchpad_normalize_rolelinks_map(array $decoded) {
  * @param string $raw
  * @return array<string, array>
  */
-function theme_everon_launchpad_decode_rolelinks_map(string $raw): array {
+function theme_boost_union_everon_launchpad_decode_rolelinks_map(string $raw): array {
     $decoded = [];
     if (trim($raw) !== '') {
         $tmp = json_decode($raw, true);
@@ -685,10 +685,10 @@ function theme_everon_launchpad_decode_rolelinks_map(string $raw): array {
         }
     }
     $map = [];
-    foreach (theme_everon_launchpad_builtin_keys() as $builtin) {
+    foreach (theme_boost_union_everon_launchpad_builtin_keys() as $builtin) {
         $map[$builtin] = [];
         if (isset($decoded[$builtin]) && is_array($decoded[$builtin])) {
-            $norm = theme_everon_launchpad_normalize_links_list($decoded[$builtin]);
+            $norm = theme_boost_union_everon_launchpad_normalize_links_list($decoded[$builtin]);
             $map[$builtin] = is_array($norm) ? $norm : [];
         }
     }
@@ -699,7 +699,7 @@ function theme_everon_launchpad_decode_rolelinks_map(string $raw): array {
         if (!is_array($links)) {
             continue;
         }
-        $norm = theme_everon_launchpad_normalize_links_list($links);
+        $norm = theme_boost_union_everon_launchpad_normalize_links_list($links);
         $map[$key] = is_array($norm) ? $norm : [];
     }
     return $map;
@@ -710,26 +710,26 @@ function theme_everon_launchpad_decode_rolelinks_map(string $raw): array {
  *
  * @return void
  */
-function theme_everon_launchpad_migrate_mvp_if_needed(): void {
-    $done = get_config('theme_everon', 'launchpadrolelinks_migrated');
+function theme_boost_union_everon_launchpad_migrate_mvp_if_needed(): void {
+    $done = get_config('theme_boost_union_everon', 'launchpadrolelinks_migrated');
     if ($done === '1' || $done === 1) {
         return;
     }
 
-    $existing = get_config('theme_everon', 'launchpadrolelinks');
+    $existing = get_config('theme_boost_union_everon', 'launchpadrolelinks');
     if (is_string($existing) && trim($existing) !== '' && trim($existing) !== '{}') {
-        set_config('launchpadrolelinks_migrated', '1', 'theme_everon');
+        set_config('launchpadrolelinks_migrated', '1', 'theme_boost_union_everon');
         return;
     }
 
     $map = [
-        'siteadmin' => theme_everon_launchpad_default_siteadmin_links(),
+        'siteadmin' => theme_boost_union_everon_launchpad_default_siteadmin_links(),
     ];
 
-    $raw = get_config('theme_everon', 'launchpadlinks_siteadmin');
+    $raw = get_config('theme_boost_union_everon', 'launchpadlinks_siteadmin');
     if (is_string($raw) && trim($raw) !== '') {
         $decoded = json_decode($raw, true);
-        $norm = theme_everon_launchpad_normalize_links_list(is_array($decoded) ? $decoded : []);
+        $norm = theme_boost_union_everon_launchpad_normalize_links_list(is_array($decoded) ? $decoded : []);
         if (is_array($norm) && $norm !== []) {
             $map['siteadmin'] = $norm;
         }
@@ -737,10 +737,10 @@ function theme_everon_launchpad_migrate_mvp_if_needed(): void {
     // Legacy launchpadlinks_authenticated is intentionally dropped (no authenticated pack).
 
     // Best-effort: manager MVP JSON → first manager-archetype role pack.
-    $mgrraw = get_config('theme_everon', 'launchpadlinks_manager');
+    $mgrraw = get_config('theme_boost_union_everon', 'launchpadlinks_manager');
     if (is_string($mgrraw) && trim($mgrraw) !== '') {
         $decoded = json_decode($mgrraw, true);
-        $norm = theme_everon_launchpad_normalize_links_list(is_array($decoded) ? $decoded : []);
+        $norm = theme_boost_union_everon_launchpad_normalize_links_list(is_array($decoded) ? $decoded : []);
         if (is_array($norm) && $norm !== []) {
             $managerroles = get_archetype_roles('manager');
             if (!empty($managerroles)) {
@@ -751,8 +751,8 @@ function theme_everon_launchpad_migrate_mvp_if_needed(): void {
     }
 
     $encoded = json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    set_config('launchpadrolelinks', $encoded === false ? '{}' : $encoded, 'theme_everon');
-    set_config('launchpadrolelinks_migrated', '1', 'theme_everon');
+    set_config('launchpadrolelinks', $encoded === false ? '{}' : $encoded, 'theme_boost_union_everon');
+    set_config('launchpadrolelinks_migrated', '1', 'theme_boost_union_everon');
 }
 
 /**
@@ -760,7 +760,7 @@ function theme_everon_launchpad_migrate_mvp_if_needed(): void {
  *
  * @return array<int, stdClass> role id => role object with localname
  */
-function theme_everon_launchpad_addable_roles(): array {
+function theme_boost_union_everon_launchpad_addable_roles(): array {
     $roles = role_get_names(\context_system::instance());
     $out = [];
     foreach ($roles as $role) {
@@ -778,7 +778,7 @@ function theme_everon_launchpad_addable_roles(): array {
  * @param int $userid
  * @return int[]
  */
-function theme_everon_launchpad_user_role_ids(int $userid): array {
+function theme_boost_union_everon_launchpad_user_role_ids(int $userid): array {
     global $DB;
 
     if ($userid <= 0) {
@@ -796,8 +796,8 @@ function theme_everon_launchpad_user_role_ids(int $userid): array {
  *
  * @return void
  */
-function theme_everon_launchpad_drop_authenticated_pack_if_needed(): void {
-    $raw = get_config('theme_everon', 'launchpadrolelinks');
+function theme_boost_union_everon_launchpad_drop_authenticated_pack_if_needed(): void {
+    $raw = get_config('theme_boost_union_everon', 'launchpadrolelinks');
     if (!is_string($raw) || trim($raw) === '') {
         return;
     }
@@ -806,7 +806,7 @@ function theme_everon_launchpad_drop_authenticated_pack_if_needed(): void {
         return;
     }
     unset($decoded['authenticated']);
-    $clean = theme_everon_launchpad_normalize_rolelinks_map($decoded);
+    $clean = theme_boost_union_everon_launchpad_normalize_rolelinks_map($decoded);
     if (is_string($clean)) {
         unset($decoded['authenticated']);
         $clean = $decoded;
@@ -815,7 +815,7 @@ function theme_everon_launchpad_drop_authenticated_pack_if_needed(): void {
         }
     }
     $encoded = json_encode($clean, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    set_config('launchpadrolelinks', $encoded === false ? '{"siteadmin":[]}' : $encoded, 'theme_everon');
+    set_config('launchpadrolelinks', $encoded === false ? '{"siteadmin":[]}' : $encoded, 'theme_boost_union_everon');
 }
 
 /**
@@ -823,11 +823,11 @@ function theme_everon_launchpad_drop_authenticated_pack_if_needed(): void {
  *
  * @return array<string, array>
  */
-function theme_everon_launchpad_get_rolelinks_map(): array {
-    theme_everon_launchpad_migrate_mvp_if_needed();
-    theme_everon_launchpad_drop_authenticated_pack_if_needed();
-    $raw = get_config('theme_everon', 'launchpadrolelinks');
-    return theme_everon_launchpad_decode_rolelinks_map(is_string($raw) ? $raw : '');
+function theme_boost_union_everon_launchpad_get_rolelinks_map(): array {
+    theme_boost_union_everon_launchpad_migrate_mvp_if_needed();
+    theme_boost_union_everon_launchpad_drop_authenticated_pack_if_needed();
+    $raw = get_config('theme_boost_union_everon', 'launchpadrolelinks');
+    return theme_boost_union_everon_launchpad_decode_rolelinks_map(is_string($raw) ? $raw : '');
 }
 
 /**
@@ -837,7 +837,7 @@ function theme_everon_launchpad_get_rolelinks_map(): array {
  * @param int|null $userid
  * @return string[]
  */
-function theme_everon_launchpad_matching_pack_keys(?int $userid = null): array {
+function theme_boost_union_everon_launchpad_matching_pack_keys(?int $userid = null): array {
     global $USER;
 
     $userid = $userid ?? (int) $USER->id;
@@ -845,14 +845,14 @@ function theme_everon_launchpad_matching_pack_keys(?int $userid = null): array {
         return [];
     }
 
-    $map = theme_everon_launchpad_get_rolelinks_map();
+    $map = theme_boost_union_everon_launchpad_get_rolelinks_map();
     $matched = [];
 
     if (is_siteadmin($userid) && array_key_exists('siteadmin', $map)) {
         $matched[] = 'siteadmin';
     }
 
-    $userroles = theme_everon_launchpad_user_role_ids($userid);
+    $userroles = theme_boost_union_everon_launchpad_user_role_ids($userid);
     $userroleslookup = array_fill_keys($userroles, true);
     foreach ($map as $key => $unused) {
         if (!preg_match('/^role:(\d+)$/', $key, $m)) {
@@ -873,7 +873,7 @@ function theme_everon_launchpad_matching_pack_keys(?int $userid = null): array {
  * @param string $icon
  * @return string
  */
-function theme_everon_launchpad_sanitize_icon(string $icon): string {
+function theme_boost_union_everon_launchpad_sanitize_icon(string $icon): string {
     $icon = trim($icon);
     if ($icon === '') {
         return '';
@@ -904,7 +904,7 @@ function theme_everon_launchpad_sanitize_icon(string $icon): string {
  * @param string $raw
  * @return \core\url|null
  */
-function theme_everon_launchpad_sanitize_url(string $raw): ?\core\url {
+function theme_boost_union_everon_launchpad_sanitize_url(string $raw): ?\core\url {
     global $CFG;
 
     $raw = trim($raw);
@@ -949,7 +949,7 @@ function theme_everon_launchpad_sanitize_url(string $raw): ?\core\url {
  * @param array $items
  * @return array<int, array{label:string, url:string, icon:string, hasicon:bool}>
  */
-function theme_everon_launchpad_sanitize_link_items(array $items): array {
+function theme_boost_union_everon_launchpad_sanitize_link_items(array $items): array {
     $links = [];
     foreach ($items as $item) {
         if (!is_array($item)) {
@@ -960,11 +960,11 @@ function theme_everon_launchpad_sanitize_link_items(array $items): array {
         if ($label === '' || $urlraw === '') {
             continue;
         }
-        $url = theme_everon_launchpad_sanitize_url($urlraw);
+        $url = theme_boost_union_everon_launchpad_sanitize_url($urlraw);
         if ($url === null) {
             continue;
         }
-        $icon = theme_everon_launchpad_sanitize_icon(isset($item['icon']) ? (string) $item['icon'] : '');
+        $icon = theme_boost_union_everon_launchpad_sanitize_icon(isset($item['icon']) ? (string) $item['icon'] : '');
         $links[] = [
             'label' => $label,
             'url' => $url->out(false),
@@ -981,20 +981,20 @@ function theme_everon_launchpad_sanitize_link_items(array $items): array {
  * @param int|null $userid
  * @return array<int, array{label:string, url:string, icon:string, hasicon:bool}>
  */
-function theme_everon_launchpad_get_links_for_user(?int $userid = null): array {
-    $keys = theme_everon_launchpad_matching_pack_keys($userid);
+function theme_boost_union_everon_launchpad_get_links_for_user(?int $userid = null): array {
+    $keys = theme_boost_union_everon_launchpad_matching_pack_keys($userid);
     if ($keys === []) {
         return [];
     }
 
-    $map = theme_everon_launchpad_get_rolelinks_map();
+    $map = theme_boost_union_everon_launchpad_get_rolelinks_map();
     $merged = [];
     $seen = [];
     foreach ($keys as $key) {
         if (!isset($map[$key]) || !is_array($map[$key])) {
             continue;
         }
-        foreach (theme_everon_launchpad_sanitize_link_items($map[$key]) as $link) {
+        foreach (theme_boost_union_everon_launchpad_sanitize_link_items($map[$key]) as $link) {
             if (isset($seen[$link['url']])) {
                 continue;
             }
@@ -1010,14 +1010,14 @@ function theme_everon_launchpad_get_links_for_user(?int $userid = null): array {
  *
  * @return bool
  */
-function theme_everon_launchpad_should_show(): bool {
-    if (!theme_everon_launchpad_enabled()) {
+function theme_boost_union_everon_launchpad_should_show(): bool {
+    if (!theme_boost_union_everon_launchpad_enabled()) {
         return false;
     }
     if (!isloggedin() || isguestuser()) {
         return false;
     }
-    return theme_everon_launchpad_get_links_for_user() !== [];
+    return theme_boost_union_everon_launchpad_get_links_for_user() !== [];
 }
 
 /**
@@ -1025,11 +1025,11 @@ function theme_everon_launchpad_should_show(): bool {
  *
  * @return array|null Null when the control should not render.
  */
-function theme_everon_launchpad_template_context(): ?array {
-    if (!theme_everon_launchpad_should_show()) {
+function theme_boost_union_everon_launchpad_template_context(): ?array {
+    if (!theme_boost_union_everon_launchpad_should_show()) {
         return null;
     }
-    $links = theme_everon_launchpad_get_links_for_user();
+    $links = theme_boost_union_everon_launchpad_get_links_for_user();
     return [
         'links' => $links,
         'haslinks' => $links !== [],
@@ -1045,8 +1045,8 @@ function theme_everon_launchpad_template_context(): ?array {
  *
  * @return bool
  */
-function theme_everon_usermenutiles_enabled(): bool {
-    return theme_everon_config_yes_default('enableusermenutiles');
+function theme_boost_union_everon_usermenutiles_enabled(): bool {
+    return theme_boost_union_everon_config_yes_default('enableusermenutiles');
 }
 
 /**
@@ -1054,7 +1054,7 @@ function theme_everon_usermenutiles_enabled(): bool {
  *
  * @return array<string, string> Map of titleidentifier => fa-* class (without leading "fa ").
  */
-function theme_everon_usermenu_tile_icon_map(): array {
+function theme_boost_union_everon_usermenu_tile_icon_map(): array {
     return [
         'profile,moodle' => 'fa-circle-user',
         'grades,grades' => 'fa-chart-column',
@@ -1075,7 +1075,7 @@ function theme_everon_usermenu_tile_icon_map(): array {
  * @param string $languagetitle Localised "Language" string for submenu detection.
  * @return string FA class token such as fa-link (no leading "fa ").
  */
-function theme_everon_usermenu_tile_icon_for_item($item, string $languagetitle): string {
+function theme_boost_union_everon_usermenu_tile_icon_for_item($item, string $languagetitle): string {
     $item = (array) $item;
     // Core marks the penultimate item with divider=true while it remains a link
     // (list-mode separator). Only pure divider nodes should skip icon mapping.
@@ -1087,7 +1087,7 @@ function theme_everon_usermenu_tile_icon_for_item($item, string $languagetitle):
     }
 
     $id = isset($item['titleidentifier']) ? (string) $item['titleidentifier'] : '';
-    $map = theme_everon_usermenu_tile_icon_map();
+    $map = theme_boost_union_everon_usermenu_tile_icon_map();
     if ($id !== '' && isset($map[$id])) {
         return $map[$id];
     }
@@ -1111,7 +1111,7 @@ function theme_everon_usermenu_tile_icon_for_item($item, string $languagetitle):
  * @param array|object $context Mustache context.
  * @return array
  */
-function theme_everon_usermenu_prepare_action_menu_context($context): array {
+function theme_boost_union_everon_usermenu_prepare_action_menu_context($context): array {
     if (is_object($context)) {
         $context = (array) $context;
     }
@@ -1119,7 +1119,7 @@ function theme_everon_usermenu_prepare_action_menu_context($context): array {
         $context = [];
     }
 
-    $tiles = theme_everon_usermenutiles_enabled();
+    $tiles = theme_boost_union_everon_usermenutiles_enabled();
     $context['everontiles'] = $tiles;
 
     if (!$tiles || empty($context['items']) || !is_array($context['items'])) {
@@ -1133,7 +1133,7 @@ function theme_everon_usermenu_prepare_action_menu_context($context): array {
         $row = $asobj ? clone $item : (object) $item;
 
         // Dividers are omitted from the tile grid (Mustache skips them when everontiles).
-        $row->faicon = theme_everon_usermenu_tile_icon_for_item($row, $languagetitle);
+        $row->faicon = theme_boost_union_everon_usermenu_tile_icon_for_item($row, $languagetitle);
         $row->hasfaicon = empty($row->pixicon) && empty($row->imgsrc);
 
         $enriched[] = $asobj ? $row : (array) $row;
@@ -1152,7 +1152,7 @@ function theme_everon_usermenu_prepare_action_menu_context($context): array {
  *
  * @return string HTML (info notification), or empty string if Boost Union helpers are unavailable.
  */
-function theme_everon_render_flavour_setting_notification(): string {
+function theme_boost_union_everon_render_flavour_setting_notification(): string {
     global $OUTPUT;
 
     if (!function_exists('theme_boost_union_ensure_modal_js')) {
@@ -1160,8 +1160,8 @@ function theme_everon_render_flavour_setting_notification(): string {
     }
 
     $modaltitle = get_string('settingoverridenotificationtitle', 'theme_boost_union');
-    $modalbody = get_string('flavourtenantssettingmodal', 'theme_everon');
-    $message = get_string('flavourtenantssettingalert', 'theme_everon');
+    $modalbody = get_string('flavourtenantssettingmodal', 'theme_boost_union_everon');
+    $message = get_string('flavourtenantssettingalert', 'theme_boost_union_everon');
 
     $actions = [];
 

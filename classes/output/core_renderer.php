@@ -17,12 +17,12 @@
 /**
  * Everon core renderer — inject accessibility toolbar and Launch Pad into navbar utilities.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_everon\output;
+namespace theme_boost_union_everon\output;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -52,15 +52,15 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function navbar_plugin_output() {
         $output = parent::navbar_plugin_output();
-        if (\theme_everon_accessibility_enabled()) {
+        if (\theme_boost_union_everon_accessibility_enabled()) {
             $output .= $this->render_from_template(
-                'theme_everon/accessibility_popover',
-                \theme_everon_accessibility_popover_context()
+                'theme_boost_union_everon/accessibility_popover',
+                \theme_boost_union_everon_accessibility_popover_context()
             );
         }
-        $launchctx = \theme_everon_launchpad_template_context();
+        $launchctx = \theme_boost_union_everon_launchpad_template_context();
         if ($launchctx !== null) {
-            $output .= $this->render_from_template('theme_everon/launch_pad_popover', $launchctx);
+            $output .= $this->render_from_template('theme_boost_union_everon/launch_pad_popover', $launchctx);
         }
         return $output;
     }
@@ -72,15 +72,15 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function standard_head_html() {
         $output = '';
-        if (\theme_everon_accessibility_enabled()) {
-            $output .= \theme_everon_get_a11y_boot_html();
+        if (\theme_boost_union_everon_accessibility_enabled()) {
+            $output .= \theme_boost_union_everon_get_a11y_boot_html();
         }
-        if (\theme_everon_focusmode_enabled()) {
-            $output .= \theme_everon_get_focusmode_boot_html();
+        if (\theme_boost_union_everon_focusmode_enabled()) {
+            $output .= \theme_boost_union_everon_get_focusmode_boot_html();
         }
         // Safari purpose-colour filters reference page-local SVG defs (data-URI filters fail there).
-        if (\theme_everon_activity_icon_filters_enabled()) {
-            $output .= \theme_everon_get_activity_icon_filters_svg();
+        if (\theme_boost_union_everon_activity_icon_filters_enabled()) {
+            $output .= \theme_boost_union_everon_get_activity_icon_filters_svg();
         }
         $output .= parent::standard_head_html();
         return $output;
@@ -94,14 +94,14 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
      */
     public function full_header() {
         $header = parent::full_header();
-        if (!\theme_everon_mycourses_stats_should_offer($this->page)) {
+        if (!\theme_boost_union_everon_mycourses_stats_should_offer($this->page)) {
             return $header;
         }
-        $ctx = \theme_everon_mycourses_stats_template_context();
+        $ctx = \theme_boost_union_everon_mycourses_stats_template_context();
         if ($ctx === null) {
             return $header;
         }
-        return $header . $this->render_from_template('theme_everon/mycourses_stats', $ctx);
+        return $header . $this->render_from_template('theme_boost_union_everon/mycourses_stats', $ctx);
     }
 
     /**
@@ -116,10 +116,10 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
         // Enrich the usermenu node on any template context that carries it, and also
         // when core/user_menu or core/user_action_menu_items are rendered standalone.
         if (is_array($context) && isset($context['usermenu']) && is_array($context['usermenu'])) {
-            $context['usermenu'] = \theme_everon_usermenu_prepare_action_menu_context($context['usermenu']);
+            $context['usermenu'] = \theme_boost_union_everon_usermenu_prepare_action_menu_context($context['usermenu']);
         }
         if ($templatename === 'core/user_menu' || $templatename === 'core/user_action_menu_items') {
-            $context = \theme_everon_usermenu_prepare_action_menu_context($context);
+            $context = \theme_boost_union_everon_usermenu_prepare_action_menu_context($context);
         }
         return parent::render_from_template($templatename, $context);
     }
@@ -164,7 +164,7 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
         if ($this->flavour_look_file_is_guest_safe('look_favicon')) {
             return parent::favicon();
         }
-        if (\theme_everon\local\mutms::is_enabled() && \theme_everon\local\mutms::mutenancy_active()
+        if (\theme_boost_union_everon\local\mutms::is_enabled() && \theme_boost_union_everon\local\mutms::mutenancy_active()
                 && class_exists(\tool_mutenancy\local\tenancy::class)
                 && class_exists(\tool_mutenancy\local\config::class)
                 && class_exists(\tool_mutenancy\local\appearance::class)) {
@@ -196,7 +196,7 @@ class core_renderer extends \theme_boost_union\output\core_renderer {
         if ($this->flavour_look_file_is_guest_safe($flavourfield)) {
             return null;
         }
-        if (!\theme_everon\local\mutms::is_enabled() || !\theme_everon\local\mutms::mutenancy_active()) {
+        if (!\theme_boost_union_everon\local\mutms::is_enabled() || !\theme_boost_union_everon\local\mutms::mutenancy_active()) {
             return null;
         }
         if (!class_exists(\tool_mutenancy\local\tenancy::class)

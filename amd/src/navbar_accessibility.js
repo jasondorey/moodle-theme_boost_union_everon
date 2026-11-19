@@ -17,21 +17,21 @@
  * Navbar accessibility menu — applies adjustments site-wide with localStorage persistence.
  *
  * Dark Mode is bridged to Boost colour modes (preference theme_boost_colourmode + cookie +
- * data-bs-theme), not the retired theme-everon-a11y-dark-mode class.
+ * data-bs-theme), not the retired theme-boost-union-everon-a11y-dark-mode class.
  *
- * @module     theme_everon/navbar_accessibility
+ * @module     theme_boost_union_everon/navbar_accessibility
  * @copyright  2026
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define([
     'jquery',
-    'theme_everon/navbar_a11y_popovers',
+    'theme_boost_union_everon/navbar_a11y_popovers',
     'core/local/aria/focuslock',
     'core_user/repository',
 ], function($, ClusterPopovers, FocusLock, UserRepository) {
 
     const bootApi = window.themeEveronA11y || null;
-    const STORAGE_KEY = bootApi ? bootApi.STORAGE_KEY : 'theme_everon_a11y_v1';
+    const STORAGE_KEY = bootApi ? bootApi.STORAGE_KEY : 'theme_boost_union_everon_a11y_v1';
     const CONTAINER_ID = 'nav-accessibility-popover-container';
     const FONT_MIN = 85;
     const FONT_MAX = 150;
@@ -41,26 +41,26 @@ define([
     const COLOURMODE_PREFERENCE = 'theme_boost_colourmode';
     const MODE_LIGHT = 'light';
     const MODE_DARK = 'dark';
-    const LEGACY_DARK_CLASS = 'theme-everon-a11y-dark-mode';
+    const LEGACY_DARK_CLASS = 'theme-boost-union-everon-a11y-dark-mode';
 
-    const HTML_CLASS = 'theme-everon-a11y-active';
+    const HTML_CLASS = 'theme-boost-union-everon-a11y-active';
     // darkMode is intentionally absent: the a11y tile drives Boost data-bs-theme instead.
     const CLASS_MAP = bootApi ? bootApi.CLASS_MAP : {
-        highlightTitle: 'theme-everon-a11y-highlight-title',
-        highlightLinks: 'theme-everon-a11y-highlight-links',
-        dyslexiaFont: 'theme-everon-a11y-dyslexia',
-        letterSpacing: 'theme-everon-a11y-letter-spacing',
-        lineHeight: 'theme-everon-a11y-line-height',
-        fontWeight: 'theme-everon-a11y-font-weight',
-        darkContrast: 'theme-everon-a11y-dark-contrast',
-        lightContrast: 'theme-everon-a11y-light-contrast',
-        highContrast: 'theme-everon-a11y-high-contrast',
-        highSaturation: 'theme-everon-a11y-high-saturation',
-        lowSaturation: 'theme-everon-a11y-low-saturation',
-        monochrome: 'theme-everon-a11y-monochrome',
-        readingGuide: 'theme-everon-a11y-reading-guide-on',
-        stopAnimations: 'theme-everon-a11y-stop-animations',
-        bigCursor: 'theme-everon-a11y-big-cursor',
+        highlightTitle: 'theme-boost-union-everon-a11y-highlight-title',
+        highlightLinks: 'theme-boost-union-everon-a11y-highlight-links',
+        dyslexiaFont: 'theme-boost-union-everon-a11y-dyslexia',
+        letterSpacing: 'theme-boost-union-everon-a11y-letter-spacing',
+        lineHeight: 'theme-boost-union-everon-a11y-line-height',
+        fontWeight: 'theme-boost-union-everon-a11y-font-weight',
+        darkContrast: 'theme-boost-union-everon-a11y-dark-contrast',
+        lightContrast: 'theme-boost-union-everon-a11y-light-contrast',
+        highContrast: 'theme-boost-union-everon-a11y-high-contrast',
+        highSaturation: 'theme-boost-union-everon-a11y-high-saturation',
+        lowSaturation: 'theme-boost-union-everon-a11y-low-saturation',
+        monochrome: 'theme-boost-union-everon-a11y-monochrome',
+        readingGuide: 'theme-boost-union-everon-a11y-reading-guide-on',
+        stopAnimations: 'theme-boost-union-everon-a11y-stop-animations',
+        bigCursor: 'theme-boost-union-everon-a11y-big-cursor',
     };
 
     const GROUPS = {
@@ -197,8 +197,8 @@ define([
     const ensureReadingGuide = () => {
         if (!readingGuideEl) {
             readingGuideEl = document.createElement('div');
-            readingGuideEl.id = 'theme-everon-a11y-reading-guide';
-            readingGuideEl.className = 'theme-everon-a11y-reading-guide';
+            readingGuideEl.id = 'theme-boost-union-everon-a11y-reading-guide';
+            readingGuideEl.className = 'theme-boost-union-everon-a11y-reading-guide';
             readingGuideEl.setAttribute('aria-hidden', 'true');
             readingGuideEl.hidden = true;
             document.body.appendChild(readingGuideEl);
@@ -248,7 +248,7 @@ define([
             const html = document.documentElement;
             html.classList.add(HTML_CLASS);
             html.classList.remove(LEGACY_DARK_CLASS);
-            html.style.setProperty('--theme-everon-a11y-font-scale', String(state.fontSize / 100));
+            html.style.setProperty('--theme-boost-union-everon-a11y-font-scale', String(state.fontSize / 100));
 
             Object.keys(CLASS_MAP).forEach((key) => {
                 const className = CLASS_MAP[key];
@@ -442,7 +442,7 @@ define([
 
         // Other navbar icons close this region by adding `collapsed` directly.
         // Release the trap in that same turn so it cannot pull focus back.
-        container.addEventListener('theme_everon:popoverregionclosed', () => {
+        container.addEventListener('theme_boost_union_everon:popoverregionclosed', () => {
             releasePanelFocus();
         });
 

@@ -17,7 +17,7 @@
 /**
  * Everon theme Behat steps for Boost colour-mode / dark-mode smoke coverage.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,14 +30,14 @@ use Behat\Mink\Exception\ExpectationException;
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
 /**
- * Custom Behat steps for theme_everon.
+ * Custom Behat steps for theme_boost_union_everon.
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @category   test
  * @copyright  2026 Project Theme / Jason Dorey
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_theme_everon extends behat_base {
+class behat_theme_boost_union_everon extends behat_base {
 
     /**
      * Assert the resolved Bootstrap colour mode on the document element.
