@@ -26,19 +26,19 @@
         "progress": 50
     }
 }}
-<div class="theme-everon-mycourses-progress" style="--everon-progress: {{progress}};">
+<div class="theme-boost-union-everon-mycourses-progress" style="--everon-progress: {{progress}};">
     <div class="progress-text visually-hidden">
         <span class="visually-hidden">{{#str}}aria:courseprogress, block_myoverview{{/str}}</span>
         {{#str}}completepercent, block_myoverview, <span>{{progress}}</span>{{/str}}
     </div>
     <div
-        class="theme-everon-mycourses-progress__circle"
+        class="theme-boost-union-everon-mycourses-progress__circle"
         role="progressbar"
         aria-valuenow="{{progress}}"
         aria-valuemin="0"
         aria-valuemax="100"
         aria-label="{{#str}}aria:courseprogress, block_myoverview{{/str}}"
     >
-        <span class="theme-everon-mycourses-progress__value" aria-hidden="true">{{progress}}%</span>
+        <span class="theme-boost-union-everon-mycourses-progress__value" aria-hidden="true">{{progress}}%</span>
     </div>
 </div>

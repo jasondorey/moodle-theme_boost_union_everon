@@ -1,29 +1,29 @@
 /**
  * Apply stored accessibility settings before first paint (avoids light flash when dark mode is on).
- * Loaded synchronously from theme_everon head — must stay plain JS (no AMD).
+ * Loaded synchronously from theme_boost_union_everon head — must stay plain JS (no AMD).
  */
 (function(global) {
     'use strict';
 
-    var STORAGE_KEY = 'theme_everon_a11y_v1';
-    var HTML_CLASS = 'theme-everon-a11y-active';
+    var STORAGE_KEY = 'theme_boost_union_everon_a11y_v1';
+    var HTML_CLASS = 'theme-boost-union-everon-a11y-active';
     var CLASS_MAP = {
-        highlightTitle: 'theme-everon-a11y-highlight-title',
-        highlightLinks: 'theme-everon-a11y-highlight-links',
-        dyslexiaFont: 'theme-everon-a11y-dyslexia',
-        letterSpacing: 'theme-everon-a11y-letter-spacing',
-        lineHeight: 'theme-everon-a11y-line-height',
-        fontWeight: 'theme-everon-a11y-font-weight',
-        darkContrast: 'theme-everon-a11y-dark-contrast',
-        lightContrast: 'theme-everon-a11y-light-contrast',
-        highContrast: 'theme-everon-a11y-high-contrast',
-        highSaturation: 'theme-everon-a11y-high-saturation',
-        lowSaturation: 'theme-everon-a11y-low-saturation',
-        monochrome: 'theme-everon-a11y-monochrome',
-        darkMode: 'theme-everon-a11y-dark-mode',
-        readingGuide: 'theme-everon-a11y-reading-guide-on',
-        stopAnimations: 'theme-everon-a11y-stop-animations',
-        bigCursor: 'theme-everon-a11y-big-cursor'
+        highlightTitle: 'theme-boost-union-everon-a11y-highlight-title',
+        highlightLinks: 'theme-boost-union-everon-a11y-highlight-links',
+        dyslexiaFont: 'theme-boost-union-everon-a11y-dyslexia',
+        letterSpacing: 'theme-boost-union-everon-a11y-letter-spacing',
+        lineHeight: 'theme-boost-union-everon-a11y-line-height',
+        fontWeight: 'theme-boost-union-everon-a11y-font-weight',
+        darkContrast: 'theme-boost-union-everon-a11y-dark-contrast',
+        lightContrast: 'theme-boost-union-everon-a11y-light-contrast',
+        highContrast: 'theme-boost-union-everon-a11y-high-contrast',
+        highSaturation: 'theme-boost-union-everon-a11y-high-saturation',
+        lowSaturation: 'theme-boost-union-everon-a11y-low-saturation',
+        monochrome: 'theme-boost-union-everon-a11y-monochrome',
+        darkMode: 'theme-boost-union-everon-a11y-dark-mode',
+        readingGuide: 'theme-boost-union-everon-a11y-reading-guide-on',
+        stopAnimations: 'theme-boost-union-everon-a11y-stop-animations',
+        bigCursor: 'theme-boost-union-everon-a11y-big-cursor'
     };
     var DEFAULTS = {
         fontSize: 100,
@@ -66,7 +66,7 @@
     function applyState(state) {
         var html = document.documentElement;
         html.classList.add(HTML_CLASS);
-        html.style.setProperty('--theme-everon-a11y-font-scale', String(state.fontSize / 100));
+        html.style.setProperty('--theme-boost-union-everon-a11y-font-scale', String(state.fontSize / 100));
 
         Object.keys(CLASS_MAP).forEach(function(key) {
             var className = CLASS_MAP[key];

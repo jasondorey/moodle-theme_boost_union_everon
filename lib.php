@@ -17,7 +17,7 @@
 /**
  * Theme Everon - Library
  *
- * @package    theme_everon
+ * @package    theme_boost_union_everon
  * @copyright  2026 Project Theme / Jason Dorey
  * @copyright  2023 Daniel Poggenpohl <daniel.poggenpohl@fernuni-hagen.de> and Alexander Bias <bias@alexanderbias.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,7 +33,7 @@ define('THEME_EVERON_SETTING_INHERITANCE_DUPLICATE', 1);
  * @param \core\output\theme_config $theme The theme config object.
  * @return string
  */
-function theme_everon_get_main_scss_content($theme) {
+function theme_boost_union_everon_get_main_scss_content($theme) {
     global $CFG;
 
     // Require the necessary libraries.
@@ -44,7 +44,7 @@ function theme_everon_get_main_scss_content($theme) {
     $scss = theme_boost_union_get_main_scss_content(\core\output\theme_config::load('boost_union'));
 
     // And add Everon's main SCSS file to the stack.
-    $scss .= file_get_contents($CFG->dirroot . '/theme/everon/scss/post.scss');
+    $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union_everon/scss/post.scss');
 
     return $scss;
 }
@@ -55,7 +55,7 @@ function theme_everon_get_main_scss_content($theme) {
  * @param \core\output\theme_config $theme The theme config object.
  * @return string
  */
-function theme_everon_get_pre_scss($theme) {
+function theme_boost_union_everon_get_pre_scss($theme) {
     global $CFG;
 
     // Require the necessary libraries.
@@ -70,13 +70,13 @@ function theme_everon_get_pre_scss($theme) {
     // not Boost Union. The Boost Union developers are aware of this topic, but faults can always happen.
     // If such a fault happens, the Everon administrator can switch the inheritance to 'Duplicate'.
     // This way, we will add the pre SCSS code with the explicit use of the Boost Union configuration to the stack.
-    $inheritanceconfig = get_config('theme_everon', 'prescssinheritance');
+    $inheritanceconfig = get_config('theme_boost_union_everon', 'prescssinheritance');
     if ($inheritanceconfig == THEME_EVERON_SETTING_INHERITANCE_DUPLICATE) {
         $scss .= theme_boost_union_get_pre_scss(\core\output\theme_config::load('boost_union'));
     }
 
     // And add Everon's pre SCSS file to the stack.
-    $scss .= file_get_contents($CFG->dirroot . '/theme/everon/scss/pre.scss');
+    $scss .= file_get_contents($CFG->dirroot . '/theme/boost_union_everon/scss/pre.scss');
 
     /**********************************************************
      * EXTENSION POINT:
@@ -93,7 +93,7 @@ function theme_everon_get_pre_scss($theme) {
  * @param \core\output\theme_config $theme The theme config object.
  * @return string
  */
-function theme_everon_get_extra_scss($theme) {
+function theme_boost_union_everon_get_extra_scss($theme) {
     global $CFG;
 
     // Require the necessary libraries.
@@ -108,7 +108,7 @@ function theme_everon_get_extra_scss($theme) {
     // not Boost Union. The Boost Union developers are aware of this topic, but faults can always happen.
     // If such a fault happens, the Everon administrator can switch the inheritance to 'Duplicate'.
     // This way, we will add the extra SCSS code with the explicit use of the Boost Union configuration to the stack.
-    $inheritanceconfig = get_config('theme_everon', 'extrascssinheritance');
+    $inheritanceconfig = get_config('theme_boost_union_everon', 'extrascssinheritance');
     if ($inheritanceconfig == THEME_EVERON_SETTING_INHERITANCE_DUPLICATE) {
         $scss .= theme_boost_union_get_extra_scss(\core\output\theme_config::load('boost_union'));
     }
@@ -134,7 +134,7 @@ function theme_everon_get_extra_scss($theme) {
  * @param array $options
  * @return bool
  */
-function theme_everon_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
+function theme_boost_union_everon_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
     // No Everon setting fileareas currently (login panel image removed; use Boost Union login).
     send_file_not_found();
 }
@@ -145,13 +145,13 @@ function theme_everon_pluginfile($course, $cm, $context, $filearea, $args, $forc
  *
  * @return array
  */
-function theme_everon_extend_busettingsoverview() {
+function theme_boost_union_everon_extend_busettingsoverview() {
 
     $cards[] = [
-        'label' => get_string('pluginname', 'theme_everon'),
-        'desc' => get_string('settingsoverview_buc_desc', 'theme_everon'),
+        'label' => get_string('pluginname', 'theme_boost_union_everon'),
+        'desc' => get_string('settingsoverview_buc_desc', 'theme_boost_union_everon'),
         'btn' => 'primary',
-        'url' => new \core\url('/admin/settings.php', ['section' => 'theme_everon']),
+        'url' => new \core\url('/admin/settings.php', ['section' => 'theme_boost_union_everon']),
     ];
 
     return $cards;
@@ -165,7 +165,7 @@ function theme_everon_extend_busettingsoverview() {
  *
  * @param mixed $urls The CSS URLs (passed as reference).
  */
-function theme_everon_alter_css_urls(&$urls) {
+function theme_boost_union_everon_alter_css_urls(&$urls) {
     global $CFG;
 
     // Require Boost Union library.
@@ -181,12 +181,12 @@ function theme_everon_alter_css_urls(&$urls) {
  * @param \moodle_page $page
  * @return void
  */
-function theme_everon_page_init(\moodle_page $page): void {
+function theme_boost_union_everon_page_init(\moodle_page $page): void {
     global $CFG;
 
-    require_once($CFG->dirroot . '/theme/everon/locallib.php');
+    require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
 
-    $www = '/theme/everon';
+    $www = '/theme/boost_union_everon';
 
     // Noto Sans is the site-wide brand default — load on every layout (including login).
     // Must load outside theme/styles.php so relative @font-face URLs resolve.
@@ -196,8 +196,8 @@ function theme_everon_page_init(\moodle_page $page): void {
     if ($page->pagelayout !== 'login') {
         $page->requires->css($www . '/style/popover_chrome.css');
         $page->requires->css($www . '/style/usermenu.css');
-        if (theme_everon_usermenutiles_enabled()) {
-            $page->add_body_class('theme-everon-usermenu-tiles');
+        if (theme_boost_union_everon_usermenutiles_enabled()) {
+            $page->add_body_class('theme-boost-union-everon-usermenu-tiles');
             $page->requires->css($www . '/style/usermenu_tiles.css');
         }
     }
@@ -207,47 +207,47 @@ function theme_everon_page_init(\moodle_page $page): void {
         return;
     }
 
-    if (theme_everon_accessibility_enabled()) {
+    if (theme_boost_union_everon_accessibility_enabled()) {
         // Fonts must load outside theme/styles.php so relative @font-face URLs resolve.
         $page->requires->css($www . '/fonts/opendyslexic.css');
         $page->requires->css($www . '/style/accessibility.css');
-        $page->requires->js_call_amd('theme_everon/navbar_accessibility', 'init');
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_accessibility', 'init');
     }
 
-    if (theme_everon_launchpad_should_show()) {
+    if (theme_boost_union_everon_launchpad_should_show()) {
         $page->requires->css($www . '/style/launch_pad.css');
-        $page->requires->js_call_amd('theme_everon/launch_pad', 'init');
+        $page->requires->js_call_amd('theme_boost_union_everon/launch_pad', 'init');
     }
 
-    if (\theme_everon\focus_mode::should_offer($page)) {
-        $courseid = \theme_everon\focus_mode::resolve_course_id($page);
-        $page->add_body_class('theme-everon-focus-available');
+    if (\theme_boost_union_everon\focus_mode::should_offer($page)) {
+        $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($page);
+        $page->add_body_class('theme-boost-union-everon-focus-available');
         $page->requires->css($www . '/style/course_focus.css');
         $page->requires->js($www . '/javascript/course_focus_styles.js');
-        $page->requires->js_call_amd('theme_everon/course_focus', 'init', [$courseid]);
+        $page->requires->js_call_amd('theme_boost_union_everon/course_focus', 'init', [$courseid]);
     }
 
-    if (theme_everon_mycourses_should_offer($page)) {
-        $page->add_body_class('theme-everon-mycourses');
+    if (theme_boost_union_everon_mycourses_should_offer($page)) {
+        $page->add_body_class('theme-boost-union-everon-mycourses');
         $page->requires->css($www . '/style/course_cards.css');
         $page->requires->css($www . '/style/my_courses.css');
     }
 
-    if (theme_everon_mycourses_stats_should_offer($page)) {
-        $page->add_body_class('theme-everon-mycourses-stats');
+    if (theme_boost_union_everon_mycourses_stats_should_offer($page)) {
+        $page->add_body_class('theme-boost-union-everon-mycourses-stats');
         $page->requires->css($www . '/style/my_courses_stats.css');
     }
 
-    if (theme_everon_dashboard_should_offer($page)) {
-        $page->add_body_class('theme-everon-dashboard');
+    if (theme_boost_union_everon_dashboard_should_offer($page)) {
+        $page->add_body_class('theme-boost-union-everon-dashboard');
         $page->requires->css($www . '/style/course_cards.css');
         $page->requires->css($www . '/style/dashboard.css');
         // Supporting block surfaces + empty-state polish fold into Dashboard layout.
         $page->requires->css($www . '/style/dashboard_surfaces.css');
     }
 
-    if (theme_everon_compact_navbar_should_offer($page)) {
-        $page->add_body_class('theme-everon-compact-navbar');
+    if (theme_boost_union_everon_compact_navbar_should_offer($page)) {
+        $page->add_body_class('theme-boost-union-everon-compact-navbar');
         $page->requires->css($www . '/style/navbar.css');
     }
 }

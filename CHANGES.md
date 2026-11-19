@@ -1,11 +1,12 @@
-moodle-theme_everon
-==============================
+moodle-theme_boost_union_everon
+===============================
 
 Changes
 -------
 
 ### Rolling release
 
+* 2026-11-19 - Rename component/folder from `theme_everon` / `everon` to `theme_boost_union_everon` / `boost_union_everon` (lang, AMD, Behat, CSS/JS prefixes); display name remains Everon (v5.2-r37)
 * 2026-10-22 - Default font: Noto Sans replaces Rubik (bundled WOFF2 400/500/600/700, OFL; `fonts/noto-sans.css`; Pre-SCSS `$font-family-sans-serif` / `$font-family-base`) (v5.2-r36)
 * 2026-10-22 - Launch Pad navbar icon: FA Free `location-crosshairs` (`icon fa fa-location-crosshairs fa-fw`); was `circle-chevron-down` (v5.2-r35)
 * 2026-10-22 - Profile usermenu tiles: 3-col Launch Pad–style grid (FA icons by titleidentifier); setting enableusermenutiles default Yes; Off restores vertical list (v5.2-r34)
