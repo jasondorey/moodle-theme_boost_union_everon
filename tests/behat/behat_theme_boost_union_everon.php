@@ -59,6 +59,25 @@ class behat_theme_boost_union_everon extends behat_base {
     }
 
     /**
+     * Assert the chosen Boost colour mode preference attribute (may be auto).
+     *
+     * @Then /^the document Boost colour mode preference should be "(?P<mode>light|dark|auto)"$/
+     * @param string $mode
+     */
+    public function the_document_boost_colour_mode_preference_should_be(string $mode): void {
+        $this->wait_for_pending_js();
+        $actual = $this->getSession()->evaluateScript(
+            'return document.documentElement.getAttribute("data-colourmode");'
+        );
+        if ($actual !== $mode) {
+            throw new ExpectationException(
+                'Expected data-colourmode="' . $mode . '" but found ' . var_export($actual, true),
+                $this->getSession()
+            );
+        }
+    }
+
+    /**
      * Open the Everon accessibility navbar popover.
      *
      * @When /^I open the Everon accessibility panel$/
@@ -98,13 +117,14 @@ class behat_theme_boost_union_everon extends behat_base {
     }
 
     /**
-     * Click the accessibility Dark Mode tile (bridges to Boost colour modes).
+     * Choose an accessibility Colour Mode option (bridges to Boost colour modes).
      *
-     * @When /^I toggle the Everon accessibility Dark Mode tile$/
+     * @When /^I choose the Everon accessibility colour mode "(?P<mode>light|dark|auto)"$/
+     * @param string $mode
      */
-    public function i_toggle_the_everon_accessibility_dark_mode_tile(): void {
+    public function i_choose_the_everon_accessibility_colour_mode(string $mode): void {
         $this->execute('behat_general::i_click_on', [
-            '#nav-accessibility-popover-container [data-a11y-toggle="darkMode"]',
+            '#nav-accessibility-popover-container [data-a11y-colourmode="' . $mode . '"]',
             'css_element',
         ]);
         $this->wait_for_pending_js();

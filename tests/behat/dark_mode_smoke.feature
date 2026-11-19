@@ -48,10 +48,13 @@ Feature: Everon dark mode smoke under Boost colour modes
     And ".everon-launchpad__tile" "css_element" should exist
     When I open the Everon accessibility panel
     Then "#nav-accessibility-popover-panel" "css_element" should be visible
-    And I should see "Dark Mode" in the "#nav-accessibility-popover-panel" "css_element"
+    And I should see "Colour Mode" in the "#nav-accessibility-popover-panel" "css_element"
+    And I should see "Dark" in the "#nav-accessibility-popover-panel" "css_element"
+    And I should see "Light" in the "#nav-accessibility-popover-panel" "css_element"
+    And I should see "System" in the "#nav-accessibility-popover-panel" "css_element"
     And ".custom-navbar__a11y-option" "css_element" should exist
 
-  Scenario: Accessibility Dark Mode tile bridges to Boost data-bs-theme dark
+  Scenario: Accessibility Colour Mode Dark bridges to Boost data-bs-theme dark
     Given the following "user preferences" exist:
       | user  | preference             | value |
       | admin | theme_boost_colourmode | light |
@@ -59,6 +62,18 @@ Feature: Everon dark mode smoke under Boost colour modes
     And I follow "Dashboard"
     Then the document Bootstrap colour mode should be "light"
     When I open the Everon accessibility panel
-    And I toggle the Everon accessibility Dark Mode tile
+    And I choose the Everon accessibility colour mode "dark"
     Then the document Bootstrap colour mode should be "dark"
-    And "#nav-accessibility-popover-container [data-a11y-toggle=darkMode][aria-pressed=true]" "css_element" should exist
+    And the document Boost colour mode preference should be "dark"
+    And "#nav-accessibility-popover-container [data-a11y-colourmode=dark][aria-checked=true]" "css_element" should exist
+
+  Scenario: Accessibility Colour Mode System stores Boost auto preference
+    Given the following "user preferences" exist:
+      | user  | preference             | value |
+      | admin | theme_boost_colourmode | light |
+    And I log in as "admin"
+    And I follow "Dashboard"
+    When I open the Everon accessibility panel
+    And I choose the Everon accessibility colour mode "auto"
+    Then the document Boost colour mode preference should be "auto"
+    And "#nav-accessibility-popover-container [data-a11y-colourmode=auto][aria-checked=true]" "css_element" should exist

@@ -98,6 +98,47 @@
             </section>
 
             <section class="custom-navbar__a11y-section">
+                <h3 class="custom-navbar__a11y-section-title" id="nav-accessibility-colourmode-label">{{#str}} a11ycolourmode, theme_boost_union_everon {{/str}}</h3>
+                <div
+                    class="custom-navbar__a11y-grid"
+                    role="radiogroup"
+                    aria-labelledby="nav-accessibility-colourmode-label"
+                    data-region="a11y-colourmode"
+                >
+                    <button
+                        type="button"
+                        class="custom-navbar__a11y-option"
+                        role="radio"
+                        data-a11y-colourmode="dark"
+                        aria-checked="false"
+                    >
+                        <span class="custom-navbar__a11y-option-icon" aria-hidden="true"><i class="fa fa-moon"></i></span>
+                        <span class="custom-navbar__a11y-option-label">{{#str}} a11ycolourmodedark, theme_boost_union_everon {{/str}}</span>
+                    </button>
+                    <button
+                        type="button"
+                        class="custom-navbar__a11y-option"
+                        role="radio"
+                        data-a11y-colourmode="light"
+                        aria-checked="false"
+                    >
+                        <span class="custom-navbar__a11y-option-icon" aria-hidden="true"><i class="fa fa-sun"></i></span>
+                        <span class="custom-navbar__a11y-option-label">{{#str}} a11ycolourmodelight, theme_boost_union_everon {{/str}}</span>
+                    </button>
+                    <button
+                        type="button"
+                        class="custom-navbar__a11y-option"
+                        role="radio"
+                        data-a11y-colourmode="auto"
+                        aria-checked="false"
+                    >
+                        <span class="custom-navbar__a11y-option-icon" aria-hidden="true"><i class="fa fa-circle-half-stroke"></i></span>
+                        <span class="custom-navbar__a11y-option-label">{{#str}} a11ycolourmodesystem, theme_boost_union_everon {{/str}}</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="custom-navbar__a11y-section">
                 <h3 class="custom-navbar__a11y-section-title">{{#str}} a11ycoloradjustments, theme_boost_union_everon {{/str}}</h3>
                 <div class="custom-navbar__a11y-grid">
                     <button type="button" class="custom-navbar__a11y-option" data-a11y-toggle="darkContrast" data-a11y-group="contrast" aria-pressed="false">
@@ -123,10 +164,6 @@
                     <button type="button" class="custom-navbar__a11y-option" data-a11y-toggle="monochrome" data-a11y-group="saturation" aria-pressed="false">
                         <span class="custom-navbar__a11y-option-icon custom-navbar__a11y-icon-mono" aria-hidden="true"></span>
                         <span class="custom-navbar__a11y-option-label">{{#str}} a11ymonochrome, theme_boost_union_everon {{/str}}</span>
-                    </button>
-                    <button type="button" class="custom-navbar__a11y-option custom-navbar__a11y-option--wide" data-a11y-toggle="darkMode" aria-pressed="false">
-                        <span class="custom-navbar__a11y-option-icon" aria-hidden="true"><i class="fa fa-moon"></i></span>
-                        <span class="custom-navbar__a11y-option-label">{{#str}} a11ydarkmode, theme_boost_union_everon {{/str}}</span>
                     </button>
                 </div>
             </section>

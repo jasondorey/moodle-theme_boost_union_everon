@@ -639,7 +639,7 @@ html.theme-boost-union-everon-a11y-big-cursor * {
     background: linear-gradient(135deg, var(--cn-a11y-accent) 50%, #fff 50%) !important;
 }
 
-/* Boost colour-mode navbar menu: hidden so the a11y Dark Mode tile is the only switcher. */
+/* Boost colour-mode navbar menu: hidden so the a11y Colour Mode section is the only switcher. */
 [data-region="colourmode-menu"] {
     display: none !important;
 }

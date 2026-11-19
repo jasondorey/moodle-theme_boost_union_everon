@@ -2,8 +2,9 @@
  * Apply stored accessibility settings before first paint (avoids flash when dark mode is on).
  * Loaded synchronously from theme_boost_union_everon head — must stay plain JS (no AMD).
  *
- * On Moodle 5.3, site dark/light is Boost colour modes (data-bs-theme). This boot script no
- * longer applies theme-boost-union-everon-a11y-dark-mode; Boost's head hooks own that paint path.
+ * On Moodle 5.3, site Dark/Light/System is Boost colour modes (data-bs-theme / data-colourmode).
+ * This boot script no longer applies theme-boost-union-everon-a11y-dark-mode; Boost's head hooks
+ * own that paint path. The a11y Colour Mode section drives the preference.
  */
 (function(global) {
     'use strict';

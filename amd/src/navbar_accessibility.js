@@ -16,8 +16,9 @@
 /**
  * Navbar accessibility menu — applies adjustments site-wide with localStorage persistence.
  *
- * Dark Mode is bridged to Boost colour modes (preference theme_boost_colourmode + cookie +
- * data-bs-theme), not the retired theme-boost-union-everon-a11y-dark-mode class.
+ * Colour Mode (Dark / Light / System) is bridged to Boost colour modes (preference
+ * theme_boost_colourmode + cookie + data-bs-theme / data-colourmode), not the retired
+ * theme-boost-union-everon-a11y-dark-mode class. Default selection is System (`auto`).
  *
  * @module     theme_boost_union_everon/navbar_accessibility
  * @copyright  2026
@@ -41,10 +42,13 @@ define([
     const COLOURMODE_PREFERENCE = 'theme_boost_colourmode';
     const MODE_LIGHT = 'light';
     const MODE_DARK = 'dark';
+    const MODE_AUTO = 'auto';
+    const COLOUR_MODES = [MODE_LIGHT, MODE_DARK, MODE_AUTO];
+    const DEFAULT_COLOUR_MODE = MODE_AUTO;
     const LEGACY_DARK_CLASS = 'theme-boost-union-everon-a11y-dark-mode';
 
     const HTML_CLASS = 'theme-boost-union-everon-a11y-active';
-    // darkMode is intentionally absent: the a11y tile drives Boost data-bs-theme instead.
+    // Colour mode is intentionally absent: the a11y Colour Mode section drives Boost instead.
     const CLASS_MAP = bootApi ? bootApi.CLASS_MAP : {
         highlightTitle: 'theme-boost-union-everon-a11y-highlight-title',
         highlightLinks: 'theme-boost-union-everon-a11y-highlight-links',
@@ -116,27 +120,50 @@ define([
     };
 
     /**
-     * Whether Boost currently has an explicit dark colour mode chosen.
-     *
+     * @param {string|null} mode
      * @returns {boolean}
      */
-    const isBoostDarkMode = () => {
-        return document.documentElement.getAttribute('data-colourmode') === MODE_DARK;
+    const isValidColourMode = (mode) => {
+        return COLOUR_MODES.indexOf(mode) !== -1;
+    };
+
+    /**
+     * Resolve Boost "auto" against the device colour scheme (same as theme_boost/colourmode).
+     *
+     * @param {string} mode light|dark|auto
+     * @returns {string} light|dark
+     */
+    const resolveColourMode = (mode) => {
+        if (mode !== MODE_AUTO) {
+            return mode;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? MODE_DARK : MODE_LIGHT;
+    };
+
+    /**
+     * Chosen Boost colour mode on the document (not the resolved data-bs-theme).
+     * Falls back to System (`auto`) when missing or unknown.
+     *
+     * @returns {string} light|dark|auto
+     */
+    const getBoostColourMode = () => {
+        const mode = document.documentElement.getAttribute('data-colourmode');
+        return isValidColourMode(mode) ? mode : DEFAULT_COLOUR_MODE;
     };
 
     /**
      * Apply a Boost colour mode the same way theme_boost/colourmode does:
      * data-colourmode + data-bs-theme, preference, and cookie.
      *
-     * @param {string} mode light|dark
+     * @param {string} mode light|dark|auto
      */
     const applyBoostColourMode = (mode) => {
-        if (mode !== MODE_LIGHT && mode !== MODE_DARK) {
+        if (!isValidColourMode(mode)) {
             return;
         }
         const root = document.documentElement;
         root.setAttribute('data-colourmode', mode);
-        root.setAttribute('data-bs-theme', mode);
+        root.setAttribute('data-bs-theme', resolveColourMode(mode));
         root.classList.remove(LEGACY_DARK_CLASS);
 
         document.cookie = COLOURMODE_PREFERENCE + '=' + mode + getColourModeCookieAttributes();
@@ -147,13 +174,18 @@ define([
     };
 
     /**
-     * Sync the a11y Dark Mode tile from Boost's chosen colour mode (not localStorage).
+     * Sync Colour Mode radio tiles from Boost's chosen colour mode (not localStorage).
      *
-     * @param {object} state
-     * @returns {object}
+     * @param {HTMLElement} panelRoot
      */
-    const syncDarkModeFromBoost = (state) => {
-        return {...state, darkMode: isBoostDarkMode()};
+    const syncColourModeUi = (panelRoot) => {
+        const current = getBoostColourMode();
+        panelRoot.querySelectorAll('[data-a11y-colourmode]').forEach((button) => {
+            const mode = button.getAttribute('data-a11y-colourmode');
+            const active = mode === current;
+            button.classList.toggle('is-active', active);
+            button.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
     };
 
     /**
@@ -175,7 +207,8 @@ define([
                 state = {...DEFAULTS};
             }
         }
-        return syncDarkModeFromBoost(state);
+        // Colour mode lives in Boost preference/cookie; never revive legacy darkMode from storage.
+        return {...state, darkMode: false};
     };
 
     /**
@@ -283,6 +316,8 @@ define([
             button.classList.toggle('is-active', active);
             button.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
+
+        syncColourModeUi(panelRoot);
     };
 
     /**
@@ -309,20 +344,11 @@ define([
     /**
      * @param {HTMLElement} panelRoot
      * @param {object} nextState
-     * @param {{previousDarkMode?: boolean}} [options]
      */
-    const commitState = (panelRoot, nextState, options) => {
-        const previousDarkMode = options && typeof options.previousDarkMode === 'boolean'
-            ? options.previousDarkMode
-            : !!(currentState && currentState.darkMode);
-
+    const commitState = (panelRoot, nextState) => {
         applyState(nextState);
         saveState(nextState);
         syncPanelUi(panelRoot, nextState);
-
-        if (colourModeBridgeEnabled() && !!nextState.darkMode !== previousDarkMode) {
-            applyBoostColourMode(nextState.darkMode ? MODE_DARK : MODE_LIGHT);
-        }
     };
 
     /**
@@ -334,19 +360,33 @@ define([
             return;
         }
 
+        const colourModeBtn = event.target.closest('[data-a11y-colourmode]');
+        if (colourModeBtn && panelRoot.contains(colourModeBtn)) {
+            event.preventDefault();
+            event.stopPropagation();
+            const mode = colourModeBtn.getAttribute('data-a11y-colourmode');
+            if (!isValidColourMode(mode)) {
+                return;
+            }
+            if (colourModeBridgeEnabled()) {
+                applyBoostColourMode(mode);
+            }
+            syncColourModeUi(panelRoot);
+            return;
+        }
+
         const toggleBtn = event.target.closest('[data-a11y-toggle]');
         if (toggleBtn && panelRoot.contains(toggleBtn)) {
             event.preventDefault();
             event.stopPropagation();
             const key = toggleBtn.getAttribute('data-a11y-toggle');
-            if (!key || !(key in DEFAULTS)) {
+            // Ignore legacy darkMode toggles; Colour Mode owns Boost bridging.
+            if (!key || key === 'darkMode' || !(key in DEFAULTS)) {
                 return;
             }
-            const previousDarkMode = !!currentState.darkMode;
             commitState(
                 panelRoot,
-                updateToggle(currentState, key, !currentState[key]),
-                {previousDarkMode: previousDarkMode}
+                updateToggle(currentState, key, !currentState[key])
             );
             return;
         }
@@ -375,8 +415,11 @@ define([
             return;
         }
         if (action === 'reset') {
-            const previousDarkMode = !!currentState.darkMode;
-            commitState(panelRoot, {...DEFAULTS}, {previousDarkMode: previousDarkMode});
+            commitState(panelRoot, {...DEFAULTS});
+            if (colourModeBridgeEnabled()) {
+                applyBoostColourMode(DEFAULT_COLOUR_MODE);
+            }
+            syncColourModeUi(panelRoot);
         }
     };
 
