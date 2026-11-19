@@ -463,6 +463,17 @@ define([
             }
         });
 
+        // Notifications-style top-right × — same close path as Escape (return focus).
+        panel.addEventListener('click', (event) => {
+            const closeBtn = event.target.closest('[data-action="everon-popover-close"]');
+            if (!closeBtn || !panel.contains(closeBtn)) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            close({returnFocus: true});
+        });
+
         document.addEventListener('click', (event) => {
             if (!isOpen()) {
                 return;

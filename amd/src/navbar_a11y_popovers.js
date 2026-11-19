@@ -140,12 +140,45 @@ define([
         });
     };
 
+    let userMenuCloseBound = false;
+
+    /**
+     * Notifications-style × inside the profile usermenu panel.
+     */
+    const bindUserMenuClose = () => {
+        if (userMenuCloseBound) {
+            return;
+        }
+        userMenuCloseBound = true;
+
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) {
+                return;
+            }
+            const closeBtn = target.closest(
+                '#' + USER_ACTION_MENU_ID + ' [data-action="everon-popover-close"]'
+            );
+            if (!closeBtn) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            closeUserMenu();
+            const toggle = document.getElementById(USER_MENU_TOGGLE_ID);
+            if (toggle) {
+                toggle.focus();
+            }
+        });
+    };
+
     return {
         closeAllExcept: closeAllExcept,
         closeUserMenu: closeUserMenu,
         closeNavbarPopoversExcept: closeNavbarPopoversExcept,
         init: function() {
             bindUserMenuMutex();
+            bindUserMenuClose();
         },
     };
 });

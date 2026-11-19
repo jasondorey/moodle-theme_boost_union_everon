@@ -72,6 +72,18 @@ define([
             }
         });
 
+        // Notifications-style top-right ×.
+        panel.addEventListener('click', (event) => {
+            const closeBtn = event.target.closest('[data-action="everon-popover-close"]');
+            if (!closeBtn || !panel.contains(closeBtn)) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            close();
+            toggle.focus();
+        });
+
         document.addEventListener('click', (event) => {
             if (!isOpen()) {
                 return;

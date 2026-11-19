@@ -25,7 +25,12 @@
     When everontiles is unset/false: Union vertical list markup.
 }}
 {{#everontiles}}
-<h3 class="everon-usermenu__title">{{#str}} usermenumenu, theme_boost_union_everon {{/str}}</h3>
+<div class="everon-popover-header everon-usermenu__header">
+    <h3 class="everon-popover-header__title everon-usermenu__title">{{#str}} usermenumenu, theme_boost_union_everon {{/str}}</h3>
+    <div class="everon-popover-header__actions">
+        {{> theme_boost_union_everon/popover_panel_close }}
+    </div>
+</div>
 <div class="everon-usermenu__grid" role="none">
 {{#items}}
     {{#link}}
@@ -61,6 +66,12 @@
 </div>
 {{/everontiles}}
 {{^everontiles}}
+<div class="everon-popover-header everon-usermenu__header">
+    <h3 class="everon-popover-header__title everon-usermenu__title">{{#str}} usermenumenu, theme_boost_union_everon {{/str}}</h3>
+    <div class="everon-popover-header__actions">
+        {{> theme_boost_union_everon/popover_panel_close }}
+    </div>
+</div>
 {{#items}}
     {{#link}}
         <a href="{{{url}}}" class="dropdown-item {{#menuclasses}} {{.}} {{/menuclasses}}" role="menuitem" tabindex="-1" {{#tooltip}}title="{{.}}" data-bs-toggle="tooltip"{{/tooltip}} {{#attributes}}{{#name}}{{name}}="{{value}}"{{/name}} {{/attributes}}>

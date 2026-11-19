@@ -265,6 +265,8 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
             $page->add_body_class('theme-boost-union-everon-usermenu-tiles');
             $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu_tiles.css'));
         }
+        // Usermenu × close (and navbar mutex) — independent of a11y / Launch Pad toggles.
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_a11y_popovers', 'init');
     }
 
     // Skip login layout for navbar utilities (a11y / Launch Pad / Focus / layouts).

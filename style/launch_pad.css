@@ -51,8 +51,12 @@
     pointer-events: auto;
 }
 
+.everon-launchpad__header {
+    margin-bottom: 0.5rem;
+}
+
 .everon-launchpad__title {
-    margin: 0 0 0.5rem;
+    margin: 0;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));

@@ -55,6 +55,21 @@
     z-index: 2;
 }
 
+/* List-mode panel title + notifications-style close (tiles mode mirrors in usermenu_tiles.css). */
+.usermenu #user-action-menu .everon-usermenu__header {
+    margin: 0 0.35rem 0.35rem;
+    padding: 0.35rem 0.5rem 0.15rem;
+}
+
+.usermenu #user-action-menu .everon-usermenu__title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    letter-spacing: 0;
+    text-transform: none;
+}
+
 /* Vertical list items */
 .usermenu #user-action-menu .dropdown-item {
     display: flex;

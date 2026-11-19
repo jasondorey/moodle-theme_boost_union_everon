@@ -21,8 +21,14 @@ body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu #carous
 }
 
 /* Match Launch Pad / a11y section title chrome at the top of the panel. */
-body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__title {
+body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu .everon-usermenu__header,
+body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__header {
     margin: 0 0 0.5rem;
+    padding: 0;
+}
+
+body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__title {
+    margin: 0;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
