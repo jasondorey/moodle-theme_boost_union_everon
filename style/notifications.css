@@ -29,9 +29,10 @@
     right: 0;
     left: auto;
     top: 100%;
-    width: auto !important;
-    min-width: 16rem;
-    max-width: min(24rem, calc(100vw - 1.5rem)) !important;
+    /* Match Moodle core $region-container-width (380px); avoid auto shrink to ~16rem. */
+    width: min(380px, calc(100vw - 1.5rem)) !important;
+    min-width: min(380px, calc(100vw - 1.5rem));
+    max-width: min(380px, calc(100vw - 1.5rem)) !important;
     height: auto !important;
     max-height: min(85vh, 40rem) !important;
     margin-top: 0.35rem;

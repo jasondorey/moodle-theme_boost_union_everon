@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-19 - Notifications popover width: restore Moodle core–like 380px (`$region-container-width`) min/max on `#nav-notification-popover-container` (stop auto-shrink to ~16rem); keep Everon chrome (v5.3-r28)
 * 2026-11-19 - Notifications navbar popover: Everon panel chrome matching usermenu / a11y / Launch Pad / starred (radius, accent border/shadow, muted header, item hover, footer; keep mark-as-read / settings / close; `style/notifications.css`) (v5.3-r27)
 * 2026-11-19 - Starred courses navbar popover: Everon panel chrome matching usermenu / a11y / Launch Pad (radius, accent border/shadow, muted header, list-item hover; `style/starred_courses.css`) (v5.3-r26)
 * 2026-11-19 - MuTMS My programs cards: circular on-image completion % matching course cards (theme override of `block_muprogmyoverview` progress + MuTMS CSS); keep status badge (e.g. Open) in card body (v5.3-r25)
