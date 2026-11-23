@@ -253,6 +253,10 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
 
     require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
 
+    // Belt-and-suspenders with after_config: heal flavourslib if hooks cache was stale
+    // after a deploy, or after_config could not write yet.
+    \theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied_if_needed();
+
     $www = '/theme/boost_union_everon';
 
     // Shared popover chrome + profile usermenu + starred + notifications + messages + MuTMS switch tenant — always on with Everon (not login).

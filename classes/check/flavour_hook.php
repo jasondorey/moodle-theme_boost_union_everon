@@ -63,8 +63,9 @@ class flavour_hook extends \core\check\check {
 
         if (!flavour_hook_helper::is_applied()) {
             // Prefer restoring during the check when the web/CLI user can write flavourslib
-            // (typical after a Boost Union upgrade wiped the hook).
-            $outcome = flavour_hook_helper::ensure_applied();
+            // (typical after a Boost Union upgrade wiped the hook). after_config also heals
+            // this on ordinary page loads from v5.3-r38.
+            $outcome = flavour_hook_helper::ensure_applied_if_needed();
             if (flavour_hook_helper::is_applied()) {
                 return new result(
                     result::OK,

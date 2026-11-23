@@ -70,5 +70,12 @@ function xmldb_theme_boost_union_everon_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026111900, 'theme', 'boost_union_everon');
     }
 
+    if ($oldversion < 2026112300) {
+        // after_config auto-repatch: heal flavourslib when Boost Union upgrades wipe the hook
+        // without an Everon version bump. Confirm hook now and remember BU version.
+        \theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied_if_needed();
+        upgrade_plugin_savepoint(true, 2026112300, 'theme', 'boost_union_everon');
+    }
+
     return true;
 }

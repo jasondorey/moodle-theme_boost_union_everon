@@ -85,6 +85,11 @@ final class boost_union_flavour_hook {
     }
 
     /**
+     * Config key storing the last Boost Union plugin version for which the hook was confirmed.
+     */
+    public const CONFIG_BU_VERSION_SEEN = 'flavour_hook_bu_version';
+
+    /**
      * Ensure the local hook is present; apply patch or surgical insert if missing.
      *
      * Safe to call repeatedly. No-op when already applied or Boost Union is absent.
@@ -115,6 +120,75 @@ final class boost_union_flavour_hook {
         }
 
         return 'failed';
+    }
+
+    /**
+     * Re-apply the flavourslib hook when a Boost Union upgrade wiped it.
+     *
+     * Unlike {@see ensure_applied()}, this is safe on every request: it short-circuits when
+     * the hook is already present, remembers the Boost Union version that was checked, and
+     * purges the flavours session cache after a successful restore so tenants do not keep
+     * pre-hook null/category-only cache entries.
+     *
+     * Called from {@see \theme_boost_union_everon\local\hook\after_config} so a BU zip
+     * overwrite is healed on the next www-data request without waiting for an Everon upgrade.
+     *
+     * @return string Outcome from {@see ensure_applied()}, or skipped_install / skipped_static
+     */
+    public static function ensure_applied_if_needed(): string {
+        static $checked = false;
+        static $result = 'skipped_static';
+
+        if ($checked) {
+            return $result;
+        }
+        $checked = true;
+
+        if (during_initial_install()) {
+            return $result = 'skipped_install';
+        }
+
+        if (!self::flavourslib_exists()) {
+            return $result = 'missing_target';
+        }
+
+        if (self::is_applied()) {
+            self::remember_boost_union_version();
+            return $result = 'already_applied';
+        }
+
+        $outcome = self::ensure_applied();
+        if (self::is_applied()) {
+            self::remember_boost_union_version();
+            self::purge_flavours_cache();
+        }
+
+        return $result = $outcome;
+    }
+
+    /**
+     * Persist the installed Boost Union version after a successful hook check/re-apply.
+     */
+    private static function remember_boost_union_version(): void {
+        $buversion = (string) get_config('theme_boost_union', 'version');
+        if ($buversion === '') {
+            return;
+        }
+        $seen = (string) get_config('theme_boost_union_everon', self::CONFIG_BU_VERSION_SEEN);
+        if ($seen !== $buversion) {
+            set_config(self::CONFIG_BU_VERSION_SEEN, $buversion, 'theme_boost_union_everon');
+        }
+    }
+
+    /**
+     * Drop Boost Union flavours session cache after restoring the hook.
+     */
+    private static function purge_flavours_cache(): void {
+        try {
+            \core_cache\helper::purge_by_definition('theme_boost_union', 'flavours');
+        } catch (\Throwable $e) {
+            // Cache API may be unavailable in some early bootstrap / install paths.
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-23 - Persist MuTMS tenant flavours across Boost Union upgrades: re-apply `flavourslib.php` hook on `after_config` (not only Everon upgrade/status check); purge flavours cache after restore (v5.3-r38)
 * 2026-11-19 - Messages drawer: left-align Starred / Group / Private accordion headers (`justify-content: flex-start` on `.overview-section-toggle`; no moodle-theme_work) (v5.3-r37)
 * 2026-11-19 - Stop messages Safari hang for real: remove close-control MutationObserver / DOM relocate; static overview × + CSS `:has()` swap; lean mount/position only (v5.3-r36)
 * 2026-11-19 - Fix messages drawer hang: `navbar_messages` MutationObserver no longer re-enters on no-op `classList` writes (Safari/WebKit tab freeze after r34 header polish) (v5.3-r35)

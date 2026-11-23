@@ -29,11 +29,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'theme_boost_union_everon';
-$plugin->version = 2026111913;
-$plugin->release = 'v5.3-r37';
+$plugin->version = 2026112300;
+$plugin->release = 'v5.3-r38';
 $plugin->requires = 2026100500; // Moodle 5.3.
 $plugin->supported = [503, 503];
 $plugin->maturity = MATURITY_STABLE;
 // Pinned to Boost Union v5.3-r1+ (https://github.com/moodle-an-hochschulen/moodle-theme_boost_union).
-// Local flavourslib tenant hook auto-reapplied on Everon install/upgrade (survives BU overwrites).
+// Local flavourslib tenant hook auto-reapplied on after_config + Everon install/upgrade/status check.
 $plugin->dependencies = ['theme_boost_union' => 2026100501];
