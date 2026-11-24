@@ -21,7 +21,17 @@ define([
     const USER_MENU_TOGGLE_ID = 'user-menu-toggle';
     const USER_ACTION_MENU_ID = 'user-action-menu';
 
+    const TENANT_SWITCH_DIALOG_SELECTOR = 'dialog.muform-dialog.everon-tenant-switch-dialog[open]';
+
     let mutexBound = false;
+
+    const closeTenantSwitchDialog = () => {
+        document.querySelectorAll(TENANT_SWITCH_DIALOG_SELECTOR).forEach((dialog) => {
+            if (typeof dialog.close === 'function') {
+                dialog.close();
+            }
+        });
+    };
 
     const closePopoverRegion = (region) => {
         if (!region || region.classList.contains('collapsed')) {
@@ -82,6 +92,8 @@ define([
         if (!keepMessage) {
             closeMessageDrawer();
         }
+
+        closeTenantSwitchDialog();
     };
 
     /**

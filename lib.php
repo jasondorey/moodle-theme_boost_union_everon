@@ -275,6 +275,8 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
         $page->requires->js_call_amd('theme_boost_union_everon/navbar_a11y_popovers', 'init');
         // Message drawer → Everon floating panel (CSS chrome + mount/position).
         $page->requires->js_call_amd('theme_boost_union_everon/navbar_messages', 'init');
+        // MuTMS Switch tenant dialog → anchored navbar panel (no centered modal/dimmed backdrop).
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_tenant_switch', 'init');
     }
 
     // Skip login layout for navbar utilities (a11y / Launch Pad / Focus / layouts).

@@ -1,19 +1,23 @@
 /**
- * MuTMS “Switch tenant” navbar dialog — match Accessibility / Launch Pad /
- * usermenu / starred / notifications Everon panel chrome.
+ * MuTMS “Switch tenant” navbar panel — anchored directly beneath its navbar
+ * trigger icon to match Accessibility / Launch Pad / usermenu / starred /
+ * notifications / messages Everon panel chrome.
  *
  * Source: tool_mutenancy_render_navbar_output() → tool_mulib muform dialog
  * (<dialog class="muform-dialog muform-dialog-sm"> + form data-muform=
  * tool_mutenancy-local-form-tenant_switch). Tokens from popover_chrome.css.
  *
- * Loading spinner has no form yet; muform-dialog-sm covers that beat. Full
- * chrome + list/item rules use :has(form[…tenant_switch]).
+ * `navbar_tenant_switch` AMD tags the Switch tenant dialog with
+ * `.everon-tenant-switch-dialog` before first paint (including the loading
+ * beat) and computes viewport-clamped `--everon-tenant-switch-top/left`.
+ * Scoping to `.everon-tenant-switch-dialog` + `:has(form[…tenant_switch])`
+ * keeps other MuTMS `sm` admin modals unaffected.
  */
 
 /* -------------------------------------------------------------------------
- * Dialog shell — radius, accent border/shadow, panel bg (sm ≈ switch tenant)
+ * Anchored navbar panel shell — radius, accent border/shadow, panel bg
  * ------------------------------------------------------------------------- */
-dialog.muform-dialog.muform-dialog-sm,
+dialog.muform-dialog.everon-tenant-switch-dialog,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) {
     --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
     --bs-modal-bg: var(--everon-popover-bg, #f3f4f6);
@@ -31,10 +35,32 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     width: min(22.5rem, calc(100vw - 1.5rem));
     max-width: calc(100vw - 1.5rem);
     color: var(--everon-popover-text, #3f444e);
+    outline: none;
 }
 
-dialog.muform-dialog.muform-dialog-sm .modal-content,
+dialog.muform-dialog.everon-tenant-switch-dialog {
+    position: fixed;
+    inset: auto;
+    top: var(--everon-tenant-switch-top, calc(3.5rem + 0.35rem));
+    left: var(--everon-tenant-switch-left, auto);
+    right: auto;
+    bottom: auto;
+    margin: 0 !important;
+    max-height: min(85vh, 40rem, calc(100vh - var(--everon-tenant-switch-top, 4rem) - 0.75rem));
+}
+
+/* Resting focus parks on the dialog root (tabindex=-1); never paint a focus ring on it. */
+dialog.muform-dialog.everon-tenant-switch-dialog:focus,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]):focus {
+    outline: none;
+    box-shadow: none;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-content,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
     border: var(
         --everon-popover-border,
         1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
@@ -50,18 +76,19 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     overflow: hidden;
 }
 
-/* Soften native backdrop so the panel reads like navbar chrome, not a heavy modal. */
-dialog.muform-dialog.muform-dialog-sm::backdrop,
+/* Transparent backdrop so the panel behaves like a navbar dropdown, not a dimmed modal. */
+dialog.muform-dialog.everon-tenant-switch-dialog::backdrop,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"])::backdrop {
-    background: color-mix(in srgb, var(--everon-popover-accent, #e67e22) 6%, rgba(15, 23, 42, 0.28));
+    background: transparent;
 }
 
 /* -------------------------------------------------------------------------
  * Header — muted title + Everon close chrome (match notifications actions)
  * ------------------------------------------------------------------------- */
-dialog.muform-dialog.muform-dialog-sm .modal-header,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header {
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
@@ -71,7 +98,7 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     background: transparent;
 }
 
-dialog.muform-dialog.muform-dialog-sm .modal-title,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-title,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-title {
     margin: 0;
     padding: 0;
@@ -83,7 +110,7 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
 }
 
-dialog.muform-dialog.muform-dialog-sm .modal-header .btn-close,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close {
     box-sizing: border-box;
     width: 1.75rem;
@@ -102,15 +129,15 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     transition: border-color 0.12s ease, color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
 }
 
-dialog.muform-dialog.muform-dialog-sm .modal-header .btn-close:focus,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:focus,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:focus {
     outline: none;
     box-shadow: none;
     opacity: 0.72;
 }
 
-dialog.muform-dialog.muform-dialog-sm .modal-header .btn-close:hover,
-dialog.muform-dialog.muform-dialog-sm .modal-header .btn-close:focus-visible,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:hover,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:focus-visible,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:hover,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:focus-visible {
     border-color: var(
@@ -126,10 +153,16 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
 /* -------------------------------------------------------------------------
  * Body / form
  * ------------------------------------------------------------------------- */
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-body,
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
     padding: 0.15rem 0.75rem 0.75rem;
     background: transparent;
     color: var(--everon-popover-text, #3f444e);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform.mform {
@@ -217,6 +250,7 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
     margin: 0;
     padding: 0.25rem;
+    max-width: calc(100vw - 2rem);
     border: var(
         --everon-popover-border,
         1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
@@ -328,6 +362,7 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
 
 dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .btn-outline-secondary {
     border-color: var(--everon-popover-tile-border, rgba(63, 68, 78, 0.12));
+    background: var(--everon-popover-tile-bg, #fff);
     color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
     border-radius: 0.35rem;
 }
@@ -345,7 +380,7 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
 /* -------------------------------------------------------------------------
  * Dark mode — shared popover token remap
  * ------------------------------------------------------------------------- */
-:root[data-bs-theme="dark"] dialog.muform-dialog.muform-dialog-sm,
+:root[data-bs-theme="dark"] dialog.muform-dialog.everon-tenant-switch-dialog,
 :root[data-bs-theme="dark"] dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) {
     --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
     --everon-popover-text: var(--bs-body-color, #dee2e6);
@@ -363,13 +398,13 @@ dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_swit
     --bs-modal-color: var(--everon-popover-text, #dee2e6);
 }
 
-:root[data-bs-theme="dark"] dialog.muform-dialog.muform-dialog-sm .modal-content,
+:root[data-bs-theme="dark"] dialog.muform-dialog.everon-tenant-switch-dialog .modal-content,
 :root[data-bs-theme="dark"] dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-content {
     background: var(--everon-popover-bg, #2b3035);
     color: var(--everon-popover-text, #dee2e6);
 }
 
-:root[data-bs-theme="dark"] dialog.muform-dialog.muform-dialog-sm .modal-header .btn-close,
+:root[data-bs-theme="dark"] dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close,
 :root[data-bs-theme="dark"] dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23dee2e6'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
     opacity: 0.85;
