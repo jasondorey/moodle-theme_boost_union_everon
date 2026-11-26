@@ -113,6 +113,21 @@ $string['launchpadrolemissing'] = 'Rol #{$a} (ausente)';
 $string['launchpadrolemapinvalid'] = 'Los enlaces de rol de Launch Pad deben ser un objeto JSON que asigne claves de paquete a matrices de enlaces.';
 
 $string['launchpadjsoninvalid'] = 'Los enlaces de Launch Pad deben ser una matriz JSON de objetos, cada uno con label y url no vacíos.';
+$string['launchpad_section_global'] = 'Global';
+$string['launchpad_item_appearance'] = 'Apariencia';
+$string['launchpad_item_certifications'] = 'Certificaciones';
+$string['launchpad_item_customreports'] = 'Informes personalizados';
+$string['launchpad_item_dynamicrules'] = 'Reglas dinámicas';
+$string['launchpad_item_orgstructure'] = 'Estructura organizativa';
+$string['launchpad_item_programs'] = 'Programas';
+$string['launchpad_item_users'] = 'Usuarios';
+$string['launchpad_item_catalogue'] = 'Catálogo';
+$string['launchpad_item_customhomepages'] = 'Páginas de inicio personalizadas';
+$string['launchpad_item_alltenants'] = 'Todos los inquilinos';
+$string['launchpad_item_allusers'] = 'Todos los usuarios';
+$string['launchpad_item_certificates'] = 'Certificados';
+$string['launchpad_item_courses'] = 'Cursos';
+$string['launchpad_item_custompages'] = 'Páginas personalizadas';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modo enfoque';

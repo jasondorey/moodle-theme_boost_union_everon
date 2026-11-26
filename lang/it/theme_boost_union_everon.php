@@ -113,6 +113,21 @@ $string['launchpadrolemissing'] = 'Ruolo #{$a} (mancante)';
 $string['launchpadrolemapinvalid'] = 'I collegamenti di ruolo Launch Pad devono essere un oggetto JSON che associa chiavi di pacchetto ad array di collegamenti.';
 
 $string['launchpadjsoninvalid'] = 'I collegamenti Launch Pad devono essere un array JSON di oggetti, ciascuno con label e url non vuoti.';
+$string['launchpad_section_global'] = 'Globale';
+$string['launchpad_item_appearance'] = 'Aspetto';
+$string['launchpad_item_certifications'] = 'Certificazioni';
+$string['launchpad_item_customreports'] = 'Report personalizzati';
+$string['launchpad_item_dynamicrules'] = 'Regole dinamiche';
+$string['launchpad_item_orgstructure'] = 'Struttura organizzativa';
+$string['launchpad_item_programs'] = 'Programmi';
+$string['launchpad_item_users'] = 'Utenti';
+$string['launchpad_item_catalogue'] = 'Catalogo';
+$string['launchpad_item_customhomepages'] = 'Pagine home personalizzate';
+$string['launchpad_item_alltenants'] = 'Tutti i tenant';
+$string['launchpad_item_allusers'] = 'Tutti gli utenti';
+$string['launchpad_item_certificates'] = 'Certificati';
+$string['launchpad_item_courses'] = 'Corsi';
+$string['launchpad_item_custompages'] = 'Pagine personalizzate';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modalità Focus';

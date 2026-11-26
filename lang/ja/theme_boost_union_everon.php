@@ -113,6 +113,21 @@ $string['launchpadrolemissing'] = 'ロール #{$a}（欠落）';
 $string['launchpadrolemapinvalid'] = 'Launch Pad のロールリンクは、パックキーをリンク配列にマッピングする JSON オブジェクトである必要があります。';
 
 $string['launchpadjsoninvalid'] = 'Launch Pad リンクは、それぞれ空でない label と url を持つオブジェクトの JSON 配列である必要があります。';
+$string['launchpad_section_global'] = 'グローバル';
+$string['launchpad_item_appearance'] = 'アピアランス';
+$string['launchpad_item_certifications'] = '認定';
+$string['launchpad_item_customreports'] = 'カスタムレポート';
+$string['launchpad_item_dynamicrules'] = '動的ルール';
+$string['launchpad_item_orgstructure'] = '組織構造';
+$string['launchpad_item_programs'] = 'プログラム';
+$string['launchpad_item_users'] = 'ユーザ';
+$string['launchpad_item_catalogue'] = 'カタログ';
+$string['launchpad_item_customhomepages'] = 'カスタムホームページ';
+$string['launchpad_item_alltenants'] = 'すべてのテナント';
+$string['launchpad_item_allusers'] = 'すべてのユーザ';
+$string['launchpad_item_certificates'] = '証明書';
+$string['launchpad_item_courses'] = 'コース';
+$string['launchpad_item_custompages'] = 'カスタムページ';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'フォーカスモード';

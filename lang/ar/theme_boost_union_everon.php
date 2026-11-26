@@ -113,6 +113,21 @@ $string['launchpadrolemissing'] = 'الدور #{$a} (مفقود)';
 $string['launchpadrolemapinvalid'] = 'يجب أن تكون روابط أدوار Launch Pad كائن JSON يعيّن مفاتيح الحزم إلى مصفوفات الروابط.';
 
 $string['launchpadjsoninvalid'] = 'يجب أن تكون روابط Launch Pad مصفوفة JSON من الكائنات، لكل منها label وurl غير فارغين.';
+$string['launchpad_section_global'] = 'عام';
+$string['launchpad_item_appearance'] = 'المظهر';
+$string['launchpad_item_certifications'] = 'الشهادات المعتمدة';
+$string['launchpad_item_customreports'] = 'التقارير المخصصة';
+$string['launchpad_item_dynamicrules'] = 'القواعد الديناميكية';
+$string['launchpad_item_orgstructure'] = 'الهيكل التنظيمي';
+$string['launchpad_item_programs'] = 'البرامج';
+$string['launchpad_item_users'] = 'المستخدمون';
+$string['launchpad_item_catalogue'] = 'الدليل';
+$string['launchpad_item_customhomepages'] = 'صفحات البداية المخصصة';
+$string['launchpad_item_alltenants'] = 'جميع المستأجرين';
+$string['launchpad_item_allusers'] = 'جميع المستخدمين';
+$string['launchpad_item_certificates'] = 'الشهادات';
+$string['launchpad_item_courses'] = 'المقررات';
+$string['launchpad_item_custompages'] = 'الصفحات المخصصة';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'وضع التركيز';

@@ -113,6 +113,21 @@ $string['launchpadrolemissing'] = 'บทบาท #{$a} (ไม่พบ)';
 $string['launchpadrolemapinvalid'] = 'ลิงก์บทบาท Launch Pad ต้องเป็นอ็อบเจ็กต์ JSON ที่แมปคีย์แพ็กไปยังอาร์เรย์ลิงก์';
 
 $string['launchpadjsoninvalid'] = 'ลิงก์ Launch Pad ต้องเป็นอาร์เรย์ JSON ของอ็อบเจ็กต์ แต่ละรายการต้องมี label และ url ที่ไม่ว่าง';
+$string['launchpad_section_global'] = 'ส่วนกลาง';
+$string['launchpad_item_appearance'] = 'รูปลักษณ์';
+$string['launchpad_item_certifications'] = 'การรับรอง';
+$string['launchpad_item_customreports'] = 'รายงานที่กำหนดเอง';
+$string['launchpad_item_dynamicrules'] = 'กฎแบบไดนามิก';
+$string['launchpad_item_orgstructure'] = 'โครงสร้างองค์กร';
+$string['launchpad_item_programs'] = 'โปรแกรม';
+$string['launchpad_item_users'] = 'ผู้ใช้';
+$string['launchpad_item_catalogue'] = 'แคตตาล็อก';
+$string['launchpad_item_customhomepages'] = 'หน้าแรกแบบกำหนดเอง';
+$string['launchpad_item_alltenants'] = 'ผู้เช่าทั้งหมด';
+$string['launchpad_item_allusers'] = 'ผู้ใช้ทั้งหมด';
+$string['launchpad_item_certificates'] = 'ใบรับรอง';
+$string['launchpad_item_courses'] = 'หลักสูตร';
+$string['launchpad_item_custompages'] = 'หน้าแบบกำหนดเอง';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'โหมดโฟกัส';

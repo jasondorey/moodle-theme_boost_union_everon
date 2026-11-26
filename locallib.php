@@ -963,12 +963,144 @@ function theme_boost_union_everon_launchpad_sanitize_link_items(array $items): a
 }
 
 /**
- * Merged, deduped (by URL) links for the current user.
+ * Whether tool_mutenancy is installed and active.
+ *
+ * @return bool
+ */
+function theme_boost_union_everon_launchpad_mutenancy_is_active(): bool {
+    try {
+        if (!\core_component::get_plugin_directory('tool', 'mutenancy')) {
+            return false;
+        }
+        if (!class_exists(\tool_mutenancy\local\tenancy::class) ||
+                !method_exists(\tool_mutenancy\local\tenancy::class, 'is_active')) {
+            return false;
+        }
+        return (bool) \tool_mutenancy\local\tenancy::is_active();
+    } catch (\Throwable $e) {
+        return false;
+    }
+}
+
+/**
+ * Safely check whether a plugin is installed on disk and registered in config.
+ *
+ * @param string $type Plugin type (e.g. 'tool').
+ * @param string $name Plugin name (e.g. 'muprog').
+ * @return bool
+ */
+function theme_boost_union_everon_launchpad_plugin_installed(string $type, string $name): bool {
+    try {
+        if (!\core_component::get_plugin_directory($type, $name)) {
+            return false;
+        }
+        return !empty(get_config($type . '_' . $name, 'version'));
+    } catch (\Throwable $e) {
+        return false;
+    }
+}
+
+/**
+ * Safely check a capability without triggering debugging notices for missing plugins/caps.
+ *
+ * @param string $capability
+ * @param \context|null $context
+ * @param int|null $userid
+ * @return bool
+ */
+function theme_boost_union_everon_launchpad_has_capability(
+    string $capability,
+    ?\context $context,
+    ?int $userid = null
+): bool {
+    if ($context === null) {
+        return false;
+    }
+    try {
+        if (!get_capability_info($capability)) {
+            return false;
+        }
+        return has_capability($capability, $context, $userid);
+    } catch (\Throwable $e) {
+        return false;
+    }
+}
+
+/**
+ * Safely check whether the user can access tool_certificate template management.
+ *
+ * @param \context|null $tenantcatcontext Active tenant category context, if any.
+ * @param int|null $userid
+ * @return bool
+ */
+function theme_boost_union_everon_launchpad_can_manage_certificates(
+    ?\context $tenantcatcontext,
+    ?int $userid = null
+): bool {
+    global $USER;
+
+    if (!theme_boost_union_everon_launchpad_plugin_installed('tool', 'certificate')) {
+        return false;
+    }
+
+    $iscurrentuser = ($userid === null || $userid === (int) $USER->id);
+    if ($iscurrentuser && class_exists(\tool_certificate\permission::class) &&
+            method_exists(\tool_certificate\permission::class, 'can_view_admin_tree')) {
+        try {
+            return (bool) \tool_certificate\permission::can_view_admin_tree();
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    $systemcontext = \context_system::instance();
+    if (theme_boost_union_everon_launchpad_has_capability('tool/certificate:manage', $systemcontext, $userid)) {
+        return true;
+    }
+    if ($tenantcatcontext !== null &&
+            theme_boost_union_everon_launchpad_has_capability('tool/certificate:manage', $tenantcatcontext, $userid)) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Build a single sanitized Launch Pad tile entry.
+ *
+ * @param string $label
+ * @param string $rawurl
+ * @param string $icon
+ * @return array{label:string, url:string, icon:string, hasicon:bool}|null
+ */
+function theme_boost_union_everon_launchpad_make_tile(string $label, string $rawurl, string $icon): ?array {
+    $label = trim($label);
+    if ($label === '') {
+        return null;
+    }
+    $url = theme_boost_union_everon_launchpad_sanitize_url($rawurl);
+    if ($url === null) {
+        return null;
+    }
+    $cleanicon = theme_boost_union_everon_launchpad_sanitize_icon($icon);
+    return [
+        'label' => $label,
+        'url' => $url->out(false),
+        'icon' => $cleanicon,
+        'hasicon' => $cleanicon !== '',
+    ];
+}
+
+/**
+ * Merged, deduped (by URL) role-pack links from launchpadrolelinks for a user.
  *
  * @param int|null $userid
+ * @param bool $includesiteadmin Whether to include the built-in siteadmin pack.
  * @return array<int, array{label:string, url:string, icon:string, hasicon:bool}>
  */
-function theme_boost_union_everon_launchpad_get_links_for_user(?int $userid = null): array {
+function theme_boost_union_everon_launchpad_get_rolepack_links_for_user(
+    ?int $userid = null,
+    bool $includesiteadmin = true
+): array {
     $keys = theme_boost_union_everon_launchpad_matching_pack_keys($userid);
     if ($keys === []) {
         return [];
@@ -978,6 +1110,9 @@ function theme_boost_union_everon_launchpad_get_links_for_user(?int $userid = nu
     $merged = [];
     $seen = [];
     foreach ($keys as $key) {
+        if (!$includesiteadmin && $key === 'siteadmin') {
+            continue;
+        }
         if (!isset($map[$key]) || !is_array($map[$key])) {
             continue;
         }
@@ -993,6 +1128,333 @@ function theme_boost_union_everon_launchpad_get_links_for_user(?int $userid = nu
 }
 
 /**
+ * Build dynamic Workplace-aligned MuTMS Launch Pad sections when tool_mutenancy is active.
+ *
+ * @param int|null $userid
+ * @return array<int, array{title:string, hastitle:bool, links:array}>
+ */
+function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $userid = null): array {
+    global $CFG, $DB, $USER;
+
+    $userid = $userid ?? (int) $USER->id;
+    if ($userid <= 0 || !isloggedin() || isguestuser($userid)) {
+        return [];
+    }
+
+    $systemcontext = \context_system::instance();
+
+    // Resolve active tenant and its tenant/category contexts safely.
+    $tenantid = 0;
+    $tenant = null;
+    $tenantcontext = null;
+    $tenantcatid = 0;
+    $tenantcatcontext = null;
+
+    if (method_exists(\tool_mutenancy\local\tenancy::class, 'get_current_tenantid')) {
+        try {
+            $tenantid = (int) \tool_mutenancy\local\tenancy::get_current_tenantid();
+        } catch (\Throwable $e) {
+            $tenantid = 0;
+        }
+    }
+
+    if ($tenantid > 0) {
+        try {
+            if (class_exists(\tool_mutenancy\local\tenant::class) &&
+                    method_exists(\tool_mutenancy\local\tenant::class, 'fetch')) {
+                $tenant = \tool_mutenancy\local\tenant::fetch($tenantid);
+            }
+            if (!$tenant && $DB->get_manager()->table_exists('tool_mutenancy_tenant')) {
+                $tenant = $DB->get_record('tool_mutenancy_tenant', ['id' => $tenantid]);
+            }
+        } catch (\Throwable $e) {
+            $tenant = null;
+        }
+
+        try {
+            if (class_exists(\context_tenant::class) && method_exists(\context_tenant::class, 'instance')) {
+                $tenantcontext = \context_tenant::instance($tenantid, IGNORE_MISSING) ?: null;
+            } else if (class_exists(\core\context\tenant::class) &&
+                    method_exists(\core\context\tenant::class, 'instance')) {
+                $tenantcontext = \core\context\tenant::instance($tenantid, IGNORE_MISSING) ?: null;
+            } else if (class_exists(\tool_mutenancy\context\tenant::class) &&
+                    method_exists(\tool_mutenancy\context\tenant::class, 'instance')) {
+                $tenantcontext = \tool_mutenancy\context\tenant::instance($tenantid, IGNORE_MISSING) ?: null;
+            }
+        } catch (\Throwable $e) {
+            $tenantcontext = null;
+        }
+
+        if ($tenant && !empty($tenant->categoryid)) {
+            $tenantcatid = (int) $tenant->categoryid;
+            try {
+                $tenantcatcontext = \context_coursecat::instance($tenantcatid, IGNORE_MISSING) ?: null;
+            } catch (\Throwable $e) {
+                $tenantcatcontext = null;
+            }
+        }
+    }
+
+    $targetcontext = ($tenantid > 0 && $tenantcatcontext !== null) ? $tenantcatcontext : $systemcontext;
+    $contextparam = ($tenantid > 0 && $tenantcatcontext !== null) ? ('?contextid=' . $tenantcatcontext->id) : '';
+
+    $addtile = static function (array &$bucket, string $strkey, string $rawurl, string $icon): void {
+        $tile = theme_boost_union_everon_launchpad_make_tile(
+            get_string($strkey, 'theme_boost_union_everon'),
+            $rawurl,
+            $icon
+        );
+        if ($tile !== null) {
+            $bucket[] = $tile;
+        }
+    };
+
+    // Determine Global section capabilities first so tenant managers without Global access
+    // receive tenant-scoped Courses and Certificates in their primary section without duplication.
+    $canalltenants = theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:view', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
+    $canallusers = theme_boost_union_everon_launchpad_has_capability('moodle/user:update', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/user:delete', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
+    $canglobalcourses = theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $systemcontext, $userid);
+    $cancustompages = theme_boost_union_everon_launchpad_plugin_installed('tool', 'mupages')
+        && theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
+
+    $canmanagecerts = theme_boost_union_everon_launchpad_can_manage_certificates($tenantcatcontext, $userid);
+    $hassystemcert = theme_boost_union_everon_launchpad_has_capability('tool/certificate:manage', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('tool/certificate:viewallcertificates', $systemcontext, $userid);
+    $hasotherglobal = $canalltenants || $canallusers || $canglobalcourses || $cancustompages;
+    $canglobalcerts = $canmanagecerts && ($hassystemcert || $hasotherglobal);
+
+    $globallinks = [];
+    if ($canalltenants) {
+        $addtile($globallinks, 'launchpad_item_alltenants', '/admin/tool/mutenancy/index.php', 'fa-building');
+    }
+    if ($canallusers) {
+        $addtile($globallinks, 'launchpad_item_allusers', '/admin/user.php', 'fa-users-gear');
+    }
+    if ($canglobalcerts) {
+        $addtile($globallinks, 'launchpad_item_certificates', '/admin/tool/certificate/manage_templates.php', 'fa-certificate');
+    }
+    if ($canglobalcourses) {
+        $addtile($globallinks, 'launchpad_item_courses', '/course/management.php', 'fa-graduation-cap');
+    }
+    if ($cancustompages) {
+        $addtile($globallinks, 'launchpad_item_custompages', '/admin/tool/mupages/manage.php', 'fa-file-lines');
+    }
+
+    // Primary / Tenant section.
+    $primarylinks = [];
+
+    // Appearance.
+    if ($tenantid > 0) {
+        if (theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:configappearance', $tenantcontext, $userid)) {
+            $addtile(
+                $primarylinks,
+                'launchpad_item_appearance',
+                '/admin/tool/mutenancy/tenant_appearance.php?id=' . $tenantid,
+                'fa-palette'
+            );
+        }
+    } else if (theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_appearance',
+            '/admin/settings.php?section=theme_boost_union_look',
+            'fa-palette'
+        );
+    }
+
+    // Certifications.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucertify') &&
+            theme_boost_union_everon_launchpad_has_capability('tool/mucertify:view', $targetcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_certifications',
+            '/admin/tool/mucertify/management/index.php' . $contextparam,
+            'fa-award'
+        );
+    }
+
+    // Custom reports.
+    if (!empty($CFG->enablecustomreports) && (
+            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:editall', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:edit', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:view', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:viewall', $systemcontext, $userid)
+    )) {
+        $addtile($primarylinks, 'launchpad_item_customreports', '/reportbuilder/index.php', 'fa-chart-bar');
+    }
+
+    // Dynamic rules.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murules') && (
+            theme_boost_union_everon_launchpad_has_capability('tool/murules:manage', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('tool/murules:view', $systemcontext, $userid)
+    )) {
+        $addtile($primarylinks, 'launchpad_item_dynamicrules', '/admin/tool/murules/rules.php', 'fa-bolt');
+    }
+
+    // Organisation structure.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murelation') &&
+            theme_boost_union_everon_launchpad_has_capability('tool/murelation:viewframeworks', $systemcontext, $userid)) {
+        $addtile($primarylinks, 'launchpad_item_orgstructure', '/admin/tool/murelation/management/index.php', 'fa-sitemap');
+    }
+
+    // Programs.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muprog') &&
+            theme_boost_union_everon_launchpad_has_capability('tool/muprog:view', $targetcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_programs',
+            '/admin/tool/muprog/management/index.php' . $contextparam,
+            'fa-layer-group'
+        );
+    }
+
+    // Users (tenant-scoped only so site admins do not see duplicate Users + All users).
+    if ($tenantid > 0 &&
+            theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:view', $tenantcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_users',
+            '/admin/tool/mutenancy/tenant_users.php?id=' . $tenantid,
+            'fa-users'
+        );
+    }
+
+    // Catalogue.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucatalog') &&
+            theme_boost_union_everon_launchpad_has_capability('tool/mucatalog:view', $targetcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_catalogue',
+            '/admin/tool/mucatalog/management/sections.php' . $contextparam,
+            'fa-book-open'
+        );
+    }
+
+    // Custom home pages.
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muhome') &&
+            theme_boost_union_everon_launchpad_has_capability('tool/muhome:view', $targetcontext, $userid)) {
+        $addtile(
+            $primarylinks,
+            'launchpad_item_customhomepages',
+            '/admin/tool/muhome/management/index.php' . $contextparam,
+            'fa-house'
+        );
+    }
+
+    // For tenant managers (and any user without a Global section), include tenant-scoped
+    // Courses and Certificates directly in the primary section.
+    if ($globallinks === []) {
+        if ($tenantid > 0 && $tenantcatid > 0 && $tenantcatcontext !== null && (
+                theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $tenantcatcontext, $userid) ||
+                theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $tenantcatcontext, $userid)
+        )) {
+            $addtile(
+                $primarylinks,
+                'launchpad_item_courses',
+                '/course/management.php?categoryid=' . $tenantcatid,
+                'fa-graduation-cap'
+            );
+        }
+        if ($canmanagecerts) {
+            $addtile(
+                $primarylinks,
+                'launchpad_item_certificates',
+                '/admin/tool/certificate/manage_templates.php',
+                'fa-certificate'
+            );
+        }
+    }
+
+    // Append any non-siteadmin custom role packs configured in launchpadrolelinks, deduped by URL.
+    $seen = [];
+    foreach ($primarylinks as $link) {
+        $seen[$link['url']] = true;
+    }
+    foreach ($globallinks as $link) {
+        $seen[$link['url']] = true;
+    }
+    foreach (theme_boost_union_everon_launchpad_get_rolepack_links_for_user($userid, false) as $link) {
+        if (isset($seen[$link['url']])) {
+            continue;
+        }
+        $seen[$link['url']] = true;
+        $primarylinks[] = $link;
+    }
+
+    $sections = [];
+    if ($primarylinks !== []) {
+        $sections[] = [
+            'title' => '',
+            'hastitle' => false,
+            'links' => $primarylinks,
+        ];
+    }
+    if ($globallinks !== []) {
+        $sections[] = [
+            'title' => get_string('launchpad_section_global', 'theme_boost_union_everon'),
+            'hastitle' => true,
+            'links' => $globallinks,
+        ];
+    }
+
+    return $sections;
+}
+
+/**
+ * Launch Pad sections for the current (or specified) user.
+ *
+ * Uses dynamic Workplace-aligned MuTMS sections when tool_mutenancy is active;
+ * falls back to configured launchpadrolelinks packs on non-MuTMS sites.
+ *
+ * @param int|null $userid
+ * @return array<int, array{title:string, hastitle:bool, links:array}>
+ */
+function theme_boost_union_everon_launchpad_get_sections_for_user(?int $userid = null): array {
+    global $USER;
+
+    $userid = $userid ?? (int) $USER->id;
+    if ($userid <= 0 || !isloggedin() || isguestuser($userid)) {
+        return [];
+    }
+
+    if (theme_boost_union_everon_launchpad_mutenancy_is_active()) {
+        return theme_boost_union_everon_launchpad_get_mutms_sections_for_user($userid);
+    }
+
+    $links = theme_boost_union_everon_launchpad_get_rolepack_links_for_user($userid, true);
+    if ($links === []) {
+        return [];
+    }
+
+    return [[
+        'title' => '',
+        'hastitle' => false,
+        'links' => $links,
+    ]];
+}
+
+/**
+ * Merged, deduped (by URL) links for the current user.
+ *
+ * @param int|null $userid
+ * @return array<int, array{label:string, url:string, icon:string, hasicon:bool}>
+ */
+function theme_boost_union_everon_launchpad_get_links_for_user(?int $userid = null): array {
+    $sections = theme_boost_union_everon_launchpad_get_sections_for_user($userid);
+    $flat = [];
+    foreach ($sections as $section) {
+        foreach ($section['links'] as $link) {
+            $flat[] = $link;
+        }
+    }
+    return $flat;
+}
+
+/**
  * Whether the Launch Pad icon should render for the current user.
  *
  * @return bool
@@ -1004,7 +1466,7 @@ function theme_boost_union_everon_launchpad_should_show(): bool {
     if (!isloggedin() || isguestuser()) {
         return false;
     }
-    return theme_boost_union_everon_launchpad_get_links_for_user() !== [];
+    return theme_boost_union_everon_launchpad_get_sections_for_user() !== [];
 }
 
 /**
@@ -1013,11 +1475,25 @@ function theme_boost_union_everon_launchpad_should_show(): bool {
  * @return array|null Null when the control should not render.
  */
 function theme_boost_union_everon_launchpad_template_context(): ?array {
-    if (!theme_boost_union_everon_launchpad_should_show()) {
+    if (!theme_boost_union_everon_launchpad_enabled()) {
         return null;
     }
-    $links = theme_boost_union_everon_launchpad_get_links_for_user();
+    if (!isloggedin() || isguestuser()) {
+        return null;
+    }
+    $sections = theme_boost_union_everon_launchpad_get_sections_for_user();
+    if ($sections === []) {
+        return null;
+    }
+    $links = [];
+    foreach ($sections as $section) {
+        foreach ($section['links'] as $link) {
+            $links[] = $link;
+        }
+    }
     return [
+        'sections' => $sections,
+        'hassections' => true,
         'links' => $links,
         'haslinks' => $links !== [],
     ];

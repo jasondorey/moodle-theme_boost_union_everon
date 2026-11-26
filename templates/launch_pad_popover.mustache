@@ -39,16 +39,40 @@
                     {{> theme_boost_union_everon/popover_panel_close }}
                 </div>
             </div>
-            <div class="everon-launchpad__grid" role="list">
-                {{#links}}
-                <a class="everon-launchpad__tile" href="{{{url}}}" role="listitem">
-                    <span class="everon-launchpad__tile-icon" aria-hidden="true">
-                        {{#hasicon}}<i class="fa {{icon}}"></i>{{/hasicon}}
-                        {{^hasicon}}<i class="fa fa-link"></i>{{/hasicon}}
-                    </span>
-                    <span class="everon-launchpad__tile-label">{{label}}</span>
-                </a>
-                {{/links}}
+            <div class="everon-launchpad__body">
+                {{#hassections}}
+                {{#sections}}
+                <div class="everon-launchpad__section">
+                    {{#hastitle}}
+                    <h4 class="everon-launchpad__section-title">{{title}}</h4>
+                    {{/hastitle}}
+                    <div class="everon-launchpad__grid" role="list">
+                        {{#links}}
+                        <a class="everon-launchpad__tile" href="{{{url}}}" role="listitem">
+                            <span class="everon-launchpad__tile-icon" aria-hidden="true">
+                                {{#hasicon}}<i class="fa {{icon}}"></i>{{/hasicon}}
+                                {{^hasicon}}<i class="fa fa-link"></i>{{/hasicon}}
+                            </span>
+                            <span class="everon-launchpad__tile-label">{{label}}</span>
+                        </a>
+                        {{/links}}
+                    </div>
+                </div>
+                {{/sections}}
+                {{/hassections}}
+                {{^hassections}}
+                <div class="everon-launchpad__grid" role="list">
+                    {{#links}}
+                    <a class="everon-launchpad__tile" href="{{{url}}}" role="listitem">
+                        <span class="everon-launchpad__tile-icon" aria-hidden="true">
+                            {{#hasicon}}<i class="fa {{icon}}"></i>{{/hasicon}}
+                            {{^hasicon}}<i class="fa fa-link"></i>{{/hasicon}}
+                        </span>
+                        <span class="everon-launchpad__tile-label">{{label}}</span>
+                    </a>
+                    {{/links}}
+                </div>
+                {{/hassections}}
             </div>
         </div>
     </div>
