@@ -120,6 +120,21 @@ $string['launchpadrolemissing'] = 'Role #{$a} (missing)';
 $string['launchpadrolemapinvalid'] = 'Launch Pad role links must be a JSON object mapping pack keys to link arrays.';
 
 $string['launchpadjsoninvalid'] = 'Launch Pad links must be a JSON array of objects, each with non-empty label and url.';
+$string['launchpad_section_global'] = 'Global';
+$string['launchpad_item_appearance'] = 'Appearance';
+$string['launchpad_item_certifications'] = 'Certifications';
+$string['launchpad_item_customreports'] = 'Custom reports';
+$string['launchpad_item_dynamicrules'] = 'Dynamic rules';
+$string['launchpad_item_orgstructure'] = 'Organisation structure';
+$string['launchpad_item_programs'] = 'Programs';
+$string['launchpad_item_users'] = 'Users';
+$string['launchpad_item_catalogue'] = 'Catalogue';
+$string['launchpad_item_customhomepages'] = 'Custom home pages';
+$string['launchpad_item_alltenants'] = 'All tenants';
+$string['launchpad_item_allusers'] = 'All users';
+$string['launchpad_item_certificates'] = 'Certificates';
+$string['launchpad_item_courses'] = 'Courses';
+$string['launchpad_item_custompages'] = 'Custom pages';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Focus Mode';

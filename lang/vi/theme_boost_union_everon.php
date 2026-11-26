@@ -116,6 +116,21 @@ $string['launchpadrolemissing'] = 'Vai trò #{$a} (thiếu)';
 $string['launchpadrolemapinvalid'] = 'Liên kết vai trò Launch Pad phải là đối tượng JSON ánh xạ khóa gói tới mảng liên kết.';
 
 $string['launchpadjsoninvalid'] = 'Liên kết Launch Pad phải là mảng JSON các đối tượng, mỗi đối tượng có label và url không rỗng.';
+$string['launchpad_section_global'] = 'Toàn cục';
+$string['launchpad_item_appearance'] = 'Giao diện';
+$string['launchpad_item_certifications'] = 'Chứng nhận';
+$string['launchpad_item_customreports'] = 'Báo cáo tùy chỉnh';
+$string['launchpad_item_dynamicrules'] = 'Quy tắc động';
+$string['launchpad_item_orgstructure'] = 'Cơ cấu tổ chức';
+$string['launchpad_item_programs'] = 'Chương trình';
+$string['launchpad_item_users'] = 'Người dùng';
+$string['launchpad_item_catalogue'] = 'Danh mục';
+$string['launchpad_item_customhomepages'] = 'Trang chủ tùy chỉnh';
+$string['launchpad_item_alltenants'] = 'Tất cả tổ chức thuê';
+$string['launchpad_item_allusers'] = 'Tất cả người dùng';
+$string['launchpad_item_certificates'] = 'Chứng chỉ';
+$string['launchpad_item_courses'] = 'Khóa học';
+$string['launchpad_item_custompages'] = 'Trang tùy chỉnh';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Chế độ tập trung';

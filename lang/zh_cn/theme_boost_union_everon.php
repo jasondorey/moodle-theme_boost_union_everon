@@ -116,6 +116,21 @@ $string['launchpadrolemissing'] = '角色 #{$a}（缺失）';
 $string['launchpadrolemapinvalid'] = 'Launch Pad 角色链接必须是将包键映射到链接数组的 JSON 对象。';
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 链接必须是对象的 JSON 数组，每个对象都有非空的 label 和 url。';
+$string['launchpad_section_global'] = '全局';
+$string['launchpad_item_appearance'] = '外观';
+$string['launchpad_item_certifications'] = '认证';
+$string['launchpad_item_customreports'] = '自定义报表';
+$string['launchpad_item_dynamicrules'] = '动态规则';
+$string['launchpad_item_orgstructure'] = '组织架构';
+$string['launchpad_item_programs'] = '项目';
+$string['launchpad_item_users'] = '用户';
+$string['launchpad_item_catalogue'] = '目录';
+$string['launchpad_item_customhomepages'] = '自定义首页';
+$string['launchpad_item_alltenants'] = '所有租户';
+$string['launchpad_item_allusers'] = '所有用户';
+$string['launchpad_item_certificates'] = '证书';
+$string['launchpad_item_courses'] = '课程';
+$string['launchpad_item_custompages'] = '自定义页面';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '专注模式';

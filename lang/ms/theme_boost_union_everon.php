@@ -116,6 +116,21 @@ $string['launchpadrolemissing'] = 'Peranan #{$a} (tiada)';
 $string['launchpadrolemapinvalid'] = 'Pautan peranan Launch Pad mestilah objek JSON yang memetakan kunci pek kepada tatasusunan pautan.';
 
 $string['launchpadjsoninvalid'] = 'Pautan Launch Pad mestilah tatasusunan JSON objek, setiap satu dengan label dan url yang tidak kosong.';
+$string['launchpad_section_global'] = 'Global';
+$string['launchpad_item_appearance'] = 'Penampilan';
+$string['launchpad_item_certifications'] = 'Pensijilan';
+$string['launchpad_item_customreports'] = 'Laporan tersuai';
+$string['launchpad_item_dynamicrules'] = 'Peraturan dinamik';
+$string['launchpad_item_orgstructure'] = 'Struktur organisasi';
+$string['launchpad_item_programs'] = 'Program';
+$string['launchpad_item_users'] = 'Pengguna';
+$string['launchpad_item_catalogue'] = 'Katalog';
+$string['launchpad_item_customhomepages'] = 'Halaman utama tersuai';
+$string['launchpad_item_alltenants'] = 'Semua penyewa';
+$string['launchpad_item_allusers'] = 'Semua pengguna';
+$string['launchpad_item_certificates'] = 'Sijil';
+$string['launchpad_item_courses'] = 'Kursus';
+$string['launchpad_item_custompages'] = 'Halaman tersuai';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modus Fokus';

@@ -42,17 +42,56 @@
 
 .everon-launchpad__panel-inner {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-height: min(85vh, 40rem);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     padding: 0.85rem 0.75rem 0.75rem;
     background: var(--everon-popover-bg, #f3f4f6);
     pointer-events: auto;
 }
 
 .everon-launchpad__header {
+    flex: 0 0 auto;
     margin-bottom: 0.5rem;
+}
+
+.everon-launchpad__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: calc(min(85vh, 40rem) - 3.25rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 0.125rem;
+}
+
+.everon-launchpad__section {
+    margin: 0;
+}
+
+.everon-launchpad__section + .everon-launchpad__section {
+    margin-top: 0.7rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+}
+
+.everon-launchpad__section-title {
+    margin: 0 0 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+:root[data-bs-theme="dark"] .everon-launchpad__section + .everon-launchpad__section {
+    border-top-color: var(--everon-popover-divider, rgba(255, 255, 255, 0.15));
+}
+
+:root[data-bs-theme="dark"] .everon-launchpad__section-title {
+    color: var(--everon-popover-muted, #c6cbd1);
 }
 
 .everon-launchpad__title {

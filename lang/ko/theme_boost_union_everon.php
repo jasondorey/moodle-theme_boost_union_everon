@@ -116,6 +116,21 @@ $string['launchpadrolemissing'] = '역할 #{$a}(없음)';
 $string['launchpadrolemapinvalid'] = 'Launch Pad 역할 링크는 팩 키를 링크 배열에 매핑하는 JSON 객체여야 합니다.';
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 링크는 각각 비어 있지 않은 label과 url이 있는 객체의 JSON 배열이어야 합니다.';
+$string['launchpad_section_global'] = '전역';
+$string['launchpad_item_appearance'] = '모양';
+$string['launchpad_item_certifications'] = '자격 인증';
+$string['launchpad_item_customreports'] = '사용자 지정 보고서';
+$string['launchpad_item_dynamicrules'] = '동적 규칙';
+$string['launchpad_item_orgstructure'] = '조직 구조';
+$string['launchpad_item_programs'] = '프로그램';
+$string['launchpad_item_users'] = '사용자';
+$string['launchpad_item_catalogue'] = '카탈로그';
+$string['launchpad_item_customhomepages'] = '사용자 지정 홈 페이지';
+$string['launchpad_item_alltenants'] = '모든 테넌트';
+$string['launchpad_item_allusers'] = '모든 사용자';
+$string['launchpad_item_certificates'] = '수료증';
+$string['launchpad_item_courses'] = '강의';
+$string['launchpad_item_custompages'] = '사용자 지정 페이지';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '집중 모드';

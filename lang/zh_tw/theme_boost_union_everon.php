@@ -116,6 +116,21 @@ $string['launchpadrolemissing'] = '角色 #{$a}（缺失）';
 $string['launchpadrolemapinvalid'] = 'Launch Pad 角色連結必須是將套件鍵對應到連結陣列的 JSON 物件。';
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 連結必須是物件的 JSON 陣列，每個物件都有非空的 label 與 url。';
+$string['launchpad_section_global'] = '全域';
+$string['launchpad_item_appearance'] = '外觀';
+$string['launchpad_item_certifications'] = '認證';
+$string['launchpad_item_customreports'] = '自訂報表';
+$string['launchpad_item_dynamicrules'] = '動態規則';
+$string['launchpad_item_orgstructure'] = '組織架構';
+$string['launchpad_item_programs'] = '專案';
+$string['launchpad_item_users'] = '使用者';
+$string['launchpad_item_catalogue'] = '目錄';
+$string['launchpad_item_customhomepages'] = '自訂首頁';
+$string['launchpad_item_alltenants'] = '所有租戶';
+$string['launchpad_item_allusers'] = '所有使用者';
+$string['launchpad_item_certificates'] = '證書';
+$string['launchpad_item_courses'] = '課程';
+$string['launchpad_item_custompages'] = '自訂頁面';
 
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '專注模式';
