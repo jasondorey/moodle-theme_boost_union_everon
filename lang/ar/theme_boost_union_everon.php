@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'يجب أن تكون روابط Launch Pad م
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'وضع التركيز';
 $string['focusmodeheading'] = 'وضع التركيز';
-$string['focusmodeheading_desc'] = 'عنصر تحكم عائم في صفحات محتوى المقرر يخفي التنقل الثانوي والأدراج ويوسّع المحتوى الرئيسي. يُخزَّن التفضيل لكل مقرر في المتصفح (localStorage).';
+$string['focusmodeheading_desc'] = 'عنصر تحكم عائم في صفحات محتوى المقرر ولوحة المعلومات (/my/) ومقرراتي (/my/courses.php) يخفي التنقل الثانوي والأدراج ويوسّع المحتوى الرئيسي. يُخزَّن التفضيل لكل مقرر أو صفحة في المتصفح (localStorage).';
 $string['enablefocusmode'] = 'تمكين وضع التركيز';
-$string['enablefocusmode_desc'] = 'إظهار زر وضع التركيز (أسفل اليمين) في صفحات الصفحة الرئيسية للمقرر والقسم والنشاط. الافتراضي: نعم.';
+$string['enablefocusmode_desc'] = 'إظهار زر وضع التركيز (أسفل اليمين) في صفحات الصفحة الرئيسية للمقرر والقسم والنشاط وكذلك لوحة المعلومات (/my/) ومقرراتي (/my/courses.php). الافتراضي: نعم.';
 $string['focusmodeenable'] = 'وضع التركيز';
 $string['focusmodedisable'] = 'الخروج من وضع التركيز';
 $string['focusmodenotice'] = 'وضع التركيز مفعّل. انقر على × في أسفل اليمين لإيقافه.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'تطبيق مظهر شريط التنقل
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'مقرراتي';
 $string['mycoursesheading'] = 'تخطيط مقرراتي';
-$string['mycoursesheading_desc'] = 'شبكة بطاقات أوسع اختياريًا في صفحة مقرراتي (/my/courses.php). يُطبَّق تنسيق على كتلة نظرة عامة على المقررات القياسية — دون استبدالها. البحث والتجميع والفرز وأوضاع العرض تبقى من Moodle الأساسي.';
+$string['mycoursesheading_desc'] = 'مظهر شبكة بطاقات اختياري في صفحة مقرراتي (/my/courses.php) بالعرض الافتراضي لـ Moodle / Boost Union (قابل للتوسيع عبر وضع التركيز). يُطبَّق تنسيق على كتلة نظرة عامة على المقررات القياسية — دون استبدالها. البحث والتجميع والفرز وأوضاع العرض تبقى من Moodle الأساسي.';
 $string['enablemycourseslayout'] = 'تمكين تخطيط مقرراتي';
-$string['enablemycourseslayout_desc'] = 'يوسّع صفحة مقرراتي، ويعرض شبكة بطاقات متجاوبة من 1–5 أعمدة، ويعيد تنسيق البطاقات (ظل، تقدّم دائري على الصورة، نجمة على الصورة). الافتراضي: نعم.';
+$string['enablemycourseslayout_desc'] = 'يعرض شبكة بطاقات متجاوبة (1–3 أعمدة بالعرض الافتراضي، وتتوسّع حتى 5 أعمدة في وضع التركيز)، ويعيد تنسيق البطاقات (ظل، تقدّم دائري على الصورة، نجمة على الصورة). الافتراضي: نعم.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'إحصاءات مقرراتي';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} ممنوحة';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'لوحة المعلومات';
 $string['dashboardheading'] = 'تخطيط لوحة المعلومات';
-$string['dashboardheading_desc'] = 'غلاف لوحة معلومات أوسع اختياريًا على /my/ ومظهر بطاقات نظرة عامة على المقررات المشترك مع مقرراتي. تخطيط الأعمدة (التقويم / الأحداث القادمة على اليمين) يستخدم Boost Union Outside (يمين) — اضبطه تحت الإحساس ← الكتل.';
+$string['dashboardheading_desc'] = 'شبكة بطاقات ومظهر أسطح الكتل الاختياري للوحة المعلومات على /my/ بالعرض الافتراضي لـ Moodle / Boost Union (قابل للتوسيع عبر وضع التركيز)، مع مظهر بطاقات نظرة عامة على المقررات المشترك مع مقرراتي. تخطيط الأعمدة (التقويم / الأحداث القادمة على اليمين) يستخدم Boost Union Outside (يمين) — اضبطه تحت الإحساس ← الكتل.';
 $string['enabledashboardlayout'] = 'تمكين تخطيط لوحة المعلومات';
-$string['enabledashboardlayout_desc'] = 'يوسّع صفحة لوحة المعلومات ويطبّق نفس مظهر بطاقات نظرة عامة على المقررات كما في مقرراتي. كما يوحّد أسطح كتل المخطط الزمني / التقويم / القادمة ويخفّف حالات الفراغ لتطابقها. الافتراضي: نعم. فعّل Boost Union Outside (يمين) بشكل منفصل للعمود الأيمن.';
+$string['enabledashboardlayout_desc'] = 'يطبّق نفس مظهر بطاقات نظرة عامة على المقررات كما في مقرراتي على لوحة المعلومات (1–3 أعمدة بالعرض الافتراضي، وتتوسّع إلى 4 أعمدة في وضع التركيز). كما يوحّد أسطح كتل المخطط الزمني / التقويم / القادمة ويخفّف حالات الفراغ لتطابقها. الافتراضي: نعم. فعّل Boost Union Outside (يمين) بشكل منفصل للعمود الأيمن.';
 $string['dashboardsurfacesnote'] = 'عند تمكين تخطيط لوحة المعلومات، تطبّق Everon أيضًا رموز سطح الكتل المشتركة (حد ناعم، نصف قطر، ظل) وتنسيقًا أكثر هدوءًا لحالات الفراغ في المخطط الزمني / القادمة بحيث تطابق الكتل الداعمة بطاقات المقررات.';
 
 // Privacy API.

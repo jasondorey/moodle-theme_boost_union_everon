@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Tautan Launch Pad harus berupa array JSON obj
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Mode Fokus';
 $string['focusmodeheading'] = 'Mode Fokus';
-$string['focusmodeheading_desc'] = 'Kontrol mengambang di halaman konten kursus yang menyembunyikan navigasi sekunder dan laci serta memperlebar konten utama. Preferensi disimpan per kursus di peramban (localStorage).';
+$string['focusmodeheading_desc'] = 'Kontrol mengambang di halaman konten kursus, Dasbor (/my/), dan Kursus Saya (/my/courses.php) yang menyembunyikan navigasi sekunder dan laci serta memperlebar konten utama. Preferensi disimpan per kursus atau halaman di peramban (localStorage).';
 $string['enablefocusmode'] = 'Aktifkan Mode Fokus';
-$string['enablefocusmode_desc'] = 'Tampilkan tombol Mode Fokus (kanan bawah) di halaman beranda kursus, bagian, dan aktivitas. Default: Ya.';
+$string['enablefocusmode_desc'] = 'Tampilkan tombol Mode Fokus (kanan bawah) di halaman beranda kursus, bagian, dan aktivitas serta di Dasbor (/my/) dan Kursus Saya (/my/courses.php). Default: Ya.';
 $string['focusmodeenable'] = 'Mode fokus';
 $string['focusmodedisable'] = 'Keluar dari mode fokus';
 $string['focusmodenotice'] = 'Mode fokus aktif. Klik × di kanan bawah untuk mematikannya.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'Terapkan krom bilah navigasi ringkas di s
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Kursus Saya';
 $string['mycoursesheading'] = 'Tata letak Kursus Saya';
-$string['mycoursesheading_desc'] = 'Kisi kartu lebih lebar opsional di halaman Kursus Saya (/my/courses.php). Memberi kulit pada blok Ikhtisar kursus standar — tidak menggantikannya. Pencarian, pengelompokan, pengurutan, dan mode tampilan tetap Moodle inti.';
+$string['mycoursesheading_desc'] = 'Tampilan kisi kartu opsional di halaman Kursus Saya (/my/courses.php) pada lebar default Moodle / Boost Union (dapat diperlebar lewat Mode Fokus). Memberi kulit pada blok Ikhtisar kursus standar — tidak menggantikannya. Pencarian, pengelompokan, pengurutan, dan mode tampilan tetap Moodle inti.';
 $string['enablemycourseslayout'] = 'Aktifkan tata letak Kursus Saya';
-$string['enablemycourseslayout_desc'] = 'Melebarkan halaman Kursus Saya, menampilkan kisi kartu responsif 1–5 kolom, menata ulang kartu (bayangan, progres melingkar pada gambar, bintang pada gambar). Default: Ya.';
+$string['enablemycourseslayout_desc'] = 'Menampilkan kisi kartu responsif (1–3 kolom pada lebar default, melebar hingga 5 kolom di Mode Fokus) dan menata ulang kartu (bayangan, progres melingkar pada gambar, bintang pada gambar). Default: Ya.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Statistik Kursus Saya';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Diberikan';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Dasbor';
 $string['dashboardheading'] = 'Tata letak Dasbor';
-$string['dashboardheading_desc'] = 'Cangkang Dasbor lebih lebar opsional di /my/ dan krom kartu Ikhtisar kursus yang dipakai bersama Kursus Saya. Tata letak kolom (Kalender / Acara mendatang di kanan) menggunakan Boost Union Outside (kanan) — konfigurasi di Feel → Blocks.';
+$string['dashboardheading_desc'] = 'Tampilan kisi kartu Dasbor dan permukaan blok opsional di /my/ pada lebar default Moodle / Boost Union (dapat diperlebar lewat Mode Fokus), berbagi krom kartu Ikhtisar kursus dengan Kursus Saya. Tata letak kolom (Kalender / Acara mendatang di kanan) menggunakan Boost Union Outside (kanan) — konfigurasi di Feel → Blocks.';
 $string['enabledashboardlayout'] = 'Aktifkan tata letak Dasbor';
-$string['enabledashboardlayout_desc'] = 'Melebarkan halaman Dasbor dan menerapkan krom kartu Ikhtisar kursus yang sama seperti Kursus Saya. Juga menyatukan permukaan blok Timeline / Calendar / Upcoming dan memperlembut keadaan kosong agar cocok. Default: Ya. Aktifkan Boost Union Outside (kanan) secara terpisah untuk kolom kanan.';
+$string['enabledashboardlayout_desc'] = 'Menerapkan krom kartu Ikhtisar kursus yang sama seperti Kursus Saya di Dasbor (1–3 kolom pada lebar default, melebar menjadi 4 kolom di Mode Fokus). Juga menyatukan permukaan blok Timeline / Calendar / Upcoming dan memperlembut keadaan kosong agar cocok. Default: Ya. Aktifkan Boost Union Outside (kanan) secara terpisah untuk kolom kanan.';
 $string['dashboardsurfacesnote'] = 'Saat tata letak Dasbor diaktifkan, Everon juga menerapkan token permukaan blok bersama (batas lembut, radius, bayangan) dan gaya keadaan kosong Timeline / Upcoming yang lebih tenang agar blok pendukung cocok dengan kartu kursus.';
 
 // Privacy API.

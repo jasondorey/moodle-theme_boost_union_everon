@@ -126,9 +126,11 @@ body.theme-boost-union-everon-dashboard .block-recentlyaccessedcourses .card-car
 }
 
 @media (min-width: 1400px) {
-    body.theme-boost-union-everon-mycourses .block-recentlyaccessedcourses .card-carousel .course-card,
-    body.theme-boost-union-everon-dashboard .block-recentlyaccessedcourses .card-carousel .course-card {
-        /* 4-up — matches Dashboard overview xl */
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-recentlyaccessedcourses .card-carousel .course-card,
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-dashboard .block-recentlyaccessedcourses .card-carousel .course-card,
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-recentlyaccessedcourses .card-carousel .course-card,
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-dashboard .block-recentlyaccessedcourses .card-carousel .course-card {
+        /* 4-up — matches expanded Dashboard overview xl */
         width: calc((100% - 3.45rem) / 4);
     }
 }

@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Launch-Pad-Links müssen ein JSON-Array von O
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Fokusmodus';
 $string['focusmodeheading'] = 'Fokusmodus';
-$string['focusmodeheading_desc'] = 'Ein schwebendes Steuerelement auf Kursinhaltsseiten, das die sekundäre Navigation und Schubladen ausblendet und den Hauptinhalt verbreitert. Die Einstellung wird pro Kurs im Browser (localStorage) gespeichert.';
+$string['focusmodeheading_desc'] = 'Ein schwebendes Steuerelement auf Kursinhaltsseiten, dem Dashboard (/my/) und Meine Kurse (/my/courses.php), das die sekundäre Navigation und Schubladen ausblendet und den Hauptinhalt verbreitert. Die Einstellung wird pro Kurs oder Seite im Browser (localStorage) gespeichert.';
 $string['enablefocusmode'] = 'Fokusmodus aktivieren';
-$string['enablefocusmode_desc'] = 'Fokusmodus-Schaltfläche (unten rechts) auf Kursstart-, Abschnitts- und Aktivitätsseiten anzeigen. Standard: Ja.';
+$string['enablefocusmode_desc'] = 'Fokusmodus-Schaltfläche (unten rechts) auf Kursstart-, Abschnitts- und Aktivitätsseiten sowie auf Dashboard (/my/) und Meine Kurse (/my/courses.php) anzeigen. Standard: Ja.';
 $string['focusmodeenable'] = 'Fokusmodus';
 $string['focusmodedisable'] = 'Fokusmodus beenden';
 $string['focusmodenotice'] = 'Fokusmodus ist aktiv. Klicken Sie unten rechts auf ×, um ihn auszuschalten.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'Kompaktes Navigationsleisten-Chrome auf a
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Meine Kurse';
 $string['mycoursesheading'] = 'Mein-Kurse-Layout';
-$string['mycoursesheading_desc'] = 'Optional breiteres Kartenraster auf der Seite Meine Kurse (/my/courses.php). Gestaltet den Standardblock Kursübersicht — ersetzt ihn nicht. Suche, Gruppierung, Sortierung und Ansichtsmodi bleiben Kern-Moodle.';
+$string['mycoursesheading_desc'] = 'Optionales Kartenraster-Design auf der Seite Meine Kurse (/my/courses.php) in der Standardbreite von Moodle / Boost Union (über den Fokusmodus erweiterbar). Gestaltet den Standardblock Kursübersicht — ersetzt ihn nicht. Suche, Gruppierung, Sortierung und Ansichtsmodi bleiben Kern-Moodle.';
 $string['enablemycourseslayout'] = 'Mein-Kurse-Layout aktivieren';
-$string['enablemycourseslayout_desc'] = 'Verbreitert die Seite Meine Kurse, zeigt ein responsives 1–5-Spalten-Kartenraster und gestaltet Karten neu (Schatten, kreisförmiger Fortschritt auf dem Bild, Stern auf dem Bild). Standard: Ja.';
+$string['enablemycourseslayout_desc'] = 'Zeigt ein responsives Kartenraster (1–3 Spalten bei Standardbreite, bis zu 5 Spalten im Fokusmodus) und gestaltet Karten neu (Schatten, kreisförmiger Fortschritt auf dem Bild, Stern auf dem Bild). Standard: Ja.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Mein-Kurse-Statistiken';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Verliehen';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Dashboard';
 $string['dashboardheading'] = 'Dashboard-Layout';
-$string['dashboardheading_desc'] = 'Optional breitere Dashboard-Hülle auf /my/ und gemeinsames Kursübersicht-Karten-Chrome mit Meine Kurse. Das Spaltenlayout (Kalender / Bevorstehende Ereignisse rechts) nutzt Boost Union Outside (rechts) — konfigurieren unter Feeling → Blöcke.';
+$string['dashboardheading_desc'] = 'Optionales Dashboard-Kartenraster- und Blockflächen-Design auf /my/ in der Standardbreite von Moodle / Boost Union (über den Fokusmodus erweiterbar) mit gemeinsamem Kursübersicht-Karten-Chrome mit Meine Kurse. Das Spaltenlayout (Kalender / Bevorstehende Ereignisse rechts) nutzt Boost Union Outside (rechts) — konfigurieren unter Feeling → Blöcke.';
 $string['enabledashboardlayout'] = 'Dashboard-Layout aktivieren';
-$string['enabledashboardlayout_desc'] = 'Verbreitert die Dashboard-Seite und wendet dasselbe Kursübersicht-Karten-Chrome wie bei Meine Kurse an. Vereinheitlicht außerdem Timeline-/Kalender-/Bevorstehend-Blockflächen und mildert leere Zustände ab. Standard: Ja. Aktivieren Sie Boost Union Outside (rechts) separat für die rechte Spalte.';
+$string['enabledashboardlayout_desc'] = 'Wendet dasselbe Kursübersicht-Karten-Chrome wie bei Meine Kurse auf dem Dashboard an (1–3 Spalten bei Standardbreite, 4 Spalten im Fokusmodus). Vereinheitlicht außerdem Timeline-/Kalender-/Bevorstehend-Blockflächen und mildert leere Zustände ab. Standard: Ja. Aktivieren Sie Boost Union Outside (rechts) separat für die rechte Spalte.';
 $string['dashboardsurfacesnote'] = 'Wenn das Dashboard-Layout aktiviert ist, wendet Everon auch gemeinsame Blockflächen-Token (weicher Rand, Radius, Schatten) und ruhigere leere Zustände für Timeline / Bevorstehend an, damit unterstützende Blöcke zu den Kurskarten passen.';
 
 // Privacy API.

@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Les liens Launch Pad doivent être un tableau
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Mode Focus';
 $string['focusmodeheading'] = 'Mode Focus';
-$string['focusmodeheading_desc'] = 'Un contrôle flottant sur les pages de contenu de cours qui masque la navigation secondaire et les tiroirs et élargit le contenu principal. La préférence est stockée par cours dans le navigateur (localStorage).';
+$string['focusmodeheading_desc'] = 'Un contrôle flottant sur les pages de contenu de cours, le Tableau de bord (/my/) et Mes cours (/my/courses.php) qui masque la navigation secondaire et les tiroirs et élargit le contenu principal. La préférence est stockée par cours ou par page dans le navigateur (localStorage).';
 $string['enablefocusmode'] = 'Activer le mode Focus';
-$string['enablefocusmode_desc'] = 'Afficher le bouton Mode Focus (en bas à droite) sur les pages d’accueil de cours, de section et d’activité. Par défaut : Oui.';
+$string['enablefocusmode_desc'] = 'Afficher le bouton Mode Focus (en bas à droite) sur les pages d’accueil de cours, de section et d’activité ainsi que sur le Tableau de bord (/my/) et Mes cours (/my/courses.php). Par défaut : Oui.';
 $string['focusmodeenable'] = 'Mode Focus';
 $string['focusmodedisable'] = 'Quitter le mode Focus';
 $string['focusmodenotice'] = 'Le mode Focus est activé. Cliquez sur × en bas à droite pour le désactiver.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'Appliquer l’apparence compacte de la ba
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Mes cours';
 $string['mycoursesheading'] = 'Disposition Mes cours';
-$string['mycoursesheading_desc'] = 'Grille de cartes optionnellement plus large sur la page Mes cours (/my/courses.php). Habillage du bloc standard Vue d’ensemble des cours — ne le remplace pas. Recherche, regroupement, tri et modes d’affichage restent ceux de Moodle central.';
+$string['mycoursesheading_desc'] = 'Habillage optionnel de grille de cartes sur la page Mes cours (/my/courses.php) à la largeur par défaut de Moodle / Boost Union (extensible via le mode Focus). Habille le bloc standard Vue d’ensemble des cours — ne le remplace pas. Recherche, regroupement, tri et modes d’affichage restent ceux de Moodle central.';
 $string['enablemycourseslayout'] = 'Activer la disposition Mes cours';
-$string['enablemycourseslayout_desc'] = 'Élargit la page Mes cours, affiche une grille responsive de 1 à 5 colonnes, restyle les cartes (ombre, progression circulaire sur l’image, étoile sur l’image). Par défaut : Oui.';
+$string['enablemycourseslayout_desc'] = 'Affiche une grille de cartes responsive (1 à 3 colonnes à la largeur par défaut, jusqu’à 5 colonnes en mode Focus) et restyle les cartes (ombre, progression circulaire sur l’image, étoile sur l’image). Par défaut : Oui.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Statistiques Mes cours';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Attribués';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Tableau de bord';
 $string['dashboardheading'] = 'Disposition du Tableau de bord';
-$string['dashboardheading_desc'] = 'Enveloppe optionnellement plus large du Tableau de bord sur /my/ et chrome de cartes Vue d’ensemble des cours partagé avec Mes cours. La disposition en colonnes (Calendrier / Événements à venir à droite) utilise Boost Union Outside (droite) — configurez sous Sensation → Blocs.';
+$string['dashboardheading_desc'] = 'Habillage optionnel de grille de cartes et de surfaces de blocs du Tableau de bord sur /my/ à la largeur par défaut de Moodle / Boost Union (extensible via le mode Focus), avec un chrome de cartes Vue d’ensemble des cours partagé avec Mes cours. La disposition en colonnes (Calendrier / Événements à venir à droite) utilise Boost Union Outside (droite) — configurez sous Sensation → Blocs.';
 $string['enabledashboardlayout'] = 'Activer la disposition du Tableau de bord';
-$string['enabledashboardlayout_desc'] = 'Élargit la page Tableau de bord et applique le même chrome de cartes Vue d’ensemble des cours que Mes cours. Unifie aussi les surfaces des blocs Chronologie / Calendrier / À venir et adoucit les états vides pour qu’ils correspondent. Par défaut : Oui. Activez Boost Union Outside (droite) séparément pour la colonne de droite.';
+$string['enabledashboardlayout_desc'] = 'Applique le même chrome de cartes Vue d’ensemble des cours que Mes cours sur le Tableau de bord (1 à 3 colonnes à la largeur par défaut, 4 colonnes en mode Focus). Unifie aussi les surfaces des blocs Chronologie / Calendrier / À venir et adoucit les états vides pour qu’ils correspondent. Par défaut : Oui. Activez Boost Union Outside (droite) séparément pour la colonne de droite.';
 $string['dashboardsurfacesnote'] = 'Lorsque la disposition du Tableau de bord est activée, Everon applique aussi des jetons de surface de bloc partagés (bordure douce, rayon, ombre) et un style d’état vide plus calme pour Chronologie / À venir afin que les blocs d’accompagnement correspondent aux cartes de cours.';
 
 // Privacy API.

@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Liên kết Launch Pad phải là mảng JSON
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Chế độ tập trung';
 $string['focusmodeheading'] = 'Chế độ tập trung';
-$string['focusmodeheading_desc'] = 'Điều khiển nổi trên các trang nội dung khóa học ẩn điều hướng phụ và ngăn kéo, đồng thời mở rộng nội dung chính. Tùy chọn được lưu theo khóa học trong trình duyệt (localStorage).';
+$string['focusmodeheading_desc'] = 'Điều khiển nổi trên các trang nội dung khóa học, Bảng điều khiển (/my/) và Khóa học của tôi (/my/courses.php) ẩn điều hướng phụ và ngăn kéo, đồng thời mở rộng nội dung chính. Tùy chọn được lưu theo từng khóa học hoặc trang trong trình duyệt (localStorage).';
 $string['enablefocusmode'] = 'Bật Chế độ tập trung';
-$string['enablefocusmode_desc'] = 'Hiển thị nút Chế độ tập trung (góc dưới bên phải) trên trang chủ khóa học, phần và hoạt động. Mặc định: Có.';
+$string['enablefocusmode_desc'] = 'Hiển thị nút Chế độ tập trung (góc dưới bên phải) trên trang chủ khóa học, phần và hoạt động cũng như Bảng điều khiển (/my/) và Khóa học của tôi (/my/courses.php). Mặc định: Có.';
 $string['focusmodeenable'] = 'Chế độ tập trung';
 $string['focusmodedisable'] = 'Thoát chế độ tập trung';
 $string['focusmodenotice'] = 'Chế độ tập trung đang bật. Nhấp × ở góc dưới bên phải để tắt.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'Áp dụng giao diện thanh điều hư�
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Khóa học của tôi';
 $string['mycoursesheading'] = 'Bố cục Khóa học của tôi';
-$string['mycoursesheading_desc'] = 'Lưới thẻ rộng hơn tùy chọn trên trang Khóa học của tôi (/my/courses.php). Tạo giao diện cho khối Tổng quan khóa học chuẩn — không thay thế nó. Tìm kiếm, nhóm, sắp xếp và chế độ xem vẫn thuộc Moodle lõi.';
+$string['mycoursesheading_desc'] = 'Giao diện lưới thẻ tùy chọn trên trang Khóa học của tôi (/my/courses.php) theo chiều rộng mặc định của Moodle / Boost Union (có thể mở rộng qua Chế độ tập trung). Tạo giao diện cho khối Tổng quan khóa học chuẩn — không thay thế nó. Tìm kiếm, nhóm, sắp xếp và chế độ xem vẫn thuộc Moodle lõi.';
 $string['enablemycourseslayout'] = 'Bật bố cục Khóa học của tôi';
-$string['enablemycourseslayout_desc'] = 'Mở rộng trang Khóa học của tôi, hiển thị lưới thẻ đáp ứng 1–5 cột, tạo kiểu lại thẻ (đổ bóng, tiến độ tròn trên ảnh, ngôi sao trên ảnh). Mặc định: Có.';
+$string['enablemycourseslayout_desc'] = 'Hiển thị lưới thẻ đáp ứng (1–3 cột ở chiều rộng mặc định, mở rộng tối đa 5 cột trong Chế độ tập trung) và tạo kiểu lại thẻ (đổ bóng, tiến độ tròn trên ảnh, ngôi sao trên ảnh). Mặc định: Có.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Thống kê Khóa học của tôi';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Đã trao';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Bảng điều khiển';
 $string['dashboardheading'] = 'Bố cục Bảng điều khiển';
-$string['dashboardheading_desc'] = 'Khung Bảng điều khiển rộng hơn tùy chọn trên /my/ và giao diện thẻ Tổng quan khóa học dùng chung với Khóa học của tôi. Bố cục cột (Lịch / Sự kiện sắp tới bên phải) dùng Boost Union Outside (phải) — cấu hình trong Feel → Blocks.';
+$string['dashboardheading_desc'] = 'Giao diện lưới thẻ Bảng điều khiển và bề mặt khối tùy chọn trên /my/ theo chiều rộng mặc định của Moodle / Boost Union (có thể mở rộng qua Chế độ tập trung), dùng chung giao diện thẻ Tổng quan khóa học với Khóa học của tôi. Bố cục cột (Lịch / Sự kiện sắp tới bên phải) dùng Boost Union Outside (phải) — cấu hình trong Feel → Blocks.';
 $string['enabledashboardlayout'] = 'Bật bố cục Bảng điều khiển';
-$string['enabledashboardlayout_desc'] = 'Mở rộng trang Bảng điều khiển và áp dụng cùng giao diện thẻ Tổng quan khóa học như Khóa học của tôi. Đồng thời thống nhất bề mặt khối Timeline / Calendar / Upcoming và làm dịu trạng thái trống cho khớp. Mặc định: Có. Bật Boost Union Outside (phải) riêng cho cột phải.';
+$string['enabledashboardlayout_desc'] = 'Áp dụng cùng giao diện thẻ Tổng quan khóa học như Khóa học của tôi trên Bảng điều khiển (1–3 cột ở chiều rộng mặc định, mở rộng thành 4 cột trong Chế độ tập trung). Đồng thời thống nhất bề mặt khối Timeline / Calendar / Upcoming và làm dịu trạng thái trống cho khớp. Mặc định: Có. Bật Boost Union Outside (phải) riêng cho cột phải.';
 $string['dashboardsurfacesnote'] = 'Khi bật bố cục Bảng điều khiển, Everon cũng áp dụng token bề mặt khối dùng chung (viền mềm, bo góc, đổ bóng) và kiểu trạng thái trống Timeline / Upcoming dịu hơn để các khối hỗ trợ khớp thẻ khóa học.';
 
 // Privacy API.

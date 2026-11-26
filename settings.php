@@ -219,7 +219,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         $page->add($tab);
 
-        // Focus Mode (distraction-free course layout).
+        // Focus Mode (wide layout toggle for courses, Dashboard, and My courses).
         $tab = new admin_settingpage(
             'theme_boost_union_everon_focusmode',
             get_string('focusmodetab', 'theme_boost_union_everon', null, true)
@@ -301,7 +301,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         $page->add($tab);
 
-        // My Courses layout (wider card grid skin for block_myoverview).
+        // My Courses layout (card grid skin for block_myoverview at default width).
         $tab = new admin_settingpage(
             'theme_boost_union_everon_mycourses',
             get_string('mycoursestab', 'theme_boost_union_everon', null, true)
@@ -400,7 +400,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         $page->add($tab);
 
-        // Dashboard layout (wider shell + shared Course overview card chrome on /my/).
+        // Dashboard layout (shared Course overview card chrome and block surfaces on /my/).
         $tab = new admin_settingpage(
             'theme_boost_union_everon_dashboard',
             get_string('dashboardtab', 'theme_boost_union_everon', null, true)

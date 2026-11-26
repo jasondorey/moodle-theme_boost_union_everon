@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Focus Mode helpers (distraction-free wide course layout).
+ * Focus Mode helpers (distraction-free wide layout for courses, Dashboard, and My courses).
  *
  * Ported from theme_custom\course_focus (GPL).
  *
@@ -110,7 +110,57 @@ class focus_mode {
     }
 
     /**
-     * Whether Focus Mode should be offered on this page (setting + content page).
+     * Dashboard (/my/) page, excluding MuTMS custom home pages that reuse mydashboard.
+     *
+     * @param \moodle_page $page
+     * @return bool
+     */
+    public static function is_dashboard_page(\moodle_page $page): bool {
+        if ($page->pagelayout !== 'mydashboard') {
+            return false;
+        }
+        // MuTMS custom home pages reuse mydashboard + content region — exclude from /my/ focus.
+        if ($page->pagetype === 'tool-muhome-index') {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * My courses (/my/courses.php) page.
+     *
+     * @param \moodle_page $page
+     * @return bool
+     */
+    public static function is_mycourses_page(\moodle_page $page): bool {
+        return $page->pagelayout === 'mycourses';
+    }
+
+    /**
+     * Resolve the Focus Mode persistence scope for this page.
+     *
+     * Returns numeric course id string on course content pages, 'dashboard' on /my/,
+     * 'mycourses' on /my/courses.php, or '' when Focus Mode does not apply.
+     *
+     * @param \moodle_page $page
+     * @return string
+     */
+    public static function resolve_scope(\moodle_page $page): string {
+        if (self::is_course_content_page($page)) {
+            $courseid = self::resolve_course_id($page);
+            return $courseid > 1 ? (string) $courseid : '';
+        }
+        if (self::is_dashboard_page($page)) {
+            return 'dashboard';
+        }
+        if (self::is_mycourses_page($page)) {
+            return 'mycourses';
+        }
+        return '';
+    }
+
+    /**
+     * Whether Focus Mode should be offered on this page (setting + supported page).
      *
      * @param \moodle_page $page
      * @return bool
@@ -119,6 +169,6 @@ class focus_mode {
         if (!\theme_boost_union_everon_focusmode_enabled()) {
             return false;
         }
-        return self::is_course_content_page($page);
+        return self::resolve_scope($page) !== '';
     }
 }

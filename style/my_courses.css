@@ -1,21 +1,9 @@
 /**
- * Everon My Courses layout — page shell + grid for /my/courses.php.
+ * Everon My Courses layout — grid + toolbar polish for /my/courses.php.
+ * Uses default Moodle/Boost Union page width; wide layout is toggled via Focus Mode.
  * Card chrome lives in course_cards.css (shared with Dashboard).
  * Loaded only when enablemycourseslayout is Yes and pagelayout is mycourses.
  */
-
-/* -------------------------------------------------------------------------
- * Wider content shell (My Courses only; do not change global course max-width)
- * ------------------------------------------------------------------------- */
-body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth #page.drawers .main-inner,
-body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth .header-maxwidth,
-body.page-mycourses.theme-boost-union-everon-mycourses.limitedwidth.uses-drawers .sticky-footer-content {
-    max-width: min(92rem, calc(100vw - 2.5rem));
-}
-
-body.page-mycourses.theme-boost-union-everon-mycourses #page.drawers .main-inner {
-    max-width: min(92rem, calc(100vw - 2.5rem));
-}
 
 /* -------------------------------------------------------------------------
  * Toolbar polish (core strings unchanged)
@@ -33,11 +21,19 @@ body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"]
 
 body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"],
 body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .searchbar input {
+    min-width: min(16rem, 100%);
+}
+
+html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"],
+html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .searchbar input,
+body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] input[type="search"],
+body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview [data-region="filter"] .searchbar input {
     min-width: min(22rem, 100%);
 }
 
 /* -------------------------------------------------------------------------
- * Card grid: CSS Grid 1 → 5 (neutralize Bootstrap row-cols)
+ * Card grid: CSS Grid 1 → 3 at default width; expands to 4–5 in Focus Mode
+ * (neutralize Bootstrap row-cols)
  * ------------------------------------------------------------------------- */
 body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
 body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
@@ -72,15 +68,19 @@ body.theme-boost-union-everon-mycourses .block-myoverview .card-grid > .col {
 }
 
 @media (min-width: 1200px) {
-    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview .card-grid,
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1400px) {
-    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
-    body.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    html.theme-boost-union-everon-focus-mode body.theme-boost-union-everon-mycourses .block-myoverview .card-grid,
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview .card-grid[data-region="card-deck"],
+    body.theme-boost-union-everon-focus-mode.theme-boost-union-everon-mycourses .block-myoverview .card-grid {
         grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 }

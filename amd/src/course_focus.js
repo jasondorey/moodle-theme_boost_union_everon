@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Focus Mode — wide layout with course navigation hidden.
+ * Focus Mode — wide layout toggle for course pages, Dashboard, and My courses.
  * FAB injected into Boost footer floats (no Mustache fork).
  *
  * @module     theme_boost_union_everon/course_focus
@@ -40,27 +40,59 @@ define(['core/str'], function(Str) {
     const STORAGE_ACTIVE = 'theme_boost_union_everon_focus_active';
     const ACTIVE_CLASS = 'is-active';
     const BODY_AVAILABLE_CLASS = 'theme-boost-union-everon-focus-available';
+    const PAGE_SCOPES = ['dashboard', 'mycourses'];
     const COURSE_VIEW_PATH = /\/course\/view\.php(\/|$)/;
     const COURSE_SECTION_PATH = /\/course\/section\.php(\/|$)/;
     const MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
+    const DASHBOARD_PATH = /\/my\/(index\.php)?$/;
+    const MYCOURSES_PATH = /\/my\/courses\.php(\/|$)/;
 
-    const storageKey = (courseId) => STORAGE_PREFIX + courseId;
+    const isPageScope = (scope) => PAGE_SCOPES.includes(scope);
 
-    const readStoredState = (courseId) => {
+    const isCourseScope = (scope) => /^\d+$/.test(scope) && parseInt(scope, 10) > 1;
+
+    const normalizeScope = (raw) => {
+        if (raw === null || raw === undefined) {
+            return '';
+        }
+        const value = String(raw).trim();
+        if (isPageScope(value)) {
+            return value;
+        }
+        if (/^\d+$/.test(value)) {
+            const id = parseInt(value, 10);
+            return id > 1 ? String(id) : '';
+        }
+        return '';
+    };
+
+    const isValidScope = (scope) => isPageScope(scope) || isCourseScope(scope);
+
+    const storageKey = (scope) => STORAGE_PREFIX + scope;
+
+    const readStoredState = (scope) => {
+        if (!isValidScope(scope)) {
+            return false;
+        }
         try {
-            return localStorage.getItem(storageKey(courseId)) === '1';
+            return localStorage.getItem(storageKey(scope)) === '1';
         } catch (e) {
             return false;
         }
     };
 
-    const writeStoredState = (courseId, enabled) => {
+    const writeStoredState = (scope, enabled) => {
+        if (!isValidScope(scope)) {
+            return;
+        }
         try {
-            localStorage.setItem(storageKey(courseId), enabled ? '1' : '0');
-            if (enabled) {
-                localStorage.setItem(STORAGE_ACTIVE, String(courseId));
-            } else if (parseInt(localStorage.getItem(STORAGE_ACTIVE) || '0', 10) === courseId) {
-                localStorage.removeItem(STORAGE_ACTIVE);
+            localStorage.setItem(storageKey(scope), enabled ? '1' : '0');
+            if (isCourseScope(scope)) {
+                if (enabled) {
+                    localStorage.setItem(STORAGE_ACTIVE, scope);
+                } else if (localStorage.getItem(STORAGE_ACTIVE) === scope) {
+                    localStorage.removeItem(STORAGE_ACTIVE);
+                }
             }
         } catch (e) {
             // Ignore.
@@ -69,48 +101,80 @@ define(['core/str'], function(Str) {
 
     const getActiveFocusCourseId = () => {
         try {
-            const active = parseInt(localStorage.getItem(STORAGE_ACTIVE) || '0', 10);
-            if (active > 1) {
+            const active = normalizeScope(localStorage.getItem(STORAGE_ACTIVE));
+            if (isCourseScope(active)) {
                 return active;
             }
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key && key.startsWith(STORAGE_PREFIX) && localStorage.getItem(key) === '1') {
-                    return parseInt(key.slice(STORAGE_PREFIX.length), 10);
+                if (!key || key === STORAGE_ACTIVE || !key.startsWith(STORAGE_PREFIX)) {
+                    continue;
+                }
+                const suffix = key.slice(STORAGE_PREFIX.length);
+                if (isCourseScope(suffix) && localStorage.getItem(key) === '1') {
+                    return suffix;
                 }
             }
         } catch (e) {
             // Ignore.
         }
-        return 0;
+        return '';
     };
 
-    const getCourseIdFromPageConfig = () => {
+    const getScopeFromPageConfig = () => {
         const pageconfig = window.themeEveronFocusPageConfig;
-        if (pageconfig?.courseId) {
-            const fromPage = parseInt(String(pageconfig.courseId), 10);
-            if (fromPage > 1) {
-                return fromPage;
-            }
+        if (!pageconfig) {
+            return '';
         }
-        return 0;
+        const fromScope = normalizeScope(pageconfig.scope);
+        if (fromScope) {
+            return fromScope;
+        }
+        return normalizeScope(pageconfig.courseId);
     };
 
     const getCourseIdFromBodyClass = () => {
         const body = document.body;
         if (!body?.classList) {
-            return 0;
+            return '';
         }
         for (const className of body.classList) {
             const match = /^course-(\d+)$/.exec(className);
             if (match) {
-                const id = parseInt(match[1], 10);
-                if (id > 1) {
+                const id = normalizeScope(match[1]);
+                if (isCourseScope(id)) {
                     return id;
                 }
             }
         }
-        return 0;
+        return '';
+    };
+
+    const isMuhomePage = (body) => {
+        if (!body) {
+            return false;
+        }
+        return body.id === 'page-admin-tool-muhome-index'
+            || body.classList.contains('path-admin-tool-muhome');
+    };
+
+    const getPageScopeFromContext = () => {
+        const body = document.body;
+        const path = window.location.pathname;
+        if (body?.classList?.contains('pagelayout-mycourses')
+            || body?.classList?.contains('page-mycourses')
+            || MYCOURSES_PATH.test(path)) {
+            return 'mycourses';
+        }
+        if (isMuhomePage(body)) {
+            return '';
+        }
+        if (body?.classList?.contains('pagelayout-mydashboard')
+            || body?.classList?.contains('path-my-index')
+            || DASHBOARD_PATH.test(path)) {
+            return 'dashboard';
+        }
+        return '';
     };
 
     const hasModActivityBodyClass = (body) => {
@@ -131,42 +195,49 @@ define(['core/str'], function(Str) {
         return (body && hasModActivityBodyClass(body)) || MOD_ACTIVITY_PATH.test(path);
     };
 
-    const resolveCourseId = (courseIdFromInit = 0) => {
-        const fromInit = parseInt(String(courseIdFromInit || '0'), 10);
-        if (fromInit > 1) {
+    const resolveScope = (scopeFromInit = '') => {
+        const fromInit = normalizeScope(scopeFromInit);
+        if (fromInit) {
             return fromInit;
         }
-        const fromPage = getCourseIdFromPageConfig();
-        if (fromPage > 1) {
+        const fromPage = getScopeFromPageConfig();
+        if (fromPage) {
             return fromPage;
         }
-        const bodyId = parseInt(document.body?.dataset.themeEveronFocusId || '0', 10);
-        if (bodyId > 1) {
+        const fromPageContext = getPageScopeFromContext();
+        if (fromPageContext) {
+            return fromPageContext;
+        }
+        const bodyId = normalizeScope(document.body?.dataset.themeEveronFocusId);
+        if (bodyId) {
             return bodyId;
         }
         const fromBodyClass = getCourseIdFromBodyClass();
-        if (fromBodyClass > 1) {
+        if (fromBodyClass) {
             return fromBodyClass;
         }
         const existing = document.querySelector(SELECTORS.button);
-        if (existing?.dataset.courseid) {
-            const fromButton = parseInt(existing.dataset.courseid, 10);
-            if (fromButton > 1) {
+        if (existing) {
+            const fromButton = normalizeScope(existing.dataset.focusscope || existing.dataset.courseid);
+            if (fromButton) {
                 return fromButton;
             }
         }
         if (COURSE_VIEW_PATH.test(window.location.pathname)) {
-            const fromUrl = parseInt(new URLSearchParams(window.location.search).get('id') || '0', 10);
-            if (fromUrl > 1) {
+            const fromUrl = normalizeScope(new URLSearchParams(window.location.search).get('id'));
+            if (fromUrl) {
                 return fromUrl;
             }
         }
         const activeId = getActiveFocusCourseId();
-        return activeId > 1 ? activeId : 0;
+        return isCourseScope(activeId) ? activeId : '';
     };
 
-    const isCourseContentPage = () => {
-        if (getCourseIdFromPageConfig() > 1) {
+    const isFocusEligiblePage = () => {
+        if (getScopeFromPageConfig()) {
+            return true;
+        }
+        if (getPageScopeFromContext()) {
             return true;
         }
         const body = document.body;
@@ -181,17 +252,17 @@ define(['core/str'], function(Str) {
             return true;
         }
         if (isModActivityPath()) {
-            return resolveCourseId() > 1;
+            return isCourseScope(resolveScope());
         }
         return false;
     };
 
-    const shouldOfferFocus = (courseId) => {
-        if (!isCourseContentPage()) {
+    const shouldOfferFocus = (scope) => {
+        if (!isFocusEligiblePage()) {
             return false;
         }
-        const resolved = courseId || resolveCourseId();
-        return resolved > 1;
+        const resolved = normalizeScope(scope) || resolveScope();
+        return isValidScope(resolved);
     };
 
     const closeDrawers = () => {
@@ -246,7 +317,7 @@ define(['core/str'], function(Str) {
         notice.textContent = noticeText;
     };
 
-    const createFocusButton = (courseId) => {
+    const createFocusButton = (scope) => {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = [
@@ -258,7 +329,10 @@ define(['core/str'], function(Str) {
             'theme-boost-union-everon-focus-btn',
         ].join(' ');
         button.dataset.action = 'everon-focus-toggle';
-        button.dataset.courseid = String(courseId);
+        button.dataset.focusscope = scope;
+        if (isCourseScope(scope)) {
+            button.dataset.courseid = scope;
+        }
         button.setAttribute('aria-pressed', 'false');
         button.innerHTML = [
             '<span class="theme-boost-union-everon-focus-btn__icon theme-boost-union-everon-focus-btn__icon--off" aria-hidden="true">',
@@ -323,9 +397,9 @@ define(['core/str'], function(Str) {
         window.setTimeout(updateVisibility, 350);
     };
 
-    const ensureFocusButton = (courseIdFromInit = 0) => {
-        const courseId = resolveCourseId(courseIdFromInit) || getActiveFocusCourseId();
-        if (!shouldOfferFocus(courseId)) {
+    const ensureFocusButton = (scopeFromInit = '') => {
+        const scope = resolveScope(scopeFromInit);
+        if (!shouldOfferFocus(scope)) {
             return null;
         }
         const floats = document.querySelector(SELECTORS.floats);
@@ -334,7 +408,7 @@ define(['core/str'], function(Str) {
         }
         let button = document.querySelector(SELECTORS.button);
         if (!button) {
-            button = createFocusButton(courseId);
+            button = createFocusButton(scope);
             const helpButton = floats.querySelector(SELECTORS.help);
             if (helpButton) {
                 floats.insertBefore(button, helpButton);
@@ -345,13 +419,16 @@ define(['core/str'], function(Str) {
         floats.classList.add('theme-boost-union-everon-footer-floats');
         syncUnionFooterButtons(floats);
         button.classList.add('bg-secondary');
-        button.dataset.courseid = String(courseId);
+        button.dataset.focusscope = scope;
+        if (isCourseScope(scope)) {
+            button.dataset.courseid = scope;
+        }
         button.hidden = false;
         button.removeAttribute('aria-hidden');
         return button;
     };
 
-    const bindFocusButton = (button, courseId) => {
+    const bindFocusButton = (button, scope) => {
         if (button.dataset.everonFocusBound === '1') {
             return;
         }
@@ -369,10 +446,10 @@ define(['core/str'], function(Str) {
             };
             const setState = (enabled) => {
                 applyState(enabled);
-                writeStoredState(courseId, enabled);
+                writeStoredState(scope, enabled);
             };
 
-            const enabled = readStoredState(courseId) || isFocusModeActive();
+            const enabled = readStoredState(scope) || isFocusModeActive();
             if (enabled) {
                 applyState(true);
             } else {
@@ -384,7 +461,7 @@ define(['core/str'], function(Str) {
                 setState(!isFocusModeActive());
             });
         }).catch(() => {
-            const enabled = readStoredState(courseId) || isFocusModeActive();
+            const enabled = readStoredState(scope) || isFocusModeActive();
             if (enabled) {
                 applyFocusMode(true);
             }
@@ -393,49 +470,49 @@ define(['core/str'], function(Str) {
                 event.preventDefault();
                 const next = !isFocusModeActive();
                 applyFocusMode(next);
-                writeStoredState(courseId, next);
+                writeStoredState(scope, next);
                 button.classList.toggle(ACTIVE_CLASS, next);
                 updateNotice(next, 'Focus mode is on. Click × at the bottom right to turn it off.');
             });
         });
     };
 
-    const restoreFocusOnLoad = (courseIdFromInit = 0) => {
-        const courseId = resolveCourseId(courseIdFromInit);
-        if (!courseId || courseId === 1) {
+    const restoreFocusOnLoad = (scopeFromInit = '') => {
+        const scope = resolveScope(scopeFromInit);
+        if (!isValidScope(scope)) {
             return;
         }
-        const fromInit = parseInt(String(courseIdFromInit || '0'), 10);
-        const onContentPage = isCourseContentPage()
-            || fromInit > 1
-            || (isModActivityPath() && readStoredState(courseId));
-        if (!onContentPage) {
+        const fromInit = normalizeScope(scopeFromInit);
+        const onSupportedPage = isFocusEligiblePage()
+            || isValidScope(fromInit)
+            || (isCourseScope(scope) && isModActivityPath() && readStoredState(scope));
+        if (!onSupportedPage) {
             return;
         }
-        if (readStoredState(courseId) || isFocusModeActive()) {
+        if (readStoredState(scope) || isFocusModeActive()) {
             applyFocusMode(true);
         }
     };
 
     /**
-     * @param {number} [courseIdFromInit=0]
+     * @param {string|number} [scopeFromInit='']
      */
-    const init = (courseIdFromInit = 0) => {
-        restoreFocusOnLoad(courseIdFromInit);
+    const init = (scopeFromInit = '') => {
+        restoreFocusOnLoad(scopeFromInit);
 
         const attempt = (retriesLeft) => {
-            const button = ensureFocusButton(courseIdFromInit);
+            const button = ensureFocusButton(scopeFromInit);
             if (!button) {
                 if (retriesLeft > 0) {
                     window.setTimeout(() => attempt(retriesLeft - 1), 50);
                 }
                 return;
             }
-            const courseId = parseInt(button.dataset.courseid || '0', 10);
-            if (!courseId) {
+            const scope = normalizeScope(button.dataset.focusscope || button.dataset.courseid);
+            if (!isValidScope(scope)) {
                 return;
             }
-            bindFocusButton(button, courseId);
+            bindFocusButton(button, scope);
         };
 
         attempt(30);

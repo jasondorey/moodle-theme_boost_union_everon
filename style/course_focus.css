@@ -1,5 +1,5 @@
 /**
- * Everon Focus Mode — wide content, hidden course tabs / drawers.
+ * Everon Focus Mode — wide content, hidden tabs / drawers (course pages, Dashboard, My courses).
  * Ported from theme_custom (trimmed: no custom page-header chrome).
  * Compiled into theme Extra SCSS (themerev) so dark FAB / notice paints cannot
  * stick on a stale $page->requires->css() sheet. Layout JS fallback remains.
@@ -176,6 +176,50 @@ html.theme-boost-union-everon-focus-mode .header-maxwidth {
     max-width: min(92rem, calc(100vw - 2.5rem)) !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+body.theme-boost-union-everon-focus-mode.limitedwidth.uses-drawers .sticky-footer-content,
+html.theme-boost-union-everon-focus-mode body.limitedwidth.uses-drawers .sticky-footer-content {
+    max-width: min(92rem, calc(100vw - 2.5rem)) !important;
+}
+
+/* Boost Union Outside (right|left) wrapper: widen and center the combined row
+ * instead of letting .main-inner take 100% width with auto side margins. */
+html.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right),
+body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right),
+html.theme-boost-union-everon-focus-mode #page.drawers .theme-block-region-header-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right),
+body.theme-boost-union-everon-focus-mode #page.drawers .theme-block-region-header-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) {
+    max-width: min(92rem, calc(100vw - 2.5rem)) !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.theme-boost-union-everon-focus-mode body.limitedwidth #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+body.theme-boost-union-everon-focus-mode.limitedwidth #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+html.theme-boost-union-everon-focus-mode body #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+@media (min-width: 992px) {
+    html.theme-boost-union-everon-focus-mode body.limitedwidth #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+    body.theme-boost-union-everon-focus-mode.limitedwidth #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+    html.theme-boost-union-everon-focus-mode body #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner,
+    body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > .main-inner {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+
+    html.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > #theme-block-region-outside-right,
+    html.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > #theme-block-region-outside-left,
+    body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > #theme-block-region-outside-right,
+    body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > #theme-block-region-outside-left {
+        flex: 0 0 auto;
+    }
 }
 
 html.theme-boost-union-everon-focus-mode #page-content,

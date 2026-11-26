@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad リンクは、それぞれ空で�
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'フォーカスモード';
 $string['focusmodeheading'] = 'フォーカスモード';
-$string['focusmodeheading_desc'] = 'コースコンテンツページ上のフローティングコントロールで、セカンダリナビゲーションとドロワーを非表示にし、メインコンテンツを広げます。設定はコースごとにブラウザ（localStorage）に保存されます。';
+$string['focusmodeheading_desc'] = 'コースコンテンツページ、ダッシュボード（/my/）、マイコース（/my/courses.php）上のフローティングコントロールで、セカンダリナビゲーションとドロワーを非表示にし、メインコンテンツを広げます。設定はコースまたはページごとにブラウザ（localStorage）に保存されます。';
 $string['enablefocusmode'] = 'フォーカスモードを有効にする';
-$string['enablefocusmode_desc'] = 'コースホーム、セクション、活動ページにフォーカスモードボタン（右下）を表示します。デフォルト: はい。';
+$string['enablefocusmode_desc'] = 'コースホーム、セクション、活動ページに加え、ダッシュボード（/my/）とマイコース（/my/courses.php）にフォーカスモードボタン（右下）を表示します。デフォルト: はい。';
 $string['focusmodeenable'] = 'フォーカスモード';
 $string['focusmodedisable'] = 'フォーカスモードを終了';
 $string['focusmodenotice'] = 'フォーカスモードがオンです。右下の × をクリックしてオフにしてください。';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'ログイン以外のすべてのペー�
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'マイコース';
 $string['mycoursesheading'] = 'マイコースレイアウト';
-$string['mycoursesheading_desc'] = 'マイコースページ（/my/courses.php）のオプションの幅広カードグリッドです。標準のコース概要ブロックにスキンを適用します — 置き換えではありません。検索、グループ化、並べ替え、表示モードはコア Moodle のままです。';
+$string['mycoursesheading_desc'] = 'マイコースページ（/my/courses.php）のオプションのカードグリッドスキンです。Moodle / Boost Union のデフォルト幅を使用します（フォーカスモードで拡張可能）。標準のコース概要ブロックにスキンを適用します — 置き換えではありません。検索、グループ化、並べ替え、表示モードはコア Moodle のままです。';
 $string['enablemycourseslayout'] = 'マイコースレイアウトを有効にする';
-$string['enablemycourseslayout_desc'] = 'マイコースページを広げ、レスポンシブな 1〜5 列のカードグリッドを表示し、カードを再スタイルします（影、画像上の円形進捗、画像上の星）。デフォルト: はい。';
+$string['enablemycourseslayout_desc'] = 'レスポンシブなカードグリッド（デフォルト幅では 1〜3 列、フォーカスモードでは最大 5 列）を表示し、カードを再スタイルします（影、画像上の円形進捗、画像上の星）。デフォルト: はい。';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'マイコース統計';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} 件授与';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'ダッシュボード';
 $string['dashboardheading'] = 'ダッシュボードレイアウト';
-$string['dashboardheading_desc'] = '/my/ 上のオプションの幅広ダッシュボードシェルと、マイコースと共有するコース概要カードの外観です。列レイアウト（右側のカレンダー／今後のイベント）は Boost Union Outside（右）を使用します — フィーリング → ブロックで設定してください。';
+$string['dashboardheading_desc'] = '/my/ 上のオプションのダッシュボードカードグリッドおよびブロック表面スキンです。Moodle / Boost Union のデフォルト幅を使用し（フォーカスモードで拡張可能）、マイコースとコース概要カードの外観を共有します。列レイアウト（右側のカレンダー／今後のイベント）は Boost Union Outside（右）を使用します — フィーリング → ブロックで設定してください。';
 $string['enabledashboardlayout'] = 'ダッシュボードレイアウトを有効にする';
-$string['enabledashboardlayout_desc'] = 'ダッシュボードページを広げ、マイコースと同じコース概要カードの外観を適用します。また、タイムライン／カレンダー／今後のブロック表面を統一し、空の状態を穏やかに揃えます。デフォルト: はい。右列には Boost Union Outside（右）を別途有効にしてください。';
+$string['enabledashboardlayout_desc'] = 'ダッシュボードにマイコースと同じコース概要カードの外観を適用します（デフォルト幅では 1〜3 列、フォーカスモードでは 4 列）。また、タイムライン／カレンダー／今後のブロック表面を統一し、空の状態を穏やかに揃えます。デフォルト: はい。右列には Boost Union Outside（右）を別途有効にしてください。';
 $string['dashboardsurfacesnote'] = 'ダッシュボードレイアウトが有効な場合、Everon は共有ブロック表面トークン（ソフトな境界線、半径、影）と、より落ち着いたタイムライン／今後の空状態スタイルも適用し、補助ブロックがコースカードと揃うようにします。';
 
 // Privacy API.

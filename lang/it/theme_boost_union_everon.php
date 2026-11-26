@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'I collegamenti Launch Pad devono essere un ar
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modalità Focus';
 $string['focusmodeheading'] = 'Modalità Focus';
-$string['focusmodeheading_desc'] = 'Un controllo mobile sulle pagine dei contenuti del corso che nasconde la navigazione secondaria e i cassetti e allarga il contenuto principale. La preferenza è memorizzata per corso nel browser (localStorage).';
+$string['focusmodeheading_desc'] = 'Un controllo mobile sulle pagine dei contenuti del corso, sulla Dashboard (/my/) e su I miei corsi (/my/courses.php) che nasconde la navigazione secondaria e i cassetti e allarga il contenuto principale. La preferenza è memorizzata per corso o pagina nel browser (localStorage).';
 $string['enablefocusmode'] = 'Abilita Modalità Focus';
-$string['enablefocusmode_desc'] = 'Mostra il pulsante Modalità Focus (in basso a destra) nelle pagine home del corso, sezione e attività. Predefinito: Sì.';
+$string['enablefocusmode_desc'] = 'Mostra il pulsante Modalità Focus (in basso a destra) nelle pagine home del corso, sezione e attività oltre che in Dashboard (/my/) e I miei corsi (/my/courses.php). Predefinito: Sì.';
 $string['focusmodeenable'] = 'Modalità Focus';
 $string['focusmodedisable'] = 'Esci dalla modalità Focus';
 $string['focusmodenotice'] = 'La modalità Focus è attiva. Fai clic su × in basso a destra per disattivarla.';
@@ -145,9 +145,9 @@ $string['enablecompactnavbar_desc'] = 'Applica l’aspetto compatto della barra 
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'I miei corsi';
 $string['mycoursesheading'] = 'Layout I miei corsi';
-$string['mycoursesheading_desc'] = 'Griglia di schede opzionalmente più ampia nella pagina I miei corsi (/my/courses.php). Personalizza il blocco standard Panoramica corsi — non lo sostituisce. Ricerca, raggruppamento, ordinamento e modalità di visualizzazione restano di Moodle core.';
+$string['mycoursesheading_desc'] = 'Aspetto opzionale a griglia di schede nella pagina I miei corsi (/my/courses.php) con la larghezza predefinita di Moodle / Boost Union (espandibile tramite Modalità Focus). Personalizza il blocco standard Panoramica corsi — non lo sostituisce. Ricerca, raggruppamento, ordinamento e modalità di visualizzazione restano di Moodle core.';
 $string['enablemycourseslayout'] = 'Abilita layout I miei corsi';
-$string['enablemycourseslayout_desc'] = 'Allarga la pagina I miei corsi, mostra una griglia responsive da 1 a 5 colonne e ridisegna le schede (ombra, progresso circolare sull’immagine, stella sull’immagine). Predefinito: Sì.';
+$string['enablemycourseslayout_desc'] = 'Mostra una griglia responsive di schede (1–3 colonne a larghezza predefinita, fino a 5 colonne in Modalità Focus) e ridisegna le schede (ombra, progresso circolare sull’immagine, stella sull’immagine). Predefinito: Sì.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Statistiche I miei corsi';
@@ -175,9 +175,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Assegnati';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Dashboard';
 $string['dashboardheading'] = 'Layout Dashboard';
-$string['dashboardheading_desc'] = 'Contenitore Dashboard opzionalmente più ampio su /my/ e chrome delle schede Panoramica corsi condiviso con I miei corsi. Il layout a colonne (Calendario / Eventi imminenti a destra) usa Boost Union Outside (destra) — configura in Feel → Blocchi.';
+$string['dashboardheading_desc'] = 'Aspetto opzionale a griglia di schede e superfici dei blocchi della Dashboard su /my/ con la larghezza predefinita di Moodle / Boost Union (espandibile tramite Modalità Focus), condividendo il chrome delle schede Panoramica corsi con I miei corsi. Il layout a colonne (Calendario / Eventi imminenti a destra) usa Boost Union Outside (destra) — configura in Feel → Blocchi.';
 $string['enabledashboardlayout'] = 'Abilita layout Dashboard';
-$string['enabledashboardlayout_desc'] = 'Allarga la pagina Dashboard e applica lo stesso chrome delle schede Panoramica corsi di I miei corsi. Unifica anche le superfici dei blocchi Timeline / Calendario / Imminenti e attenua gli stati vuoti. Predefinito: Sì. Abilita Boost Union Outside (destra) separatamente per la colonna destra.';
+$string['enabledashboardlayout_desc'] = 'Applica lo stesso chrome delle schede Panoramica corsi di I miei corsi sulla Dashboard (1–3 colonne a larghezza predefinita, 4 colonne in Modalità Focus). Unifica anche le superfici dei blocchi Timeline / Calendario / Imminenti e attenua gli stati vuoti. Predefinito: Sì. Abilita Boost Union Outside (destra) separatamente per la colonna destra.';
 $string['dashboardsurfacesnote'] = 'Quando il layout Dashboard è abilitato, Everon applica anche token di superficie di blocco condivisi (bordo morbido, raggio, ombra) e uno stile più calmo degli stati vuoti di Timeline / Imminenti così che i blocchi di supporto corrispondano alle schede corso.';
 
 // Privacy API.
