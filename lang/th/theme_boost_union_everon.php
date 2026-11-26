@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'ลิงก์ Launch Pad ต้องเป
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'โหมดโฟกัส';
 $string['focusmodeheading'] = 'โหมดโฟกัส';
-$string['focusmodeheading_desc'] = 'ตัวควบคุมลอยบนหน้าเนื้อหาหลักสูตรที่ซ่อนการนำทางรองและลิ้นชัก และขยายเนื้อหาหลัก ค่ากำหนดถูกเก็บต่อหลักสูตรในเบราว์เซอร์ (localStorage)';
+$string['focusmodeheading_desc'] = 'ตัวควบคุมลอยบนหน้าเนื้อหาหลักสูตร แดชบอร์ด (/my/) และหลักสูตรของฉัน (/my/courses.php) ที่ซ่อนการนำทางรองและลิ้นชัก และขยายเนื้อหาหลัก ค่ากำหนดถูกเก็บต่อหลักสูตรหรือหน้าในเบราว์เซอร์ (localStorage)';
 $string['enablefocusmode'] = 'เปิดใช้โหมดโฟกัส';
-$string['enablefocusmode_desc'] = 'แสดงปุ่มโหมดโฟกัส (มุมล่างขวา) บนหน้าหลักหลักสูตร ส่วน และกิจกรรม ค่าเริ่มต้น: ใช่';
+$string['enablefocusmode_desc'] = 'แสดงปุ่มโหมดโฟกัส (มุมล่างขวา) บนหน้าหลักหลักสูตร ส่วน และกิจกรรม รวมถึงแดชบอร์ด (/my/) และหลักสูตรของฉัน (/my/courses.php) ค่าเริ่มต้น: ใช่';
 $string['focusmodeenable'] = 'โหมดโฟกัส';
 $string['focusmodedisable'] = 'ออกจากโหมดโฟกัส';
 $string['focusmodenotice'] = 'โหมดโฟกัสเปิดอยู่ คลิก × ที่มุมล่างขวาเพื่อปิด';
@@ -142,9 +142,9 @@ $string['enablecompactnavbar_desc'] = 'ใช้ลักษณะแถบน�
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'หลักสูตรของฉัน';
 $string['mycoursesheading'] = 'เลย์เอาต์หลักสูตรของฉัน';
-$string['mycoursesheading_desc'] = 'ตารางการ์ดที่กว้างขึ้น (ไม่บังคับ) ในหน้าหลักสูตรของฉัน (/my/courses.php) ปรับสกินบล็อกภาพรวมหลักสูตรมาตรฐาน — ไม่ได้แทนที่ การค้นหา การจัดกลุ่ม การเรียง และโหมดมุมมองยังเป็นของ Moodle หลัก';
+$string['mycoursesheading_desc'] = 'สกินตารางการ์ด (ไม่บังคับ) ในหน้าหลักสูตรของฉัน (/my/courses.php) ที่ความกว้างเริ่มต้นของ Moodle / Boost Union (ขยายได้ด้วยโหมดโฟกัส) ปรับสกินบล็อกภาพรวมหลักสูตรมาตรฐาน — ไม่ได้แทนที่ การค้นหา การจัดกลุ่ม การเรียง และโหมดมุมมองยังเป็นของ Moodle หลัก';
 $string['enablemycourseslayout'] = 'เปิดใช้เลย์เอาต์หลักสูตรของฉัน';
-$string['enablemycourseslayout_desc'] = 'ขยายหน้าหลักสูตรของฉัน แสดงตารางการ์ดแบบตอบสนอง 1–5 คอลัมน์ ปรับสไตล์การ์ด (เงา ความคืบหน้าวงกลมบนภาพ ดาวบนภาพ) ค่าเริ่มต้น: ใช่';
+$string['enablemycourseslayout_desc'] = 'แสดงตารางการ์ดแบบตอบสนอง (1–3 คอลัมน์ที่ความกว้างเริ่มต้น ขยายได้สูงสุด 5 คอลัมน์ในโหมดโฟกัส) และปรับสไตล์การ์ด (เงา ความคืบหน้าวงกลมบนภาพ ดาวบนภาพ) ค่าเริ่มต้น: ใช่';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'สถิติหลักสูตรของฉัน';
@@ -172,9 +172,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} ที่ได้รับ';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'แดชบอร์ด';
 $string['dashboardheading'] = 'เลย์เอาต์แดชบอร์ด';
-$string['dashboardheading_desc'] = 'เปลือกแดชบอร์ดที่กว้างขึ้น (ไม่บังคับ) บน /my/ และลักษณะการ์ดภาพรวมหลักสูตรร่วมกับหลักสูตรของฉัน เลย์เอาต์คอลัมน์ (ปฏิทิน / กิจกรรมที่จะมาถึงทางขวา) ใช้ Boost Union Outside (ขวา) — ตั้งค่าภายใต้ Feel → Blocks';
+$string['dashboardheading_desc'] = 'สกินตารางการ์ดแดชบอร์ดและพื้นผิวบล็อก (ไม่บังคับ) บน /my/ ที่ความกว้างเริ่มต้นของ Moodle / Boost Union (ขยายได้ด้วยโหมดโฟกัส) ใช้ลักษณะการ์ดภาพรวมหลักสูตรร่วมกับหลักสูตรของฉัน เลย์เอาต์คอลัมน์ (ปฏิทิน / กิจกรรมที่จะมาถึงทางขวา) ใช้ Boost Union Outside (ขวา) — ตั้งค่าภายใต้ Feel → Blocks';
 $string['enabledashboardlayout'] = 'เปิดใช้เลย์เอาต์แดชบอร์ด';
-$string['enabledashboardlayout_desc'] = 'ขยายหน้าแดชบอร์ดและใช้ลักษณะการ์ดภาพรวมหลักสูตรแบบเดียวกับหลักสูตรของฉัน รวมพื้นผิวบล็อก Timeline / Calendar / Upcoming และทำสถานะว่างให้อ่อนลงให้เข้ากัน ค่าเริ่มต้น: ใช่ เปิด Boost Union Outside (ขวา) แยกต่างหากสำหรับคอลัมน์ขวา';
+$string['enabledashboardlayout_desc'] = 'ใช้ลักษณะการ์ดภาพรวมหลักสูตรแบบเดียวกับหลักสูตรของฉันบนแดชบอร์ด (1–3 คอลัมน์ที่ความกว้างเริ่มต้น ขยายเป็น 4 คอลัมน์ในโหมดโฟกัส) รวมพื้นผิวบล็อก Timeline / Calendar / Upcoming และทำสถานะว่างให้อ่อนลงให้เข้ากัน ค่าเริ่มต้น: ใช่ เปิด Boost Union Outside (ขวา) แยกต่างหากสำหรับคอลัมน์ขวา';
 $string['dashboardsurfacesnote'] = 'เมื่อเปิดเลย์เอาต์แดชบอร์ด Everon จะใช้โทเค็นพื้นผิวบล็อกร่วมกันด้วย (ขอบนุ่ม รัศมี เงา) และสไตล์สถานะว่างของ Timeline / Upcoming ที่สงบขึ้น เพื่อให้บล็อกรองเข้ากับการ์ดหลักสูตร';
 
 // Privacy API.

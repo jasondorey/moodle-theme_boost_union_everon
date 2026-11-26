@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Los enlaces de Launch Pad deben ser una matri
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modo enfoque';
 $string['focusmodeheading'] = 'Modo enfoque';
-$string['focusmodeheading_desc'] = 'Un control flotante en las páginas de contenido del curso que oculta la navegación secundaria y los cajones y ensancha el contenido principal. La preferencia se guarda por curso en el navegador (localStorage).';
+$string['focusmodeheading_desc'] = 'Un control flotante en las páginas de contenido del curso, el Tablero (/my/) y Mis cursos (/my/courses.php) que oculta la navegación secundaria y los cajones y ensancha el contenido principal. La preferencia se guarda por curso o página en el navegador (localStorage).';
 $string['enablefocusmode'] = 'Activar Modo enfoque';
-$string['enablefocusmode_desc'] = 'Mostrar el botón de Modo enfoque (abajo a la derecha) en las páginas de inicio del curso, sección y actividad. Predeterminado: Sí.';
+$string['enablefocusmode_desc'] = 'Mostrar el botón de Modo enfoque (abajo a la derecha) en las páginas de inicio del curso, sección y actividad, así como en el Tablero (/my/) y Mis cursos (/my/courses.php). Predeterminado: Sí.';
 $string['focusmodeenable'] = 'Modo enfoque';
 $string['focusmodedisable'] = 'Salir del modo enfoque';
 $string['focusmodenotice'] = 'El modo enfoque está activado. Haga clic en × abajo a la derecha para desactivarlo.';
@@ -142,9 +142,9 @@ $string['enablecompactnavbar_desc'] = 'Aplicar el aspecto de barra compacta en t
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Mis cursos';
 $string['mycoursesheading'] = 'Diseño de Mis cursos';
-$string['mycoursesheading_desc'] = 'Cuadrícula de tarjetas opcionalmente más ancha en la página Mis cursos (/my/courses.php). Aplica estilo al bloque estándar Resumen de cursos — no lo sustituye. La búsqueda, el agrupamiento, la ordenación y los modos de vista siguen siendo de Moodle central.';
+$string['mycoursesheading_desc'] = 'Diseño opcional de cuadrícula de tarjetas en la página Mis cursos (/my/courses.php) con el ancho predeterminado de Moodle / Boost Union (ampliable mediante el Modo enfoque). Aplica estilo al bloque estándar Resumen de cursos — no lo sustituye. La búsqueda, el agrupamiento, la ordenación y los modos de vista siguen siendo de Moodle central.';
 $string['enablemycourseslayout'] = 'Activar diseño de Mis cursos';
-$string['enablemycourseslayout_desc'] = 'Ensancha la página Mis cursos, muestra una cuadrícula responsiva de 1–5 columnas y rediseña las tarjetas (sombra, progreso circular en la imagen, estrella en la imagen). Predeterminado: Sí.';
+$string['enablemycourseslayout_desc'] = 'Muestra una cuadrícula responsiva de tarjetas (1–3 columnas con el ancho predeterminado y hasta 5 columnas en Modo enfoque) y rediseña las tarjetas (sombra, progreso circular en la imagen, estrella en la imagen). Predeterminado: Sí.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Estadísticas de Mis cursos';
@@ -172,9 +172,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Concedidos';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Tablero';
 $string['dashboardheading'] = 'Diseño del Tablero';
-$string['dashboardheading_desc'] = 'Contenedor opcionalmente más ancho del Tablero en /my/ y el mismo aspecto de tarjetas del Resumen de cursos que en Mis cursos. El diseño en columnas (Calendario / Próximos eventos a la derecha) usa Boost Union Outside (derecha) — configúrelo en Sensación → Bloques.';
+$string['dashboardheading_desc'] = 'Diseño opcional de cuadrícula de tarjetas y superficies de bloques del Tablero en /my/ con el ancho predeterminado de Moodle / Boost Union (ampliable mediante el Modo enfoque) y el mismo aspecto de tarjetas del Resumen de cursos que en Mis cursos. El diseño en columnas (Calendario / Próximos eventos a la derecha) usa Boost Union Outside (derecha) — configúrelo en Sensación → Bloques.';
 $string['enabledashboardlayout'] = 'Activar diseño del Tablero';
-$string['enabledashboardlayout_desc'] = 'Ensancha la página del Tablero y aplica el mismo aspecto de tarjetas del Resumen de cursos que en Mis cursos. También unifica las superficies de los bloques Línea de tiempo / Calendario / Próximos y suaviza los estados vacíos para que coincidan. Predeterminado: Sí. Active Boost Union Outside (derecha) por separado para la columna derecha.';
+$string['enabledashboardlayout_desc'] = 'Aplica el mismo aspecto de tarjetas del Resumen de cursos que en Mis cursos en el Tablero (1–3 columnas con el ancho predeterminado y 4 columnas en Modo enfoque). También unifica las superficies de los bloques Línea de tiempo / Calendario / Próximos y suaviza los estados vacíos para que coincidan. Predeterminado: Sí. Active Boost Union Outside (derecha) por separado para la columna derecha.';
 $string['dashboardsurfacesnote'] = 'Cuando el diseño del Tablero está activado, Everon también aplica tokens compartidos de superficie de bloque (borde suave, radio, sombra) y un estilo más calmado de estados vacíos de Línea de tiempo / Próximos para que los bloques de apoyo coincidan con las tarjetas de curso.';
 
 // Privacy API.

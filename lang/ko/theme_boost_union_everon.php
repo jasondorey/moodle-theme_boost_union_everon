@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad 링크는 각각 비어 있지 않
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '집중 모드';
 $string['focusmodeheading'] = '집중 모드';
-$string['focusmodeheading_desc'] = '강의 콘텐츠 페이지의 플로팅 컨트롤로, 보조 탐색과 서랍을 숨기고 기본 콘텐츠를 넓힙니다. 환경설정은 강의별로 브라우저(localStorage)에 저장됩니다.';
+$string['focusmodeheading_desc'] = '강의 콘텐츠 페이지, 대시보드(/my/), 내 강의(/my/courses.php)의 플로팅 컨트롤로, 보조 탐색과 서랍을 숨기고 기본 콘텐츠를 넓힙니다. 환경설정은 강의 또는 페이지별로 브라우저(localStorage)에 저장됩니다.';
 $string['enablefocusmode'] = '집중 모드 사용';
-$string['enablefocusmode_desc'] = '강의 홈, 섹션, 활동 페이지에 집중 모드 버튼(오른쪽 아래)을 표시합니다. 기본값: 예.';
+$string['enablefocusmode_desc'] = '강의 홈, 섹션, 활동 페이지와 대시보드(/my/) 및 내 강의(/my/courses.php)에 집중 모드 버튼(오른쪽 아래)을 표시합니다. 기본값: 예.';
 $string['focusmodeenable'] = '집중 모드';
 $string['focusmodedisable'] = '집중 모드 종료';
 $string['focusmodenotice'] = '집중 모드가 켜져 있습니다. 오른쪽 아래 ×를 클릭하여 끄세요.';
@@ -142,9 +142,9 @@ $string['enablecompactnavbar_desc'] = '로그인을 제외한 모든 페이지�
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = '내 강의';
 $string['mycoursesheading'] = '내 강의 레이아웃';
-$string['mycoursesheading_desc'] = '내 강의 페이지(/my/courses.php)의 선택적 넓은 카드 그리드입니다. 기본 강의 개요 블록에 스킨을 적용하며 대체하지 않습니다. 검색, 그룹화, 정렬, 보기 모드는 코어 Moodle 그대로입니다.';
+$string['mycoursesheading_desc'] = '내 강의 페이지(/my/courses.php)에서 기본 Moodle / Boost Union 페이지 너비(집중 모드로 확장 가능)에 적용되는 선택적 카드 그리드 스킨입니다. 기본 강의 개요 블록에 스킨을 적용하며 대체하지 않습니다. 검색, 그룹화, 정렬, 보기 모드는 코어 Moodle 그대로입니다.';
 $string['enablemycourseslayout'] = '내 강의 레이아웃 사용';
-$string['enablemycourseslayout_desc'] = '내 강의 페이지를 넓히고, 반응형 1–5열 카드 그리드를 표시하며, 카드를 다시 꾸밉니다(그림자, 이미지 위 원형 진행률, 이미지 위 별). 기본값: 예.';
+$string['enablemycourseslayout_desc'] = '반응형 카드 그리드(기본 너비에서 1–3열, 집중 모드에서 최대 5열)를 표시하고 카드를 다시 꾸밉니다(그림자, 이미지 위 원형 진행률, 이미지 위 별). 기본값: 예.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = '내 강의 통계';
@@ -172,9 +172,9 @@ $string['mycoursesstatscertificatessub'] = '{$a}개 수여';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = '대시보드';
 $string['dashboardheading'] = '대시보드 레이아웃';
-$string['dashboardheading_desc'] = '/my/의 선택적 넓은 대시보드 셸과 내 강의와 공유하는 강의 개요 카드 외관입니다. 열 레이아웃(오른쪽 캘린더/다가오는 이벤트)은 Boost Union Outside(오른쪽)를 사용합니다 — Feeling → Blocks에서 구성하세요.';
+$string['dashboardheading_desc'] = '/my/에서 기본 Moodle / Boost Union 페이지 너비(집중 모드로 확장 가능)에 적용되는 선택적 대시보드 카드 그리드 및 블록 표면 스킨으로, 내 강의와 강의 개요 카드 외관을 공유합니다. 열 레이아웃(오른쪽 캘린더/다가오는 이벤트)은 Boost Union Outside(오른쪽)를 사용합니다 — Feeling → Blocks에서 구성하세요.';
 $string['enabledashboardlayout'] = '대시보드 레이아웃 사용';
-$string['enabledashboardlayout_desc'] = '대시보드 페이지를 넓히고 내 강의와 같은 강의 개요 카드 외관을 적용합니다. 또한 타임라인/캘린더/다가오는 블록 표면을 통일하고 빈 상태를 부드럽게 맞춥니다. 기본값: 예. 오른쪽 열에는 Boost Union Outside(오른쪽)를 따로 사용하세요.';
+$string['enabledashboardlayout_desc'] = '대시보드에 내 강의와 같은 강의 개요 카드 외관을 적용합니다(기본 너비에서 1–3열, 집중 모드에서 4열). 또한 타임라인/캘린더/다가오는 블록 표면을 통일하고 빈 상태를 부드럽게 맞춥니다. 기본값: 예. 오른쪽 열에는 Boost Union Outside(오른쪽)를 따로 사용하세요.';
 $string['dashboardsurfacesnote'] = '대시보드 레이아웃이 켜지면 Everon은 공유 블록 표면 토큰(부드러운 테두리, 반경, 그림자)과 더 차분한 타임라인/다가오는 빈 상태 스타일도 적용하여 보조 블록이 강의 카드와 맞도록 합니다.';
 
 // Privacy API.

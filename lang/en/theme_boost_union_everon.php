@@ -121,9 +121,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad links must be a JSON array of obje
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Focus Mode';
 $string['focusmodeheading'] = 'Focus Mode';
-$string['focusmodeheading_desc'] = 'A floating control on course content pages that hides secondary navigation and drawers and widens the main content. Preference is stored per course in the browser (localStorage).';
+$string['focusmodeheading_desc'] = 'A floating control on course content pages, Dashboard (/my/), and My courses (/my/courses.php) that hides secondary navigation and drawers and widens the main content. Preference is stored per course or page in the browser (localStorage).';
 $string['enablefocusmode'] = 'Enable Focus Mode';
-$string['enablefocusmode_desc'] = 'Show the Focus Mode button (bottom-right) on course home, section, and activity pages. Default: Yes.';
+$string['enablefocusmode_desc'] = 'Show the Focus Mode button (bottom-right) on course home, section, and activity pages as well as Dashboard (/my/) and My courses (/my/courses.php). Default: Yes.';
 $string['focusmodeenable'] = 'Focus mode';
 $string['focusmodedisable'] = 'Exit focus mode';
 $string['focusmodenotice'] = 'Focus mode is on. Click × at the bottom right to turn it off.';
@@ -147,9 +147,9 @@ $string['enablecompactnavbar_desc'] = 'Apply compact navbar chrome on all pages 
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'My Courses';
 $string['mycoursesheading'] = 'My Courses layout';
-$string['mycoursesheading_desc'] = 'Optional wider card grid on the My courses page (/my/courses.php). Skins the stock Course overview block — does not replace it. Search, grouping, sort, and view modes stay core Moodle.';
+$string['mycoursesheading_desc'] = 'Optional card grid skin on the My courses page (/my/courses.php) at the default Moodle / Boost Union page width (expandable via Focus Mode). Skins the stock Course overview block — does not replace it. Search, grouping, sort, and view modes stay core Moodle.';
 $string['enablemycourseslayout'] = 'Enable My Courses layout';
-$string['enablemycourseslayout_desc'] = 'Widen the My courses page, show a responsive 1–5 column card grid, restyle cards (shadow, circular progress on image, star on image). Default: Yes.';
+$string['enablemycourseslayout_desc'] = 'Show a responsive card grid (1–3 columns at default width, expanding up to 5 columns in Focus Mode) and restyle cards (shadow, circular progress on image, star on image). Default: Yes.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'My Courses stats';
@@ -174,12 +174,12 @@ $string['mycoursesstatsbadgessub'] = '{$a} Awarded';
 $string['mycoursesstatscertificatestitle'] = 'Certificates';
 $string['mycoursesstatscertificatessub'] = '{$a} Awarded';
 
-// Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
+// Settings: Dashboard tab (shared Course overview cards + block surfaces on /my/).
 $string['dashboardtab'] = 'Dashboard';
 $string['dashboardheading'] = 'Dashboard layout';
-$string['dashboardheading_desc'] = 'Optional wider Dashboard shell on /my/ and shared Course overview card chrome with My Courses. Column layout (Calendar / Upcoming events on the right) uses Boost Union Outside (right) — configure under Feel → Blocks.';
+$string['dashboardheading_desc'] = 'Optional Dashboard card grid and block surface skin on /my/ at the default Moodle / Boost Union page width (expandable via Focus Mode), sharing Course overview card chrome with My Courses. Column layout (Calendar / Upcoming events on the right) uses Boost Union Outside (right) — configure under Feel → Blocks.';
 $string['enabledashboardlayout'] = 'Enable Dashboard layout';
-$string['enabledashboardlayout_desc'] = 'Widen the Dashboard page and apply the same Course overview card chrome as My Courses. Also unifies Timeline / Calendar / Upcoming block surfaces and softens empty states to match. Default: Yes. Enable Boost Union Outside (right) separately for the right column.';
+$string['enabledashboardlayout_desc'] = 'Apply the same Course overview card chrome as My Courses on Dashboard (1–3 columns at default width, expanding to 4 columns in Focus Mode). Also unifies Timeline / Calendar / Upcoming block surfaces and softens empty states to match. Default: Yes. Enable Boost Union Outside (right) separately for the right column.';
 $string['dashboardsurfacesnote'] = 'When Dashboard layout is enabled, Everon also applies shared block surface tokens (soft border, radius, shadow) and calmer Timeline / Upcoming empty-state styling so supporting blocks match course cards.';
 
 // Settings: MuTMS tab.

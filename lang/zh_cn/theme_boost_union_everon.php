@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad 链接必须是对象的 JSON 数�
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '专注模式';
 $string['focusmodeheading'] = '专注模式';
-$string['focusmodeheading_desc'] = '课程内容页上的浮动控件，可隐藏次级导航和抽屉并加宽主内容。偏好按课程保存在浏览器（localStorage）中。';
+$string['focusmodeheading_desc'] = '课程内容页、仪表板（/my/）和“我的课程”（/my/courses.php）上的浮动控件，可隐藏次级导航和抽屉并加宽主内容。偏好按课程或页面保存在浏览器（localStorage）中。';
 $string['enablefocusmode'] = '启用专注模式';
-$string['enablefocusmode_desc'] = '在课程主页、章节和活动页面显示专注模式按钮（右下角）。默认：是。';
+$string['enablefocusmode_desc'] = '在课程主页、章节和活动页面以及仪表板（/my/）和“我的课程”（/my/courses.php）上显示专注模式按钮（右下角）。默认：是。';
 $string['focusmodeenable'] = '专注模式';
 $string['focusmodedisable'] = '退出专注模式';
 $string['focusmodenotice'] = '专注模式已开启。点击右下角的 × 即可关闭。';
@@ -142,9 +142,9 @@ $string['enablecompactnavbar_desc'] = '在除登录页外的所有页面应用�
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = '我的课程';
 $string['mycoursesheading'] = '我的课程布局';
-$string['mycoursesheading_desc'] = '在“我的课程”页面（/my/courses.php）上可选的更宽卡片网格。为标准“课程概览”区块换肤——不会替换它。搜索、分组、排序和视图模式仍属 Moodle 核心。';
+$string['mycoursesheading_desc'] = '在“我的课程”页面（/my/courses.php）上以默认 Moodle / Boost Union 页面宽度（可通过专注模式扩展）显示的可选卡片网格外观。为标准“课程概览”区块换肤——不会替换它。搜索、分组、排序和视图模式仍属 Moodle 核心。';
 $string['enablemycourseslayout'] = '启用我的课程布局';
-$string['enablemycourseslayout_desc'] = '加宽“我的课程”页面，显示响应式 1–5 列卡片网格，并重新样式化卡片（阴影、图片上的圆形进度、图片上的星标）。默认：是。';
+$string['enablemycourseslayout_desc'] = '显示响应式卡片网格（默认宽度为 1–3 列，专注模式下可扩展至 5 列），并重新样式化卡片（阴影、图片上的圆形进度、图片上的星标）。默认：是。';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = '我的课程统计';
@@ -172,9 +172,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} 已授予';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = '仪表板';
 $string['dashboardheading'] = '仪表板布局';
-$string['dashboardheading_desc'] = '在 /my/ 上可选的更宽仪表板外壳，以及与“我的课程”共享的课程概览卡片外观。列布局（右侧日历/即将发生的事件）使用 Boost Union Outside（右侧）— 请在 感受 → 区块 下配置。';
+$string['dashboardheading_desc'] = '在 /my/ 上以默认 Moodle / Boost Union 页面宽度（可通过专注模式扩展）显示的可选仪表板卡片网格与区块表面外观，并与“我的课程”共享课程概览卡片样式。列布局（右侧日历/即将发生的事件）使用 Boost Union Outside（右侧）— 请在 感受 → 区块 下配置。';
 $string['enabledashboardlayout'] = '启用仪表板布局';
-$string['enabledashboardlayout_desc'] = '加宽仪表板页面，并应用与“我的课程”相同的课程概览卡片外观。同时统一时间线/日历/即将发生区块表面，并柔化空状态以匹配。默认：是。请单独启用 Boost Union Outside（右侧）以显示右列。';
+$string['enabledashboardlayout_desc'] = '在仪表板上应用与“我的课程”相同的课程概览卡片外观（默认宽度为 1–3 列，专注模式下扩展至 4 列）。同时统一时间线/日历/即将发生区块表面，并柔化空状态以匹配。默认：是。请单独启用 Boost Union Outside（右侧）以显示右列。';
 $string['dashboardsurfacesnote'] = '启用仪表板布局后，Everon 还会应用共享的区块表面令牌（柔和边框、圆角、阴影），以及更平静的时间线/即将发生空状态样式，使辅助区块与课程卡片一致。';
 
 // Privacy API.

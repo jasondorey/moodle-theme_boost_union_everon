@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Pautan Launch Pad mestilah tatasusunan JSON o
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modus Fokus';
 $string['focusmodeheading'] = 'Modus Fokus';
-$string['focusmodeheading_desc'] = 'Kawalan terapung pada halaman kandungan kursus yang menyembunyikan navigasi sekunder dan laci serta melebarkan kandungan utama. Keutamaan disimpan setiap kursus dalam pelayar (localStorage).';
+$string['focusmodeheading_desc'] = 'Kawalan terapung pada halaman kandungan kursus, Papan Pemuka (/my/), dan Kursus Saya (/my/courses.php) yang menyembunyikan navigasi sekunder dan laci serta melebarkan kandungan utama. Keutamaan disimpan bagi setiap kursus atau halaman dalam pelayar (localStorage).';
 $string['enablefocusmode'] = 'Dayakan Modus Fokus';
-$string['enablefocusmode_desc'] = 'Tunjukkan butang Modus Fokus (bahagian bawah kanan) pada halaman utama kursus, bahagian dan aktiviti. Lalai: Ya.';
+$string['enablefocusmode_desc'] = 'Tunjukkan butang Modus Fokus (bahagian bawah kanan) pada halaman utama kursus, bahagian dan aktiviti serta Papan Pemuka (/my/) dan Kursus Saya (/my/courses.php). Lalai: Ya.';
 $string['focusmodeenable'] = 'Modus Fokus';
 $string['focusmodedisable'] = 'Keluar modus fokus';
 $string['focusmodenotice'] = 'Modus Fokus dihidupkan. Klik × di bahagian bawah kanan untuk mematikannya.';
@@ -142,9 +142,9 @@ $string['enablecompactnavbar_desc'] = 'Gunakan krom bar navigasi padat pada semu
 // Settings: My Courses tab (block_myoverview card layout skin).
 $string['mycoursestab'] = 'Kursus Saya';
 $string['mycoursesheading'] = 'Susun atur Kursus Saya';
-$string['mycoursesheading_desc'] = 'Grid kad lebih lebar pilihan pada halaman Kursus Saya (/my/courses.php). Menyelubungi blok Gambaran keseluruhan kursus standard — tidak menggantikannya. Carian, pengelompokan, isihan dan mod paparan kekal Moodle teras.';
+$string['mycoursesheading_desc'] = 'Kulit grid kad pilihan pada halaman Kursus Saya (/my/courses.php) pada lebar lalai Moodle / Boost Union (boleh dilebarkan melalui Modus Fokus). Menyelubungi blok Gambaran keseluruhan kursus standard — tidak menggantikannya. Carian, pengelompokan, isihan dan mod paparan kekal Moodle teras.';
 $string['enablemycourseslayout'] = 'Dayakan susun atur Kursus Saya';
-$string['enablemycourseslayout_desc'] = 'Melebarkan halaman Kursus Saya, menunjukkan grid kad responsif 1–5 lajur, menggayakan semula kad (bayang, kemajuan bulat pada imej, bintang pada imej). Lalai: Ya.';
+$string['enablemycourseslayout_desc'] = 'Menunjukkan grid kad responsif (1–3 lajur pada lebar lalai, melebar sehingga 5 lajur dalam Modus Fokus) dan menggayakan semula kad (bayang, kemajuan bulat pada imej, bintang pada imej). Lalai: Ya.';
 
 // Settings: My Courses stats strip.
 $string['mycoursesstatsheading'] = 'Statistik Kursus Saya';
@@ -172,9 +172,9 @@ $string['mycoursesstatscertificatessub'] = '{$a} Dianugerahkan';
 // Settings: Dashboard tab (wider shell + shared Course overview cards on /my/).
 $string['dashboardtab'] = 'Papan Pemuka';
 $string['dashboardheading'] = 'Susun atur Papan Pemuka';
-$string['dashboardheading_desc'] = 'Cangkang Papan Pemuka lebih lebar pilihan pada /my/ dan krom kad Gambaran keseluruhan kursus dikongsi dengan Kursus Saya. Susun atur lajur (Kalendar / Acara akan datang di kanan) menggunakan Boost Union Outside (kanan) — konfigurasi di bawah Feel → Blocks.';
+$string['dashboardheading_desc'] = 'Kulit grid kad Papan Pemuka dan permukaan blok pilihan pada /my/ pada lebar lalai Moodle / Boost Union (boleh dilebarkan melalui Modus Fokus), berkongsi krom kad Gambaran keseluruhan kursus dengan Kursus Saya. Susun atur lajur (Kalendar / Acara akan datang di kanan) menggunakan Boost Union Outside (kanan) — konfigurasi di bawah Feel → Blocks.';
 $string['enabledashboardlayout'] = 'Dayakan susun atur Papan Pemuka';
-$string['enabledashboardlayout_desc'] = 'Melebarkan halaman Papan Pemuka dan menggunakan krom kad Gambaran keseluruhan kursus yang sama seperti Kursus Saya. Juga menyatukan permukaan blok Timeline / Calendar / Upcoming dan melembutkan keadaan kosong agar sepadan. Lalai: Ya. Dayakan Boost Union Outside (kanan) secara berasingan untuk lajur kanan.';
+$string['enabledashboardlayout_desc'] = 'Menggunakan krom kad Gambaran keseluruhan kursus yang sama seperti Kursus Saya pada Papan Pemuka (1–3 lajur pada lebar lalai, melebar kepada 4 lajur dalam Modus Fokus). Juga menyatukan permukaan blok Timeline / Calendar / Upcoming dan melembutkan keadaan kosong agar sepadan. Lalai: Ya. Dayakan Boost Union Outside (kanan) secara berasingan untuk lajur kanan.';
 $string['dashboardsurfacesnote'] = 'Apabila susun atur Papan Pemuka didayakan, Everon juga menggunakan token permukaan blok kongsi (sempadan lembut, jejari, bayang) dan gaya keadaan kosong Timeline / Upcoming yang lebih tenang supaya blok sokongan sepadan dengan kad kursus.';
 
 // Privacy API.

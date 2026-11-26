@@ -281,11 +281,11 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
     }
 
     if (\theme_boost_union_everon\focus_mode::should_offer($page)) {
-        $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($page);
+        $scope = \theme_boost_union_everon\focus_mode::resolve_scope($page);
         $page->add_body_class('theme-boost-union-everon-focus-available');
         $page->requires->css(theme_boost_union_everon_stylesheet_url('style/course_focus.css'));
         $page->requires->js($www . '/javascript/course_focus_styles.js');
-        $page->requires->js_call_amd('theme_boost_union_everon/course_focus', 'init', [$courseid]);
+        $page->requires->js_call_amd('theme_boost_union_everon/course_focus', 'init', [$scope]);
     }
 
     if (theme_boost_union_everon_mycourses_should_offer($page)) {

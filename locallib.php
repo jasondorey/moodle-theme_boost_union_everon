@@ -481,7 +481,7 @@ function theme_boost_union_everon_compact_navbar_should_offer(\moodle_page $page
 }
 
 /**
- * Inline head markup: restore Focus Mode before first paint on course content pages.
+ * Inline head markup: restore Focus Mode before first paint on supported pages.
  *
  * @return string
  */
@@ -501,10 +501,17 @@ function theme_boost_union_everon_get_focusmode_boot_html(): string {
 
     $html = '';
     if (!empty($PAGE) && $PAGE->context) {
-        $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($PAGE);
-        if ($courseid > 1 && \theme_boost_union_everon\focus_mode::is_course_content_page($PAGE)) {
+        $scope = \theme_boost_union_everon\focus_mode::resolve_scope($PAGE);
+        if ($scope !== '') {
+            $config = ['scope' => $scope];
+            if (\theme_boost_union_everon\focus_mode::is_course_content_page($PAGE)) {
+                $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($PAGE);
+                if ($courseid > 1) {
+                    $config['courseId'] = $courseid;
+                }
+            }
             $html .= '<script id="theme-boost-union-everon-focus-boot-config">window.themeEveronFocusPageConfig='
-                . json_encode(['courseId' => $courseid], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)
+                . json_encode($config, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)
                 . ';</script>';
         }
     }

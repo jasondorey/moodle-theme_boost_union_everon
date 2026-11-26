@@ -1,5 +1,5 @@
 /**
- * Restore Focus Mode before first paint (course content pages).
+ * Restore Focus Mode before first paint (course content pages, Dashboard, My courses).
  * Loaded synchronously from theme_boost_union_everon head — plain JS (no AMD).
  *
  * @package    theme_boost_union_everon
@@ -15,91 +15,141 @@
     var COURSE_VIEW_PATH = /\/course\/view\.php(\/|$)/;
     var COURSE_SECTION_PATH = /\/course\/section\.php(\/|$)/;
     var MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
+    var DASHBOARD_PATH = /\/my\/(index\.php)?$/;
+    var MYCOURSES_PATH = /\/my\/courses\.php(\/|$)/;
+
+    function isPageScope(scope) {
+        return scope === 'dashboard' || scope === 'mycourses';
+    }
+
+    function isCourseScope(scope) {
+        return /^\d+$/.test(scope) && parseInt(scope, 10) > 1;
+    }
+
+    function normalizeScope(raw) {
+        if (raw === null || raw === undefined) {
+            return '';
+        }
+        var value = String(raw).trim();
+        if (isPageScope(value)) {
+            return value;
+        }
+        if (/^\d+$/.test(value)) {
+            var id = parseInt(value, 10);
+            return id > 1 ? String(id) : '';
+        }
+        return '';
+    }
 
     function getActiveFocusCourseId() {
         try {
-            var active = parseInt(global.localStorage.getItem(STORAGE_ACTIVE) || '0', 10);
-            if (active > 1) {
+            var active = normalizeScope(global.localStorage.getItem(STORAGE_ACTIVE));
+            if (isCourseScope(active)) {
                 return active;
             }
             for (var i = 0; i < global.localStorage.length; i++) {
                 var key = global.localStorage.key(i);
-                if (key && key.indexOf(STORAGE_PREFIX) === 0 && global.localStorage.getItem(key) === '1') {
-                    return parseInt(key.slice(STORAGE_PREFIX.length), 10);
+                if (!key || key === STORAGE_ACTIVE || key.indexOf(STORAGE_PREFIX) !== 0) {
+                    continue;
+                }
+                var suffix = key.slice(STORAGE_PREFIX.length);
+                if (isCourseScope(suffix) && global.localStorage.getItem(key) === '1') {
+                    return suffix;
                 }
             }
         } catch (e) {
             // Ignore.
         }
-        return 0;
+        return '';
     }
 
     function getCourseIdFromBodyClass() {
         var body = global.document.body;
         if (!body || !body.classList) {
-            return 0;
+            return '';
         }
         for (var i = 0; i < body.classList.length; i++) {
             var match = /^course-(\d+)$/.exec(body.classList[i]);
             if (match) {
-                var id = parseInt(match[1], 10);
-                if (id > 1) {
+                var id = normalizeScope(match[1]);
+                if (isCourseScope(id)) {
                     return id;
                 }
             }
         }
-        return 0;
+        return '';
     }
 
-    function getCourseIdFromPageConfig() {
+    function getScopeFromPageConfig() {
         var pageconfig = global.themeEveronFocusPageConfig;
-        if (pageconfig && pageconfig.courseId) {
-            var fromPage = parseInt(String(pageconfig.courseId), 10);
-            if (fromPage > 1) {
-                return fromPage;
-            }
+        if (!pageconfig) {
+            return '';
         }
-        return 0;
+        var fromScope = normalizeScope(pageconfig.scope);
+        if (fromScope) {
+            return fromScope;
+        }
+        return normalizeScope(pageconfig.courseId);
     }
 
-    function getCourseIdFromBody() {
-        var fromPage = getCourseIdFromPageConfig();
-        if (fromPage > 1) {
+    function getPageScopeFromContext() {
+        var body = global.document.body;
+        var path = global.location.pathname;
+        if ((body && (body.classList.contains('pagelayout-mycourses') || body.classList.contains('page-mycourses')))
+            || MYCOURSES_PATH.test(path)) {
+            return 'mycourses';
+        }
+        if (body && (body.id === 'page-admin-tool-muhome-index' || body.classList.contains('path-admin-tool-muhome'))) {
+            return '';
+        }
+        if ((body && (body.classList.contains('pagelayout-mydashboard') || body.classList.contains('path-my-index')))
+            || DASHBOARD_PATH.test(path)) {
+            return 'dashboard';
+        }
+        return '';
+    }
+
+    function getScopeFromBody() {
+        var fromPage = getScopeFromPageConfig();
+        if (fromPage) {
             return fromPage;
+        }
+        var fromPageContext = getPageScopeFromContext();
+        if (fromPageContext) {
+            return fromPageContext;
         }
         var body = global.document.body;
         if (!body) {
-            return 0;
+            return '';
         }
-        var fromData = parseInt(body.getAttribute('data-theme-boost-union-everon-focus-id') || '0', 10);
-        if (fromData > 1) {
+        var fromData = normalizeScope(body.getAttribute('data-theme-boost-union-everon-focus-id'));
+        if (fromData) {
             return fromData;
         }
-        var fromBodyClass = getCourseIdFromBodyClass();
-        if (fromBodyClass > 1) {
-            return fromBodyClass;
-        }
-        return 0;
+        return getCourseIdFromBodyClass();
     }
 
-    function readStoredState(courseId) {
+    function readStoredState(scope) {
+        if (!scope) {
+            return false;
+        }
         try {
-            return global.localStorage.getItem(STORAGE_PREFIX + courseId) === '1';
+            return global.localStorage.getItem(STORAGE_PREFIX + scope) === '1';
         } catch (e) {
             return false;
         }
     }
 
-    function resolveCourseIdForRestore() {
-        var fromBody = getCourseIdFromBody();
-        if (fromBody > 1) {
+    function resolveScopeForRestore() {
+        var fromBody = getScopeFromBody();
+        if (fromBody) {
             return fromBody;
         }
         var activeId = getActiveFocusCourseId();
-        if (activeId > 1 && readStoredState(activeId)) {
+        if (isCourseScope(activeId) && readStoredState(activeId)) {
             return activeId;
         }
-        return 0;
+        return '';
     }
 
     function hasModActivityBodyClass(body) {
@@ -116,12 +166,12 @@
     }
 
     function shouldRestoreFocus() {
-        var courseId = resolveCourseIdForRestore();
-        if (courseId <= 1) {
+        var scope = resolveScopeForRestore();
+        if (!scope || !readStoredState(scope)) {
             return false;
         }
-        if (!readStoredState(courseId)) {
-            return false;
+        if (isPageScope(scope)) {
+            return true;
         }
         var path = global.location.pathname;
         if (COURSE_VIEW_PATH.test(path) || COURSE_SECTION_PATH.test(path)) {
@@ -131,7 +181,7 @@
         if (body && (hasModActivityBodyClass(body) || MOD_ACTIVITY_PATH.test(path))) {
             return true;
         }
-        if (getCourseIdFromPageConfig() > 1) {
+        if (getScopeFromPageConfig()) {
             return true;
         }
         return false;
