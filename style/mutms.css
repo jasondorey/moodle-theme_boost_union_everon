@@ -16,16 +16,17 @@ body.theme-boost-union-everon-mutms {
 
 /* -------------------------------------------------------------------------
  * tool_muhome — custom home pages use mydashboard + content region.
- * Keep the content region full-width friendly; do not force /my/ chrome.
+ * Uses default Moodle/Boost Union page width; wide layout is toggled via
+ * Focus Mode. Keep the content block region fitting cleanly inside
+ * #region-main without forcing /my/ chrome or wider page width.
  * ------------------------------------------------------------------------- */
-body.theme-boost-union-everon-mutms.path-admin-tool-muhome #region-main,
-body.theme-boost-union-everon-mutms.pagelayout-mydashboard.pagetype-tool-muhome-index #region-main {
-    max-width: none;
-}
-
+body.theme-boost-union-everon-mutms#page-tool-muhome-index #region-main [data-region="content"],
+body.theme-boost-union-everon-mutms#page-tool-muhome-index .block-region[data-blockregion="content"],
 body.theme-boost-union-everon-mutms.pagetype-tool-muhome-index #region-main [data-region="content"],
 body.theme-boost-union-everon-mutms.pagetype-tool-muhome-index .block-region[data-blockregion="content"] {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 /* -------------------------------------------------------------------------

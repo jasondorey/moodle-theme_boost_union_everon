@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'Liên kết Launch Pad phải là mảng JSON
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Chế độ tập trung';
 $string['focusmodeheading'] = 'Chế độ tập trung';
-$string['focusmodeheading_desc'] = 'Điều khiển nổi trên các trang nội dung khóa học, Bảng điều khiển (/my/) và Khóa học của tôi (/my/courses.php) ẩn điều hướng phụ và ngăn kéo, đồng thời mở rộng nội dung chính. Tùy chọn được lưu theo từng khóa học hoặc trang trong trình duyệt (localStorage).';
+$string['focusmodeheading_desc'] = 'Điều khiển nổi trên các trang nội dung khóa học, Bảng điều khiển (/my/), Khóa học của tôi (/my/courses.php) và trang chủ tùy chỉnh MuTMS ẩn điều hướng phụ và ngăn kéo, đồng thời mở rộng nội dung chính. Tùy chọn được lưu theo từng khóa học hoặc trang trong trình duyệt (localStorage).';
 $string['enablefocusmode'] = 'Bật Chế độ tập trung';
-$string['enablefocusmode_desc'] = 'Hiển thị nút Chế độ tập trung (góc dưới bên phải) trên trang chủ khóa học, phần và hoạt động cũng như Bảng điều khiển (/my/) và Khóa học của tôi (/my/courses.php). Mặc định: Có.';
+$string['enablefocusmode_desc'] = 'Hiển thị nút Chế độ tập trung (góc dưới bên phải) trên trang chủ khóa học, phần và hoạt động cũng như Bảng điều khiển (/my/), Khóa học của tôi (/my/courses.php) và trang chủ tùy chỉnh MuTMS. Mặc định: Có.';
 $string['focusmodeenable'] = 'Chế độ tập trung';
 $string['focusmodedisable'] = 'Thoát chế độ tập trung';
 $string['focusmodenotice'] = 'Chế độ tập trung đang bật. Nhấp × ở góc dưới bên phải để tắt.';

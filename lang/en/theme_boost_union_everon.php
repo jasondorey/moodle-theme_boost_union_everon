@@ -124,9 +124,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad links must be a JSON array of obje
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Focus Mode';
 $string['focusmodeheading'] = 'Focus Mode';
-$string['focusmodeheading_desc'] = 'A floating control on course content pages, Dashboard (/my/), and My courses (/my/courses.php) that hides secondary navigation and drawers and widens the main content. Preference is stored per course or page in the browser (localStorage).';
+$string['focusmodeheading_desc'] = 'A floating control on course content pages, Dashboard (/my/), My courses (/my/courses.php), and MuTMS custom home pages that hides secondary navigation and drawers and widens the main content. Preference is stored per course or page in the browser (localStorage).';
 $string['enablefocusmode'] = 'Enable Focus Mode';
-$string['enablefocusmode_desc'] = 'Show the Focus Mode button (bottom-right) on course home, section, and activity pages as well as Dashboard (/my/) and My courses (/my/courses.php). Default: Yes.';
+$string['enablefocusmode_desc'] = 'Show the Focus Mode button (bottom-right) on course home, section, and activity pages as well as Dashboard (/my/), My courses (/my/courses.php), and MuTMS custom home pages. Default: Yes.';
 $string['focusmodeenable'] = 'Focus mode';
 $string['focusmodedisable'] = 'Exit focus mode';
 $string['focusmodenotice'] = 'Focus mode is on. Click × at the bottom right to turn it off.';

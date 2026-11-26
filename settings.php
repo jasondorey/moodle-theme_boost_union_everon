@@ -219,7 +219,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         $page->add($tab);
 
-        // Focus Mode (wide layout toggle for courses, Dashboard, and My courses).
+        // Focus Mode (wide layout toggle for courses, Dashboard, My courses, and MuTMS custom home).
         $tab = new admin_settingpage(
             'theme_boost_union_everon_focusmode',
             get_string('focusmodetab', 'theme_boost_union_everon', null, true)

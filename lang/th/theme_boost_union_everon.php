@@ -120,9 +120,9 @@ $string['launchpadjsoninvalid'] = 'ลิงก์ Launch Pad ต้องเป
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'โหมดโฟกัส';
 $string['focusmodeheading'] = 'โหมดโฟกัส';
-$string['focusmodeheading_desc'] = 'ตัวควบคุมลอยบนหน้าเนื้อหาหลักสูตร แดชบอร์ด (/my/) และหลักสูตรของฉัน (/my/courses.php) ที่ซ่อนการนำทางรองและลิ้นชัก และขยายเนื้อหาหลัก ค่ากำหนดถูกเก็บต่อหลักสูตรหรือหน้าในเบราว์เซอร์ (localStorage)';
+$string['focusmodeheading_desc'] = 'ตัวควบคุมลอยบนหน้าเนื้อหาหลักสูตร แดชบอร์ด (/my/) หลักสูตรของฉัน (/my/courses.php) และหน้าแรกแบบกำหนดเองของ MuTMS ที่ซ่อนการนำทางรองและลิ้นชัก และขยายเนื้อหาหลัก ค่ากำหนดถูกเก็บต่อหลักสูตรหรือหน้าในเบราว์เซอร์ (localStorage)';
 $string['enablefocusmode'] = 'เปิดใช้โหมดโฟกัส';
-$string['enablefocusmode_desc'] = 'แสดงปุ่มโหมดโฟกัส (มุมล่างขวา) บนหน้าหลักหลักสูตร ส่วน และกิจกรรม รวมถึงแดชบอร์ด (/my/) และหลักสูตรของฉัน (/my/courses.php) ค่าเริ่มต้น: ใช่';
+$string['enablefocusmode_desc'] = 'แสดงปุ่มโหมดโฟกัส (มุมล่างขวา) บนหน้าหลักหลักสูตร ส่วน และกิจกรรม รวมถึงแดชบอร์ด (/my/) หลักสูตรของฉัน (/my/courses.php) และหน้าแรกแบบกำหนดเองของ MuTMS ค่าเริ่มต้น: ใช่';
 $string['focusmodeenable'] = 'โหมดโฟกัส';
 $string['focusmodedisable'] = 'ออกจากโหมดโฟกัส';
 $string['focusmodenotice'] = 'โหมดโฟกัสเปิดอยู่ คลิก × ที่มุมล่างขวาเพื่อปิด';
