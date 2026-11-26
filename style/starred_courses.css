@@ -1,0 +1,248 @@
+/**
+ * Starred courses navbar popover — match Accessibility / Launch Pad / usermenu chrome.
+ * Targets Boost Union #nav-popover-favourites-container (core/popover_region).
+ * Tokens from popover_chrome.css.
+ */
+
+#nav-popover-favourites-container.popover-region {
+    position: relative;
+    overflow: visible;
+}
+
+#usernavigation #nav-popover-favourites-container.popover-region {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+#usernavigation #nav-popover-favourites-container .popover-region-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Panel chrome */
+#nav-popover-favourites-container .popover-region-container {
+    --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
+    box-sizing: border-box;
+    right: 0;
+    left: auto;
+    top: 100%;
+    width: auto !important;
+    min-width: 14rem;
+    max-width: min(22.5rem, calc(100vw - 1.5rem)) !important;
+    height: auto !important;
+    max-height: min(85vh, 40rem) !important;
+    margin-top: 0.35rem;
+    padding: 0;
+    border: var(
+        --everon-popover-border,
+        1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
+    );
+    border-radius: var(--everon-popover-radius, 0.75rem);
+    background: var(--everon-popover-bg, #f3f4f6);
+    background-clip: padding-box;
+    box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    );
+    color: var(--everon-popover-text, #3f444e);
+    overflow: hidden !important;
+    z-index: 1050;
+    pointer-events: auto !important;
+}
+
+#nav-popover-favourites-container:not(.collapsed) .popover-region-container {
+    display: block;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: min(85vh, 40rem) !important;
+}
+
+/* Match Launch Pad / a11y: hide immediately on close (no Boost delayed fade). */
+#nav-popover-favourites-container.collapsed .popover-region-container {
+    display: none;
+    pointer-events: none !important;
+}
+
+/* Caret — accent outer / panel-fill inner (same metaphor as usermenu). */
+#nav-popover-favourites-container .popover-region-toggle::before {
+    border-bottom-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--cn-primary, var(--bs-primary, #e67e22))) 55%,
+        rgba(63, 68, 78, 0.28)
+    );
+}
+
+#nav-popover-favourites-container .popover-region-toggle::after {
+    border-bottom-color: var(--everon-popover-bg, #f3f4f6);
+}
+
+/* Header — Launch Pad / a11y muted section title */
+#nav-popover-favourites-container .popover-region-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    float: none;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0.85rem 0.75rem 0.35rem;
+    line-height: 1.25;
+    border-bottom: none;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+#nav-popover-favourites-container .popover-region-header-text {
+    float: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+#nav-popover-favourites-container .popover-region-header-actions {
+    float: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+}
+
+#nav-popover-favourites-container .popover-region-header-actions > * {
+    margin-left: 0;
+}
+
+#nav-popover-favourites-container .popover-region-header-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    text-decoration: none;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+#nav-popover-favourites-container .popover-region-header-actions a:hover,
+#nav-popover-favourites-container .popover-region-header-actions a:focus,
+#nav-popover-favourites-container .popover-region-header-actions a:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    outline: none;
+}
+
+#nav-popover-favourites-container .popover-region-header-actions a:hover .icon,
+#nav-popover-favourites-container .popover-region-header-actions a:focus .icon,
+#nav-popover-favourites-container .popover-region-header-actions a:focus-visible .icon {
+    color: inherit;
+}
+
+/* Course list */
+#nav-popover-favourites-container .popover-region-content-container {
+    box-sizing: border-box;
+    height: auto !important;
+    max-height: calc(min(85vh, 40rem) - 3rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0.15rem 0 0.4rem;
+    background: transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+#nav-popover-favourites-container .popover-region-content {
+    padding: 0;
+}
+
+#nav-popover-favourites-container .popover-region-content .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0.35rem;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--everon-popover-text, #3f444e);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+#nav-popover-favourites-container .popover-region-content .dropdown-item:hover,
+#nav-popover-favourites-container .popover-region-content .dropdown-item:focus,
+#nav-popover-favourites-container .popover-region-content .dropdown-item:focus-visible,
+#nav-popover-favourites-container .popover-region-content .dropdown-item.active,
+#nav-popover-favourites-container .popover-region-content .dropdown-item:active {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    ) !important;
+    background: var(--everon-popover-tile-hover-bg, #fff) !important;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+    outline: none;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+/* Hidden courses stay muted; hover still uses Everon accent (not Boost white-on-primary). */
+#nav-popover-favourites-container .popover-region-content .dropdown-item.dimmed {
+    opacity: 0.65;
+}
+
+#nav-popover-favourites-container .popover-region-content .dropdown-item.dimmed:hover,
+#nav-popover-favourites-container .popover-region-content .dropdown-item.dimmed:focus,
+#nav-popover-favourites-container .popover-region-content .dropdown-item.dimmed:focus-visible {
+    opacity: 1;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+}
+
+#nav-popover-favourites-container .popover-region-content-container .empty-message {
+    margin: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    font-size: 0.875rem;
+}
+
+/* Everon dark mode — panel follows site dark/light via shared tokens. */
+html.theme-boost-union-everon-a11y-dark-mode #nav-popover-favourites-container {
+    --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
+    --everon-popover-text: var(--bs-body-color, #dee2e6);
+    --everon-popover-muted: color-mix(
+        in srgb,
+        var(--bs-body-color, #dee2e6) 82%,
+        var(--bs-tertiary-bg, #2b3035)
+    );
+    --everon-popover-tile-hover-bg: var(--bs-secondary-bg, #343a40);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode #nav-popover-favourites-container .popover-region-container {
+    background: var(--everon-popover-bg, #2b3035);
+    color: var(--everon-popover-text, #dee2e6);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode #nav-popover-favourites-container .popover-region-toggle::after {
+    border-bottom-color: var(--everon-popover-bg, #2b3035);
+}

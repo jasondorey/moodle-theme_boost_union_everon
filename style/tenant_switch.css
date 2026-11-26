@@ -1,0 +1,420 @@
+/**
+ * MuTMS “Switch tenant” navbar panel — anchored directly beneath its navbar
+ * trigger icon to match Accessibility / Launch Pad / usermenu / starred /
+ * notifications / messages Everon panel chrome.
+ *
+ * Source: tool_mutenancy_render_navbar_output() → tool_mulib muform dialog
+ * (<dialog class="muform-dialog muform-dialog-sm"> + form data-muform=
+ * tool_mutenancy-local-form-tenant_switch). Tokens from popover_chrome.css.
+ *
+ * `navbar_tenant_switch` AMD tags the Switch tenant dialog with
+ * `.everon-tenant-switch-dialog` before first paint (including the loading
+ * beat) and computes viewport-clamped `--everon-tenant-switch-top/left`.
+ * Scoping to `.everon-tenant-switch-dialog` + `:has(form[…tenant_switch])`
+ * keeps other MuTMS `sm` admin modals unaffected.
+ */
+
+/* -------------------------------------------------------------------------
+ * Anchored navbar panel shell — radius, accent border/shadow, panel bg
+ * ------------------------------------------------------------------------- */
+dialog.muform-dialog.everon-tenant-switch-dialog,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) {
+    --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
+    --bs-modal-bg: var(--everon-popover-bg, #f3f4f6);
+    --bs-modal-color: var(--everon-popover-text, #3f444e);
+    --bs-modal-border-color: transparent;
+    --bs-modal-border-radius: var(--everon-popover-radius, 0.75rem);
+    --bs-modal-box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    );
+    --bs-modal-header-border-color: transparent;
+    --bs-modal-header-border-width: 0;
+    --bs-modal-footer-border-color: var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+    width: min(22.5rem, calc(100vw - 1.5rem));
+    max-width: calc(100vw - 1.5rem);
+    color: var(--everon-popover-text, #3f444e);
+    outline: none;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog {
+    position: fixed;
+    inset: auto;
+    top: var(--everon-tenant-switch-top, calc(3.5rem + 0.35rem));
+    left: var(--everon-tenant-switch-left, auto);
+    right: auto;
+    bottom: auto;
+    margin: 0 !important;
+    max-height: min(85vh, 40rem, calc(100vh - var(--everon-tenant-switch-top, 4rem) - 0.75rem));
+}
+
+/* Resting focus parks on the dialog root (tabindex=-1); never paint a focus ring on it. */
+dialog.muform-dialog.everon-tenant-switch-dialog:focus,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]):focus {
+    outline: none;
+    box-shadow: none;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-content,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    border: var(
+        --everon-popover-border,
+        1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
+    );
+    border-radius: var(--everon-popover-radius, 0.75rem);
+    background: var(--everon-popover-bg, #f3f4f6);
+    background-clip: padding-box;
+    box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    );
+    overflow: hidden;
+}
+
+/* Transparent backdrop so the panel behaves like a navbar dropdown, not a dimmed modal. */
+dialog.muform-dialog.everon-tenant-switch-dialog::backdrop,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"])::backdrop {
+    background: transparent;
+}
+
+/* -------------------------------------------------------------------------
+ * Header — muted title + Everon close chrome (match notifications actions)
+ * ------------------------------------------------------------------------- */
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.85rem 0.75rem 0.35rem;
+    border-bottom: none;
+    background: transparent;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-title,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-title {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close {
+    box-sizing: border-box;
+    width: 1.75rem;
+    height: 1.75rem;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    margin: 0;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    background: transparent
+        url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%233f444e'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+        center / 0.65em auto no-repeat;
+    opacity: 0.72;
+    box-shadow: none;
+    transition: border-color 0.12s ease, color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:focus,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:focus {
+    outline: none;
+    box-shadow: none;
+    opacity: 0.72;
+}
+
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:hover,
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close:focus-visible,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background-color: var(--everon-popover-tile-hover-bg, #fff);
+    opacity: 1;
+    outline: none;
+    box-shadow: none;
+}
+
+/* -------------------------------------------------------------------------
+ * Body / form
+ * ------------------------------------------------------------------------- */
+dialog.muform-dialog.everon-tenant-switch-dialog .modal-body,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    padding: 0.15rem 0.75rem 0.75rem;
+    background: transparent;
+    color: var(--everon-popover-text, #3f444e);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform.mform {
+    margin: 0;
+}
+
+/* Stack label above control — panel width is too tight for Bootstrap 3-col. */
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .fitem.row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0 0 0.65rem;
+    gap: 0.35rem;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .fitem > .col-form-label,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .fitem > [class*="col-md-"] {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .fitem > .col-form-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .felement.offset-md-3 {
+    margin-left: 0;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .form-control,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .muform-autocomplete-selected,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .muform-autocomplete-input {
+    border-color: var(--everon-popover-tile-border, rgba(63, 68, 78, 0.12));
+    border-radius: 0.5rem;
+    background: var(--everon-popover-tile-bg, #fff);
+    color: var(--everon-popover-text, #3f444e);
+    box-shadow: var(--everon-popover-tile-shadow, 0 1px 2px rgba(63, 68, 78, 0.06));
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .form-control:focus,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .muform-autocomplete-input:focus {
+    border-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 55%,
+        transparent
+    );
+    box-shadow: 0 0 0 0.2rem color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 22%,
+        transparent
+    );
+}
+
+/* Admin info blurb — quieter inside panel */
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .alert.alert-info {
+    margin: 0 0 0.65rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 22%,
+        transparent
+    );
+    border-radius: 0.5rem;
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 8%,
+        var(--everon-popover-tile-bg, #fff)
+    );
+    color: var(--everon-popover-text, #3f444e);
+    font-size: 0.8125rem;
+    line-height: 1.35;
+}
+
+/* -------------------------------------------------------------------------
+ * Autocomplete listbox — usermenu-style items (no Bootstrap white-on-primary)
+ * ------------------------------------------------------------------------- */
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox {
+    --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
+    margin: 0;
+    padding: 0.25rem;
+    max-width: calc(100vw - 2rem);
+    border: var(
+        --everon-popover-border,
+        1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
+    );
+    border-radius: var(--everon-popover-radius, 0.75rem);
+    background: var(--everon-popover-bg, #f3f4f6);
+    box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    );
+    color: var(--everon-popover-text, #3f444e);
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1060;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item {
+    margin: 0.1rem 0;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--everon-popover-text, #3f444e);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item.text-muted {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72)) !important;
+    font-weight: 500;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item-action:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item-action:focus,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item-action:focus-visible,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item-action.active,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-autocomplete-listbox .list-group-item.active {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    ) !important;
+    background: var(--everon-popover-tile-hover-bg, #fff) !important;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+    outline: none;
+    box-shadow: none;
+    z-index: auto;
+}
+
+/* -------------------------------------------------------------------------
+ * Actions — accent primary, muted cancel
+ * ------------------------------------------------------------------------- */
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons {
+    margin: 0.35rem 0 0;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .felement {
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-primary {
+    border-color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    background: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-primary:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-primary:focus-visible {
+    border-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 85%,
+        #000
+    );
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 85%,
+        #000
+    );
+    color: #fff;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-secondary,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons [data-muform-role="cancel"] {
+    border: 1px solid var(--everon-popover-tile-border, rgba(63, 68, 78, 0.12));
+    border-radius: 0.5rem;
+    background: var(--everon-popover-tile-bg, #fff);
+    color: var(--everon-popover-text, #3f444e);
+    font-weight: 500;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-secondary:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons [data-muform-role="cancel"]:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons .btn-secondary:focus-visible,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform-buttons [data-muform-role="cancel"]:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .btn-outline-secondary {
+    border-color: var(--everon-popover-tile-border, rgba(63, 68, 78, 0.12));
+    background: var(--everon-popover-tile-bg, #fff);
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    border-radius: 0.35rem;
+}
+
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .btn-outline-secondary:hover,
+dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .muform .btn-outline-secondary:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+}
+
+/* -------------------------------------------------------------------------
+ * Dark mode — shared popover token remap
+ * ------------------------------------------------------------------------- */
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog.everon-tenant-switch-dialog,
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) {
+    --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
+    --everon-popover-text: var(--bs-body-color, #dee2e6);
+    --everon-popover-muted: color-mix(
+        in srgb,
+        var(--bs-body-color, #dee2e6) 82%,
+        var(--bs-tertiary-bg, #2b3035)
+    );
+    --everon-popover-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --everon-popover-tile-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-tile-border: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --everon-popover-tile-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --everon-popover-tile-hover-bg: var(--bs-secondary-bg, #343a40);
+    --bs-modal-bg: var(--everon-popover-bg, #2b3035);
+    --bs-modal-color: var(--everon-popover-text, #dee2e6);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog.everon-tenant-switch-dialog .modal-content,
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-content {
+    background: var(--everon-popover-bg, #2b3035);
+    color: var(--everon-popover-text, #dee2e6);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog.everon-tenant-switch-dialog .modal-header .btn-close,
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .modal-header .btn-close {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23dee2e6'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+    opacity: 0.85;
+}
+
+html.theme-boost-union-everon-a11y-dark-mode dialog.muform-dialog:has(form[data-muform="tool_mutenancy-local-form-tenant_switch"]) .alert.alert-info {
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 14%,
+        var(--everon-popover-tile-bg, #343a40)
+    );
+    color: var(--everon-popover-text, #dee2e6);
+}

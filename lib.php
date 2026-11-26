@@ -119,7 +119,43 @@ function theme_boost_union_everon_get_extra_scss($theme) {
      * It will be added on top of Boost Union's SCSS code.
      *********************************************************/
 
+    // MuTMS tenant Boost background images (when compatibility is on).
+    require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
+    if (theme_boost_union_everon_mutms_compatibility_enabled()) {
+        $scss .= \theme_boost_union_everon\local\mutms::background_scss();
+    }
+
     return $scss;
+}
+
+/**
+ * Plugin version string used to cache-bust standalone Everon stylesheets.
+ *
+ * @return string
+ */
+function theme_boost_union_everon_stylesheet_rev(): string {
+    global $CFG;
+
+    static $rev = null;
+    if ($rev !== null) {
+        return $rev;
+    }
+
+    $plugin = new stdClass();
+    include($CFG->dirroot . '/theme/boost_union_everon/version.php');
+    $rev = (string) $plugin->version;
+    return $rev;
+}
+
+/**
+ * Theme-relative stylesheet URL with plugin version query for cache busting.
+ *
+ * @param string $relativepath Path under /theme/boost_union_everon/ (e.g. style/dashboard.css).
+ * @return \core\url
+ */
+function theme_boost_union_everon_stylesheet_url(string $relativepath): \core\url {
+    $relativepath = ltrim($relativepath, '/');
+    return new \core\url('/theme/boost_union_everon/' . $relativepath, ['rev' => theme_boost_union_everon_stylesheet_rev()]);
 }
 
 /**
@@ -137,6 +173,17 @@ function theme_boost_union_everon_get_extra_scss($theme) {
 function theme_boost_union_everon_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
     // No Everon setting fileareas currently (login panel image removed; use Boost Union login).
     send_file_not_found();
+}
+
+/**
+ * Moodle Checks API: status of the local Boost Union flavourslib tenant hook.
+ *
+ * @return \core\check\check[]
+ */
+function theme_boost_union_everon_status_checks(): array {
+    return [
+        new \theme_boost_union_everon\check\flavour_hook(),
+    ];
 }
 
 /**
@@ -186,16 +233,30 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
 
     require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
 
+    // Belt-and-suspenders with after_config: heal flavourslib if hooks cache was stale
+    // after a deploy, or after_config could not write yet.
+    \theme_boost_union_everon\local\boost_union_flavour_hook::ensure_applied_if_needed();
+
     $www = '/theme/boost_union_everon';
 
-    // Shared popover chrome + profile usermenu — always on with Everon (not login).
+    // Shared popover chrome + profile usermenu + starred + notifications + messages + MuTMS switch tenant — always on with Everon (not login).
     if ($page->pagelayout !== 'login') {
-        $page->requires->css($www . '/style/popover_chrome.css');
-        $page->requires->css($www . '/style/usermenu.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/popover_chrome.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/starred_courses.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/notifications.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/messages.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/tenant_switch.css'));
         if (theme_boost_union_everon_usermenutiles_enabled()) {
             $page->add_body_class('theme-boost-union-everon-usermenu-tiles');
-            $page->requires->css($www . '/style/usermenu_tiles.css');
+            $page->requires->css(theme_boost_union_everon_stylesheet_url('style/usermenu_tiles.css'));
         }
+        // Usermenu × close (and navbar mutex) — independent of a11y / Launch Pad toggles.
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_a11y_popovers', 'init');
+        // Message drawer → Everon floating panel (CSS chrome + mount/position).
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_messages', 'init');
+        // MuTMS Switch tenant dialog → anchored navbar panel (no centered modal/dimmed backdrop).
+        $page->requires->js_call_amd('theme_boost_union_everon/navbar_tenant_switch', 'init');
     }
 
     // Skip login layout for navbar utilities (a11y / Launch Pad / Focus / layouts).
@@ -205,45 +266,54 @@ function theme_boost_union_everon_page_init(\moodle_page $page): void {
 
     if (theme_boost_union_everon_accessibility_enabled()) {
         // Fonts must load outside theme/styles.php so relative @font-face URLs resolve.
-        $page->requires->css($www . '/fonts/opendyslexic.css');
-        $page->requires->css($www . '/style/accessibility.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('fonts/opendyslexic.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/accessibility.css'));
         $page->requires->js_call_amd('theme_boost_union_everon/navbar_accessibility', 'init');
     }
 
+    if (theme_boost_union_everon_activity_icon_filters_enabled()) {
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/activity_icon_filters.css'));
+    }
+
     if (theme_boost_union_everon_launchpad_should_show()) {
-        $page->requires->css($www . '/style/launch_pad.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/launch_pad.css'));
         $page->requires->js_call_amd('theme_boost_union_everon/launch_pad', 'init');
     }
 
     if (\theme_boost_union_everon\focus_mode::should_offer($page)) {
         $courseid = \theme_boost_union_everon\focus_mode::resolve_course_id($page);
         $page->add_body_class('theme-boost-union-everon-focus-available');
-        $page->requires->css($www . '/style/course_focus.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/course_focus.css'));
         $page->requires->js($www . '/javascript/course_focus_styles.js');
         $page->requires->js_call_amd('theme_boost_union_everon/course_focus', 'init', [$courseid]);
     }
 
     if (theme_boost_union_everon_mycourses_should_offer($page)) {
         $page->add_body_class('theme-boost-union-everon-mycourses');
-        $page->requires->css($www . '/style/course_cards.css');
-        $page->requires->css($www . '/style/my_courses.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/course_cards.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/my_courses.css'));
     }
 
     if (theme_boost_union_everon_mycourses_stats_should_offer($page)) {
         $page->add_body_class('theme-boost-union-everon-mycourses-stats');
-        $page->requires->css($www . '/style/my_courses_stats.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/my_courses_stats.css'));
     }
 
     if (theme_boost_union_everon_dashboard_should_offer($page)) {
         $page->add_body_class('theme-boost-union-everon-dashboard');
-        $page->requires->css($www . '/style/course_cards.css');
-        $page->requires->css($www . '/style/dashboard.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/course_cards.css'));
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/dashboard.css'));
         // Supporting block surfaces + empty-state polish fold into Dashboard layout.
-        $page->requires->css($www . '/style/dashboard_surfaces.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/dashboard_surfaces.css'));
     }
 
     if (theme_boost_union_everon_compact_navbar_should_offer($page)) {
         $page->add_body_class('theme-boost-union-everon-compact-navbar');
-        $page->requires->css($www . '/style/navbar.css');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/navbar.css'));
+    }
+
+    if (theme_boost_union_everon_mutms_compatibility_enabled()) {
+        $page->add_body_class('theme-boost-union-everon-mutms');
+        $page->requires->css(theme_boost_union_everon_stylesheet_url('style/mutms.css'));
     }
 }

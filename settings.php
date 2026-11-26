@@ -63,6 +63,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         require_once($CFG->dirroot . '/theme/boost_union_everon/locallib.php');
         require_once($CFG->dirroot . '/theme/boost_union_everon/classes/admin_setting_launchpad_json.php');
         require_once($CFG->dirroot . '/theme/boost_union_everon/classes/admin_setting_launchpad_roles.php');
+        require_once($CFG->dirroot . '/theme/boost_union_everon/classes/admin_setting_flavour_tenants.php');
 
         // Prepare options array for select settings.
         // Due to MDL-58376, we will use binary select settings instead of checkbox settings throughout this theme.
@@ -152,6 +153,26 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $name = 'theme_boost_union_everon/enableaccessibilitytool';
         $title = get_string('enableaccessibilitytool', 'theme_boost_union_everon', null, true);
         $description = get_string('enableaccessibilitytool_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_configselect(
+            $name,
+            $title,
+            $description,
+            THEME_BOOST_UNION_SETTING_SELECT_YES,
+            $yesnooption
+        );
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $tab->add($setting);
+
+        // Activity icon filters (Safari purpose colours + dark-mode monologo invert).
+        $name = 'theme_boost_union_everon/activityiconfiltersheading';
+        $title = get_string('activityiconfiltersheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('activityiconfiltersheading_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_heading($name, $title, $description);
+        $tab->add($setting);
+
+        $name = 'theme_boost_union_everon/enableactivityiconfilters';
+        $title = get_string('enableactivityiconfilters', 'theme_boost_union_everon', null, true);
+        $description = get_string('enableactivityiconfilters_desc', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_configselect(
             $name,
             $title,
@@ -409,6 +430,49 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         $title = '';
         $description = get_string('dashboardsurfacesnote', 'theme_boost_union_everon', null, true);
         $setting = new admin_setting_heading($name, $title, $description);
+        $tab->add($setting);
+
+        $page->add($tab);
+
+        // MuTMS compatibility (tenant appearance bridge + plugin surface CSS).
+        $tab = new admin_settingpage(
+            'theme_boost_union_everon_mutms',
+            get_string('mutmstab', 'theme_boost_union_everon', null, true)
+        );
+
+        $name = 'theme_boost_union_everon/mutmsheading';
+        $title = get_string('mutmsheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('mutmsheading_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_heading($name, $title, $description);
+        $tab->add($setting);
+
+        $name = 'theme_boost_union_everon/enablemutmscompatibility';
+        $title = get_string('enablemutmscompatibility', 'theme_boost_union_everon', null, true);
+        $description = get_string('enablemutmscompatibility_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_configselect(
+            $name,
+            $title,
+            $description,
+            THEME_BOOST_UNION_SETTING_SELECT_NO,
+            $yesnooption
+        );
+        $setting->set_updatedcallback('theme_boost_union_everon_mutms_setting_updated');
+        $tab->add($setting);
+
+        // Tenant flavour applicability (inline on MuTMS tab — not a Boost Union sibling page).
+        $name = 'theme_boost_union_everon/flavourtenantsheading';
+        $title = get_string('flavourtenantsheading', 'theme_boost_union_everon', null, true);
+        $description = get_string('flavourtenantsheading_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_heading($name, $title, $description);
+        $tab->add($setting);
+
+        // Same pattern as Boost Union Look → Logos: append Possible setting overrides alert
+        // (info modal + jalapeño → flavours overview) to the setting description.
+        $name = 'theme_boost_union_everon/flavourtenantsmap';
+        $title = get_string('flavourtenantsmap', 'theme_boost_union_everon', null, true);
+        $description = get_string('flavourtenantsmap_desc', 'theme_boost_union_everon', null, true);
+        $description .= theme_boost_union_everon_render_flavour_setting_notification();
+        $setting = new theme_boost_union_everon_admin_setting_flavour_tenants($name, $title, $description);
         $tab->add($setting);
 
         $page->add($tab);

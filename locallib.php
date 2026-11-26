@@ -38,6 +38,50 @@ function theme_boost_union_everon_accessibility_enabled(): bool {
 }
 
 /**
+ * Whether Everon activity icon filters are enabled (admin setting).
+ * Default: enabled when the setting has never been saved.
+ *
+ * @return bool
+ */
+function theme_boost_union_everon_activity_icon_filters_enabled(): bool {
+    $value = get_config('theme_boost_union_everon', 'enableactivityiconfilters');
+    if ($value === false || $value === null || $value === '') {
+        return true;
+    }
+    return $value === 'yes' || $value === '1' || $value === 1;
+}
+
+/**
+ * Hidden SVG filter defs for Safari purpose-colour activity icon tinting.
+ * Matrix values match Boost `$activity-icon-*-bg` / `recolor-icon` (icons.scss).
+ *
+ * @return string
+ */
+function theme_boost_union_everon_get_activity_icon_filters_svg(): string {
+    // Boost purpose colours → feColorMatrix fifth-column RGB (component / 255).
+    $filters = [
+        'administration' => '0 0 0 0 0.8549019608 0 0 0 0 0.3450980392 0 0 0 0 0.937254902 0 0 0 1 0',
+        'assessment' => '0 0 0 0 0.9764705882 0 0 0 0 0 0 0 0 0 0.5254901961 0 0 0 1 0',
+        'collaboration' => '0 0 0 0 0.3568627451 0 0 0 0 0.2509803922 0 0 0 0 1 0 0 0 1 0',
+        'communication' => '0 0 0 0 0.9215686275 0 0 0 0 0.3843137255 0 0 0 0 0 0 0 0 1 0',
+        'content' => '0 0 0 0 0 0 0 0 0 0.6 0 0 0 0 0.6784313725 0 0 0 1 0',
+        'interactivecontent' => '0 0 0 0 0.5529411765 0 0 0 0 0.2392156863 0 0 0 0 0.1058823529 0 0 0 1 0',
+    ];
+
+    $inner = '';
+    foreach ($filters as $purpose => $matrix) {
+        $id = 'safari-activity-' . $purpose;
+        $inner .= '<filter id="' . $id . '" color-interpolation-filters="sRGB">'
+            . '<feColorMatrix type="matrix" values="' . $matrix . '"/>'
+            . '</filter>';
+    }
+
+    return '<svg xmlns="http://www.w3.org/2000/svg" id="theme-boost-union-everon-activity-icon-filters" '
+        . 'width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" '
+        . 'aria-hidden="true" focusable="false"><defs>' . $inner . '</defs></svg>';
+}
+
+/**
  * Inline head markup: apply stored a11y settings before first paint.
  * Ported from theme_custom (GPL).
  *
@@ -380,7 +424,33 @@ function theme_boost_union_everon_dashboard_should_offer(\moodle_page $page): bo
     if (!theme_boost_union_everon_dashboard_layout_enabled()) {
         return false;
     }
-    return $page->pagelayout === 'mydashboard';
+    if ($page->pagelayout !== 'mydashboard') {
+        return false;
+    }
+    // MuTMS custom home pages reuse mydashboard + content region — never skin as /my/.
+    if ($page->pagetype === 'tool-muhome-index') {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Whether MuTMS compatibility is enabled (admin setting).
+ * Default: disabled when the setting has never been saved.
+ *
+ * @return bool
+ */
+function theme_boost_union_everon_mutms_compatibility_enabled(): bool {
+    return \theme_boost_union_everon\local\mutms::is_enabled();
+}
+
+/**
+ * Admin setting updatedcallback for MuTMS compatibility.
+ *
+ * @return void
+ */
+function theme_boost_union_everon_mutms_setting_updated(): void {
+    \theme_boost_union_everon\local\mutms::setting_updated();
 }
 
 /**
@@ -1051,6 +1121,85 @@ function theme_boost_union_everon_usermenu_prepare_action_menu_context($context)
     $context['items'] = $enriched;
 
     return $context;
+}
+
+/**
+ * Boost Union-style info alert for MuTMS flavour settings (info + jalapeño actions).
+ *
+ * Reuses Boost Union's notification template, pix icons, and modal AMD so Everon
+ * does not fork the admin UI chrome. Message text is Everon-specific: Look assets
+ * live in Boost Union flavours; this MuTMS tab only maps flavours to tenants.
+ *
+ * @return string HTML (info notification), or empty string if Boost Union helpers are unavailable.
+ */
+function theme_boost_union_everon_render_flavour_setting_notification(): string {
+    global $OUTPUT;
+
+    if (!function_exists('theme_boost_union_ensure_modal_js')) {
+        return '';
+    }
+
+    $modaltitle = get_string('settingoverridenotificationtitle', 'theme_boost_union');
+    $modalbody = get_string('flavourtenantssettingmodal', 'theme_boost_union_everon');
+    $message = get_string('flavourtenantssettingalert', 'theme_boost_union_everon');
+
+    $actions = [];
+
+    // Info (opens Boost Union bumodal with Everon copy).
+    $actions[] = [
+        'url' => '#',
+        'icon' => new \core\output\pix_icon(
+            'info',
+            get_string('settingoverrideactioninfo', 'theme_boost_union'),
+            'theme_boost_union'
+        ),
+        'attributes' => [
+            'class' => 'action-info py-0 ps-0 ms-0 me-0',
+            'data-action' => 'bumodal',
+            'data-title' => $modaltitle,
+            'data-body' => $modalbody,
+        ],
+    ];
+
+    // Jalapeño → Boost Union flavours overview.
+    $actions[] = [
+        'url' => new \core\url('/theme/boost_union/flavours/overview.php'),
+        'icon' => new \core\output\pix_icon(
+            'flavours',
+            get_string('settingoverrideactionflavours', 'theme_boost_union'),
+            'theme_boost_union'
+        ),
+        'attributes' => [
+            'class' => 'action-flavours py-0 ms-0 me-0 pe-0',
+            'title' => get_string('settingoverrideactionflavours', 'theme_boost_union'),
+            'aria-label' => get_string('settingoverrideactionflavours', 'theme_boost_union'),
+        ],
+    ];
+
+    $actionshtml = [];
+    foreach ($actions as $action) {
+        $action['attributes']['role'] = 'button';
+        $actionshtml[] = $OUTPUT->action_icon(
+            $action['url'],
+            $action['icon'],
+            null,
+            $action['attributes']
+        );
+    }
+    $actionshtml = html_writer::span(implode('', $actionshtml), 'settings-actions');
+
+    $content = $OUTPUT->render_from_template('theme_boost_union/settingoverridenotification', [
+        'message' => $message,
+        'actionshtml' => $actionshtml,
+    ]);
+
+    theme_boost_union_ensure_modal_js();
+
+    // Same as Boost Union: render info notification without stripping action data-* attrs.
+    return $OUTPUT->render_from_template('core/notification_info', [
+        'message' => $content,
+        'closebutton' => false,
+    ]);
 }
 
 /***************************************************************

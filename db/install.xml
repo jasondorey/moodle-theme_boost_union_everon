@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="theme/boost_union_everon/db" VERSION="20261116" COMMENT="XMLDB file for Moodle theme/boost_union_everon"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="theme_boost_union_everon_flavour_apply" COMMENT="MuTMS tenant applicability for Boost Union flavours">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="flavourid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="theme_boost_union_flavours.id"/>
+        <FIELD NAME="applytotenants" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="applytotenants_ids" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of tool_mutenancy tenant ids"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="flavouriduk" TYPE="unique" FIELDS="flavourid"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

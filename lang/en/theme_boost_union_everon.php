@@ -32,14 +32,14 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Everon';
 $string['choosereadme'] = 'Everon is a Boost Union child theme for Project Theme. It ships stock Union look plus optional features such as the accessibility toolbar, Launch Pad, Focus Mode, My Courses layout, and Dashboard layout.';
 $string['configtitle'] = 'Everon';
-$string['settingsoverview_buc_desc'] = 'Everon is a Boost Union child for Project Theme. Prefer Union Look/Content settings; Everon adds features such as the accessibility toolbar, Launch Pad shortcuts, Focus Mode, My Courses card layout, and Dashboard layout.';
+$string['settingsoverview_buc_desc'] = 'Everon is a Boost Union child for Project Theme. Prefer Union Look/Content settings; Everon adds features such as the accessibility toolbar, Launch Pad shortcuts, Focus Mode, My Courses card layout, Dashboard layout, and optional MuTMS compatibility.';
 
 // Settings: General settings tab.
 // ... Section: Inheritance.
 $string['inheritanceheading'] = 'Inheritance';
 $string['inheritanceinherit'] = 'Inherit';
 $string['inheritanceduplicate'] = 'Duplicate';
-$string['inheritanceoptionsexplanation'] = 'Most of the time, inheriting will be perfectly fine. However, it may happen that imperfect code is integrated into Boost Union which prevents simple SCSS inheritance for particular Boost Union features. If you encounter any issues with Boost Union features which seem not to work in Everon as well, try to switch this setting to \'Dupliate\' and, if this solves the problem, report an issue on Github (see the README.md file for details how to report an issue).';
+$string['inheritanceoptionsexplanation'] = 'Most of the time, inheriting will be perfectly fine. However, it may happen that imperfect code is integrated into Boost Union which prevents simple SCSS inheritance for particular Boost Union features. If you encounter any issues with Boost Union features which seem not to work in Everon as well, try to switch this setting to \'Duplicate\' and, if this solves the problem, report an issue on Github (see the README.md file for details how to report an issue).';
 // ... ... Setting: Pre SCSS inheritance setting.
 $string['prescssinheritancesetting'] = 'Pre SCSS inheritance';
 $string['prescssinheritancesetting_desc'] = 'With this setting, you control if the pre SCSS code from Boost Union should be inherited or duplicated.';
@@ -58,6 +58,10 @@ $string['accessibilityheading'] = 'Accessibility toolbar';
 $string['accessibilityheading_desc'] = 'Navbar utility that lets each user adjust content, colour, and assistive tools. Preferences are stored in the browser (localStorage), not in Moodle user preferences.';
 $string['enableaccessibilitytool'] = 'Enable accessibility toolbar';
 $string['enableaccessibilitytool_desc'] = 'Show the accessibility icon in the top navbar (next to notifications/messages) and load the toolbar. Default: Yes.';
+$string['activityiconfiltersheading'] = 'Activity icons';
+$string['activityiconfiltersheading_desc'] = 'Purpose-colour filters for Safari (page SVG defs) and light monologo filters in Everon dark mode. Branded icons stay unfiltered; aimassign monologos are excluded from tinting.';
+$string['enableactivityiconfilters'] = 'Activity icon filters';
+$string['enableactivityiconfilters_desc'] = 'When enabled, load Safari purpose-colour filters for core monologos and file icons, and force light/white monologo filters under Everon dark mode. Default: Yes.';
 $string['accessibilitymenu'] = 'Accessibility options';
 $string['a11ycontentadjustments'] = 'Content Adjustments';
 $string['a11ycoloradjustments'] = 'Color Adjustments';
@@ -131,6 +135,7 @@ $string['usermenuheading'] = 'User menu tiles';
 $string['usermenuheading_desc'] = 'Restyle the profile usermenu as a Launch Pad–style tile grid (same Boost destinations). Panel chrome already matches Accessibility / Launch Pad. Turn off to keep the vertical link list.';
 $string['enableusermenutiles'] = 'Enable user menu tiles';
 $string['enableusermenutiles_desc'] = 'Show profile usermenu items as a 3-column tile grid with Font Awesome icons. Default: Yes. Set to No for the vertical list.';
+$string['usermenumenu'] = 'User menu';
 
 // Settings: Compact navbar tab.
 $string['navbartab'] = 'Navbar';
@@ -177,5 +182,38 @@ $string['enabledashboardlayout'] = 'Enable Dashboard layout';
 $string['enabledashboardlayout_desc'] = 'Widen the Dashboard page and apply the same Course overview card chrome as My Courses. Also unifies Timeline / Calendar / Upcoming block surfaces and softens empty states to match. Default: Yes. Enable Boost Union Outside (right) separately for the right column.';
 $string['dashboardsurfacesnote'] = 'When Dashboard layout is enabled, Everon also applies shared block surface tokens (soft border, radius, shadow) and calmer Timeline / Upcoming empty-state styling so supporting blocks match course cards.';
 
+// Settings: MuTMS tab.
+$string['mutmstab'] = 'MuTMS';
+$string['mutmsheading'] = 'MuTMS compatibility';
+$string['mutmsheading_desc'] = 'Optional bridge so Everon works with the MuTMS plugin suite on this site (programs, certifications, catalogue, custom home pages, multi-tenancy appearance, and related tools). Prefer theme CSS and settings mirroring — MuTMS plugin code is not forked.';
+$string['enablemutmscompatibility'] = 'Enable MuTMS compatibility';
+$string['enablemutmscompatibility_desc'] = 'When Yes: (1) load MuTMS surface CSS aligned with Everon light and dark surfaces; (2) keep custom home pages (tool_muhome) out of the Dashboard layout skin; (3) mirror tenant Boost appearance (brand colour, SCSS, site + login backgrounds) into Everon and bust per-tenant theme CSS caches; (4) allow Boost Union flavours to apply to MuTMS tenants (map them below on this MuTMS tab) and use a thin MuTMS logo/favicon fallback when no flavour logo wins — including on the login page for guests when forcelogin would make flavour Look files redirect. Default: No. Turn on after MuTMS plugins are installed.';
+$string['flavourtenantspage'] = 'Tenant flavours';
+$string['flavourtenantsheading'] = 'Apply flavours to MuTMS tenants';
+$string['flavourtenantsheading_desc'] = 'Map Boost Union flavours to MuTMS tenants here. Matching is active only while MuTMS compatibility is On.';
+$string['flavourtenantsmap'] = 'Flavour to tenant mapping';
+$string['flavourtenantsmap_desc'] = 'For each flavour, choose Apply to tenants and select which MuTMS tenants it should match.';
+$string['flavourtenantssettingalert'] = 'Flavour Look assets (logos, favicon, SCSS, and related controls) are configured within Boost Union flavours.';
+$string['flavourtenantssettingmodal'] = '<strong>Flavours</strong><br />Boost Union flavours hold the Look assets that brand a context (logos, favicon, SCSS, and related controls). On this MuTMS tab you only choose which MuTMS tenants each flavour applies to. Click the \'Manage flavours\' icon to open the Boost Union flavours overview and create or edit a flavour.';
+$string['flavourtenantsmapinvalid'] = 'The flavour to tenant mapping could not be saved because the submitted data was invalid.';
+$string['flavourtenantsintro'] = 'For each Boost Union flavour, choose whether it applies when a MuTMS tenant is active. Matching uses the same flavour sort order as categories and cohorts (first match wins). Within a flavour, categories are checked first, then cohorts, then tenants. Put tenant-wide flavours higher in the Flavours list when they should beat category flavours on category pages.';
+$string['flavourapplytotenants'] = 'Apply to tenants';
+$string['flavourapplytotenants_help'] = 'When Yes, this flavour can match while one of the selected MuTMS tenants is the active tenant (session switch, forced tenant, or tenant member). Requires Everon MuTMS compatibility On.';
+$string['flavourtenants'] = 'Tenants';
+$string['flavourtenants_help'] = 'MuTMS tenants this flavour applies to when Apply to tenants is Yes.';
+$string['flavourtenantsneedcompat'] = 'Everon MuTMS compatibility is Off. Tenant flavour matching stays inactive until you enable it above on this MuTMS tab.';
+$string['flavourtenantsneedmutenancy'] = 'MuTMS multi-tenancy (tool_mutenancy) is not active on this site.';
+$string['flavourtenantsnone'] = 'No Boost Union flavours exist yet. Create a flavour under Boost Union → Flavours, then return here to map it to tenants.';
+$string['flavourtenantstenantsnone'] = 'No active MuTMS tenants were found.';
+
+// Status check: Boost Union flavourslib local hook.
+$string['checkflavourhookok'] = 'Boost Union flavourslib includes the Everon MuTMS tenant hook.';
+$string['checkflavourhookok_details'] = 'Tenant-mapped flavours can apply (navbar colour, Look assets). Upstream child-theme callbacks will replace this local hook when available.';
+$string['checkflavourhookreapplied'] = 'Boost Union flavourslib was missing the Everon MuTMS tenant hook; it was re-applied ({$a}).';
+$string['checkflavourhookmissing'] = 'Boost Union flavourslib is missing the Everon MuTMS tenant hook.';
+$string['checkflavourhookmissing_details'] = 'A Boost Union upgrade likely overwrote flavourslib.php. Re-run Everon upgrade, open this status check again as a user that can write the file, or apply theme/boost_union_everon/patches/boost_union-flavour-tenant-hook.patch from the Moodle public root, then purge caches.';
+$string['checkflavourhookmissingbu'] = 'Boost Union flavourslib.php was not found.';
+$string['checkflavourhookmissingbu_details'] = 'Install theme_boost_union before Everon MuTMS tenant flavours can apply.';
+
 // Privacy API.
-$string['privacy:metadata'] = 'The Everon theme does not store any personal data about any user. Accessibility and Focus Mode preferences are stored in the browser only. Launch Pad links, My Courses layout, My Courses stats, Dashboard layout, and compact navbar are site-wide admin settings.';
+$string['privacy:metadata'] = 'The Everon theme does not store any personal data about any user. Accessibility and Focus Mode preferences are stored in the browser only. Launch Pad links, My Courses layout, My Courses stats, Dashboard layout, compact navbar, MuTMS compatibility, and flavour-to-tenant mappings are site-wide admin settings.';

@@ -1,6 +1,10 @@
 /**
  * Shared Everon popover / panel chrome tokens.
- * Used by Accessibility, Launch Pad, and the profile usermenu.
+ * Used by Accessibility, Launch Pad, profile usermenu, starred courses, notifications,
+ * messages (drawer popout), and MuTMS Switch tenant (muform dialog).
+ *
+ * Light values stay as shipped. Dark mode remaps under Everon's Moodle 5.2
+ * accessibility dark class (html.theme-boost-union-everon-a11y-dark-mode).
  */
 
 :root {
@@ -9,6 +13,12 @@
     --everon-popover-text: var(--cn-text, #3f444e);
     --everon-popover-muted: rgba(63, 68, 78, 0.72);
     --everon-popover-divider: rgba(63, 68, 78, 0.12);
+    --everon-popover-tile-bg: #fff;
+    --everon-popover-tile-border: rgba(63, 68, 78, 0.12);
+    --everon-popover-tile-shadow: 0 1px 2px rgba(63, 68, 78, 0.06);
+    --everon-popover-tile-hover-bg: #fff;
+    /* Base for accent color-mix on active/hover tiles (must not stay white in dark). */
+    --everon-popover-active-mix-base: #fff;
     --everon-popover-radius: 0.75rem;
     --everon-popover-border: 1px solid color-mix(
         in srgb,
@@ -23,4 +33,113 @@
         var(--everon-popover-accent) 40%,
         transparent
     );
+}
+
+/* Everon accessibility dark mode — panel chrome follows site dark/light. */
+html.theme-boost-union-everon-a11y-dark-mode {
+    --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
+    --everon-popover-text: var(--bs-body-color, #dee2e6);
+    /* Mix against panel bg (not transparent) so section titles stay readable. */
+    --everon-popover-muted: color-mix(
+        in srgb,
+        var(--bs-body-color, #dee2e6) 82%,
+        var(--bs-tertiary-bg, #2b3035)
+    );
+    --everon-popover-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --everon-popover-tile-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-tile-border: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --everon-popover-tile-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --everon-popover-tile-hover-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-active-mix-base: var(--bs-secondary-bg, #343a40);
+    --everon-popover-border: 1px solid color-mix(
+        in srgb,
+        var(--everon-popover-accent) 38%,
+        var(--bs-border-color, rgba(255, 255, 255, 0.15))
+    );
+    --everon-popover-shadow:
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 18%, rgba(0, 0, 0, 0.45)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 12%, transparent);
+}
+
+/**
+ * Shared panel header + top-right close (notifications-style).
+ * Used by Accessibility, Launch Pad, and profile usermenu.
+ */
+.everon-popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0 0 0.5rem;
+    padding: 0;
+    min-height: 0;
+    line-height: 1.25;
+    box-sizing: border-box;
+}
+
+.everon-popover-header__title {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+.everon-popover-header__actions {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+}
+
+/* Match #nav-notification-popover-container .popover-region-header-actions controls. */
+.everon-popover-header__actions .everon-popover-close,
+.everon-popover-header__actions button.everon-popover-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    margin: 0;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    background: transparent;
+    box-shadow: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    text-decoration: none;
+    line-height: 1;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+/* Programmatic open focus must not paint hover chrome; keyboard keeps :focus-visible. */
+.everon-popover-header__actions .everon-popover-close:focus,
+.everon-popover-header__actions button.everon-popover-close:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.everon-popover-header__actions .everon-popover-close:hover,
+.everon-popover-header__actions .everon-popover-close:focus-visible,
+.everon-popover-header__actions button.everon-popover-close:hover,
+.everon-popover-header__actions button.everon-popover-close:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.everon-popover-header__actions .everon-popover-close:hover .icon,
+.everon-popover-header__actions .everon-popover-close:focus-visible .icon {
+    color: inherit;
 }

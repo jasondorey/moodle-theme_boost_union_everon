@@ -1,0 +1,114 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template core_message/message_drawer_view_overview_header
+
+    Everon override: single toolbar row — modern search + contacts/settings
+    icon actions (notifications-style chrome). Core regions/routes unchanged.
+    Close × in the action cluster is a static control (`data-action="everon-message-close"`)
+    that activates core `.closewidget a[data-action="closedrawer"]` via a click binder.
+    CSS :has() swaps shell vs overview × — no MutationObserver / DOM relocation.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * All data attributes are required
+    * data-action="everon-message-close" on the overview close control
+
+    Context variables required for this template:
+    * userid The logged in user id
+    * urls The URLs for the popover
+
+    Example context (json):
+    {}
+}}
+<div
+    class="everon-message-overview-header border-0 p-0"
+    aria-hidden="false"
+    {{^isdrawer}}data-in-panel="true"{{/isdrawer}}
+    data-region="view-overview"
+>
+    <div class="everon-message-overview-toolbar d-flex align-items-center">
+        <div
+            class="input-group simplesearchform everon-message-search flex-grow-1"
+            role="group"
+            aria-labelledby="messageoverviewgrouplabel"
+        >
+            <span class="visually-hidden" id="messageoverviewgrouplabel">{{#str}}searchcombined, message{{/str}}</span>
+            <span class="everon-message-search-icon icon-no-margin" aria-hidden="true">
+                {{#pix}} a/search, core {{/pix}}
+            </span>
+            <input
+                type="text"
+                class="form-control everon-message-search-input"
+                placeholder="{{#str}} search, core_search {{/str}}"
+                aria-label="{{#str}} search, core_search {{/str}}"
+                data-region="view-overview-search-input"
+            >
+            {{!
+                Core overview used a decorative submit span; keep a hidden one so
+                any CSS/JS expecting .btn-submit still resolves.
+            }}
+            <span class="icon-no-margin btn btn-submit everon-message-search-submit-legacy visually-hidden" aria-hidden="true" tabindex="-1">
+                {{#pix}} a/search, core {{/pix}}
+            </span>
+        </div>
+        <div class="everon-message-overview-actions d-inline-flex align-items-center" data-region="everon-message-overview-actions">
+            <a
+                href="#"
+                class="everon-message-action"
+                data-route="view-contacts"
+                role="button"
+                aria-label="{{#str}} contacts, core_message {{/str}}"
+                title="{{#str}} contacts, core_message {{/str}}"
+            >
+                {{#pix}} i/user, core {{/pix}}
+                <span
+                    class="badge bg-primary text-white everon-message-contact-badge {{^contactrequestcount}}hidden{{/contactrequestcount}}"
+                    data-region="contact-request-count"
+                >
+                    <span aria-hidden="true">{{contactrequestcount}}</span>
+                    <span class="visually-hidden">{{#str}} pendingcontactrequests, core_message, {{contactrequestcount}} {{/str}}</span>
+                </span>
+            </a>
+            {{#caneditownmessageprofile}}
+            <a
+                href="#"
+                class="everon-message-action"
+                data-route="view-settings"
+                data-route-param="{{loggedinuser.id}}"
+                aria-label="{{#str}} settings, core_message {{/str}}"
+                title="{{#str}} settings, core_message {{/str}}"
+                role="button"
+            >
+                {{#pix}} i/settings, core {{/pix}}
+            </a>
+            {{/caneditownmessageprofile}}
+            <a
+                href="#"
+                class="everon-message-action everon-message-overview-close"
+                data-action="everon-message-close"
+                role="button"
+                aria-label="{{#str}} closebuttontitle {{/str}}"
+                title="{{#str}} closebuttontitle {{/str}}"
+            >
+                {{#pix}} i/window_close, core {{/pix}}
+            </a>
+        </div>
+    </div>
+</div>

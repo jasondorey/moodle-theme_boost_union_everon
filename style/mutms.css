@@ -1,0 +1,223 @@
+/**
+ * MuTMS compatibility styles for theme Everon.
+ *
+ * Loaded only when Site administration → Appearance → Everon → MuTMS
+ * → Enable MuTMS compatibility is Yes. Prefer Bootstrap colour-mode tokens
+ * so plugin surfaces follow Boost dark/light (Everon a11y panel).
+ */
+
+/* -------------------------------------------------------------------------
+ * Shared body marker
+ * ------------------------------------------------------------------------- */
+body.theme-boost-union-everon-mutms {
+    --everon-mutms-surface: var(--bs-body-bg);
+    --everon-mutms-border: var(--bs-border-color);
+}
+
+/* -------------------------------------------------------------------------
+ * tool_muhome — custom home pages use mydashboard + content region.
+ * Keep the content region full-width friendly; do not force /my/ chrome.
+ * ------------------------------------------------------------------------- */
+body.theme-boost-union-everon-mutms.path-admin-tool-muhome #region-main,
+body.theme-boost-union-everon-mutms.pagelayout-mydashboard.pagetype-tool-muhome-index #region-main {
+    max-width: none;
+}
+
+body.theme-boost-union-everon-mutms.pagetype-tool-muhome-index #region-main [data-region="content"],
+body.theme-boost-union-everon-mutms.pagetype-tool-muhome-index .block-region[data-blockregion="content"] {
+    width: 100%;
+}
+
+/* -------------------------------------------------------------------------
+ * Programs / certifications / catalogue learner pages
+ * ------------------------------------------------------------------------- */
+body.theme-boost-union-everon-mutms.path-admin-tool-muprog #program_content a.movehere,
+body.theme-boost-union-everon-mutms.path-admin-tool-muprog a.movehere {
+    border-color: var(--bs-secondary-color, #343a40) !important;
+}
+
+body.theme-boost-union-everon-mutms.path-admin-tool-mucatalog .catalogue-item,
+body.theme-boost-union-everon-mutms.path-admin-tool-mucatalog .tool_mucatalog-item,
+body.theme-boost-union-everon-mutms.path-admin-tool-muprog .program-card,
+body.theme-boost-union-everon-mutms.path-admin-tool-mucertify .certification-card {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
+}
+
+/* -------------------------------------------------------------------------
+ * Dashboard MuTMS blocks — match Everon surface tokens under colour modes
+ * ------------------------------------------------------------------------- */
+body.theme-boost-union-everon-mutms .block_muprog_my,
+body.theme-boost-union-everon-mutms .block_mucertify_my,
+body.theme-boost-union-everon-mutms .block_muprogmyoverview {
+    background-color: transparent;
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .block-cards {
+    border-top-color: var(--bs-border-color, #dee2e6);
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .whitebutton .btn-secondary {
+    background: var(--bs-body-bg, #fff);
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card,
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .card {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
+}
+
+/* -------------------------------------------------------------------------
+ * My programs cards — circular on-image progress (match course cards)
+ * Status badge (Open / …) stays in .program-info-container; only the footer
+ * “N% complete” text is lifted onto the image as a circular ring.
+ * ------------------------------------------------------------------------- */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview {
+    --everon-course-card-progress-disc: rgba(15, 23, 42, 0.78);
+    --everon-course-card-progress-track: rgba(255, 255, 255, 0.28);
+    --everon-course-card-progress-fill: #22a06b;
+    --everon-course-card-progress-shadow: 0 2px 10px rgba(15, 23, 42, 0.28);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .block_muprogmyoverview {
+    --everon-course-card-progress-disc: rgba(0, 0, 0, 0.82);
+    --everon-course-card-progress-track: rgba(255, 255, 255, 0.22);
+    --everon-course-card-progress-fill: #3dd68c;
+    --everon-course-card-progress-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Plugin default is a short fixed image; keep height so progress anchors cleanly. */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card .card-img-top {
+    height: 7rem;
+}
+
+/* Footer row: collapse in-flow height; children position against .program-card. */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card > .d-flex.align-items-start {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    overflow: visible;
+    border: 0;
+    align-items: center !important;
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card .card-footer {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+/* ⋮ beside title (top of body) — same idea as course cards */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card .card-footer.menu {
+    position: absolute;
+    inset-inline-end: 0.1rem;
+    inset-block-start: calc(7rem + 0.2rem);
+    inset-block-end: auto;
+    z-index: 2;
+    margin: 0;
+    width: auto !important;
+}
+
+/* Progress footer → image bottom-right (plugin image height 7rem) */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card > .d-flex.align-items-start > .card-footer.w-100:has(.theme-boost-union-everon-mycourses-progress) {
+    position: absolute;
+    inset-inline-end: 0.5rem;
+    inset-block-start: calc(7rem - 0.5rem - 2.85rem);
+    z-index: 2;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    pointer-events: none;
+}
+
+/* End pad clears the ⋮ beside the title */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .program-card .program-info-container {
+    padding-inline-end: 2rem !important;
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .theme-boost-union-everon-mycourses-progress {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 0;
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .theme-boost-union-everon-mycourses-progress__circle {
+    --everon-progress-angle: calc(var(--everon-progress, 0) * 1%);
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.85rem;
+    height: 2.85rem;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            closest-side,
+            var(--everon-course-card-progress-disc) calc(100% - 2.75px),
+            transparent calc(100% - 2.25px)
+        ),
+        conic-gradient(
+            from -90deg,
+            var(--everon-course-card-progress-fill) 0 var(--everon-progress-angle),
+            var(--everon-course-card-progress-track) var(--everon-progress-angle) 100%
+        );
+    box-shadow: var(--everon-course-card-progress-shadow);
+    color: #fff;
+}
+
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .theme-boost-union-everon-mycourses-progress__value {
+    position: relative;
+    z-index: 1;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    user-select: none;
+}
+
+/* List / description: slightly smaller inline circle (not overlaid) */
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .list-group-item .theme-boost-union-everon-mycourses-progress__circle,
+body.theme-boost-union-everon-mutms .block_muprogmyoverview .description-image ~ * .theme-boost-union-everon-mycourses-progress__circle {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* -------------------------------------------------------------------------
+ * Everon dark mode — MuTMS plugin hard-coded light paints
+ * ------------------------------------------------------------------------- */
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .block_muprogmyoverview .whitebutton .btn-secondary {
+    background: var(--bs-body-bg);
+    color: var(--bs-primary);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .muform .muform-card {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-border-color);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .muform .muform-card:hover {
+    background-color: var(--bs-secondary-bg);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .tool_murules-card,
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms .tool_murules-overview {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode body.theme-boost-union-everon-mutms.path-mod-mubook #region-main {
+    color: var(--bs-body-color);
+}

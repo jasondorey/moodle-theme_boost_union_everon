@@ -47,10 +47,8 @@ define([
             container.classList.remove('collapsed');
             toggle.setAttribute('aria-expanded', 'true');
             panel.setAttribute('aria-hidden', 'false');
-            const firstLink = panel.querySelector('.everon-launchpad__tile');
-            if (firstLink) {
-                firstLink.focus();
-            }
+            // Park on the dialog root (tabindex=-1) — no header/tile :focus chrome until hover/Tab.
+            panel.focus({preventScroll: true});
         };
 
         const isOpen = () => !container.classList.contains('collapsed');
@@ -70,6 +68,18 @@ define([
                 event.preventDefault();
                 toggle.click();
             }
+        });
+
+        // Notifications-style top-right ×.
+        panel.addEventListener('click', (event) => {
+            const closeBtn = event.target.closest('[data-action="everon-popover-close"]');
+            if (!closeBtn || !panel.contains(closeBtn)) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            close();
+            toggle.focus();
         });
 
         document.addEventListener('click', (event) => {

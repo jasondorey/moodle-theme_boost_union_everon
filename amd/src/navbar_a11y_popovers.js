@@ -21,7 +21,17 @@ define([
     const USER_MENU_TOGGLE_ID = 'user-menu-toggle';
     const USER_ACTION_MENU_ID = 'user-action-menu';
 
+    const TENANT_SWITCH_DIALOG_SELECTOR = 'dialog.muform-dialog.everon-tenant-switch-dialog[open]';
+
     let mutexBound = false;
+
+    const closeTenantSwitchDialog = () => {
+        document.querySelectorAll(TENANT_SWITCH_DIALOG_SELECTOR).forEach((dialog) => {
+            if (typeof dialog.close === 'function') {
+                dialog.close();
+            }
+        });
+    };
 
     const closePopoverRegion = (region) => {
         if (!region || region.classList.contains('collapsed')) {
@@ -82,6 +92,8 @@ define([
         if (!keepMessage) {
             closeMessageDrawer();
         }
+
+        closeTenantSwitchDialog();
     };
 
     /**
@@ -140,12 +152,79 @@ define([
         });
     };
 
+    let userMenuCloseBound = false;
+    let notificationRestingFocusBound = false;
+
+    /**
+     * Core FocusLock parks on mark-all-read when notifications open. Re-park on the
+     * dialog root (already tabindex=-1) so header actions have no resting :focus chrome.
+     * Does not touch the profile usermenu.
+     */
+    const bindNotificationRestingFocus = () => {
+        if (notificationRestingFocusBound) {
+            return;
+        }
+        notificationRestingFocusBound = true;
+
+        const root = document.getElementById('nav-notification-popover-container');
+        if (!root) {
+            return;
+        }
+        const panel = root.querySelector('[data-region="popover-region-container"]');
+        if (!panel) {
+            return;
+        }
+
+        let wasCollapsed = root.classList.contains('collapsed');
+        const observer = new MutationObserver(() => {
+            const isCollapsed = root.classList.contains('collapsed');
+            if (wasCollapsed && !isCollapsed) {
+                // After core menuOpened → FocusLock.trapFocus (same turn as class change).
+                panel.focus({preventScroll: true});
+            }
+            wasCollapsed = isCollapsed;
+        });
+        observer.observe(root, {attributes: true, attributeFilter: ['class']});
+    };
+
+    /**
+     * Notifications-style × inside the profile usermenu panel.
+     */
+    const bindUserMenuClose = () => {
+        if (userMenuCloseBound) {
+            return;
+        }
+        userMenuCloseBound = true;
+
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) {
+                return;
+            }
+            const closeBtn = target.closest(
+                '#' + USER_ACTION_MENU_ID + ' [data-action="everon-popover-close"]'
+            );
+            if (!closeBtn) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            closeUserMenu();
+            const toggle = document.getElementById(USER_MENU_TOGGLE_ID);
+            if (toggle) {
+                toggle.focus();
+            }
+        });
+    };
+
     return {
         closeAllExcept: closeAllExcept,
         closeUserMenu: closeUserMenu,
         closeNavbarPopoversExcept: closeNavbarPopoversExcept,
         init: function() {
             bindUserMenuMutex();
+            bindUserMenuClose();
+            bindNotificationRestingFocus();
         },
     };
 });

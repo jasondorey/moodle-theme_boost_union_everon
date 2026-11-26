@@ -20,6 +20,22 @@ body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu #carous
     padding: 0;
 }
 
+/* Match Launch Pad / a11y section title chrome at the top of the panel. */
+body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu .everon-usermenu__header,
+body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__header {
+    margin: 0 0 0.5rem;
+    padding: 0;
+}
+
+body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    letter-spacing: 0;
+    text-transform: none;
+}
+
 body.theme-boost-union-everon-usermenu-tiles .everon-usermenu__grid {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -41,9 +57,9 @@ body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu .everon
     min-height: 4.25rem;
     margin: 0;
     padding: 0.45rem 0.3rem;
-    border: 1px solid rgba(63, 68, 78, 0.12);
+    border: 1px solid var(--everon-popover-tile-border, rgba(63, 68, 78, 0.12));
     border-radius: 0.5rem;
-    background: #fff;
+    background: var(--everon-popover-tile-bg, #fff);
     color: var(--everon-popover-text, #3f444e);
     font-family: inherit;
     font-size: 0.625rem;
@@ -52,7 +68,7 @@ body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu .everon
     text-align: center;
     text-decoration: none;
     white-space: normal;
-    box-shadow: 0 1px 2px rgba(63, 68, 78, 0.06);
+    box-shadow: var(--everon-popover-tile-shadow, 0 1px 2px rgba(63, 68, 78, 0.06));
     transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
 }
 
@@ -66,7 +82,7 @@ body.theme-boost-union-everon-usermenu-tiles .usermenu #user-action-menu .everon
         var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%,
         transparent
     ) !important;
-    background: #fff !important;
+    background: var(--everon-popover-tile-hover-bg, #fff) !important;
     color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
     outline: none;
     text-decoration: none;

@@ -1,0 +1,638 @@
+/**
+ * Messages navbar popout — match Accessibility / Launch Pad / usermenu /
+ * starred / notifications / MuTMS switch Everon panel chrome.
+ *
+ * Core messaging opens a right-hand drawer (`[data-region="right-hand-drawer"]`
+ * + `[data-region="message-drawer"]`). Theme CSS reshapes it into a floating
+ * panel; `navbar_messages` AMD mounts/positions it under
+ * `#nav-message-popover-container`. Tokens from popover_chrome.css.
+ */
+
+/* Toggle region — allow absolute popout (same as notifications / starred). */
+#nav-message-popover-container.popover-region,
+[data-region="popover-region-messages"].popover-region {
+    position: relative;
+    overflow: visible;
+}
+
+#usernavigation #nav-message-popover-container.popover-region,
+#usernavigation [data-region="popover-region-messages"].popover-region {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+#usernavigation #nav-message-popover-container .popover-region-toggle,
+#usernavigation [data-region="popover-region-messages"] .popover-region-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Do not push the page or dim it when messages open as a navbar panel. */
+body.everon-message-popover-open.drawer-open-right,
+body.everon-message-popover-open.drawer-open-right #page.drawers,
+body.custom-navbar__message-popover-open.drawer-open-right,
+body.custom-navbar__message-popover-open.drawer-open-right #page.drawers {
+    margin-right: 0 !important;
+    overflow: visible !important;
+}
+
+body.everon-message-popover-open .modal-backdrop,
+body.custom-navbar__message-popover-open .modal-backdrop {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+body.everon-message-popover-open #page,
+body.custom-navbar__message-popover-open #page {
+    overflow: visible !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Drawer shell — floating panel chrome (radius, accent border/shadow, size)
+ * ------------------------------------------------------------------------- */
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]).drawer,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer,
+[data-region="right-hand-drawer"].everon-message-drawer-popover.drawer {
+    --everon-popover-accent: var(--cn-primary, var(--bs-primary, #e67e22));
+    --cn-primary: var(--everon-popover-accent);
+    --cn-text: var(--everon-popover-text, #3f444e);
+    --cn-muted: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    --cn-border: var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+    box-sizing: border-box;
+    z-index: 1050 !important;
+    width: min(380px, calc(100vw - 1.5rem)) !important;
+    max-width: min(380px, calc(100vw - 1.5rem)) !important;
+    height: min(85vh, 40rem) !important;
+    min-height: min(85vh, 32rem) !important;
+    max-height: min(85vh, 40rem) !important;
+    padding: 0;
+    margin: 0 !important;
+    border: var(
+        --everon-popover-border,
+        1px solid color-mix(in srgb, var(--everon-popover-accent) 38%, rgba(63, 68, 78, 0.12))
+    ) !important;
+    border-radius: var(--everon-popover-radius, 0.75rem) !important;
+    background: var(--everon-popover-bg, #f3f4f6) !important;
+    background-clip: padding-box;
+    box-shadow: var(
+        --everon-popover-shadow,
+        0 12px 36px color-mix(in srgb, var(--everon-popover-accent) 22%, rgba(63, 68, 78, 0.14)),
+        0 0 0 1px color-mix(in srgb, var(--everon-popover-accent) 10%, transparent)
+    ) !important;
+    color: var(--everon-popover-text, #3f444e);
+    overflow: hidden !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    transition: none !important;
+    transform: none !important;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]).drawer.hidden,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer.hidden,
+[data-region="right-hand-drawer"].everon-message-drawer-popover.drawer.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: none !important;
+}
+
+/* Mounted under the message toggle — same top rule as .popover-region-container. */
+#nav-message-popover-container
+    > [data-region="right-hand-drawer"].custom-navbar__message-drawer-mounted.drawer,
+#nav-message-popover-container
+    > [data-region="right-hand-drawer"].everon-message-drawer-mounted.drawer {
+    position: absolute !important;
+    top: calc(100% + 0.35rem) !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+}
+
+/* Fallback before mount: fixed under navbar. */
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer:not(
+        .custom-navbar__message-drawer-mounted
+    ):not(.everon-message-drawer-mounted),
+[data-region="right-hand-drawer"].everon-message-drawer-popover.drawer:not(
+        .custom-navbar__message-drawer-mounted
+    ):not(.everon-message-drawer-mounted) {
+    position: fixed !important;
+    top: var(
+        --everon-message-popover-top,
+        var(--cn-cluster-popover-top, calc(3.5rem + 0.35rem))
+    ) !important;
+    bottom: auto !important;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]).drawer:not(.hidden),
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer:not(.hidden),
+[data-region="right-hand-drawer"].everon-message-drawer-popover.drawer:not(.hidden) {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Hide unmounted flash until JS places the panel (mounted or ready). */
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer:not(.hidden):not(
+        .custom-navbar__message-drawer-mounted
+    ):not(.everon-message-drawer-mounted):not(.custom-navbar__message-drawer-ready):not(
+        .everon-message-drawer-ready
+    ),
+[data-region="right-hand-drawer"].everon-message-drawer-popover.drawer:not(.hidden):not(
+        .custom-navbar__message-drawer-mounted
+    ):not(.everon-message-drawer-mounted):not(.custom-navbar__message-drawer-ready):not(
+        .everon-message-drawer-ready
+    ) {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Message app surface
+ * ------------------------------------------------------------------------- */
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: inherit;
+    border-radius: inherit;
+    overflow: hidden;
+    background: var(--everon-popover-bg, #f3f4f6) !important;
+    color: var(--everon-popover-text, #3f444e);
+    position: relative;
+}
+
+/* -------------------------------------------------------------------------
+ * Close × + overview toolbar actions — match notifications / Everon panels
+ * ------------------------------------------------------------------------- */
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.55rem;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    height: 0;
+    overflow: visible;
+    text-align: end;
+    pointer-events: none;
+}
+
+/*
+ * Overview toolbar hosts its own × (static template). Hide the shell closewidget
+ * while overview is visible; hide the toolbar × on other message views.
+ * No JS class flag / DOM relocation (Safari hang with MutationObserver).
+ */
+[data-region="message-drawer"]:has([data-region="view-overview"]:not(.hidden)) > .closewidget {
+    display: none !important;
+}
+
+[data-region="message-drawer"]:has([data-region="view-overview"].hidden) .everon-message-overview-close,
+[data-region="message-drawer"]:not(:has([data-region="view-overview"])) .everon-message-overview-close {
+    display: none !important;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action,
+[data-region="message-drawer"] .everon-message-overview-actions a.everon-message-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    margin: 0;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    background: transparent;
+    box-shadow: none;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    text-decoration: none;
+    line-height: 1;
+    pointer-events: auto;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:focus,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a:focus,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:focus,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:hover,
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:focus-visible,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a:hover,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .closewidget a:focus-visible,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:hover,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .closewidget a:focus-visible,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:hover,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:hover .icon,
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .closewidget a:focus-visible .icon,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:hover .icon,
+[data-region="message-drawer"] .everon-message-overview-actions .everon-message-action:focus-visible .icon {
+    color: inherit;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .header-container,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .header-container,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .header-container {
+    flex-shrink: 0;
+    padding-top: 0.35rem;
+    background: transparent;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .body-container,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .body-container,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .body-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+[data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app .footer-container,
+[data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app .footer-container,
+[data-region="right-hand-drawer"].everon-message-drawer-popover .message-app .footer-container {
+    flex: 0 0 auto;
+    margin-top: auto;
+    border-top: 0;
+    overflow: visible;
+    background: transparent;
+}
+
+/* Overview header — modern search + icon actions (single toolbar row). */
+[data-region="message-drawer"] .header-container [data-region="view-overview"]:not(.hidden),
+[data-region="message-drawer"] .header-container .everon-message-overview-header:not(.hidden) {
+    margin: 0;
+    padding: 0.55rem 0.65rem 0.5rem !important;
+    border-bottom: none !important;
+    background: transparent !important;
+}
+
+[data-region="message-drawer"] .everon-message-overview-toolbar {
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+[data-region="message-drawer"] .everon-message-overview-actions {
+    flex: 0 0 auto;
+    gap: 0.15rem;
+}
+
+[data-region="message-drawer"] .everon-message-contact-badge {
+    position: absolute;
+    top: -0.15rem;
+    right: -0.2rem;
+    min-width: 0.95rem;
+    height: 0.95rem;
+    padding: 0 0.2rem;
+    margin: 0 !important;
+    border-radius: 999px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 0.95rem;
+    pointer-events: none;
+}
+
+/* Modern search field — soft fill, inset leading icon (no attached submit chrome). */
+[data-region="message-drawer"] .everon-message-search.simplesearchform,
+[data-region="message-drawer"] .header-container [data-region="view-overview"] .simplesearchform {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex-wrap: nowrap;
+    border: 1px solid var(--everon-popover-divider, rgba(63, 68, 78, 0.12));
+    border-radius: 0.65rem;
+    background: color-mix(
+        in srgb,
+        var(--everon-popover-tile-bg, #fff) 88%,
+        var(--everon-popover-bg, #f3f4f6)
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    overflow: hidden;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+[data-region="message-drawer"] .everon-message-search.simplesearchform:focus-within,
+[data-region="message-drawer"] .header-container [data-region="view-overview"] .simplesearchform:focus-within {
+    border-color: color-mix(
+        in srgb,
+        var(--everon-popover-accent, var(--bs-primary, #e67e22)) 48%,
+        transparent
+    );
+    background: var(--everon-popover-tile-bg, #fff);
+    box-shadow:
+        0 0 0 0.15rem color-mix(
+            in srgb,
+            var(--everon-popover-accent, var(--bs-primary, #e67e22)) 16%,
+            transparent
+        ),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+[data-region="message-drawer"] .everon-message-search-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    pointer-events: none;
+}
+
+[data-region="message-drawer"] .everon-message-search-icon .icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: inherit;
+}
+
+[data-region="message-drawer"] .everon-message-search .everon-message-search-input,
+[data-region="message-drawer"] .everon-message-search .everon-message-search-input.form-control,
+[data-region="message-drawer"] .header-container [data-region="view-overview"] .simplesearchform .form-control {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 2rem;
+    margin: 0;
+    padding: 0.25rem 0.7rem 0.25rem 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--everon-popover-text, #3f444e);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+[data-region="message-drawer"] .everon-message-search .everon-message-search-input::placeholder,
+[data-region="message-drawer"] .header-container [data-region="view-overview"] .simplesearchform .form-control::placeholder {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.55));
+    opacity: 1;
+}
+
+[data-region="message-drawer"] .everon-message-search .everon-message-search-input:focus,
+[data-region="message-drawer"] .header-container [data-region="view-overview"] .simplesearchform .form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+}
+
+[data-region="message-drawer"] .everon-message-search .btn-submit,
+[data-region="message-drawer"] .everon-message-search-submit-legacy {
+    display: none !important;
+}
+
+/* Section toggles — left-align Starred / Group / Private (match theme_work). */
+[data-region="message-drawer"] .overview-section-toggle {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100%;
+    margin: 0.15rem 0.35rem;
+    padding: 0.45rem 0.55rem !important;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: start !important;
+    text-decoration: none;
+    box-shadow: none;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+[data-region="message-drawer"] .overview-section-toggle:hover,
+[data-region="message-drawer"] .overview-section-toggle:focus,
+[data-region="message-drawer"] .overview-section-toggle:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    );
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-text, #3f444e);
+    outline: none;
+    box-shadow: none;
+}
+
+[data-region="message-drawer"] .section.card {
+    margin: 0 0 0.15rem;
+    border: 0 !important;
+    border-radius: 0.5rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+[data-region="message-drawer"] .section.card > .card-header {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: start;
+}
+
+[data-region="message-drawer"] .badge.bg-primary {
+    background: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------
+ * Conversation / contact list items — no Moodle white-on-primary hover
+ * ------------------------------------------------------------------------- */
+[data-region="message-drawer"] .list-group {
+    border-radius: 0;
+    background: transparent;
+}
+
+[data-region="message-drawer"] .list-group-item,
+[data-region="message-drawer"] .list-group-item-action,
+[data-region="message-drawer"] a.list-group-item {
+    margin: 0 0.35rem 0.2rem;
+    padding: 0.55rem 0.65rem;
+    width: auto;
+    border: 1px solid transparent !important;
+    border-radius: 0.5rem !important;
+    background: transparent !important;
+    color: var(--everon-popover-text, #3f444e) !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+}
+
+[data-region="message-drawer"] .list-group-item:hover,
+[data-region="message-drawer"] .list-group-item:focus,
+[data-region="message-drawer"] .list-group-item:focus-visible,
+[data-region="message-drawer"] .list-group-item-action:hover,
+[data-region="message-drawer"] .list-group-item-action:focus,
+[data-region="message-drawer"] .list-group-item-action:focus-visible,
+[data-region="message-drawer"] .list-group-item-action:active,
+[data-region="message-drawer"] a.list-group-item:hover,
+[data-region="message-drawer"] a.list-group-item:focus,
+[data-region="message-drawer"] a.list-group-item:focus-visible {
+    border-color: var(
+        --everon-popover-item-hover-border,
+        color-mix(in srgb, var(--everon-popover-accent, var(--bs-primary, #e67e22)) 40%, transparent)
+    ) !important;
+    background: var(--everon-popover-tile-hover-bg, #fff) !important;
+    color: var(--everon-popover-text, #3f444e) !important;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+    text-decoration: none;
+}
+
+[data-region="message-drawer"] .list-group-item:hover .message-icon-forward,
+[data-region="message-drawer"] .list-group-item:focus .message-icon-forward,
+[data-region="message-drawer"] .list-group-item-action:hover .message-icon-forward,
+[data-region="message-drawer"] .list-group-item-action:focus .message-icon-forward {
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+}
+
+[data-region="message-drawer"] .list-group-item .last-message,
+[data-region="message-drawer"] .list-group-item [data-region="last-message-date"] {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+    font-size: 0.75rem;
+}
+
+[data-region="message-drawer"] .list-group-item:hover .last-message,
+[data-region="message-drawer"] .list-group-item:focus .last-message,
+[data-region="message-drawer"] .list-group-item:hover [data-region="last-message-date"],
+[data-region="message-drawer"] .list-group-item:focus [data-region="last-message-date"] {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+[data-region="message-drawer"] .btn-link:hover,
+[data-region="message-drawer"] .btn-link:focus,
+[data-region="message-drawer"] .btn-link:focus-visible {
+    background: var(--everon-popover-tile-hover-bg, #fff);
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    text-decoration: none;
+    filter: none;
+    box-shadow: none;
+    outline: none;
+}
+
+[data-region="message-drawer"] .clickable:hover {
+    filter: none;
+}
+
+/* Footer — See all (match notifications). */
+[data-region="message-drawer"] .footer-container [data-region="view-overview"]:not(.hidden) {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.45rem 0.75rem 0.65rem !important;
+    border-top: 1px solid var(--everon-popover-divider, rgba(63, 68, 78, 0.12)) !important;
+    background: transparent !important;
+    text-align: center;
+}
+
+[data-region="message-drawer"] .footer-container [data-region="view-overview"] a {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+    text-decoration: none;
+}
+
+[data-region="message-drawer"] .footer-container [data-region="view-overview"] a:hover,
+[data-region="message-drawer"] .footer-container [data-region="view-overview"] a:focus,
+[data-region="message-drawer"] .footer-container [data-region="view-overview"] a:focus-visible {
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22)) !important;
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Conversation back / header actions. */
+[data-region="message-drawer"] .header-container [data-route-back],
+[data-region="message-drawer"] .header-container [data-bs-toggle="dropdown"] {
+    color: var(--everon-popover-muted, rgba(63, 68, 78, 0.72));
+}
+
+[data-region="message-drawer"] .header-container [data-route-back]:hover,
+[data-region="message-drawer"] .header-container [data-route-back]:focus-visible,
+[data-region="message-drawer"] .header-container [data-bs-toggle="dropdown"]:hover,
+[data-region="message-drawer"] .header-container [data-bs-toggle="dropdown"]:focus-visible {
+    color: var(--everon-popover-accent, var(--bs-primary, #e67e22));
+    outline: none;
+}
+
+@media (max-width: 767.98px) {
+    [data-region="right-hand-drawer"]:has([data-region="message-drawer"]).drawer,
+    [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer,
+    [data-region="right-hand-drawer"].everon-message-drawer-popover.drawer {
+        width: min(380px, calc(100vw - 1rem)) !important;
+        max-width: calc(100vw - 1rem) !important;
+        max-height: min(85vh, 40rem) !important;
+    }
+}
+
+/* Everon dark mode — panel follows site dark/light via shared tokens. */
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"]:has([data-region="message-drawer"]),
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].everon-message-drawer-popover {
+    --everon-popover-bg: var(--bs-tertiary-bg, #2b3035);
+    --everon-popover-text: var(--bs-body-color, #dee2e6);
+    --everon-popover-muted: color-mix(
+        in srgb,
+        var(--bs-body-color, #dee2e6) 82%,
+        var(--bs-tertiary-bg, #2b3035)
+    );
+    --everon-popover-tile-hover-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-tile-bg: var(--bs-secondary-bg, #343a40);
+    --everon-popover-divider: var(--bs-border-color-translucent, rgba(255, 255, 255, 0.15));
+    --cn-text: var(--everon-popover-text);
+    --cn-muted: var(--everon-popover-muted);
+    --cn-border: var(--everon-popover-divider);
+}
+
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"]:has([data-region="message-drawer"]).drawer,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover.drawer,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].everon-message-drawer-popover.drawer,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"]:has([data-region="message-drawer"]) .message-app,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].custom-navbar__message-drawer-popover .message-app,
+html.theme-boost-union-everon-a11y-dark-mode [data-region="right-hand-drawer"].everon-message-drawer-popover .message-app {
+    background: var(--everon-popover-bg, #2b3035) !important;
+    color: var(--everon-popover-text, #dee2e6);
+}

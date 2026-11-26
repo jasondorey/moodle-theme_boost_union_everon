@@ -74,3 +74,9 @@ if (!empty($scsspre)) {
     $THEME->settings->scsspre = $scsspre;
 }
 unset($scsspre);
+
+// MuTMS: mirror tenant-aware theme_boost brandcolour / SCSS onto Everon settings so
+// parent SCSS callbacks (which receive the child theme_config) see the right values.
+if (theme_boost_union_everon_mutms_compatibility_enabled()) {
+    \theme_boost_union_everon\local\mutms::mirror_boost_settings($THEME);
+}

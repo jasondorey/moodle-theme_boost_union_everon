@@ -300,6 +300,8 @@ define([
 
         /**
          * Trap focus inside the open panel and move it off the navbar toggle.
+         * FocusLock focuses the first control (close ×); re-park on the dialog root
+         * so resting open has no header :focus chrome. Tab still reaches controls.
          */
         const trapPanelFocus = () => {
             if (focusTrapped) {
@@ -307,6 +309,7 @@ define([
             }
             FocusLock.trapFocus(panel);
             focusTrapped = true;
+            panel.focus({preventScroll: true});
         };
 
         /**
@@ -364,6 +367,17 @@ define([
                 event.preventDefault();
                 toggle.click();
             }
+        });
+
+        // Notifications-style top-right × — same close path as Escape (return focus).
+        panel.addEventListener('click', (event) => {
+            const closeBtn = event.target.closest('[data-action="everon-popover-close"]');
+            if (!closeBtn || !panel.contains(closeBtn)) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            close({returnFocus: true});
         });
 
         document.addEventListener('click', (event) => {

@@ -6,6 +6,7 @@ Changes
 
 ### Rolling release
 
+* 2026-11-26 - Backport Moodle 5.2-compatible improvements from `MOODLE_503_STABLE`: activity icon filters (Safari SVG defs + dark-mode monologo invert), a11y panel `display:none` close fix, user menu panel title, notifications-style close × and resting focus chrome across navbar panels, Starred courses / Notifications / Messages / MuTMS Switch tenant popover chrome, MuTMS compatibility tab (tenant appearance bridge, Boost Union flavour-to-tenant mapping with `after_config` auto-repatch and status check, guest-safe login logos, `block_muprogmyoverview` circular completion badge), stylesheet `?rev=` cache-busting, 13 additional locale language packs, and `Duplicate` typo fix (v5.2-r40)
 * 2026-11-19 - Rename component/folder from `theme_everon` / `everon` to `theme_boost_union_everon` / `boost_union_everon` (lang, AMD, Behat, CSS/JS prefixes); display name remains Everon (v5.2-r39)
 * 2026-11-10 - Accessibility navbar panel: move focus into the panel on open, matching notification FocusLock; return focus to the toggle on Escape only (v5.2-r38)
 * 2026-11-10 - Remove the forced Noto Sans default so Everon uses the parent theme font (v5.2-r37)

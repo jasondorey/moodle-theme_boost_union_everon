@@ -33,6 +33,27 @@ Stock **Moodle / Boost Union** branding. Login uses Boost Union only (no Everon 
 
 Search the codebase for `EXTENSION POINT` to find where to add SCSS, settings, lang strings, and Behat scenarios.
 
+## Included languages
+
+Custom `theme_boost_union_everon` strings ship under `lang/` for:
+
+- `en` — English
+- `es` — Spanish
+- `fr` — French
+- `de` — German
+- `it` — Italian
+- `ar` — Arabic
+- `zh_cn` — Chinese (Simplified)
+- `zh_tw` — Chinese (Traditional)
+- `th` — Thai
+- `vi` — Vietnamese
+- `ms` — Malay (Malaysian)
+- `ja` — Japanese
+- `ko` — Korean
+- `id` — Indonesian
+
+English (`en`) is the source of truth: if a string is missing in another pack, Moodle falls back to English.
+
 ## Copyright
 
 - Project Theme / Jason Dorey (Everon product scaffold)

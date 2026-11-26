@@ -1,0 +1,71 @@
+--- a/theme/boost_union/flavours/flavourslib.php	2026-11-16 15:07:06.551580784 +0000
++++ b/theme/boost_union/flavours/flavourslib.php	2026-11-16 15:07:06.581581034 +0000
+@@ -93,8 +93,15 @@
+             $pagecategoryid = 0;
+         }
+ 
+-        // Get the cached flavour for the current user and the page category ID.
+-        $cachedflavour = $cache->get($pagecategoryid);
++        // Everon MuTMS tenant flavours (local hook): include active tenant in the cache key.
++        $everontenantkey = 0;
++        if (class_exists('\theme_boost_union_everon\local\flavours')) {
++            $everontenantkey = \theme_boost_union_everon\local\flavours::cache_tenant_key();
++        }
++        $flavourcachekey = $pagecategoryid . '_t' . $everontenantkey;
++
++        // Get the cached flavour for the current user, page category ID, and tenant.
++        $cachedflavour = $cache->get($flavourcachekey);
+ 
+         // If we got a cached flavour.
+         if ($cachedflavour !== false) {
+@@ -157,7 +164,7 @@
+                             $appliedflavour = $f;
+ 
+                             // Store the flavour into the cache.
+-                            $cache->set($pagecategoryid, $f);
++                            $cache->set($flavourcachekey, $f);
+ 
+                             // Remember the fact that the flavour has been checked for subsequent runs of this function.
+                             $flavourchecked = true;
+@@ -173,7 +180,7 @@
+                             $appliedflavour = $f;
+ 
+                             // Store the flavour into the cache.
+-                            $cache->set($pagecategoryid, $f);
++                            $cache->set($flavourcachekey, $f);
+ 
+                             // Remember the fact that the flavour has been checked for subsequent runs of this function.
+                             $flavourchecked = true;
+@@ -209,7 +216,7 @@
+                             $appliedflavour = $f;
+ 
+                             // Store the flavour into the cache.
+-                            $cache->set($pagecategoryid, $f);
++                            $cache->set($flavourcachekey, $f);
+ 
+                             // Remember the fact that the flavour has been checked for subsequent runs of this function.
+                             $flavourchecked = true;
+@@ -220,13 +227,22 @@
+                     }
+                 }
+             }
++
++            // Everon MuTMS tenant flavours (local hook): after categories and cohorts.
++            if (class_exists('\theme_boost_union_everon\local\flavours') &&
++                    \theme_boost_union_everon\local\flavours::applies_to_active_tenant($f)) {
++                $appliedflavour = $f;
++                $cache->set($flavourcachekey, $f);
++                $flavourchecked = true;
++                return $appliedflavour;
++            }
+         }
+ 
+         // If we haven't found any flavour which applies to the given page output, remember null as flavour object.
+         $appliedflavour = null;
+ 
+         // Store the flavour into the cache.
+-        $cache->set($pagecategoryid, null);
++        $cache->set($flavourcachekey, null);
+ 
+         // Remember the fact that the flavour has been checked for subsequent runs of this function.
+         $flavourchecked = true;
