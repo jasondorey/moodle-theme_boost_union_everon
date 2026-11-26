@@ -1297,15 +1297,10 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
         );
     }
 
-    // Custom reports.
-    if (!empty($CFG->enablecustomreports) && (
-            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:editall', $systemcontext, $userid) ||
-            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:edit', $systemcontext, $userid) ||
-            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:view', $systemcontext, $userid) ||
-            theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:viewall', $systemcontext, $userid)
-    )) {
-        $addtile($primarylinks, 'launchpad_item_customreports', '/reportbuilder/index.php', 'fa-chart-bar');
-    }
+    // Record insertion slot for Custom reports (3rd in Primary, right after Appearance & Certifications).
+    // Moodle grants moodle/reportbuilder:view to the default Authenticated User role, so we defer
+    // deciding whether to include Custom reports until we know if the user has other management tiles.
+    $customreportsindex = count($primarylinks);
 
     // Dynamic rules.
     if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murules') && (
@@ -1386,6 +1381,29 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
                 '/admin/tool/certificate/manage_templates.php',
                 'fa-certificate'
             );
+        }
+    }
+
+    // Custom reports: insert in its Workplace position (slot 3, right after Appearance & Certifications).
+    // Regular learners inherit moodle/reportbuilder:view from the Authenticated User role, so only
+    // show Custom reports when the user has reportbuilder management caps OR at least one other
+    // MuTMS/admin management tile in the Launch Pad.
+    if (!empty($CFG->enablecustomreports)) {
+        $canmanagereports = theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:editall', $systemcontext, $userid)
+            || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:edit', $systemcontext, $userid)
+            || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:viewall', $systemcontext, $userid);
+        $hasotheradmin = ($primarylinks !== [] || $globallinks !== []);
+        $canviewreports = $hasotheradmin
+            && theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:view', $systemcontext, $userid);
+        if ($canmanagereports || $canviewreports) {
+            $customreportstile = theme_boost_union_everon_launchpad_make_tile(
+                get_string('launchpad_item_customreports', 'theme_boost_union_everon'),
+                '/reportbuilder/index.php',
+                'fa-chart-bar'
+            );
+            if ($customreportstile !== null) {
+                array_splice($primarylinks, $customreportsindex, 0, [$customreportstile]);
+            }
         }
     }
 
