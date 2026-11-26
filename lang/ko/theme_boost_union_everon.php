@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad 링크는 각각 비어 있지 않
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '집중 모드';
 $string['focusmodeheading'] = '집중 모드';
-$string['focusmodeheading_desc'] = '강의 콘텐츠 페이지, 대시보드(/my/), 내 강의(/my/courses.php)의 플로팅 컨트롤로, 보조 탐색과 서랍을 숨기고 기본 콘텐츠를 넓힙니다. 환경설정은 강의 또는 페이지별로 브라우저(localStorage)에 저장됩니다.';
+$string['focusmodeheading_desc'] = '강의 콘텐츠 페이지, 대시보드(/my/), 내 강의(/my/courses.php) 및 MuTMS 사용자 지정 홈 페이지의 플로팅 컨트롤로, 보조 탐색과 서랍을 숨기고 기본 콘텐츠를 넓힙니다. 환경설정은 강의 또는 페이지별로 브라우저(localStorage)에 저장됩니다.';
 $string['enablefocusmode'] = '집중 모드 사용';
-$string['enablefocusmode_desc'] = '강의 홈, 섹션, 활동 페이지와 대시보드(/my/) 및 내 강의(/my/courses.php)에 집중 모드 버튼(오른쪽 아래)을 표시합니다. 기본값: 예.';
+$string['enablefocusmode_desc'] = '강의 홈, 섹션, 활동 페이지와 대시보드(/my/), 내 강의(/my/courses.php) 및 MuTMS 사용자 지정 홈 페이지에 집중 모드 버튼(오른쪽 아래)을 표시합니다. 기본값: 예.';
 $string['focusmodeenable'] = '집중 모드';
 $string['focusmodedisable'] = '집중 모드 종료';
 $string['focusmodenotice'] = '집중 모드가 켜져 있습니다. 오른쪽 아래 ×를 클릭하여 끄세요.';

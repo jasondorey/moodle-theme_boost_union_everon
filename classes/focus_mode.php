@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Focus Mode helpers (distraction-free wide layout for courses, Dashboard, and My courses).
+ * Focus Mode helpers (distraction-free wide layout for courses, Dashboard, My courses, and MuTMS custom home).
  *
  * Ported from theme_custom\course_focus (GPL).
  *
@@ -110,6 +110,20 @@ class focus_mode {
     }
 
     /**
+     * MuTMS custom home page (/admin/tool/muhome/index.php).
+     *
+     * Matches only the learner-facing custom home view (pagetype tool-muhome-index
+     * on the mydashboard layout), excluding tool_muhome admin management pages.
+     *
+     * @param \moodle_page $page
+     * @return bool
+     */
+    public static function is_muhome_page(\moodle_page $page): bool {
+        return $page->pagelayout === 'mydashboard'
+            && $page->pagetype === 'tool-muhome-index';
+    }
+
+    /**
      * Dashboard (/my/) page, excluding MuTMS custom home pages that reuse mydashboard.
      *
      * @param \moodle_page $page
@@ -119,8 +133,8 @@ class focus_mode {
         if ($page->pagelayout !== 'mydashboard') {
             return false;
         }
-        // MuTMS custom home pages reuse mydashboard + content region — exclude from /my/ focus.
-        if ($page->pagetype === 'tool-muhome-index') {
+        // MuTMS custom home pages reuse mydashboard + content region — handled under 'muhome'.
+        if (self::is_muhome_page($page)) {
             return false;
         }
         return true;
@@ -139,8 +153,9 @@ class focus_mode {
     /**
      * Resolve the Focus Mode persistence scope for this page.
      *
-     * Returns numeric course id string on course content pages, 'dashboard' on /my/,
-     * 'mycourses' on /my/courses.php, or '' when Focus Mode does not apply.
+     * Returns numeric course id string on course content pages, 'muhome' on MuTMS
+     * custom home pages, 'dashboard' on /my/, 'mycourses' on /my/courses.php, or ''
+     * when Focus Mode does not apply.
      *
      * @param \moodle_page $page
      * @return string
@@ -149,6 +164,9 @@ class focus_mode {
         if (self::is_course_content_page($page)) {
             $courseid = self::resolve_course_id($page);
             return $courseid > 1 ? (string) $courseid : '';
+        }
+        if (self::is_muhome_page($page)) {
+            return 'muhome';
         }
         if (self::is_dashboard_page($page)) {
             return 'dashboard';

@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Les liens Launch Pad doivent être un tableau
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Mode Focus';
 $string['focusmodeheading'] = 'Mode Focus';
-$string['focusmodeheading_desc'] = 'Un contrôle flottant sur les pages de contenu de cours, le Tableau de bord (/my/) et Mes cours (/my/courses.php) qui masque la navigation secondaire et les tiroirs et élargit le contenu principal. La préférence est stockée par cours ou par page dans le navigateur (localStorage).';
+$string['focusmodeheading_desc'] = 'Un contrôle flottant sur les pages de contenu de cours, le Tableau de bord (/my/), Mes cours (/my/courses.php) et les pages d’accueil personnalisées MuTMS qui masque la navigation secondaire et les tiroirs et élargit le contenu principal. La préférence est stockée par cours ou par page dans le navigateur (localStorage).';
 $string['enablefocusmode'] = 'Activer le mode Focus';
-$string['enablefocusmode_desc'] = 'Afficher le bouton Mode Focus (en bas à droite) sur les pages d’accueil de cours, de section et d’activité ainsi que sur le Tableau de bord (/my/) et Mes cours (/my/courses.php). Par défaut : Oui.';
+$string['enablefocusmode_desc'] = 'Afficher le bouton Mode Focus (en bas à droite) sur les pages d’accueil de cours, de section et d’activité ainsi que sur le Tableau de bord (/my/), Mes cours (/my/courses.php) et les pages d’accueil personnalisées MuTMS. Par défaut : Oui.';
 $string['focusmodeenable'] = 'Mode Focus';
 $string['focusmodedisable'] = 'Quitter le mode Focus';
 $string['focusmodenotice'] = 'Le mode Focus est activé. Cliquez sur × en bas à droite pour le désactiver.';

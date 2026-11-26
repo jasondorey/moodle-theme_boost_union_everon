@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'يجب أن تكون روابط Launch Pad م
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'وضع التركيز';
 $string['focusmodeheading'] = 'وضع التركيز';
-$string['focusmodeheading_desc'] = 'عنصر تحكم عائم في صفحات محتوى المقرر ولوحة المعلومات (/my/) ومقرراتي (/my/courses.php) يخفي التنقل الثانوي والأدراج ويوسّع المحتوى الرئيسي. يُخزَّن التفضيل لكل مقرر أو صفحة في المتصفح (localStorage).';
+$string['focusmodeheading_desc'] = 'عنصر تحكم عائم في صفحات محتوى المقرر ولوحة المعلومات (/my/) ومقرراتي (/my/courses.php) وصفحات البداية المخصّصة لـ MuTMS يخفي التنقل الثانوي والأدراج ويوسّع المحتوى الرئيسي. يُخزَّن التفضيل لكل مقرر أو صفحة في المتصفح (localStorage).';
 $string['enablefocusmode'] = 'تمكين وضع التركيز';
-$string['enablefocusmode_desc'] = 'إظهار زر وضع التركيز (أسفل اليمين) في صفحات الصفحة الرئيسية للمقرر والقسم والنشاط وكذلك لوحة المعلومات (/my/) ومقرراتي (/my/courses.php). الافتراضي: نعم.';
+$string['enablefocusmode_desc'] = 'إظهار زر وضع التركيز (أسفل اليمين) في صفحات الصفحة الرئيسية للمقرر والقسم والنشاط وكذلك لوحة المعلومات (/my/) ومقرراتي (/my/courses.php) وصفحات البداية المخصّصة لـ MuTMS. الافتراضي: نعم.';
 $string['focusmodeenable'] = 'وضع التركيز';
 $string['focusmodedisable'] = 'الخروج من وضع التركيز';
 $string['focusmodenotice'] = 'وضع التركيز مفعّل. انقر على × في أسفل اليمين لإيقافه.';

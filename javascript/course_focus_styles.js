@@ -61,7 +61,9 @@
         'html.' + HTML_CLASS + ' #page.drawers .main-inner-wrapper' + OUTSIDE + '>#theme-block-region-outside-left,',
         'body.' + HTML_CLASS + ' #page.drawers .main-inner-wrapper' + OUTSIDE + '>#theme-block-region-outside-right,',
         'body.' + HTML_CLASS + ' #page.drawers .main-inner-wrapper' + OUTSIDE + '>#theme-block-region-outside-left{',
-        'flex:0 0 auto}}'
+        'flex:0 0 auto}}',
+        'html.' + HTML_CLASS + ' #page.drawers #region-main,',
+        'body.' + HTML_CLASS + ' #page.drawers #region-main{max-width:none!important}'
     ].join('');
 
     function syncFocusLayoutStyles(enabled) {

@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad 链接必须是对象的 JSON 数�
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = '专注模式';
 $string['focusmodeheading'] = '专注模式';
-$string['focusmodeheading_desc'] = '课程内容页、仪表板（/my/）和“我的课程”（/my/courses.php）上的浮动控件，可隐藏次级导航和抽屉并加宽主内容。偏好按课程或页面保存在浏览器（localStorage）中。';
+$string['focusmodeheading_desc'] = '课程内容页、仪表板（/my/）、“我的课程”（/my/courses.php）和 MuTMS 自定义首页上的浮动控件，可隐藏次级导航和抽屉并加宽主内容。偏好按课程或页面保存在浏览器（localStorage）中。';
 $string['enablefocusmode'] = '启用专注模式';
-$string['enablefocusmode_desc'] = '在课程主页、章节和活动页面以及仪表板（/my/）和“我的课程”（/my/courses.php）上显示专注模式按钮（右下角）。默认：是。';
+$string['enablefocusmode_desc'] = '在课程主页、章节和活动页面以及仪表板（/my/）、“我的课程”（/my/courses.php）和 MuTMS 自定义首页上显示专注模式按钮（右下角）。默认：是。';
 $string['focusmodeenable'] = '专注模式';
 $string['focusmodedisable'] = '退出专注模式';
 $string['focusmodenotice'] = '专注模式已开启。点击右下角的 × 即可关闭。';

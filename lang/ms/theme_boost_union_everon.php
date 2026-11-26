@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Pautan Launch Pad mestilah tatasusunan JSON o
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modus Fokus';
 $string['focusmodeheading'] = 'Modus Fokus';
-$string['focusmodeheading_desc'] = 'Kawalan terapung pada halaman kandungan kursus, Papan Pemuka (/my/), dan Kursus Saya (/my/courses.php) yang menyembunyikan navigasi sekunder dan laci serta melebarkan kandungan utama. Keutamaan disimpan bagi setiap kursus atau halaman dalam pelayar (localStorage).';
+$string['focusmodeheading_desc'] = 'Kawalan terapung pada halaman kandungan kursus, Papan Pemuka (/my/), Kursus Saya (/my/courses.php), dan halaman utama tersuai MuTMS yang menyembunyikan navigasi sekunder dan laci serta melebarkan kandungan utama. Keutamaan disimpan bagi setiap kursus atau halaman dalam pelayar (localStorage).';
 $string['enablefocusmode'] = 'Dayakan Modus Fokus';
-$string['enablefocusmode_desc'] = 'Tunjukkan butang Modus Fokus (bahagian bawah kanan) pada halaman utama kursus, bahagian dan aktiviti serta Papan Pemuka (/my/) dan Kursus Saya (/my/courses.php). Lalai: Ya.';
+$string['enablefocusmode_desc'] = 'Tunjukkan butang Modus Fokus (bahagian bawah kanan) pada halaman utama kursus, bahagian dan aktiviti serta Papan Pemuka (/my/), Kursus Saya (/my/courses.php), dan halaman utama tersuai MuTMS. Lalai: Ya.';
 $string['focusmodeenable'] = 'Modus Fokus';
 $string['focusmodedisable'] = 'Keluar modus fokus';
 $string['focusmodenotice'] = 'Modus Fokus dihidupkan. Klik × di bahagian bawah kanan untuk mematikannya.';

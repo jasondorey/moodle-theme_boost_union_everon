@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch-Pad-Links müssen ein JSON-Array von O
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Fokusmodus';
 $string['focusmodeheading'] = 'Fokusmodus';
-$string['focusmodeheading_desc'] = 'Ein schwebendes Steuerelement auf Kursinhaltsseiten, dem Dashboard (/my/) und Meine Kurse (/my/courses.php), das die sekundäre Navigation und Schubladen ausblendet und den Hauptinhalt verbreitert. Die Einstellung wird pro Kurs oder Seite im Browser (localStorage) gespeichert.';
+$string['focusmodeheading_desc'] = 'Ein schwebendes Steuerelement auf Kursinhaltsseiten, dem Dashboard (/my/), Meine Kurse (/my/courses.php) und benutzerdefinierten MuTMS-Startseiten, das die sekundäre Navigation und Schubladen ausblendet und den Hauptinhalt verbreitert. Die Einstellung wird pro Kurs oder Seite im Browser (localStorage) gespeichert.';
 $string['enablefocusmode'] = 'Fokusmodus aktivieren';
-$string['enablefocusmode_desc'] = 'Fokusmodus-Schaltfläche (unten rechts) auf Kursstart-, Abschnitts- und Aktivitätsseiten sowie auf Dashboard (/my/) und Meine Kurse (/my/courses.php) anzeigen. Standard: Ja.';
+$string['enablefocusmode_desc'] = 'Fokusmodus-Schaltfläche (unten rechts) auf Kursstart-, Abschnitts- und Aktivitätsseiten sowie auf Dashboard (/my/), Meine Kurse (/my/courses.php) und benutzerdefinierten MuTMS-Startseiten anzeigen. Standard: Ja.';
 $string['focusmodeenable'] = 'Fokusmodus';
 $string['focusmodedisable'] = 'Fokusmodus beenden';
 $string['focusmodenotice'] = 'Fokusmodus ist aktiv. Klicken Sie unten rechts auf ×, um ihn auszuschalten.';

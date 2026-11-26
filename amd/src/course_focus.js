@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Focus Mode — wide layout toggle for course pages, Dashboard, and My courses.
+ * Focus Mode — wide layout toggle for course pages, Dashboard, My courses, and MuTMS custom home.
  * FAB injected into Boost footer floats (no Mustache fork).
  *
  * @module     theme_boost_union_everon/course_focus
@@ -40,12 +40,13 @@ define(['core/str'], function(Str) {
     const STORAGE_ACTIVE = 'theme_boost_union_everon_focus_active';
     const ACTIVE_CLASS = 'is-active';
     const BODY_AVAILABLE_CLASS = 'theme-boost-union-everon-focus-available';
-    const PAGE_SCOPES = ['dashboard', 'mycourses'];
+    const PAGE_SCOPES = ['dashboard', 'mycourses', 'muhome'];
     const COURSE_VIEW_PATH = /\/course\/view\.php(\/|$)/;
     const COURSE_SECTION_PATH = /\/course\/section\.php(\/|$)/;
     const MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
     const DASHBOARD_PATH = /\/my\/(index\.php)?$/;
     const MYCOURSES_PATH = /\/my\/courses\.php(\/|$)/;
+    const MUHOME_PATH = /\/admin\/tool\/muhome\/(index\.php)?$/;
 
     const isPageScope = (scope) => PAGE_SCOPES.includes(scope);
 
@@ -154,8 +155,12 @@ define(['core/str'], function(Str) {
         if (!body) {
             return false;
         }
-        return body.id === 'page-admin-tool-muhome-index'
-            || body.classList.contains('path-admin-tool-muhome');
+        return body.id === 'page-tool-muhome-index'
+            || body.id === 'page-admin-tool-muhome-index'
+            || body.classList.contains('pagetype-tool-muhome-index')
+            || (body.classList.contains('pagelayout-mydashboard')
+                && body.classList.contains('path-admin-tool-muhome')
+                && !body.classList.contains('path-admin-tool-muhome-management'));
     };
 
     const getPageScopeFromContext = () => {
@@ -166,8 +171,8 @@ define(['core/str'], function(Str) {
             || MYCOURSES_PATH.test(path)) {
             return 'mycourses';
         }
-        if (isMuhomePage(body)) {
-            return '';
+        if (isMuhomePage(body) || MUHOME_PATH.test(path)) {
+            return 'muhome';
         }
         if (body?.classList?.contains('pagelayout-mydashboard')
             || body?.classList?.contains('path-my-index')

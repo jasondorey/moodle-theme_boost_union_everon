@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Launch Pad リンクは、それぞれ空で�
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'フォーカスモード';
 $string['focusmodeheading'] = 'フォーカスモード';
-$string['focusmodeheading_desc'] = 'コースコンテンツページ、ダッシュボード（/my/）、マイコース（/my/courses.php）上のフローティングコントロールで、セカンダリナビゲーションとドロワーを非表示にし、メインコンテンツを広げます。設定はコースまたはページごとにブラウザ（localStorage）に保存されます。';
+$string['focusmodeheading_desc'] = 'コースコンテンツページ、ダッシュボード（/my/）、マイコース（/my/courses.php）、MuTMS カスタムホームページ上のフローティングコントロールで、セカンダリナビゲーションとドロワーを非表示にし、メインコンテンツを広げます。設定はコースまたはページごとにブラウザ（localStorage）に保存されます。';
 $string['enablefocusmode'] = 'フォーカスモードを有効にする';
-$string['enablefocusmode_desc'] = 'コースホーム、セクション、活動ページに加え、ダッシュボード（/my/）とマイコース（/my/courses.php）にフォーカスモードボタン（右下）を表示します。デフォルト: はい。';
+$string['enablefocusmode_desc'] = 'コースホーム、セクション、活動ページに加え、ダッシュボード（/my/）、マイコース（/my/courses.php）、MuTMS カスタムホームページにフォーカスモードボタン（右下）を表示します。デフォルト: はい。';
 $string['focusmodeenable'] = 'フォーカスモード';
 $string['focusmodedisable'] = 'フォーカスモードを終了';
 $string['focusmodenotice'] = 'フォーカスモードがオンです。右下の × をクリックしてオフにしてください。';

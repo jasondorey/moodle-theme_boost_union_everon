@@ -1,5 +1,5 @@
 /**
- * Restore Focus Mode before first paint (course content pages, Dashboard, My courses).
+ * Restore Focus Mode before first paint (course content pages, Dashboard, My courses, MuTMS custom home).
  * Loaded synchronously from theme_boost_union_everon head — plain JS (no AMD).
  *
  * @package    theme_boost_union_everon
@@ -17,9 +17,10 @@
     var MOD_ACTIVITY_PATH = /\/mod\/[^/]+\/(?!index\.php)/;
     var DASHBOARD_PATH = /\/my\/(index\.php)?$/;
     var MYCOURSES_PATH = /\/my\/courses\.php(\/|$)/;
+    var MUHOME_PATH = /\/admin\/tool\/muhome\/(index\.php)?$/;
 
     function isPageScope(scope) {
-        return scope === 'dashboard' || scope === 'mycourses';
+        return scope === 'dashboard' || scope === 'mycourses' || scope === 'muhome';
     }
 
     function isCourseScope(scope) {
@@ -92,6 +93,18 @@
         return normalizeScope(pageconfig.courseId);
     }
 
+    function isMuhomePage(body) {
+        if (!body) {
+            return false;
+        }
+        return body.id === 'page-tool-muhome-index'
+            || body.id === 'page-admin-tool-muhome-index'
+            || body.classList.contains('pagetype-tool-muhome-index')
+            || (body.classList.contains('pagelayout-mydashboard')
+                && body.classList.contains('path-admin-tool-muhome')
+                && !body.classList.contains('path-admin-tool-muhome-management'));
+    }
+
     function getPageScopeFromContext() {
         var body = global.document.body;
         var path = global.location.pathname;
@@ -99,8 +112,8 @@
             || MYCOURSES_PATH.test(path)) {
             return 'mycourses';
         }
-        if (body && (body.id === 'page-admin-tool-muhome-index' || body.classList.contains('path-admin-tool-muhome'))) {
-            return '';
+        if (isMuhomePage(body) || MUHOME_PATH.test(path)) {
+            return 'muhome';
         }
         if ((body && (body.classList.contains('pagelayout-mydashboard') || body.classList.contains('path-my-index')))
             || DASHBOARD_PATH.test(path)) {

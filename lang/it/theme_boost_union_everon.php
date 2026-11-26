@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'I collegamenti Launch Pad devono essere un ar
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modalità Focus';
 $string['focusmodeheading'] = 'Modalità Focus';
-$string['focusmodeheading_desc'] = 'Un controllo mobile sulle pagine dei contenuti del corso, sulla Dashboard (/my/) e su I miei corsi (/my/courses.php) che nasconde la navigazione secondaria e i cassetti e allarga il contenuto principale. La preferenza è memorizzata per corso o pagina nel browser (localStorage).';
+$string['focusmodeheading_desc'] = 'Un controllo mobile sulle pagine dei contenuti del corso, sulla Dashboard (/my/), su I miei corsi (/my/courses.php) e sulle pagine home personalizzate MuTMS che nasconde la navigazione secondaria e i cassetti e allarga il contenuto principale. La preferenza è memorizzata per corso o pagina nel browser (localStorage).';
 $string['enablefocusmode'] = 'Abilita Modalità Focus';
-$string['enablefocusmode_desc'] = 'Mostra il pulsante Modalità Focus (in basso a destra) nelle pagine home del corso, sezione e attività oltre che in Dashboard (/my/) e I miei corsi (/my/courses.php). Predefinito: Sì.';
+$string['enablefocusmode_desc'] = 'Mostra il pulsante Modalità Focus (in basso a destra) nelle pagine home del corso, sezione e attività oltre che in Dashboard (/my/), I miei corsi (/my/courses.php) e pagine home personalizzate MuTMS. Predefinito: Sì.';
 $string['focusmodeenable'] = 'Modalità Focus';
 $string['focusmodedisable'] = 'Esci dalla modalità Focus';
 $string['focusmodenotice'] = 'La modalità Focus è attiva. Fai clic su × in basso a destra per disattivarla.';

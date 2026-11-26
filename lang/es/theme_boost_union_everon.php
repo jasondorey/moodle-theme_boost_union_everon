@@ -117,9 +117,9 @@ $string['launchpadjsoninvalid'] = 'Los enlaces de Launch Pad deben ser una matri
 // Settings: Focus Mode tab (ported from theme_custom course focus).
 $string['focusmodetab'] = 'Modo enfoque';
 $string['focusmodeheading'] = 'Modo enfoque';
-$string['focusmodeheading_desc'] = 'Un control flotante en las páginas de contenido del curso, el Tablero (/my/) y Mis cursos (/my/courses.php) que oculta la navegación secundaria y los cajones y ensancha el contenido principal. La preferencia se guarda por curso o página en el navegador (localStorage).';
+$string['focusmodeheading_desc'] = 'Un control flotante en las páginas de contenido del curso, el Tablero (/my/), Mis cursos (/my/courses.php) y las páginas de inicio personalizadas de MuTMS que oculta la navegación secundaria y los cajones y ensancha el contenido principal. La preferencia se guarda por curso o página en el navegador (localStorage).';
 $string['enablefocusmode'] = 'Activar Modo enfoque';
-$string['enablefocusmode_desc'] = 'Mostrar el botón de Modo enfoque (abajo a la derecha) en las páginas de inicio del curso, sección y actividad, así como en el Tablero (/my/) y Mis cursos (/my/courses.php). Predeterminado: Sí.';
+$string['enablefocusmode_desc'] = 'Mostrar el botón de Modo enfoque (abajo a la derecha) en las páginas de inicio del curso, sección y actividad, así como en el Tablero (/my/), Mis cursos (/my/courses.php) y las páginas de inicio personalizadas de MuTMS. Predeterminado: Sí.';
 $string['focusmodeenable'] = 'Modo enfoque';
 $string['focusmodedisable'] = 'Salir del modo enfoque';
 $string['focusmodenotice'] = 'El modo enfoque está activado. Haga clic en × abajo a la derecha para desactivarlo.';

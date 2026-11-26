@@ -1,5 +1,5 @@
 /**
- * Everon Focus Mode — wide content, hidden tabs / drawers (course pages, Dashboard, My courses).
+ * Everon Focus Mode — wide content, hidden tabs / drawers (course pages, Dashboard, My courses, MuTMS custom home).
  * Ported from theme_custom (trimmed: no custom page-header chrome).
  */
 
@@ -212,6 +212,11 @@ body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.m
     body.theme-boost-union-everon-focus-mode #page.drawers .main-inner-wrapper:is(.main-inner-outside-right, .main-inner-outside-left, .main-inner-outside-left-right) > #theme-block-region-outside-left {
         flex: 0 0 auto;
     }
+}
+
+html.theme-boost-union-everon-focus-mode #page.drawers #region-main,
+body.theme-boost-union-everon-focus-mode #page.drawers #region-main {
+    max-width: none !important;
 }
 
 html.theme-boost-union-everon-focus-mode #page-content,
