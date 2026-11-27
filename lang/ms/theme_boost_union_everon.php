@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'Tetapkan semula semua tetapan kebolehaksesan';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Ikon bar navigasi yang membuka pautan pintasan mengikut peranan. Pentadbir tapak ialah pek lalai; tambah peranan tapak lain mengikut keperluan. Pek yang sepadan digabungkan dan dinyahgandakan mengikut URL. Ikon disembunyikan apabila Launch Pad dilumpuhkan atau pengguna semasa tiada pautan.';
+$string['launchpadheading_desc'] = 'Ikon bar navigasi yang membuka pintasan terbina dalam berasaskan keupayaan dan/atau pek pautan peranan tersuai. Pilih mod Jubin terbina dalam (lalai) untuk memaparkan pintasan secara automatik bagi ciri terpasang mengikut keupayaan pengguna (termasuk jubin penyewa dan Global di tapak MuTMS), atau Pautan peranan tersuai sahaja untuk mengurus semua pautan melalui JSON. Ikon disembunyikan jika Launch Pad dilumpuhkan atau pengguna tiada pautan yang boleh diakses.';
 $string['enablelaunchpad'] = 'Dayakan Launch Pad';
-$string['enablelaunchpad_desc'] = 'Tunjukkan ikon Launch Pad dalam bar navigasi atas (selepas alat kebolehaksesan, sebelum menu pengguna) apabila pengguna mempunyai sekurang-kurangnya satu pautan dikonfigurasi. Lalai: Tidak — dayakan selepas anda menambah pautan JSON di bawah.';
+$string['enablelaunchpad_desc'] = 'Tunjukkan ikon Launch Pad dalam bar navigasi atas (selepas alat kebolehaksesan, sebelum menu pengguna) apabila pengguna mempunyai sekurang-kurangnya satu pautan yang boleh diakses. Lalai: Tidak.';
+$string['launchpadmode'] = 'Mod Launch Pad';
+$string['launchpadmode_desc'] = 'Pilih cara pautan Launch Pad diisi. Dalam mod Jubin terbina dalam, pintasan dijana secara automatik daripada jubin didayakan di bawah berdasarkan pemalam terpasang dan keupayaan pengguna (Pentadbir tapak serta Pengurus penyewa di tapak MuTMS), dengan pek peranan lain dilampirkan. Dalam mod Pautan peranan tersuai sahaja, hanya pek pautan JSON di bawah digunakan.';
+$string['launchpadmode_builtin'] = 'Jubin terbina dalam (berasaskan keupayaan) + pautan peranan tersuai';
+$string['launchpadmode_custom'] = 'Pautan peranan tersuai sahaja';
+$string['launchpadbuiltintiles'] = 'Jubin terbina dalam Launch Pad';
+$string['launchpadbuiltintiles_desc'] = 'Pilih jubin terbina dalam yang boleh dipaparkan apabila mod Jubin terbina dalam aktif. Hanya jubin untuk ciri yang dipasang pada tapak ini disenaraikan. Setiap jubin tetap disemak mengikut keupayaan pengguna semasa (dan penyewa aktif di tapak MuTMS).';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'Tatasusunan JSON objek dengan <code>label</code>, <code>url</code> (laluan relatif tapak seperti <code>/admin/search.php</code>), dan <code>icon</code> pilihan (kelas Font Awesome, cth. <code>fa-cog</code>). URL luaran ditolak dalam v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'Pautan: Pengguna disahkan';
 $string['launchpadlinks_authenticated_desc'] = 'Sandaran untuk setiap pengguna dilog masuk bukan tetamu. Digabungkan selepas siteadmin dan pek peranan.';
 
 $string['launchpadrolelinks'] = 'Pek pautan peranan';
-$string['launchpadrolelinks_desc'] = 'Konfigurasi senarai pautan JSON. Pentadbir tapak sentiasa ada (lalai). Gunakan Tambah peranan untuk mana-mana peranan tapak lain. Pek peranan sepadan apabila pengguna mempunyai peranan itu dalam mana-mana konteks. Stor menggunakan id peranan; label menunjukkan nama peranan semasa.';
+$string['launchpadrolelinks_desc'] = 'Konfigurasi senarai pautan JSON mengikut peranan. Dalam mod Jubin terbina dalam, jubin di atas mengurus pintasan Pentadbir tapak (dan Pengurus penyewa di tapak MuTMS) manakala pek Pentadbir tapak di sini tidak aktif; pek peranan lain yang ditambah akan dilampirkan (dinyahgandakan mengikut URL). Dalam mod Pautan peranan tersuai sahaja, pek JSON ini (termasuk Pentadbir tapak) memacu Launch Pad secara eksklusif.';
 $string['launchpadbuiltinpacks'] = 'Pek terbina dalam';
 $string['launchpadconfiguredroles'] = 'Pek dikonfigurasi';
 $string['launchpadaddrole'] = 'Tambah peranan';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'Pautan peranan Launch Pad mestilah objek J
 
 $string['launchpadjsoninvalid'] = 'Pautan Launch Pad mestilah tatasusunan JSON objek, setiap satu dengan label dan url yang tidak kosong.';
 $string['launchpad_section_global'] = 'Global';
+$string['launchpad_tile_prefix_primary'] = 'Utama: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Global: {$a}';
 $string['launchpad_item_appearance'] = 'Penampilan';
+$string['launchpad_item_browseusers'] = 'Semak imbas senarai pengguna';
+$string['launchpad_item_managecourses'] = 'Urus kursus dan kategori';
+$string['launchpad_item_plugins'] = 'Ringkasan pemalam';
+$string['launchpad_item_performance'] = 'Ringkasan prestasi';
+$string['launchpad_item_debugging'] = 'Penyahpepijatan';
+$string['launchpad_item_tasks'] = 'Tugas berjadual';
 $string['launchpad_item_certifications'] = 'Pensijilan';
 $string['launchpad_item_customreports'] = 'Laporan tersuai';
 $string['launchpad_item_dynamicrules'] = 'Peraturan dinamik';

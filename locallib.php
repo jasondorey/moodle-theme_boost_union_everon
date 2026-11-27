@@ -1128,19 +1128,179 @@ function theme_boost_union_everon_launchpad_get_rolepack_links_for_user(
 }
 
 /**
+ * Active Launch Pad population mode ('builtin' or 'custom').
+ *
+ * @return string
+ */
+function theme_boost_union_everon_launchpad_get_mode(): string {
+    $mode = get_config('theme_boost_union_everon', 'launchpadmode');
+    if ($mode === 'custom') {
+        return 'custom';
+    }
+    return 'builtin';
+}
+
+/**
+ * Available built-in Launch Pad tile choices filtered to plugins installed on this site.
+ *
+ * Used by both the admin multicheckbox setting and runtime evaluation so settings
+ * always match what is installed on this site.
+ *
+ * @return array<string, string> Map of tile key => localised checkbox label.
+ */
+function theme_boost_union_everon_launchpad_get_builtin_tile_choices(): array {
+    if (theme_boost_union_everon_launchpad_mutenancy_is_active()) {
+        $primary = static function (string $strkey): string {
+            return get_string(
+                'launchpad_tile_prefix_primary',
+                'theme_boost_union_everon',
+                get_string($strkey, 'theme_boost_union_everon')
+            );
+        };
+        $global = static function (string $strkey): string {
+            return get_string(
+                'launchpad_tile_prefix_global',
+                'theme_boost_union_everon',
+                get_string($strkey, 'theme_boost_union_everon')
+            );
+        };
+
+        $choices = [];
+        $choices['appearance'] = $primary('launchpad_item_appearance');
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucertify')) {
+            $choices['certifications'] = $primary('launchpad_item_certifications');
+        }
+        $choices['customreports'] = $primary('launchpad_item_customreports');
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murules')) {
+            $choices['dynamicrules'] = $primary('launchpad_item_dynamicrules');
+        }
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murelation')) {
+            $choices['orgstructure'] = $primary('launchpad_item_orgstructure');
+        }
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muprog')) {
+            $choices['programs'] = $primary('launchpad_item_programs');
+        }
+        $choices['tenantusers'] = $primary('launchpad_item_users');
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucatalog')) {
+            $choices['catalogue'] = $primary('launchpad_item_catalogue');
+        }
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muhome')) {
+            $choices['customhomepages'] = $primary('launchpad_item_customhomepages');
+        }
+
+        $choices['alltenants'] = $global('launchpad_item_alltenants');
+        $choices['allusers'] = $global('launchpad_item_allusers');
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'certificate')) {
+            $choices['certificates'] = $global('launchpad_item_certificates');
+        }
+        $choices['courses'] = $global('launchpad_item_courses');
+        if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mupages')) {
+            $choices['custompages'] = $global('launchpad_item_custompages');
+        }
+
+        return $choices;
+    }
+
+    $choices = [
+        'allusers' => get_string('launchpad_item_browseusers', 'theme_boost_union_everon'),
+        'courses' => get_string('launchpad_item_managecourses', 'theme_boost_union_everon'),
+        'appearance' => get_string('launchpad_item_appearance', 'theme_boost_union_everon'),
+        'plugins' => get_string('launchpad_item_plugins', 'theme_boost_union_everon'),
+        'performance' => get_string('launchpad_item_performance', 'theme_boost_union_everon'),
+        'customreports' => get_string('launchpad_item_customreports', 'theme_boost_union_everon'),
+        'debugging' => get_string('launchpad_item_debugging', 'theme_boost_union_everon'),
+        'tasks' => get_string('launchpad_item_tasks', 'theme_boost_union_everon'),
+    ];
+    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'certificate')) {
+        $choices['certificates'] = get_string('launchpad_item_certificates', 'theme_boost_union_everon');
+    }
+
+    return $choices;
+}
+
+/**
+ * Enabled built-in Launch Pad tile keys for the current site.
+ *
+ * Handles Moodle admin_setting_configmulticheckbox storage semantics:
+ * - false / null (never saved yet): all available tiles enabled.
+ * - '' (saved with every box unchecked): zero tiles enabled.
+ * - comma-separated list: only those valid available keys enabled.
+ *
+ * @return array<string, bool> Map of enabled tile key => true.
+ */
+function theme_boost_union_everon_launchpad_get_enabled_builtin_tiles(): array {
+    $available = array_keys(theme_boost_union_everon_launchpad_get_builtin_tile_choices());
+    $raw = get_config('theme_boost_union_everon', 'launchpadbuiltintiles');
+
+    if ($raw === false || $raw === null) {
+        return array_fill_keys($available, true);
+    }
+
+    $raw = trim((string) $raw);
+    if ($raw === '') {
+        return [];
+    }
+
+    $availablelookup = array_fill_keys($available, true);
+    $enabled = [];
+    foreach (explode(',', $raw) as $key) {
+        $key = trim($key);
+        if ($key !== '' && isset($availablelookup[$key])) {
+            $enabled[$key] = true;
+        }
+    }
+    return $enabled;
+}
+
+/**
+ * Whether Custom reports should be shown to the user.
+ *
+ * Moodle grants moodle/reportbuilder:view to the default Authenticated User role,
+ * so view-only access only shows Custom reports when the user also has at least
+ * one other built-in management tile.
+ *
+ * @param \context $systemcontext
+ * @param int $userid
+ * @param bool $hasotheradmin
+ * @return bool
+ */
+function theme_boost_union_everon_launchpad_can_show_customreports(
+    \context $systemcontext,
+    int $userid,
+    bool $hasotheradmin
+): bool {
+    global $CFG;
+
+    if (empty($CFG->enablecustomreports)) {
+        return false;
+    }
+
+    $canmanage = theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:editall', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:edit', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:viewall', $systemcontext, $userid);
+    if ($canmanage) {
+        return true;
+    }
+
+    return $hasotheradmin
+        && theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:view', $systemcontext, $userid);
+}
+
+/**
  * Build dynamic Workplace-aligned MuTMS Launch Pad sections when tool_mutenancy is active.
  *
  * @param int|null $userid
  * @return array<int, array{title:string, hastitle:bool, links:array}>
  */
 function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $userid = null): array {
-    global $CFG, $DB, $USER;
+    global $DB, $USER;
 
     $userid = $userid ?? (int) $USER->id;
     if ($userid <= 0 || !isloggedin() || isguestuser($userid)) {
         return [];
     }
 
+    $enabled = theme_boost_union_everon_launchpad_get_enabled_builtin_tiles();
     $systemcontext = \context_system::instance();
 
     // Resolve active tenant and its tenant/category contexts safely.
@@ -1211,17 +1371,25 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
 
     // Determine Global section capabilities first so tenant managers without Global access
     // receive tenant-scoped Courses and Certificates in their primary section without duplication.
-    $canalltenants = theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:view', $systemcontext, $userid)
-        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
-    $canallusers = theme_boost_union_everon_launchpad_has_capability('moodle/user:update', $systemcontext, $userid)
+    $canalltenants = isset($enabled['alltenants']) && (
+        theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:view', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)
+    );
+    $canallusers = isset($enabled['allusers']) && (
+        theme_boost_union_everon_launchpad_has_capability('moodle/user:update', $systemcontext, $userid)
         || theme_boost_union_everon_launchpad_has_capability('moodle/user:delete', $systemcontext, $userid)
-        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
-    $canglobalcourses = theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $systemcontext, $userid)
-        || theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $systemcontext, $userid);
-    $cancustompages = theme_boost_union_everon_launchpad_plugin_installed('tool', 'mupages')
+        || theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)
+    );
+    $canglobalcourses = isset($enabled['courses']) && (
+        theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $systemcontext, $userid)
+        || theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $systemcontext, $userid)
+    );
+    $cancustompages = isset($enabled['custompages'])
+        && theme_boost_union_everon_launchpad_plugin_installed('tool', 'mupages')
         && theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid);
 
-    $canmanagecerts = theme_boost_union_everon_launchpad_can_manage_certificates($tenantcatcontext, $userid);
+    $canmanagecerts = isset($enabled['certificates'])
+        && theme_boost_union_everon_launchpad_can_manage_certificates($tenantcatcontext, $userid);
     $hassystemcert = theme_boost_union_everon_launchpad_has_capability('tool/certificate:manage', $systemcontext, $userid)
         || theme_boost_union_everon_launchpad_has_capability('tool/certificate:viewallcertificates', $systemcontext, $userid);
     $hasotherglobal = $canalltenants || $canallusers || $canglobalcourses || $cancustompages;
@@ -1248,26 +1416,29 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     $primarylinks = [];
 
     // Appearance.
-    if ($tenantid > 0) {
-        if (theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:configappearance', $tenantcontext, $userid)) {
+    if (isset($enabled['appearance'])) {
+        if ($tenantid > 0) {
+            if (theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:configappearance', $tenantcontext, $userid)) {
+                $addtile(
+                    $primarylinks,
+                    'launchpad_item_appearance',
+                    '/admin/tool/mutenancy/tenant_appearance.php?id=' . $tenantid,
+                    'fa-palette'
+                );
+            }
+        } else if (theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
             $addtile(
                 $primarylinks,
                 'launchpad_item_appearance',
-                '/admin/tool/mutenancy/tenant_appearance.php?id=' . $tenantid,
+                '/admin/settings.php?section=theme_boost_union_look',
                 'fa-palette'
             );
         }
-    } else if (theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
-        $addtile(
-            $primarylinks,
-            'launchpad_item_appearance',
-            '/admin/settings.php?section=theme_boost_union_look',
-            'fa-palette'
-        );
     }
 
     // Certifications.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucertify') &&
+    if (isset($enabled['certifications']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucertify') &&
             theme_boost_union_everon_launchpad_has_capability('tool/mucertify:view', $targetcontext, $userid)) {
         $addtile(
             $primarylinks,
@@ -1278,26 +1449,27 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     }
 
     // Record insertion slot for Custom reports (3rd in Primary, right after Appearance & Certifications).
-    // Moodle grants moodle/reportbuilder:view to the default Authenticated User role, so we defer
-    // deciding whether to include Custom reports until we know if the user has other management tiles.
     $customreportsindex = count($primarylinks);
 
     // Dynamic rules.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murules') && (
-            theme_boost_union_everon_launchpad_has_capability('tool/murules:manage', $systemcontext, $userid) ||
-            theme_boost_union_everon_launchpad_has_capability('tool/murules:view', $systemcontext, $userid)
-    )) {
+    if (isset($enabled['dynamicrules']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'murules') && (
+                theme_boost_union_everon_launchpad_has_capability('tool/murules:manage', $systemcontext, $userid) ||
+                theme_boost_union_everon_launchpad_has_capability('tool/murules:view', $systemcontext, $userid)
+            )) {
         $addtile($primarylinks, 'launchpad_item_dynamicrules', '/admin/tool/murules/rules.php', 'fa-bolt');
     }
 
     // Organisation structure.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'murelation') &&
+    if (isset($enabled['orgstructure']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'murelation') &&
             theme_boost_union_everon_launchpad_has_capability('tool/murelation:viewframeworks', $systemcontext, $userid)) {
         $addtile($primarylinks, 'launchpad_item_orgstructure', '/admin/tool/murelation/management/index.php', 'fa-sitemap');
     }
 
     // Programs.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muprog') &&
+    if (isset($enabled['programs']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'muprog') &&
             theme_boost_union_everon_launchpad_has_capability('tool/muprog:view', $targetcontext, $userid)) {
         $addtile(
             $primarylinks,
@@ -1308,7 +1480,7 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     }
 
     // Users (tenant-scoped only so site admins do not see duplicate Users + All users).
-    if ($tenantid > 0 &&
+    if (isset($enabled['tenantusers']) && $tenantid > 0 &&
             theme_boost_union_everon_launchpad_has_capability('tool/mutenancy:view', $tenantcontext, $userid)) {
         $addtile(
             $primarylinks,
@@ -1319,7 +1491,8 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     }
 
     // Catalogue.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucatalog') &&
+    if (isset($enabled['catalogue']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'mucatalog') &&
             theme_boost_union_everon_launchpad_has_capability('tool/mucatalog:view', $targetcontext, $userid)) {
         $addtile(
             $primarylinks,
@@ -1330,7 +1503,8 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     }
 
     // Custom home pages.
-    if (theme_boost_union_everon_launchpad_plugin_installed('tool', 'muhome') &&
+    if (isset($enabled['customhomepages']) &&
+            theme_boost_union_everon_launchpad_plugin_installed('tool', 'muhome') &&
             theme_boost_union_everon_launchpad_has_capability('tool/muhome:view', $targetcontext, $userid)) {
         $addtile(
             $primarylinks,
@@ -1341,9 +1515,9 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
     }
 
     // For tenant managers (and any user without a Global section), include tenant-scoped
-    // Courses and Certificates directly in the primary section.
+    // Courses and Certificates directly in the primary section when those tiles are enabled.
     if ($globallinks === []) {
-        if ($tenantid > 0 && $tenantcatid > 0 && $tenantcatcontext !== null && (
+        if (isset($enabled['courses']) && $tenantid > 0 && $tenantcatid > 0 && $tenantcatcontext !== null && (
                 theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $tenantcatcontext, $userid) ||
                 theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $tenantcatcontext, $userid)
         )) {
@@ -1364,26 +1538,20 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
         }
     }
 
-    // Custom reports: insert in its Workplace position (slot 3, right after Appearance & Certifications).
-    // Regular learners inherit moodle/reportbuilder:view from the Authenticated User role, so only
-    // show Custom reports when the user has reportbuilder management caps OR at least one other
-    // MuTMS/admin management tile in the Launch Pad.
-    if (!empty($CFG->enablecustomreports)) {
-        $canmanagereports = theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:editall', $systemcontext, $userid)
-            || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:edit', $systemcontext, $userid)
-            || theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:viewall', $systemcontext, $userid);
-        $hasotheradmin = ($primarylinks !== [] || $globallinks !== []);
-        $canviewreports = $hasotheradmin
-            && theme_boost_union_everon_launchpad_has_capability('moodle/reportbuilder:view', $systemcontext, $userid);
-        if ($canmanagereports || $canviewreports) {
-            $customreportstile = theme_boost_union_everon_launchpad_make_tile(
-                get_string('launchpad_item_customreports', 'theme_boost_union_everon'),
-                '/reportbuilder/index.php',
-                'fa-chart-bar'
-            );
-            if ($customreportstile !== null) {
-                array_splice($primarylinks, $customreportsindex, 0, [$customreportstile]);
-            }
+    // Custom reports: splice into its Workplace position after checking other management tiles.
+    if (isset($enabled['customreports']) &&
+            theme_boost_union_everon_launchpad_can_show_customreports(
+                $systemcontext,
+                $userid,
+                $primarylinks !== [] || $globallinks !== []
+            )) {
+        $customreportstile = theme_boost_union_everon_launchpad_make_tile(
+            get_string('launchpad_item_customreports', 'theme_boost_union_everon'),
+            '/reportbuilder/index.php',
+            'fa-chart-bar'
+        );
+        if ($customreportstile !== null) {
+            array_splice($primarylinks, $customreportsindex, 0, [$customreportstile]);
         }
     }
 
@@ -1423,10 +1591,129 @@ function theme_boost_union_everon_launchpad_get_mutms_sections_for_user(?int $us
 }
 
 /**
+ * Build standard Moodle built-in Launch Pad section when tool_mutenancy is not active.
+ *
+ * @param int|null $userid
+ * @return array<int, array{title:string, hastitle:bool, links:array}>
+ */
+function theme_boost_union_everon_launchpad_get_standard_sections_for_user(?int $userid = null): array {
+    global $USER;
+
+    $userid = $userid ?? (int) $USER->id;
+    if ($userid <= 0 || !isloggedin() || isguestuser($userid)) {
+        return [];
+    }
+
+    $enabled = theme_boost_union_everon_launchpad_get_enabled_builtin_tiles();
+    $systemcontext = \context_system::instance();
+
+    $addtile = static function (array &$bucket, string $strkey, string $rawurl, string $icon): void {
+        $tile = theme_boost_union_everon_launchpad_make_tile(
+            get_string($strkey, 'theme_boost_union_everon'),
+            $rawurl,
+            $icon
+        );
+        if ($tile !== null) {
+            $bucket[] = $tile;
+        }
+    };
+
+    $links = [];
+
+    if (isset($enabled['allusers']) && (
+            theme_boost_union_everon_launchpad_has_capability('moodle/user:update', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/user:delete', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)
+    )) {
+        $addtile($links, 'launchpad_item_browseusers', '/admin/user.php', 'fa-users');
+    }
+
+    if (isset($enabled['courses']) && (
+            theme_boost_union_everon_launchpad_has_capability('moodle/category:manage', $systemcontext, $userid) ||
+            theme_boost_union_everon_launchpad_has_capability('moodle/course:create', $systemcontext, $userid)
+    )) {
+        $addtile($links, 'launchpad_item_managecourses', '/course/management.php', 'fa-graduation-cap');
+    }
+
+    if (isset($enabled['appearance']) &&
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile($links, 'launchpad_item_appearance', '/admin/settings.php?section=theme_boost_union_look', 'fa-palette');
+    }
+
+    if (isset($enabled['plugins']) &&
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile($links, 'launchpad_item_plugins', '/admin/plugins.php', 'fa-puzzle-piece');
+    }
+
+    if (isset($enabled['performance']) &&
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile($links, 'launchpad_item_performance', '/report/performance/index.php', 'fa-gauge-high');
+    }
+
+    // Record insertion slot for Custom reports (after Performance overview).
+    $customreportsindex = count($links);
+
+    if (isset($enabled['debugging']) &&
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile($links, 'launchpad_item_debugging', '/admin/settings.php?section=debugging', 'fa-bug');
+    }
+
+    if (isset($enabled['tasks']) &&
+            theme_boost_union_everon_launchpad_has_capability('moodle/site:config', $systemcontext, $userid)) {
+        $addtile($links, 'launchpad_item_tasks', '/admin/tool/task/scheduledtasks.php', 'fa-clock');
+    }
+
+    if (isset($enabled['certificates']) &&
+            theme_boost_union_everon_launchpad_can_manage_certificates(null, $userid)) {
+        $addtile($links, 'launchpad_item_certificates', '/admin/tool/certificate/manage_templates.php', 'fa-certificate');
+    }
+
+    // Custom reports: splice into slot only when user has reportbuilder management caps
+    // or at least one other built-in management tile.
+    if (isset($enabled['customreports']) &&
+            theme_boost_union_everon_launchpad_can_show_customreports($systemcontext, $userid, $links !== [])) {
+        $customreportstile = theme_boost_union_everon_launchpad_make_tile(
+            get_string('launchpad_item_customreports', 'theme_boost_union_everon'),
+            '/reportbuilder/index.php',
+            'fa-chart-bar'
+        );
+        if ($customreportstile !== null) {
+            array_splice($links, $customreportsindex, 0, [$customreportstile]);
+        }
+    }
+
+    // Append any non-siteadmin custom role packs configured in launchpadrolelinks, deduped by URL.
+    $seen = [];
+    foreach ($links as $link) {
+        $seen[$link['url']] = true;
+    }
+    foreach (theme_boost_union_everon_launchpad_get_rolepack_links_for_user($userid, false) as $link) {
+        if (isset($seen[$link['url']])) {
+            continue;
+        }
+        $seen[$link['url']] = true;
+        $links[] = $link;
+    }
+
+    if ($links === []) {
+        return [];
+    }
+
+    return [[
+        'title' => '',
+        'hastitle' => false,
+        'links' => $links,
+    ]];
+}
+
+/**
  * Launch Pad sections for the current (or specified) user.
  *
- * Uses dynamic Workplace-aligned MuTMS sections when tool_mutenancy is active;
- * falls back to configured launchpadrolelinks packs on non-MuTMS sites.
+ * Respects launchpadmode ('builtin' vs 'custom'):
+ * - 'custom': uses configured launchpadrolelinks packs exclusively.
+ * - 'builtin': builds capability-aware MuTMS sections (when tool_mutenancy is active)
+ *   or standard Moodle built-in tiles (otherwise), filtered by launchpadbuiltintiles,
+ *   plus non-siteadmin custom role packs.
  *
  * @param int|null $userid
  * @return array<int, array{title:string, hastitle:bool, links:array}>
@@ -1439,20 +1726,24 @@ function theme_boost_union_everon_launchpad_get_sections_for_user(?int $userid =
         return [];
     }
 
+    if (theme_boost_union_everon_launchpad_get_mode() === 'custom') {
+        $links = theme_boost_union_everon_launchpad_get_rolepack_links_for_user($userid, true);
+        if ($links === []) {
+            return [];
+        }
+
+        return [[
+            'title' => '',
+            'hastitle' => false,
+            'links' => $links,
+        ]];
+    }
+
     if (theme_boost_union_everon_launchpad_mutenancy_is_active()) {
         return theme_boost_union_everon_launchpad_get_mutms_sections_for_user($userid);
     }
 
-    $links = theme_boost_union_everon_launchpad_get_rolepack_links_for_user($userid, true);
-    if ($links === []) {
-        return [];
-    }
-
-    return [[
-        'title' => '',
-        'hastitle' => false,
-        'links' => $links,
-    ]];
+    return theme_boost_union_everon_launchpad_get_standard_sections_for_user($userid);
 }
 
 /**

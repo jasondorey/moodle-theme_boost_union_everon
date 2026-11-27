@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'إعادة ضبط جميع إعدادات إمكان�
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'أيقونة في شريط التنقل تفتح روابط اختصار حسب الدور. مديرو الموقع هو الحزمة الافتراضية؛ أضف أي أدوار موقع أخرى حسب الحاجة. تُدمَج الحزم المتطابقة وتُزال التكرارات حسب عنوان URL. تُخفى الأيقونة عندما يكون Launch Pad معطّلًا أو عندما لا يملك المستخدم الحالي أي روابط.';
+$string['launchpadheading_desc'] = 'أيقونة في شريط التنقل تفتح روابط اختصار مضمّنة حسب الصلاحيات و/أو حزم روابط أدوار مخصصة. اختر وضع البلاطات المضمّنة (الافتراضي) لعرض اختصارات تلقائية للميزات المثبّتة حسب صلاحيات كل مستخدم (بما في ذلك بلاطات المستأجر والعامة في مواقع MuTMS)، أو وضع روابط الأدوار المخصصة فقط لإدارة جميع الروابط عبر حزم JSON. تُخفى الأيقونة عندما يكون Launch Pad معطّلًا أو عندما لا يملك المستخدم الحالي أي روابط متاحة.';
 $string['enablelaunchpad'] = 'تمكين Launch Pad';
-$string['enablelaunchpad_desc'] = 'إظهار أيقونة Launch Pad في شريط التنقل العلوي (بعد أداة إمكانية الوصول وقبل قائمة المستخدم) عندما يملك المستخدم رابطًا مكوَّنًا واحدًا على الأقل. الافتراضي: لا — فعّله بعد إضافة روابط JSON أدناه.';
+$string['enablelaunchpad_desc'] = 'إظهار أيقونة Launch Pad في شريط التنقل العلوي (بعد أداة إمكانية الوصول وقبل قائمة المستخدم) عندما يملك المستخدم رابطًا متاحًا واحدًا على الأقل. الافتراضي: لا.';
+$string['launchpadmode'] = 'وضع Launch Pad';
+$string['launchpadmode_desc'] = 'اختر كيفية تعبئة روابط Launch Pad. في وضع البلاطات المضمّنة، تُنشأ الاختصارات تلقائيًا من البلاطات المفعّلة أدناه حسب الإضافات المثبّتة وصلاحيات كل مستخدم (مديرو الموقع، ومديرو المستأجرين في مواقع MuTMS) مع إلحاق حزم الأدوار غير الإدارية. في وضع روابط الأدوار المخصصة فقط، تُستخدم حزم روابط JSON أدناه وحدها.';
+$string['launchpadmode_builtin'] = 'بلاطات مضمّنة (حسب الصلاحيات) + روابط أدوار مخصصة';
+$string['launchpadmode_custom'] = 'روابط أدوار مخصصة فقط';
+$string['launchpadbuiltintiles'] = 'بلاطات Launch Pad المضمّنة';
+$string['launchpadbuiltintiles_desc'] = 'اختر البلاطات المضمّنة التي يمكن عرضها عند تفعيل وضع البلاطات المضمّنة. تُعرض فقط بلاطات الميزات المثبّتة في هذا الموقع، وتُفحَص كل بلاطة وفق صلاحيات المستخدم الحالي (والمستأجر النشط في مواقع MuTMS) حتى لا يرى المستخدمون روابط لا يمكنهم الوصول إليها.';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'مصفوفة JSON من الكائنات تحتوي على <code>label</code> و<code>url</code> (مسار نسبي للموقع مثل <code>/admin/search.php</code>) و<code>icon</code> اختياري (فئة Font Awesome، مثل <code>fa-cog</code>). تُرفض عناوين URL الخارجية في الإصدار v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'الروابط: المستخدمون 
 $string['launchpadlinks_authenticated_desc'] = 'احتياطي لكل مستخدم مسجّل دخول غير ضيف. يُدمَج بعد siteadmin وحزم الأدوار.';
 
 $string['launchpadrolelinks'] = 'حزم روابط الأدوار';
-$string['launchpadrolelinks_desc'] = 'كوّن قوائم روابط JSON. مديرو الموقع موجود دائمًا (افتراضي). استخدم إضافة دور لأي دور موقع آخر. تطابق حزم الأدوار عندما يملك المستخدم ذلك الدور في أي سياق. يستخدم التخزين معرّفات الأدوار؛ وتعرض التسميات اسم الدور الحالي.';
+$string['launchpadrolelinks_desc'] = 'كوّن قوائم روابط JSON حسب الدور. في وضع البلاطات المضمّنة، تدير البلاطات أعلاه اختصارات مديري الموقع (ومديري المستأجرين في مواقع MuTMS) وتكون حزمة مديري الموقع هنا غير نشطة، بينما تُلحق أي حزم أدوار أخرى (مع إزالة التكرار حسب URL). في وضع روابط الأدوار المخصصة فقط، تتحكم حزم JSON هذه (بما فيها مديرو الموقع) في Launch Pad حصريًا.';
 $string['launchpadbuiltinpacks'] = 'الحزم المضمّنة';
 $string['launchpadconfiguredroles'] = 'الحزم المكوَّنة';
 $string['launchpadaddrole'] = 'إضافة دور';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'يجب أن تكون روابط أدوار
 
 $string['launchpadjsoninvalid'] = 'يجب أن تكون روابط Launch Pad مصفوفة JSON من الكائنات، لكل منها label وurl غير فارغين.';
 $string['launchpad_section_global'] = 'عام';
+$string['launchpad_tile_prefix_primary'] = 'أساسي: {$a}';
+$string['launchpad_tile_prefix_global'] = 'عام: {$a}';
 $string['launchpad_item_appearance'] = 'المظهر';
+$string['launchpad_item_browseusers'] = 'تصفح قائمة المستخدمين';
+$string['launchpad_item_managecourses'] = 'إدارة المقررات والتصنيفات';
+$string['launchpad_item_plugins'] = 'نظرة عامة على الإضافات';
+$string['launchpad_item_performance'] = 'نظرة عامة على الأداء';
+$string['launchpad_item_debugging'] = 'التنقيح';
+$string['launchpad_item_tasks'] = 'المهام المجدولة';
 $string['launchpad_item_certifications'] = 'الشهادات المعتمدة';
 $string['launchpad_item_customreports'] = 'التقارير المخصصة';
 $string['launchpad_item_dynamicrules'] = 'القواعد الديناميكية';

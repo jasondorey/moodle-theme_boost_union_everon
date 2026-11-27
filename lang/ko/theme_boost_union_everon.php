@@ -86,9 +86,15 @@ $string['a11yresetall'] = '모든 접근성 설정 재설정';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = '역할에 맞는 바로가기 링크를 여는 탐색 표시줄 아이콘입니다. 기본 팩은 사이트 관리자입니다. 필요에 따라 다른 사이트 역할을 추가하세요. 일치하는 팩은 URL로 병합되고 중복 제거됩니다. Launch Pad가 비활성화되었거나 현재 사용자에게 링크가 없으면 아이콘이 숨겨집니다.';
+$string['launchpadheading_desc'] = '권한 기반 기본 타일 바로가기 및/또는 사용자 지정 역할 링크 팩을 여는 탐색 표시줄 아이콘입니다. 기본 타일 모드(기본값)를 선택하면 설치된 기능에 대한 바로가기가 각 사용자의 권한에 따라 자동으로 표시되며(MuTMS 사이트의 테넌트 및 전역 타일 포함), 사용자 지정 역할 링크 전용 모드에서는 JSON 팩만으로 관리합니다. Launch Pad가 비활성화되었거나 접근 가능한 링크가 없으면 아이콘이 숨겨집니다.';
 $string['enablelaunchpad'] = 'Launch Pad 사용';
-$string['enablelaunchpad_desc'] = '사용자에게 구성된 링크가 하나 이상 있을 때 상단 탐색 표시줄(접근성 도구 뒤, 사용자 메뉴 앞)에 Launch Pad 아이콘을 표시합니다. 기본값: 아니요 — 아래 JSON 링크를 추가한 뒤 켜세요.';
+$string['enablelaunchpad_desc'] = '사용자에게 접근 가능한 링크가 하나 이상 있을 때 상단 탐색 표시줄(접근성 도구 뒤, 사용자 메뉴 앞)에 Launch Pad 아이콘을 표시합니다. 기본값: 아니요.';
+$string['launchpadmode'] = 'Launch Pad 모드';
+$string['launchpadmode_desc'] = 'Launch Pad 링크를 채우는 방식을 선택합니다. 기본 타일 모드에서는 설치된 플러그인과 사용자 권한(사이트 관리자 및 MuTMS 사이트의 테넌트 관리자)에 따라 아래에서 활성화된 타일이 자동 생성되며, 기타 역할 팩이 추가됩니다. 사용자 지정 역할 링크 전용 모드에서는 아래 JSON 역할 링크 팩만 사용됩니다.';
+$string['launchpadmode_builtin'] = '기본 타일(권한 기반) + 사용자 지정 역할 링크';
+$string['launchpadmode_custom'] = '사용자 지정 역할 링크 전용';
+$string['launchpadbuiltintiles'] = '기본 Launch Pad 타일';
+$string['launchpadbuiltintiles_desc'] = '기본 타일 모드가 활성화된 경우 표시할 수 있는 기본 타일을 선택하세요. 이 사이트에 설치된 기능의 타일만 표시됩니다. 각 타일은 항상 현재 사용자의 권한(및 MuTMS 사이트의 활성 테넌트)에 대해 확인됩니다.';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = '<code>label</code>, <code>url</code>(예: <code>/admin/search.php</code> 같은 사이트 상대 경로), 선택적 <code>icon</code>(Font Awesome 클래스, 예: <code>fa-cog</code>)이 있는 객체의 JSON 배열입니다. 외부 URL은 v1에서 거부됩니다. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = '링크: 인증된 사용자';
 $string['launchpadlinks_authenticated_desc'] = '게스트가 아닌 로그인한 모든 사용자를 위한 대체입니다. siteadmin 및 역할 팩 뒤에 병합됩니다.';
 
 $string['launchpadrolelinks'] = '역할 링크 팩';
-$string['launchpadrolelinks_desc'] = 'JSON 링크 목록을 구성합니다. 사이트 관리자는 항상 있습니다(기본). 다른 사이트 역할에는 역할 추가를 사용하세요. 사용자가 어떤 컨텍스트에서든 해당 역할을 가지면 역할 팩이 일치합니다. 저장소는 역할 id를 사용하며, 레이블은 현재 역할 이름을 표시합니다.';
+$string['launchpadrolelinks_desc'] = '역할별 JSON 링크 목록을 구성합니다. 기본 타일 모드에서는 위의 기본 타일이 사이트 관리자(및 MuTMS 사이트의 테넌트 관리자) 바로가기를 관리하므로 여기의 사이트 관리자 팩은 비활성화되며, 추가된 다른 역할 팩은 뒤에 추가됩니다(URL 기준 중복 제거). 사용자 지정 역할 링크 전용 모드에서는 이 JSON 팩(사이트 관리자 포함)만으로 Launch Pad가 구성됩니다.';
 $string['launchpadbuiltinpacks'] = '기본 제공 팩';
 $string['launchpadconfiguredroles'] = '구성된 팩';
 $string['launchpadaddrole'] = '역할 추가';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'Launch Pad 역할 링크는 팩 키를 링
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 링크는 각각 비어 있지 않은 label과 url이 있는 객체의 JSON 배열이어야 합니다.';
 $string['launchpad_section_global'] = '전역';
+$string['launchpad_tile_prefix_primary'] = '기본: {$a}';
+$string['launchpad_tile_prefix_global'] = '전역: {$a}';
 $string['launchpad_item_appearance'] = '모양';
+$string['launchpad_item_browseusers'] = '사용자 목록 찾아보기';
+$string['launchpad_item_managecourses'] = '강의 및 범주 관리';
+$string['launchpad_item_plugins'] = '플러그인 개요';
+$string['launchpad_item_performance'] = '성능 개요';
+$string['launchpad_item_debugging'] = '디버깅';
+$string['launchpad_item_tasks'] = '예약된 작업';
 $string['launchpad_item_certifications'] = '자격 인증';
 $string['launchpad_item_customreports'] = '사용자 지정 보고서';
 $string['launchpad_item_dynamicrules'] = '동적 규칙';

@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'Réinitialiser tous les réglages d’accessibilité'
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Icône de la barre de navigation ouvrant des raccourcis adaptés au rôle. Le pack par défaut est Administrateurs du site ; ajoutez d’autres rôles du site au besoin. Les packs correspondants sont fusionnés et dédoublonnés par URL. L’icône est masquée lorsque Launch Pad est désactivé ou que l’utilisateur actuel n’a aucun lien.';
+$string['launchpadheading_desc'] = 'Icône de la barre de navigation ouvrant des raccourcis intégrés selon les capacités et/ou des packs de liens personnalisés par rôle. Choisissez le mode Tuiles intégrées (par défaut) pour afficher automatiquement les raccourcis des fonctionnalités installées selon les capacités de chaque utilisateur (y compris les tuiles locataire et Global sur les sites MuTMS), ou Liens de rôle personnalisés uniquement pour tout gérer via JSON. L’icône est masquée si Launch Pad est désactivé ou si l’utilisateur actuel n’a aucun lien accessible.';
 $string['enablelaunchpad'] = 'Activer Launch Pad';
-$string['enablelaunchpad_desc'] = 'Afficher l’icône Launch Pad dans la barre supérieure (après l’outil d’accessibilité, avant le menu utilisateur) lorsque l’utilisateur a au moins un lien configuré. Par défaut : Non — activez-le après avoir ajouté les liens JSON ci-dessous.';
+$string['enablelaunchpad_desc'] = 'Afficher l’icône Launch Pad dans la barre supérieure (après l’outil d’accessibilité, avant le menu utilisateur) lorsque l’utilisateur a au moins un lien accessible. Par défaut : Non.';
+$string['launchpadmode'] = 'Mode Launch Pad';
+$string['launchpadmode_desc'] = 'Choisissez comment les liens du Launch Pad sont alimentés. En mode Tuiles intégrées, les raccourcis sont générés automatiquement à partir des tuiles activées ci-dessous selon les plugins installés et les capacités de chaque utilisateur (administrateurs du site et, sur les sites MuTMS, gestionnaires de locataire), avec ajout des packs d’autres rôles. En mode Liens de rôle personnalisés uniquement, seuls les packs JSON ci-dessous sont utilisés.';
+$string['launchpadmode_builtin'] = 'Tuiles intégrées (selon les capacités) + liens de rôle personnalisés';
+$string['launchpadmode_custom'] = 'Liens de rôle personnalisés uniquement';
+$string['launchpadbuiltintiles'] = 'Tuiles intégrées du Launch Pad';
+$string['launchpadbuiltintiles_desc'] = 'Sélectionnez les tuiles intégrées pouvant apparaître en mode Tuiles intégrées. Seules les tuiles correspondant aux fonctionnalités installées sur ce site sont affichées. Chaque tuile reste vérifiée selon les capacités de l’utilisateur actuel (et le locataire actif sur les sites MuTMS).';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'Tableau JSON d’objets avec <code>label</code>, <code>url</code> (chemin relatif au site tel que <code>/admin/search.php</code>) et <code>icon</code> facultatif (classe Font Awesome, p. ex. <code>fa-cog</code>). Les URL externes sont rejetées en v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'Liens : Utilisateurs authentifiés';
 $string['launchpadlinks_authenticated_desc'] = 'Solution de repli pour tout utilisateur connecté non invité. Fusionné après siteadmin et les packs de rôles.';
 
 $string['launchpadrolelinks'] = 'Packs de liens par rôle';
-$string['launchpadrolelinks_desc'] = 'Configurez des listes de liens JSON. Administrateurs du site est toujours présent (par défaut). Utilisez Ajouter un rôle pour tout autre rôle du site. Les packs de rôle correspondent lorsque l’utilisateur a ce rôle dans n’importe quel contexte. Le stockage utilise les ids de rôle ; les libellés affichent le nom actuel du rôle.';
+$string['launchpadrolelinks_desc'] = 'Configurez des listes de liens JSON par rôle. En mode Tuiles intégrées, les tuiles ci-dessus gèrent les raccourcis des administrateurs du site (et des gestionnaires de locataire sur les sites MuTMS) et le pack Administrateurs du site ici est inactif ; les autres packs de rôle ajoutés sont ajoutés à la suite (dédoublonnés par URL). En mode Liens de rôle personnalisés uniquement, ces packs JSON (y compris Administrateurs du site) pilotent exclusivement le Launch Pad.';
 $string['launchpadbuiltinpacks'] = 'Packs intégrés';
 $string['launchpadconfiguredroles'] = 'Packs configurés';
 $string['launchpadaddrole'] = 'Ajouter un rôle';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'Les liens de rôle Launch Pad doivent êtr
 
 $string['launchpadjsoninvalid'] = 'Les liens Launch Pad doivent être un tableau JSON d’objets, chacun avec un label et une url non vides.';
 $string['launchpad_section_global'] = 'Global';
+$string['launchpad_tile_prefix_primary'] = 'Principal : {$a}';
+$string['launchpad_tile_prefix_global'] = 'Global : {$a}';
 $string['launchpad_item_appearance'] = 'Apparence';
+$string['launchpad_item_browseusers'] = 'Consulter la liste des utilisateurs';
+$string['launchpad_item_managecourses'] = 'Gérer les cours et catégories';
+$string['launchpad_item_plugins'] = 'Vue d’ensemble des plugins';
+$string['launchpad_item_performance'] = 'Vue d’ensemble des performances';
+$string['launchpad_item_debugging'] = 'Débogage';
+$string['launchpad_item_tasks'] = 'Tâches programmées';
 $string['launchpad_item_certifications'] = 'Certifications';
 $string['launchpad_item_customreports'] = 'Rapports personnalisés';
 $string['launchpad_item_dynamicrules'] = 'Règles dynamiques';

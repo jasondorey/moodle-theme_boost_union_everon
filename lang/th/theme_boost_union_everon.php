@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'รีเซ็ตการตั้งค่าก�
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'ไอคอนแถบนำทางที่เปิดลิงก์ทางลัดตามบทบาท แพ็กเริ่มต้นคือ ผู้ดูแลไซต์; เพิ่มบทบาทไซต์อื่นตามต้องการ แพ็กที่ตรงกันจะถูกรวมและตัดรายการซ้ำตาม URL ไอคอนจะถูกซ่อนเมื่อปิด Launch Pad หรือผู้ใช้ปัจจุบันไม่มีลิงก์';
+$string['launchpadheading_desc'] = 'ไอคอนแถบนำทางที่เปิดทางลัดในตัวตามสิทธิ์และ/หรือแพ็กลิงก์บทบาทแบบกำหนดเอง เลือกโหมดไทล์ในตัว (ค่าเริ่มต้น) เพื่อแสดงทางลัดโดยอัตโนมัติสำหรับฟีเจอร์ที่ติดตั้งตามสิทธิ์ของผู้ใช้ (รวมถึงไทล์ผู้เช่าและส่วนกลางบนไซต์ MuTMS) หรือเลือกเฉพาะลิงก์บทบาทแบบกำหนดเองเพื่อจัดการทั้งหมดผ่าน JSON ไอคอนจะซ่อนเมื่อปิดใช้งานหรือไม่มีลิงก์ที่เข้าถึงได้';
 $string['enablelaunchpad'] = 'เปิดใช้ Launch Pad';
-$string['enablelaunchpad_desc'] = 'แสดงไอคอน Launch Pad ในแถบนำทางด้านบน (หลังเครื่องมือการเข้าถึง ก่อนเมนูผู้ใช้) เมื่อผู้ใช้มีลิงก์ที่กำหนดอย่างน้อยหนึ่งรายการ ค่าเริ่มต้น: ไม่ — เปิดใช้หลังจากเพิ่มลิงก์ JSON ด้านล่าง';
+$string['enablelaunchpad_desc'] = 'แสดงไอคอน Launch Pad ในแถบนำทางด้านบน (หลังเครื่องมือการเข้าถึง ก่อนเมนูผู้ใช้) เมื่อผู้ใช้มีลิงก์ที่เข้าถึงได้อย่างน้อยหนึ่งรายการ ค่าเริ่มต้น: ไม่';
+$string['launchpadmode'] = 'โหมด Launch Pad';
+$string['launchpadmode_desc'] = 'เลือกวิธีสร้างลิงก์ใน Launch Pad ในโหมดไทล์ในตัว ทางลัดจะสร้างอัตโนมัติจากไทล์ที่เปิดใช้ด้านล่างตามปลั๊กอินที่ติดตั้งและสิทธิ์ของผู้ใช้ (ผู้ดูแลไซต์ และผู้จัดการผู้เช่าบนไซต์ MuTMS) พร้อมต่อท้ายด้วยแพ็กบทบาทอื่น ในโหมดเฉพาะลิงก์บทบาทแบบกำหนดเอง จะใช้เฉพาะแพ็กลิงก์ JSON ด้านล่างเท่านั้น';
+$string['launchpadmode_builtin'] = 'ไทล์ในตัว (ตามสิทธิ์) + ลิงก์บทบาทแบบกำหนดเอง';
+$string['launchpadmode_custom'] = 'เฉพาะลิงก์บทบาทแบบกำหนดเอง';
+$string['launchpadbuiltintiles'] = 'ไทล์ Launch Pad ในตัว';
+$string['launchpadbuiltintiles_desc'] = 'เลือกไทล์ในตัวที่อนุญาตให้แสดงเมื่อเปิดใช้โหมดไทล์ในตัว จะแสดงเฉพาะไทล์สำหรับฟีเจอร์ที่ติดตั้งในไซต์นี้เท่านั้น และแต่ละไทล์ยังคงตรวจสอบสิทธิ์ของผู้ใช้ปัจจุบัน (และผู้เช่าที่ใช้งานบนไซต์ MuTMS) เสมอ';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'อาร์เรย์ JSON ของอ็อบเจ็กต์ที่มี <code>label</code>, <code>url</code> (พาธสัมพัทธ์ไซต์ เช่น <code>/admin/search.php</code>) และ <code>icon</code> ที่เป็นทางเลือก (คลาส Font Awesome เช่น <code>fa-cog</code>) URL ภายนอกจะถูกปฏิเสธใน v1 Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'ลิงก์: ผู้ใช้�
 $string['launchpadlinks_authenticated_desc'] = 'ทางเลือกสำรองสำหรับผู้ใช้ที่เข้าสู่ระบบทุกคนที่ไม่ใช่แขก รวมหลัง siteadmin และแพ็กบทบาท';
 
 $string['launchpadrolelinks'] = 'แพ็กลิงก์ตามบทบาท';
-$string['launchpadrolelinks_desc'] = 'กำหนดรายการลิงก์ JSON ผู้ดูแลไซต์มีอยู่เสมอ (ค่าเริ่มต้น) ใช้ เพิ่มบทบาท สำหรับบทบาทไซต์อื่น แพ็กบทบาทจะตรงเมื่อผู้ใช้มีบทบาทนั้นในบริบทใดก็ได้ ที่เก็บใช้รหัสบทบาท; ป้ายแสดงชื่อบทบาทปัจจุบัน';
+$string['launchpadrolelinks_desc'] = 'กำหนดรายการลิงก์ JSON ตามบทบาท ในโหมดไทล์ในตัว ไทล์ด้านบนจะจัดการทางลัดของผู้ดูแลไซต์ (และผู้จัดการผู้เช่าบนไซต์ MuTMS) โดยแพ็กผู้ดูแลไซต์ที่นี่จะไม่ทำงาน ส่วนแพ็กบทบาทอื่นที่เพิ่มไว้จะถูกต่อท้าย (ตัดรายการซ้ำตาม URL) ในโหมดเฉพาะลิงก์บทบาทแบบกำหนดเอง แพ็ก JSON เหล่านี้ (รวมผู้ดูแลไซต์) จะควบคุม Launch Pad ทั้งหมด';
 $string['launchpadbuiltinpacks'] = 'แพ็กในตัว';
 $string['launchpadconfiguredroles'] = 'แพ็กที่กำหนดไว้';
 $string['launchpadaddrole'] = 'เพิ่มบทบาท';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'ลิงก์บทบาท Launch Pad 
 
 $string['launchpadjsoninvalid'] = 'ลิงก์ Launch Pad ต้องเป็นอาร์เรย์ JSON ของอ็อบเจ็กต์ แต่ละรายการต้องมี label และ url ที่ไม่ว่าง';
 $string['launchpad_section_global'] = 'ส่วนกลาง';
+$string['launchpad_tile_prefix_primary'] = 'หลัก: {$a}';
+$string['launchpad_tile_prefix_global'] = 'ส่วนกลาง: {$a}';
 $string['launchpad_item_appearance'] = 'รูปลักษณ์';
+$string['launchpad_item_browseusers'] = 'เรียกดูรายชื่อผู้ใช้';
+$string['launchpad_item_managecourses'] = 'จัดการหลักสูตรและหมวดหมู่';
+$string['launchpad_item_plugins'] = 'ภาพรวมปลั๊กอิน';
+$string['launchpad_item_performance'] = 'ภาพรวมประสิทธิภาพ';
+$string['launchpad_item_debugging'] = 'การดีบัก';
+$string['launchpad_item_tasks'] = 'งานตามกำหนดเวลา';
 $string['launchpad_item_certifications'] = 'การรับรอง';
 $string['launchpad_item_customreports'] = 'รายงานที่กำหนดเอง';
 $string['launchpad_item_dynamicrules'] = 'กฎแบบไดนามิก';

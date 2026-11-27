@@ -90,9 +90,15 @@ $string['a11yresetall'] = 'Reset all accessibility settings';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Navbar icon that opens role-aware shortcut links. Site administrators is the default pack; add any other site roles as needed. Matching packs are merged and deduplicated by URL. The icon is hidden when Launch Pad is disabled or the current user has no links.';
+$string['launchpadheading_desc'] = 'Navbar icon that opens capability-aware shortcut links and/or custom role link packs. Choose Built-in tiles mode (default) to automatically show shortcuts for installed features based on each user\'s capabilities (including tenant-scoped and Global tiles on MuTMS sites), or Custom role links only to manage all links via JSON packs. The icon is hidden when Launch Pad is disabled or the current user has no accessible links.';
 $string['enablelaunchpad'] = 'Enable Launch Pad';
-$string['enablelaunchpad_desc'] = 'Show the Launch Pad icon in the top navbar (after the accessibility tool, before the user menu) when the user has at least one configured link. Default: No — turn on after you add JSON links below.';
+$string['enablelaunchpad_desc'] = 'Show the Launch Pad icon in the top navbar (after the accessibility tool, before the user menu) when the user has at least one accessible link. Default: No.';
+$string['launchpadmode'] = 'Launch Pad mode';
+$string['launchpadmode_desc'] = 'Choose how Launch Pad links are populated. In Built-in tiles mode, shortcuts are generated automatically from the enabled tiles below based on installed plugins and each user\'s capabilities (Site administrators and, on MuTMS sites, Tenant managers), with non-administrator role packs appended. In Custom role links only mode, only the JSON role link packs below are used.';
+$string['launchpadmode_builtin'] = 'Built-in tiles (capability-aware) + custom role links';
+$string['launchpadmode_custom'] = 'Custom role links only';
+$string['launchpadbuiltintiles'] = 'Built-in Launch Pad tiles';
+$string['launchpadbuiltintiles_desc'] = 'Select which built-in tiles can appear when Built-in tiles mode is active. Only tiles for features installed on this site are listed. Every tile is still checked against the current user\'s capabilities (and active tenant on MuTMS sites) so users never see links they cannot access.';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'JSON array of objects with <code>label</code>, <code>url</code> (site-relative path such as <code>/admin/search.php</code>), and optional <code>icon</code> (Font Awesome class, e.g. <code>fa-cog</code>). External URLs are rejected in v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -106,7 +112,7 @@ $string['launchpadlinks_authenticated'] = 'Links: Authenticated users';
 $string['launchpadlinks_authenticated_desc'] = 'Fallback for every logged-in non-guest user. Merged after siteadmin and role packs.';
 
 $string['launchpadrolelinks'] = 'Role link packs';
-$string['launchpadrolelinks_desc'] = 'Configure JSON link lists. Site administrators is always present (default). Use Add role for any other site role. Role packs match when the user has that role in any context. Store uses role ids; labels show the current role name.';
+$string['launchpadrolelinks_desc'] = 'Configure JSON link lists by role. In Built-in tiles mode, the built-in tiles above manage Site administrator (and Tenant manager on MuTMS sites) shortcuts and the Site administrators pack here is inactive; any added role packs are appended (deduplicated by URL). In Custom role links only mode, these JSON packs (including Site administrators) drive the Launch Pad exclusively. Role packs match when the user has that role in any context.';
 $string['launchpadbuiltinpacks'] = 'Built-in packs';
 $string['launchpadconfiguredroles'] = 'Configured packs';
 $string['launchpadaddrole'] = 'Add role';
@@ -118,7 +124,15 @@ $string['launchpadrolemapinvalid'] = 'Launch Pad role links must be a JSON objec
 
 $string['launchpadjsoninvalid'] = 'Launch Pad links must be a JSON array of objects, each with non-empty label and url.';
 $string['launchpad_section_global'] = 'Global';
+$string['launchpad_tile_prefix_primary'] = 'Primary: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Global: {$a}';
 $string['launchpad_item_appearance'] = 'Appearance';
+$string['launchpad_item_browseusers'] = 'Browse list of users';
+$string['launchpad_item_managecourses'] = 'Manage courses and categories';
+$string['launchpad_item_plugins'] = 'Plugins overview';
+$string['launchpad_item_performance'] = 'Performance overview';
+$string['launchpad_item_debugging'] = 'Debugging';
+$string['launchpad_item_tasks'] = 'Scheduled tasks';
 $string['launchpad_item_certifications'] = 'Certifications';
 $string['launchpad_item_customreports'] = 'Custom reports';
 $string['launchpad_item_dynamicrules'] = 'Dynamic rules';

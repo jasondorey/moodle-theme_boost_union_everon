@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'Đặt lại tất cả cài đặt trợ năng';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Biểu tượng thanh điều hướng mở các liên kết lối tắt theo vai trò. Gói mặc định là Quản trị viên trang; thêm các vai trò trang khác khi cần. Các gói khớp được hợp nhất và loại trùng theo URL. Biểu tượng bị ẩn khi Launch Pad tắt hoặc người dùng hiện tại không có liên kết.';
+$string['launchpadheading_desc'] = 'Biểu tượng thanh điều hướng mở lối tắt tích hợp theo quyền và/hoặc gói liên kết vai trò tùy chỉnh. Chọn chế độ Ô tích hợp (mặc định) để tự động hiển thị lối tắt cho các tính năng đã cài theo quyền từng người dùng (gồm ô tổ chức thuê và Toàn cục trên trang MuTMS), hoặc Chỉ liên kết vai trò tùy chỉnh để quản lý toàn bộ bằng JSON. Biểu tượng bị ẩn khi Launch Pad tắt hoặc người dùng không có liên kết khả dụng.';
 $string['enablelaunchpad'] = 'Bật Launch Pad';
-$string['enablelaunchpad_desc'] = 'Hiển thị biểu tượng Launch Pad trên thanh điều hướng trên cùng (sau công cụ trợ năng, trước menu người dùng) khi người dùng có ít nhất một liên kết đã cấu hình. Mặc định: Không — bật sau khi thêm liên kết JSON bên dưới.';
+$string['enablelaunchpad_desc'] = 'Hiển thị biểu tượng Launch Pad trên thanh điều hướng trên cùng (sau công cụ trợ năng, trước menu người dùng) khi người dùng có ít nhất một liên kết khả dụng. Mặc định: Không.';
+$string['launchpadmode'] = 'Chế độ Launch Pad';
+$string['launchpadmode_desc'] = 'Chọn cách tạo liên kết cho Launch Pad. Ở chế độ Ô tích hợp, lối tắt được tạo tự động từ các ô đã bật bên dưới dựa trên plugin đã cài và quyền của người dùng (Quản trị viên trang và Quản lý tổ chức thuê trên trang MuTMS), đồng thời nối thêm các gói vai trò khác. Ở chế độ Chỉ liên kết vai trò tùy chỉnh, chỉ các gói JSON bên dưới được sử dụng.';
+$string['launchpadmode_builtin'] = 'Ô tích hợp (theo quyền) + liên kết vai trò tùy chỉnh';
+$string['launchpadmode_custom'] = 'Chỉ liên kết vai trò tùy chỉnh';
+$string['launchpadbuiltintiles'] = 'Các ô Launch Pad tích hợp';
+$string['launchpadbuiltintiles_desc'] = 'Chọn các ô tích hợp được phép hiển thị khi bật chế độ Ô tích hợp. Chỉ các ô của tính năng đã cài trên trang này mới xuất hiện. Mỗi ô vẫn được kiểm tra theo quyền của người dùng hiện tại (và tổ chức thuê đang hoạt động trên trang MuTMS).';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'Mảng JSON các đối tượng với <code>label</code>, <code>url</code> (đường dẫn tương đối trang như <code>/admin/search.php</code>) và <code>icon</code> tùy chọn (lớp Font Awesome, ví dụ <code>fa-cog</code>). URL bên ngoài bị từ chối trong v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'Liên kết: Người dùng đã xác
 $string['launchpadlinks_authenticated_desc'] = 'Phương án dự phòng cho mọi người dùng đã đăng nhập không phải khách. Hợp nhất sau siteadmin và các gói vai trò.';
 
 $string['launchpadrolelinks'] = 'Gói liên kết theo vai trò';
-$string['launchpadrolelinks_desc'] = 'Cấu hình danh sách liên kết JSON. Quản trị viên trang luôn có (mặc định). Dùng Thêm vai trò cho mọi vai trò trang khác. Gói vai trò khớp khi người dùng có vai trò đó trong bất kỳ ngữ cảnh nào. Lưu trữ dùng id vai trò; nhãn hiển thị tên vai trò hiện tại.';
+$string['launchpadrolelinks_desc'] = 'Cấu hình danh sách liên kết JSON theo vai trò. Ở chế độ Ô tích hợp, các ô ở trên quản lý lối tắt cho Quản trị viên trang (và Quản lý tổ chức thuê trên trang MuTMS) còn gói Quản trị viên trang ở đây không hoạt động; các gói vai trò khác đã thêm vẫn được nối thêm (loại trùng theo URL). Ở chế độ Chỉ liên kết vai trò tùy chỉnh, các gói JSON này (gồm cả Quản trị viên trang) điều khiển Launch Pad hoàn toàn.';
 $string['launchpadbuiltinpacks'] = 'Gói có sẵn';
 $string['launchpadconfiguredroles'] = 'Gói đã cấu hình';
 $string['launchpadaddrole'] = 'Thêm vai trò';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'Liên kết vai trò Launch Pad phải là
 
 $string['launchpadjsoninvalid'] = 'Liên kết Launch Pad phải là mảng JSON các đối tượng, mỗi đối tượng có label và url không rỗng.';
 $string['launchpad_section_global'] = 'Toàn cục';
+$string['launchpad_tile_prefix_primary'] = 'Chính: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Toàn cục: {$a}';
 $string['launchpad_item_appearance'] = 'Giao diện';
+$string['launchpad_item_browseusers'] = 'Duyệt danh sách người dùng';
+$string['launchpad_item_managecourses'] = 'Quản lý khóa học và danh mục';
+$string['launchpad_item_plugins'] = 'Tổng quan plugin';
+$string['launchpad_item_performance'] = 'Tổng quan hiệu năng';
+$string['launchpad_item_debugging'] = 'Gỡ lỗi';
+$string['launchpad_item_tasks'] = 'Tác vụ theo lịch';
 $string['launchpad_item_certifications'] = 'Chứng nhận';
 $string['launchpad_item_customreports'] = 'Báo cáo tùy chỉnh';
 $string['launchpad_item_dynamicrules'] = 'Quy tắc động';

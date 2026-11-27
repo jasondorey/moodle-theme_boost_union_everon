@@ -86,9 +86,15 @@ $string['a11yresetall'] = 'Alle Barrierefreiheitseinstellungen zurücksetzen';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Navigationsleistensymbol, das rollenbezogene Shortcut-Links öffnet. Site-Administratoren ist das Standardpaket; fügen Sie bei Bedarf weitere Site-Rollen hinzu. Passende Pakete werden zusammengeführt und nach URL dedupliziert. Das Symbol wird ausgeblendet, wenn Launch Pad deaktiviert ist oder die aktuelle Person keine Links hat.';
+$string['launchpadheading_desc'] = 'Navigationsleistensymbol, das berechtigungsbasierte integrierte Verknüpfungen und/oder benutzerdefinierte Rollen-Linkpakete öffnet. Wählen Sie den Modus „Integrierte Kacheln“ (Standard), um automatisch Verknüpfungen für installierte Funktionen anhand der Berechtigungen der jeweiligen Person anzuzeigen (einschließlich Mandanten- und Global-Kacheln auf MuTMS-Sites), oder „Nur benutzerdefinierte Rollenlinks“, um alle Links über JSON-Pakete zu verwalten. Das Symbol wird ausgeblendet, wenn Launch Pad deaktiviert ist oder keine zugänglichen Links vorhanden sind.';
 $string['enablelaunchpad'] = 'Launch Pad aktivieren';
-$string['enablelaunchpad_desc'] = 'Launch-Pad-Symbol in der oberen Navigationsleiste anzeigen (nach dem Barrierefreiheitstool, vor dem Nutzermenü), wenn die Person mindestens einen konfigurierten Link hat. Standard: Nein — aktivieren Sie es, nachdem Sie unten JSON-Links hinzugefügt haben.';
+$string['enablelaunchpad_desc'] = 'Launch-Pad-Symbol in der oberen Navigationsleiste anzeigen (nach dem Barrierefreiheitstool, vor dem Nutzermenü), wenn die Person mindestens einen zugänglichen Link hat. Standard: Nein.';
+$string['launchpadmode'] = 'Launch-Pad-Modus';
+$string['launchpadmode_desc'] = 'Wählen Sie, wie Launch-Pad-Links gefüllt werden. Im Modus „Integrierte Kacheln“ werden Verknüpfungen automatisch aus den unten aktivierten Kacheln anhand installierter Plugins und Berechtigungen erzeugt (Site-Administratoren sowie Mandanten-Manager auf MuTMS-Sites); weitere Rollenpakete werden angehängt. Im Modus „Nur benutzerdefinierte Rollenlinks“ werden ausschließlich die JSON-Rollenpakete unten verwendet.';
+$string['launchpadmode_builtin'] = 'Integrierte Kacheln (berechtigungsbasiert) + benutzerdefinierte Rollenlinks';
+$string['launchpadmode_custom'] = 'Nur benutzerdefinierte Rollenlinks';
+$string['launchpadbuiltintiles'] = 'Integrierte Launch-Pad-Kacheln';
+$string['launchpadbuiltintiles_desc'] = 'Wählen Sie aus, welche integrierten Kacheln im Modus „Integrierte Kacheln“ angezeigt werden können. Es werden nur Kacheln für auf dieser Site installierte Funktionen aufgelistet. Jede Kachel wird weiterhin gegen die Berechtigungen der aktuellen Person (und den aktiven Mandanten auf MuTMS-Sites) geprüft.';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'JSON-Array von Objekten mit <code>label</code>, <code>url</code> (seitenrelativer Pfad wie <code>/admin/search.php</code>) und optionalem <code>icon</code> (Font-Awesome-Klasse, z. B. <code>fa-cog</code>). Externe URLs werden in v1 abgelehnt. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -102,7 +108,7 @@ $string['launchpadlinks_authenticated'] = 'Links: Authentifizierte Nutzer';
 $string['launchpadlinks_authenticated_desc'] = 'Fallback für jede angemeldete Nicht-Gast-Person. Wird nach siteadmin und Rollenpaketen zusammengeführt.';
 
 $string['launchpadrolelinks'] = 'Rollen-Linkpakete';
-$string['launchpadrolelinks_desc'] = 'Konfigurieren Sie JSON-Linklisten. Site-Administratoren ist immer vorhanden (Standard). Verwenden Sie Rolle hinzufügen für jede andere Site-Rolle. Rollenpakete passen, wenn die Person diese Rolle in einem beliebigen Kontext hat. Der Speicher verwendet Rollen-IDs; Beschriftungen zeigen den aktuellen Rollennamen.';
+$string['launchpadrolelinks_desc'] = 'Konfigurieren Sie JSON-Linklisten nach Rolle. Im Modus „Integrierte Kacheln“ steuern die integrierten Kacheln oben die Verknüpfungen für Site-Administratoren (und Mandanten-Manager auf MuTMS-Sites), und das Paket „Site-Administratoren“ hier ist inaktiv; hinzugefügte Rollenpakete werden angehängt (nach URL dedupliziert). Im Modus „Nur benutzerdefinierte Rollenlinks“ steuern diese JSON-Pakete (einschließlich Site-Administratoren) das Launch Pad ausschließlich.';
 $string['launchpadbuiltinpacks'] = 'Integrierte Pakete';
 $string['launchpadconfiguredroles'] = 'Konfigurierte Pakete';
 $string['launchpadaddrole'] = 'Rolle hinzufügen';
@@ -114,7 +120,15 @@ $string['launchpadrolemapinvalid'] = 'Launch-Pad-Rollenlinks müssen ein JSON-Ob
 
 $string['launchpadjsoninvalid'] = 'Launch-Pad-Links müssen ein JSON-Array von Objekten sein, jeweils mit nicht leerem label und url.';
 $string['launchpad_section_global'] = 'Global';
+$string['launchpad_tile_prefix_primary'] = 'Primär: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Global: {$a}';
 $string['launchpad_item_appearance'] = 'Darstellung';
+$string['launchpad_item_browseusers'] = 'Nutzerliste durchsuchen';
+$string['launchpad_item_managecourses'] = 'Kurse und Kursbereiche verwalten';
+$string['launchpad_item_plugins'] = 'Plugin-Übersicht';
+$string['launchpad_item_performance'] = 'Performance-Übersicht';
+$string['launchpad_item_debugging'] = 'Debugging';
+$string['launchpad_item_tasks'] = 'Geplante Vorgänge';
 $string['launchpad_item_certifications'] = 'Zertifizierungen';
 $string['launchpad_item_customreports'] = 'Benutzerdefinierte Berichte';
 $string['launchpad_item_dynamicrules'] = 'Dynamische Regeln';
