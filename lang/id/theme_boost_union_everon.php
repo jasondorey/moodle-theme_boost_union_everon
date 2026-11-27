@@ -89,9 +89,15 @@ $string['a11yresetall'] = 'Atur ulang semua pengaturan aksesibilitas';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Ikon bilah navigasi yang membuka tautan pintasan sesuai peran. Administrator situs adalah paket default; tambahkan peran situs lain sesuai kebutuhan. Paket yang cocok digabung dan deduplikasi menurut URL. Ikon disembunyikan saat Launch Pad dinonaktifkan atau pengguna saat ini tidak memiliki tautan.';
+$string['launchpadheading_desc'] = 'Ikon bilah navigasi yang membuka pintasan bawaan berbasis kapabilitas dan/atau paket tautan peran kustom. Pilih mode Ubin bawaan (default) untuk menampilkan pintasan otomatis bagi fitur terpasang sesuai kapabilitas pengguna (termasuk ubin penyewa dan Global di situs MuTMS), atau Tautan peran kustom saja untuk mengelola semua tautan melalui paket JSON. Ikon disembunyikan saat Launch Pad nonaktif atau pengguna tidak memiliki tautan yang dapat diakses.';
 $string['enablelaunchpad'] = 'Aktifkan Launch Pad';
-$string['enablelaunchpad_desc'] = 'Tampilkan ikon Launch Pad di bilah navigasi atas (setelah alat aksesibilitas, sebelum menu pengguna) ketika pengguna memiliki setidaknya satu tautan yang dikonfigurasi. Default: Tidak — aktifkan setelah Anda menambahkan tautan JSON di bawah.';
+$string['enablelaunchpad_desc'] = 'Tampilkan ikon Launch Pad di bilah navigasi atas (setelah alat aksesibilitas, sebelum menu pengguna) ketika pengguna memiliki setidaknya satu tautan yang dapat diakses. Default: Tidak.';
+$string['launchpadmode'] = 'Mode Launch Pad';
+$string['launchpadmode_desc'] = 'Pilih cara pengisian tautan Launch Pad. Dalam mode Ubin bawaan, pintasan dibuat otomatis dari ubin yang diaktifkan di bawah berdasarkan plugin terpasang dan kapabilitas pengguna (Administrator situs dan, di situs MuTMS, Manajer penyewa), dengan paket peran lain ditambahkan. Dalam mode Tautan peran kustom saja, hanya paket tautan JSON di bawah yang digunakan.';
+$string['launchpadmode_builtin'] = 'Ubin bawaan (berbasis kapabilitas) + tautan peran kustom';
+$string['launchpadmode_custom'] = 'Tautan peran kustom saja';
+$string['launchpadbuiltintiles'] = 'Ubin bawaan Launch Pad';
+$string['launchpadbuiltintiles_desc'] = 'Pilih ubin bawaan yang dapat tampil saat mode Ubin bawaan aktif. Hanya ubin untuk fitur yang terpasang di situs ini yang ditampilkan. Setiap ubin tetap diperiksa terhadap kapabilitas pengguna saat ini (dan penyewa aktif di situs MuTMS).';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'Array JSON objek dengan <code>label</code>, <code>url</code> (jalur relatif situs seperti <code>/admin/search.php</code>), dan <code>icon</code> opsional (kelas Font Awesome, mis. <code>fa-cog</code>). URL eksternal ditolak di v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -105,7 +111,7 @@ $string['launchpadlinks_authenticated'] = 'Tautan: Pengguna terautentikasi';
 $string['launchpadlinks_authenticated_desc'] = 'Cadangan untuk setiap pengguna masuk non-tamu. Digabung setelah siteadmin dan paket peran.';
 
 $string['launchpadrolelinks'] = 'Paket tautan peran';
-$string['launchpadrolelinks_desc'] = 'Konfigurasi daftar tautan JSON. Administrator situs selalu ada (default). Gunakan Tambah peran untuk peran situs lainnya. Paket peran cocok ketika pengguna memiliki peran itu di konteks apa pun. Penyimpanan memakai id peran; label menampilkan nama peran saat ini.';
+$string['launchpadrolelinks_desc'] = 'Konfigurasi daftar tautan JSON per peran. Dalam mode Ubin bawaan, ubin di atas mengatur pintasan Administrator situs (dan Manajer penyewa di situs MuTMS) sehingga paket Administrator situs di sini tidak aktif; paket peran lain yang ditambahkan tetap dilampirkan (deduplikasi menurut URL). Dalam mode Tautan peran kustom saja, paket JSON ini (termasuk Administrator situs) mengendalikan Launch Pad sepenuhnya.';
 $string['launchpadbuiltinpacks'] = 'Paket bawaan';
 $string['launchpadconfiguredroles'] = 'Paket yang dikonfigurasi';
 $string['launchpadaddrole'] = 'Tambah peran';
@@ -117,7 +123,15 @@ $string['launchpadrolemapinvalid'] = 'Tautan peran Launch Pad harus berupa objek
 
 $string['launchpadjsoninvalid'] = 'Tautan Launch Pad harus berupa array JSON objek, masing-masing dengan label dan url yang tidak kosong.';
 $string['launchpad_section_global'] = 'Global';
+$string['launchpad_tile_prefix_primary'] = 'Utama: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Global: {$a}';
 $string['launchpad_item_appearance'] = 'Tampilan';
+$string['launchpad_item_browseusers'] = 'Jelajahi daftar pengguna';
+$string['launchpad_item_managecourses'] = 'Kelola kursus dan kategori';
+$string['launchpad_item_plugins'] = 'Ringkasan plugin';
+$string['launchpad_item_performance'] = 'Ringkasan performa';
+$string['launchpad_item_debugging'] = 'Debugging';
+$string['launchpad_item_tasks'] = 'Tugas terjadwal';
 $string['launchpad_item_certifications'] = 'Sertifikasi';
 $string['launchpad_item_customreports'] = 'Laporan kustom';
 $string['launchpad_item_dynamicrules'] = 'Aturan dinamis';

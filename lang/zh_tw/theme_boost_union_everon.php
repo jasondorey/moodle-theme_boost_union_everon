@@ -89,9 +89,15 @@ $string['a11yresetall'] = '重設所有無障礙設定';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = '導覽列圖示，可開啟依角色區分的捷徑連結。預設套件為網站管理員；可依需要新增其他網站角色。相符的套件會依 URL 合併並去重。當 Launch Pad 停用或目前使用者沒有連結時，圖示會隱藏。';
+$string['launchpadheading_desc'] = '導覽列圖示，可開啟依權限自動顯示的內建捷徑磚和／或自訂角色連結套件。選擇「內建磚」模式（預設）會依已安裝功能與各使用者權限自動顯示捷徑（MuTMS 網站包含租戶與全域磚）；選擇「僅自訂角色連結」則完全透過 JSON 套件管理。當 Launch Pad 停用或目前使用者無可用連結時，圖示會隱藏。';
 $string['enablelaunchpad'] = '啟用 Launch Pad';
-$string['enablelaunchpad_desc'] = '當使用者至少有一個已設定的連結時，在頂部導覽列（無障礙工具之後、使用者選單之前）顯示 Launch Pad 圖示。預設：否 — 在下方新增 JSON 連結後再開啟。';
+$string['enablelaunchpad_desc'] = '當使用者至少有一個可存取的連結時，在頂部導覽列（無障礙工具之後、使用者選單之前）顯示 Launch Pad 圖示。預設：否。';
+$string['launchpadmode'] = 'Launch Pad 模式';
+$string['launchpadmode_desc'] = '選擇 Launch Pad 連結的產生方式。在「內建磚」模式下，系統會依已安裝外掛與使用者權限（網站管理員，以及 MuTMS 網站中的租戶管理員）自動顯示下方已啟用的磚，並附加其他角色套件。在「僅自訂角色連結」模式下，僅使用下方的 JSON 角色連結套件。';
+$string['launchpadmode_builtin'] = '內建磚（依權限）+ 自訂角色連結';
+$string['launchpadmode_custom'] = '僅自訂角色連結';
+$string['launchpadbuiltintiles'] = '內建 Launch Pad 磚';
+$string['launchpadbuiltintiles_desc'] = '選擇在「內建磚」模式啟用時可顯示的內建磚。僅列出此網站已安裝功能對應的磚。每個磚仍會依目前使用者的權限（及 MuTMS 網站中作用中的租戶）進行驗證。';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = '包含物件的 JSON 陣列，物件需有 <code>label</code>、<code>url</code>（網站相對路徑，例如 <code>/admin/search.php</code>），以及選用的 <code>icon</code>（Font Awesome 類別名稱，例如 <code>fa-cog</code>）。v1 會拒絕外部 URL。Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -105,7 +111,7 @@ $string['launchpadlinks_authenticated'] = '連結：已驗證使用者';
 $string['launchpadlinks_authenticated_desc'] = '適用於每位已登入的非訪客使用者的後備方案。在 siteadmin 與角色套件之後合併。';
 
 $string['launchpadrolelinks'] = '角色連結套件';
-$string['launchpadrolelinks_desc'] = '設定 JSON 連結清單。網站管理員一律存在（預設）。對任何其他網站角色使用「新增角色」。當使用者在任何情境中擁有該角色時，角色套件會相符。儲存使用角色 id；標籤顯示目前角色名稱。';
+$string['launchpadrolelinks_desc'] = '依角色設定 JSON 連結清單。在「內建磚」模式下，上方內建磚負責網站管理員（及 MuTMS 租戶管理員）的捷徑，此處的「網站管理員」套件不生效；已新增的其他角色套件仍會附加（依 URL 去重）。在「僅自訂角色連結」模式下，這些 JSON 套件（包含網站管理員）將完全控制 Launch Pad。';
 $string['launchpadbuiltinpacks'] = '內建套件';
 $string['launchpadconfiguredroles'] = '已設定的套件';
 $string['launchpadaddrole'] = '新增角色';
@@ -117,7 +123,15 @@ $string['launchpadrolemapinvalid'] = 'Launch Pad 角色連結必須是將套件�
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 連結必須是物件的 JSON 陣列，每個物件都有非空的 label 與 url。';
 $string['launchpad_section_global'] = '全域';
+$string['launchpad_tile_prefix_primary'] = '主要：{$a}';
+$string['launchpad_tile_prefix_global'] = '全域：{$a}';
 $string['launchpad_item_appearance'] = '外觀';
+$string['launchpad_item_browseusers'] = '瀏覽使用者清單';
+$string['launchpad_item_managecourses'] = '管理課程與類別';
+$string['launchpad_item_plugins'] = '外掛概覽';
+$string['launchpad_item_performance'] = '效能概覽';
+$string['launchpad_item_debugging'] = '除錯';
+$string['launchpad_item_tasks'] = '排程工作';
 $string['launchpad_item_certifications'] = '認證';
 $string['launchpad_item_customreports'] = '自訂報表';
 $string['launchpad_item_dynamicrules'] = '動態規則';

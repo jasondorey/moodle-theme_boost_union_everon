@@ -89,9 +89,15 @@ $string['a11yresetall'] = '重置所有无障碍设置';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = '导航栏图标，可打开按角色区分的快捷链接。默认包为网站管理员；可按需添加其他网站角色。匹配的包会按 URL 合并并去重。当 Launch Pad 被禁用或当前用户没有链接时，图标会隐藏。';
+$string['launchpadheading_desc'] = '导航栏图标，可打开基于权限的内置快捷磁贴和/或自定义角色链接包。选择“内置磁贴”模式（默认）将根据已安装功能和各用户权限自动显示快捷方式（在 MuTMS 站点中包含租户与全局磁贴）；选择“仅自定义角色链接”则完全通过 JSON 包管理。当 Launch Pad 禁用或当前用户无可用链接时，图标会隐藏。';
 $string['enablelaunchpad'] = '启用 Launch Pad';
-$string['enablelaunchpad_desc'] = '当用户至少有一个已配置的链接时，在顶部导航栏（无障碍工具之后、用户菜单之前）显示 Launch Pad 图标。默认：否 — 在下方添加 JSON 链接后再开启。';
+$string['enablelaunchpad_desc'] = '当用户至少有一个可访问的链接时，在顶部导航栏（无障碍工具之后、用户菜单之前）显示 Launch Pad 图标。默认：否。';
+$string['launchpadmode'] = 'Launch Pad 模式';
+$string['launchpadmode_desc'] = '选择 Launch Pad 链接的生成方式。在“内置磁贴”模式下，系统根据已安装插件和用户权限（网站管理员，以及 MuTMS 站点中的租户管理员）自动生成下方已启用的磁贴，并附加其他角色包。在“仅自定义角色链接”模式下，仅使用下方的 JSON 角色链接包。';
+$string['launchpadmode_builtin'] = '内置磁贴（按权限）+ 自定义角色链接';
+$string['launchpadmode_custom'] = '仅自定义角色链接';
+$string['launchpadbuiltintiles'] = '内置 Launch Pad 磁贴';
+$string['launchpadbuiltintiles_desc'] = '选择启用“内置磁贴”模式时可显示的内置磁贴。仅列出本站点已安装功能对应的磁贴。每个磁贴仍会按当前用户权限（以及 MuTMS 站点中的当前租户）进行校验。';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = '包含对象的 JSON 数组，对象需有 <code>label</code>、<code>url</code>（站点相对路径，例如 <code>/admin/search.php</code>），以及可选的 <code>icon</code>（Font Awesome 类名，例如 <code>fa-cog</code>）。v1 会拒绝外部 URL。Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -105,7 +111,7 @@ $string['launchpadlinks_authenticated'] = '链接：已认证用户';
 $string['launchpadlinks_authenticated_desc'] = '适用于每位已登录的非访客用户的回退方案。在 siteadmin 和角色包之后合并。';
 
 $string['launchpadrolelinks'] = '角色链接包';
-$string['launchpadrolelinks_desc'] = '配置 JSON 链接列表。网站管理员始终存在（默认）。对任何其他网站角色使用“添加角色”。当用户在任何上下文中拥有该角色时，角色包会匹配。存储使用角色 id；标签显示当前角色名称。';
+$string['launchpadrolelinks_desc'] = '按角色配置 JSON 链接列表。在“内置磁贴”模式下，上方内置磁贴负责网站管理员（及 MuTMS 租户管理员）的快捷方式，此处的“网站管理员”包不生效；已添加的其他角色包仍会追加（按 URL 去重）。在“仅自定义角色链接”模式下，这些 JSON 包（包含网站管理员）将完全驱动 Launch Pad。';
 $string['launchpadbuiltinpacks'] = '内置包';
 $string['launchpadconfiguredroles'] = '已配置的包';
 $string['launchpadaddrole'] = '添加角色';
@@ -117,7 +123,15 @@ $string['launchpadrolemapinvalid'] = 'Launch Pad 角色链接必须是将包键�
 
 $string['launchpadjsoninvalid'] = 'Launch Pad 链接必须是对象的 JSON 数组，每个对象都有非空的 label 和 url。';
 $string['launchpad_section_global'] = '全局';
+$string['launchpad_tile_prefix_primary'] = '主要：{$a}';
+$string['launchpad_tile_prefix_global'] = '全局：{$a}';
 $string['launchpad_item_appearance'] = '外观';
+$string['launchpad_item_browseusers'] = '浏览用户列表';
+$string['launchpad_item_managecourses'] = '管理课程和类别';
+$string['launchpad_item_plugins'] = '插件概览';
+$string['launchpad_item_performance'] = '性能概览';
+$string['launchpad_item_debugging'] = '调试';
+$string['launchpad_item_tasks'] = '计划任务';
 $string['launchpad_item_certifications'] = '认证';
 $string['launchpad_item_customreports'] = '自定义报表';
 $string['launchpad_item_dynamicrules'] = '动态规则';

@@ -89,9 +89,15 @@ $string['a11yresetall'] = 'Reimposta tutte le impostazioni di accessibilità';
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = 'Icona della barra di navigazione che apre collegamenti rapidi in base al ruolo. Amministratori del sito è il pacchetto predefinito; aggiungi altri ruoli del sito se necessario. I pacchetti corrispondenti vengono uniti e deduplicati per URL. L’icona è nascosta quando Launch Pad è disabilitato o l’utente corrente non ha collegamenti.';
+$string['launchpadheading_desc'] = 'Icona della barra di navigazione che apre collegamenti rapidi integrati in base alle capacità e/o pacchetti di collegamenti personalizzati per ruolo. Scegli la modalità Riquadri integrati (predefinita) per mostrare automaticamente i collegamenti alle funzionalità installate in base alle capacità di ciascun utente (inclusi i riquadri tenant e Globale sui siti MuTMS), oppure Solo collegamenti personalizzati per ruolo per gestire tutto tramite JSON. L’icona è nascosta quando Launch Pad è disabilitato o l’utente non ha collegamenti accessibili.';
 $string['enablelaunchpad'] = 'Abilita Launch Pad';
-$string['enablelaunchpad_desc'] = 'Mostra l’icona Launch Pad nella barra superiore (dopo lo strumento di accessibilità, prima del menu utente) quando l’utente ha almeno un collegamento configurato. Predefinito: No — attivalo dopo aver aggiunto i collegamenti JSON sotto.';
+$string['enablelaunchpad_desc'] = 'Mostra l’icona Launch Pad nella barra superiore (dopo lo strumento di accessibilità, prima del menu utente) quando l’utente ha almeno un collegamento accessibile. Predefinito: No.';
+$string['launchpadmode'] = 'Modalità Launch Pad';
+$string['launchpadmode_desc'] = 'Scegli come popolare i collegamenti del Launch Pad. In modalità Riquadri integrati, i collegamenti vengono generati automaticamente dai riquadri abilitati sotto in base ai plugin installati e alle capacità dell’utente (amministratori del sito e, sui siti MuTMS, gestori tenant), con l’aggiunta dei pacchetti di altri ruoli. In modalità Solo collegamenti personalizzati per ruolo vengono usati esclusivamente i pacchetti JSON sottostanti.';
+$string['launchpadmode_builtin'] = 'Riquadri integrati (basati sulle capacità) + collegamenti personalizzati per ruolo';
+$string['launchpadmode_custom'] = 'Solo collegamenti personalizzati per ruolo';
+$string['launchpadbuiltintiles'] = 'Riquadri integrati del Launch Pad';
+$string['launchpadbuiltintiles_desc'] = 'Seleziona quali riquadri integrati possono apparire quando è attiva la modalità Riquadri integrati. Sono elencati solo i riquadri relativi alle funzionalità installate su questo sito. Ogni riquadro resta verificato in base alle capacità dell’utente corrente (e al tenant attivo sui siti MuTMS).';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = 'Array JSON di oggetti con <code>label</code>, <code>url</code> (percorso relativo al sito come <code>/admin/search.php</code>) e <code>icon</code> opzionale (classe Font Awesome, ad es. <code>fa-cog</code>). Gli URL esterni sono rifiutati in v1. Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -105,7 +111,7 @@ $string['launchpadlinks_authenticated'] = 'Collegamenti: Utenti autenticati';
 $string['launchpadlinks_authenticated_desc'] = 'Ripiego per ogni utente autenticato non ospite. Uniti dopo siteadmin e i pacchetti di ruolo.';
 
 $string['launchpadrolelinks'] = 'Pacchetti di collegamenti per ruolo';
-$string['launchpadrolelinks_desc'] = 'Configura elenchi di collegamenti JSON. Amministratori del sito è sempre presente (predefinito). Usa Aggiungi ruolo per qualsiasi altro ruolo del sito. I pacchetti di ruolo corrispondono quando l’utente ha quel ruolo in qualsiasi contesto. L’archivio usa gli id di ruolo; le etichette mostrano il nome corrente del ruolo.';
+$string['launchpadrolelinks_desc'] = 'Configura elenchi di collegamenti JSON per ruolo. In modalità Riquadri integrati, i riquadri sopra gestiscono i collegamenti degli amministratori del sito (e dei gestori tenant sui siti MuTMS) e il pacchetto Amministratori del sito qui è inattivo; gli altri pacchetti di ruolo aggiunti vengono accodati (deduplicati per URL). In modalità Solo collegamenti personalizzati per ruolo, questi pacchetti JSON (incluso Amministratori del sito) guidano esclusivamente il Launch Pad.';
 $string['launchpadbuiltinpacks'] = 'Pacchetti integrati';
 $string['launchpadconfiguredroles'] = 'Pacchetti configurati';
 $string['launchpadaddrole'] = 'Aggiungi ruolo';
@@ -117,7 +123,15 @@ $string['launchpadrolemapinvalid'] = 'I collegamenti di ruolo Launch Pad devono 
 
 $string['launchpadjsoninvalid'] = 'I collegamenti Launch Pad devono essere un array JSON di oggetti, ciascuno con label e url non vuoti.';
 $string['launchpad_section_global'] = 'Globale';
+$string['launchpad_tile_prefix_primary'] = 'Principale: {$a}';
+$string['launchpad_tile_prefix_global'] = 'Globale: {$a}';
 $string['launchpad_item_appearance'] = 'Aspetto';
+$string['launchpad_item_browseusers'] = 'Sfoglia elenco utenti';
+$string['launchpad_item_managecourses'] = 'Gestisci corsi e categorie';
+$string['launchpad_item_plugins'] = 'Panoramica plugin';
+$string['launchpad_item_performance'] = 'Panoramica prestazioni';
+$string['launchpad_item_debugging'] = 'Debug';
+$string['launchpad_item_tasks'] = 'Attività pianificate';
 $string['launchpad_item_certifications'] = 'Certificazioni';
 $string['launchpad_item_customreports'] = 'Report personalizzati';
 $string['launchpad_item_dynamicrules'] = 'Regole dinamiche';

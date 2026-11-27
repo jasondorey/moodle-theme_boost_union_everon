@@ -89,9 +89,15 @@ $string['a11yresetall'] = 'すべてのアクセシビリティ設定をリセ�
 // Settings: Launch Pad tab.
 $string['launchpadtab'] = 'Launch Pad';
 $string['launchpadheading'] = 'Launch Pad';
-$string['launchpadheading_desc'] = '役割に応じたショートカットリンクを開くナビバーアイコンです。デフォルトパックはサイト管理者です。必要に応じて他のサイトロールを追加してください。一致するパックは URL でマージおよび重複排除されます。Launch Pad が無効な場合、または現在のユーザーにリンクがない場合、アイコンは非表示になります。';
+$string['launchpadheading_desc'] = '権限に応じた組み込みショートカットやカスタムロールリンクパックを開くナビバーアイコンです。「組み込みタイル」モード（デフォルト）では、インストール済み機能に対するショートカットを各ユーザーの権限に応じて自動表示します（MuTMS サイトではテナント別およびグローバルタイルを含む）。「カスタムロールリンクのみ」では JSON パックのみで管理します。Launch Pad が無効またはアクセス可能なリンクがない場合、アイコンは非表示になります。';
 $string['enablelaunchpad'] = 'Launch Pad を有効にする';
-$string['enablelaunchpad_desc'] = 'ユーザーに少なくとも 1 つの設定済みリンクがある場合、上部ナビバー（アクセシビリティツールの後、ユーザーメニューの前）に Launch Pad アイコンを表示します。デフォルト: いいえ — 下の JSON リンクを追加してから有効にしてください。';
+$string['enablelaunchpad_desc'] = 'ユーザーにアクセス可能なリンクが少なくとも 1 つある場合、上部ナビバー（アクセシビリティツールの後、ユーザーメニューの前）に Launch Pad アイコンを表示します。デフォルト: いいえ。';
+$string['launchpadmode'] = 'Launch Pad モード';
+$string['launchpadmode_desc'] = 'Launch Pad のリンク構成方法を選択します。「組み込みタイル」モードでは、下の有効なタイルからインストール済みプラグインとユーザーの権限（サイト管理者、および MuTMS サイトのテナント管理者）に応じて自動生成され、他のロールパックが追加されます。「カスタムロールリンクのみ」モードでは、下の JSON ロールリンクパックのみが使用されます。';
+$string['launchpadmode_builtin'] = '組み込みタイル（権限対応）＋カスタムロールリンク';
+$string['launchpadmode_custom'] = 'カスタムロールリンクのみ';
+$string['launchpadbuiltintiles'] = '組み込み Launch Pad タイル';
+$string['launchpadbuiltintiles_desc'] = '「組み込みタイル」モードが有効なときに表示可能な組み込みタイルを選択します。このサイトにインストールされている機能のタイルのみが一覧表示されます。各タイルは常に現在のユーザーの権限（および MuTMS サイトのアクティブなテナント）に対してチェックされます。';
 $string['launchpadmenu'] = 'Launch pad';
 $string['launchpadlinks_help'] = '<code>label</code>、<code>url</code>（<code>/admin/search.php</code> のようなサイト相対パス）、任意の <code>icon</code>（Font Awesome クラス、例: <code>fa-cog</code>）を持つオブジェクトの JSON 配列です。外部 URL は v1 では拒否されます。Example:<br><pre>[
   {"label": "Site administration", "url": "/admin/search.php", "icon": "fa-cog"},
@@ -105,7 +111,7 @@ $string['launchpadlinks_authenticated'] = 'リンク: 認証済みユーザ';
 $string['launchpadlinks_authenticated_desc'] = 'ゲスト以外のログイン済みユーザ全員向けのフォールバックです。siteadmin とロールパックの後にマージされます。';
 
 $string['launchpadrolelinks'] = 'ロールリンクパック';
-$string['launchpadrolelinks_desc'] = 'JSON リンクリストを設定します。サイト管理者は常に存在します（デフォルト）。他のサイトロールには「ロールを追加」を使用します。ユーザがそのロールを任意のコンテキストで持っている場合にロールパックが一致します。保存にはロール ID を使用し、ラベルには現在のロール名が表示されます。';
+$string['launchpadrolelinks_desc'] = 'ロールごとの JSON リンクリストを設定します。「組み込みタイル」モードでは、上の組み込みタイルがサイト管理者（および MuTMS サイトのテナント管理者）のショートカットを管理し、ここのサイト管理者パックは無効になります。追加した他のロールパックは末尾に追加されます（URL で重複排除）。「カスタムロールリンクのみ」モードでは、これらの JSON パック（サイト管理者を含む）のみが Launch Pad を構成します。';
 $string['launchpadbuiltinpacks'] = '組み込みパック';
 $string['launchpadconfiguredroles'] = '設定済みパック';
 $string['launchpadaddrole'] = 'ロールを追加';
@@ -117,7 +123,15 @@ $string['launchpadrolemapinvalid'] = 'Launch Pad のロールリンクは、パ�
 
 $string['launchpadjsoninvalid'] = 'Launch Pad リンクは、それぞれ空でない label と url を持つオブジェクトの JSON 配列である必要があります。';
 $string['launchpad_section_global'] = 'グローバル';
+$string['launchpad_tile_prefix_primary'] = 'メイン: {$a}';
+$string['launchpad_tile_prefix_global'] = 'グローバル: {$a}';
 $string['launchpad_item_appearance'] = 'アピアランス';
+$string['launchpad_item_browseusers'] = 'ユーザ一覧を表示';
+$string['launchpad_item_managecourses'] = 'コースおよびカテゴリの管理';
+$string['launchpad_item_plugins'] = 'プラグイン概要';
+$string['launchpad_item_performance'] = 'パフォーマンス概要';
+$string['launchpad_item_debugging'] = 'デバッグ';
+$string['launchpad_item_tasks'] = 'スケジュールタスク';
 $string['launchpad_item_certifications'] = '認定';
 $string['launchpad_item_customreports'] = 'カスタムレポート';
 $string['launchpad_item_dynamicrules'] = '動的ルール';

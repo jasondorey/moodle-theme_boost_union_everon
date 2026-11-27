@@ -185,7 +185,7 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
 
         $page->add($tab);
 
-        // Launch Pad (role-aware navbar shortcuts).
+        // Launch Pad (capability-aware built-in shortcuts + custom role packs).
         $tab = new admin_settingpage(
             'theme_boost_union_everon_launchpad',
             get_string('launchpadtab', 'theme_boost_union_everon', null, true)
@@ -209,6 +209,56 @@ if ($hassiteconfig || has_capability('theme/boost_union:configure', context_syst
         );
         $setting->set_updatedcallback('theme_reset_all_caches');
         $tab->add($setting);
+
+        $launchpadmodeoptions = [
+            'builtin' => get_string('launchpadmode_builtin', 'theme_boost_union_everon', null, true),
+            'custom' => get_string('launchpadmode_custom', 'theme_boost_union_everon', null, true),
+        ];
+        $name = 'theme_boost_union_everon/launchpadmode';
+        $title = get_string('launchpadmode', 'theme_boost_union_everon', null, true);
+        $description = get_string('launchpadmode_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_configselect(
+            $name,
+            $title,
+            $description,
+            'builtin',
+            $launchpadmodeoptions
+        );
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $tab->add($setting);
+        $page->hide_if(
+            'theme_boost_union_everon/launchpadmode',
+            'theme_boost_union_everon/enablelaunchpad',
+            'neq',
+            THEME_BOOST_UNION_SETTING_SELECT_YES
+        );
+
+        $builtintilechoices = theme_boost_union_everon_launchpad_get_builtin_tile_choices();
+        $builtintiledefaults = array_fill_keys(array_keys($builtintilechoices), 1);
+        $name = 'theme_boost_union_everon/launchpadbuiltintiles';
+        $title = get_string('launchpadbuiltintiles', 'theme_boost_union_everon', null, true);
+        $description = get_string('launchpadbuiltintiles_desc', 'theme_boost_union_everon', null, true);
+        $setting = new admin_setting_configmulticheckbox(
+            $name,
+            $title,
+            $description,
+            $builtintiledefaults,
+            $builtintilechoices
+        );
+        $setting->set_updatedcallback('theme_reset_all_caches');
+        $tab->add($setting);
+        $page->hide_if(
+            'theme_boost_union_everon/launchpadbuiltintiles',
+            'theme_boost_union_everon/enablelaunchpad',
+            'neq',
+            THEME_BOOST_UNION_SETTING_SELECT_YES
+        );
+        $page->hide_if(
+            'theme_boost_union_everon/launchpadbuiltintiles',
+            'theme_boost_union_everon/launchpadmode',
+            'neq',
+            'builtin'
+        );
 
         $name = 'theme_boost_union_everon/launchpadrolelinks';
         $title = get_string('launchpadrolelinks', 'theme_boost_union_everon', null, true);
